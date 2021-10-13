@@ -1,5 +1,5 @@
 <template>
-<Header/>
+<Header />
 <Search @search="search" />
 </template>
 
