@@ -21,7 +21,7 @@
       </router-link>
     </div>
   </div>
-  <div class="container py-8">
+  <div class="lg:container lg:max-w-screen-xl py-8">
     <div class="clearfix">
       <h2 class="text-3xl">Drottningens juvelsmycke</h2>
       <div class="float-right p-1 flex justify-center items-center h-64 w-44">

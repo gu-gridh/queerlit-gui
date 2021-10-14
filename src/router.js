@@ -10,6 +10,10 @@ const routes = [
     path: "/verk/:id",
     component: () => import(/* webpackChunkName: "work" */ "@/views/Work.vue"),
   },
+  {
+    path: "/ao/:id",
+    component: () => import(/* webpackChunkName: "term" */ "@/views/Term.vue"),
+  },
 ];
 
 const router = createRouter({
