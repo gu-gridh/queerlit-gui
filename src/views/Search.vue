@@ -1,7 +1,7 @@
 <template>
   <Search @search="search" />
-  <div class="flex">
-    <Filters class="w-64" />
+  <div class="container flex">
+    <Filters class="w-1/4" />
     <Results class="flex-1" />
   </div>
 </template>

@@ -8,14 +8,16 @@
           mb-1
           h-48
           w-32
-          bg-gray-100
           flex
           justify-center
           items-center
           p-1
         "
       >
-        <img src="@/assets/drottningens-juvelsmycke.jpeg" class="max-h-full" />
+        <img
+          src="@/assets/drottningens-juvelsmycke.jpeg"
+          class="max-h-full border"
+        />
       </div>
     </router-link>
     <h3 class="text-xl">

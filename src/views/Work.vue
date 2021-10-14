@@ -1,29 +1,21 @@
 <template>
-  <div class="p-8">
+  <div class="container py-8">
     <router-link to="/">
-      Tillbaka till sökning:
+      &laquo; Tillbaka till sökning:
       <div class="inline-block border rounded p-2 pb-1 pr-8">
         <Term>androgyni</Term>
         juvel
       </div>
     </router-link>
   </div>
-  <div class="p-8">
+  <div class="container py-8">
     <div class="clearfix">
       <h2 class="text-3xl">Drottningens juvelsmycke</h2>
-      <div
-        class="
-          float-right
-          bg-gray-100
-          p-1
-          flex
-          justify-center
-          items-center
-          h-64
-          w-44
-        "
-      >
-        <img src="@/assets/drottningens-juvelsmycke.jpeg" class="max-h-full" />
+      <div class="float-right p-1 flex justify-center items-center h-64 w-44">
+        <img
+          src="@/assets/drottningens-juvelsmycke.jpeg"
+          class="max-h-full border"
+        />
       </div>
       <div class="flex my-4">
         <Labeled label="Författare" class="w-1/3 pr-4">

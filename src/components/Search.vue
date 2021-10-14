@@ -1,5 +1,5 @@
 <template>
-  <div id="search" class="p-8">
+  <div class="container p-8">
     <input
       type="search"
       v-model="terms"
