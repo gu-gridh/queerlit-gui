@@ -1,12 +1,9 @@
 <template>
-  <header class="p-4">
-      <h1 class="text-3xl">Queerlit</h1>
+  <header class="p-8 pb-0">
+    <h1 class="text-3xl">Queerlit</h1>
   </header>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
-<style>
-
-</style>
+<style></style>

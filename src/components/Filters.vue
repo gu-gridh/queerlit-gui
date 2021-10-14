@@ -1,5 +1,11 @@
 <template>
-  <aside id="filters" class="w-64">
-    <h2>Filter</h2>
+  <aside id="filters" class="p-8">
+    <Filter />
+    <Filter />
+    <Filter />
   </aside>
 </template>
+
+<script setup>
+import Filter from "./Filter.vue";
+</script>

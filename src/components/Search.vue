@@ -1,5 +1,5 @@
 <template>
-  <div id="search" class="p-4">
+  <div id="search" class="p-8">
     <input
       type="search"
       @keyup="search"

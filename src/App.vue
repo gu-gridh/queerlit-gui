@@ -2,8 +2,8 @@
   <Header />
   <Search @search="search" />
   <div class="flex">
-    <Filters />
-    <Results />
+    <Filters class="w-64" />
+    <Results class="flex-1" />
   </div>
 </template>
 
