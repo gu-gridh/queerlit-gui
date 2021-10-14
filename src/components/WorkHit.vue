@@ -1,21 +1,23 @@
 <template>
   <article class="block clearfix mb-2">
-    <div
-      class="
-        float-right
-        ml-2
-        mb-1
-        h-48
-        w-32
-        bg-gray-100
-        flex
-        justify-center
-        items-center
-        p-1
-      "
-    >
-      <img src="@/assets/drottningens-juvelsmycke.jpeg" class="max-h-full" />
-    </div>
+    <router-link to="/verk/1">
+      <div
+        class="
+          float-right
+          ml-2
+          mb-1
+          h-48
+          w-32
+          bg-gray-100
+          flex
+          justify-center
+          items-center
+          p-1
+        "
+      >
+        <img src="@/assets/drottningens-juvelsmycke.jpeg" class="max-h-full" />
+      </div>
+    </router-link>
     <h3 class="text-xl">
       <router-link to="/verk/1">Drottningens juvelsmycke</router-link>
     </h3>
@@ -37,11 +39,4 @@
 import Term from "@/components/Term.vue";
 </script>
 
-<style>
-.clearfix::after {
-  content: "";
-  display: block;
-  height: 0;
-  clear: both;
-}
-</style>
+<style></style>
