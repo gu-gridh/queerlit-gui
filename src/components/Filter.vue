@@ -1,26 +1,36 @@
 <template>
   <div class="mb-4">
     <div class="flex">
-      <h3 class="flex-1 uppercase font-bold text-sm">Typ</h3>
+      <h3 class="flex-1 uppercase font-bold text-sm">{{ label || "Typ" }}</h3>
       <span class="underline">rensa</span>
     </div>
-    <div class="flex">
-      <div class="flex-1"><input type="checkbox" checked /> Bok</div>
-      <span class="text-gray-500">10</span>
-    </div>
-    <div class="flex">
-      <div class="flex-1"><input type="checkbox" /> Tidning</div>
-      <span class="text-gray-500">6</span>
-    </div>
-    <div class="flex">
-      <div class="flex-1"><input type="checkbox" /> Poesi</div>
-      <span class="text-gray-500">12</span>
+    <div v-for="(count, value) in valuesD" :key="value" class="flex">
+      <div class="flex-1">
+        <input type="checkbox" :checked="count > 10" /> {{ value }}
+      </div>
+      <span class="text-gray-500">{{ count }}</span>
     </div>
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+import { ref } from "@vue/reactivity";
+
+const { label, values } = defineProps({
+  label: String,
+  values: Object,
+});
+
+const valuesD = ref(values);
+
+console.log(values);
+if (!values) {
+  valuesD.value = {
+    Bok: 10,
+    Tidning: 6,
+    Poesi: 12,
+  };
+}
 </script>
 
 <style></style>
