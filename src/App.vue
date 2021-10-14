@@ -1,21 +1,10 @@
 <template>
   <Header />
-  <Search @search="search" />
-  <div class="flex">
-    <Filters class="w-64" />
-    <Results class="flex-1" />
-  </div>
+  <router-view />
 </template>
 
 <script setup>
-import Header from "./components/Header.vue";
-import Search from "./components/Search.vue";
-import Filters from "./components/Filters.vue";
-import Results from "./components/Results.vue";
-
-async function search(terms) {
-  console.log("searching", terms);
-}
+import Header from "@/components/Header.vue";
 </script>
 
 <style>

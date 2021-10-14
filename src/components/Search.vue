@@ -2,6 +2,7 @@
   <div id="search" class="p-8">
     <input
       type="search"
+      v-model="terms"
       @keyup="search"
       class="border rounded w-full text-xl p-4"
     />
@@ -9,9 +10,13 @@
 </template>
 
 <script setup>
+import { ref } from "@vue/reactivity";
+
 const emit = defineEmits(["search"]);
 
+const terms = ref("androgyni");
+
 function search(event) {
-  emit("search", event.target.value);
+  emit("search", terms.value);
 }
 </script>
