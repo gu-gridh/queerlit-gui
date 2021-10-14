@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/verk/1">
+  <router-link to="/verk/1" class="group">
     <article class="block clearfix mb-2">
       <div
         class="
@@ -19,7 +19,7 @@
           class="max-h-full border"
         />
       </div>
-      <h3 class="text-xl">Drottningens juvelsmycke</h3>
+      <h3 class="text-xl group-hover:underline">Drottningens juvelsmycke</h3>
       <div class="flex my-2">
         <div class="w-1/2 pr-4">Almqvist, Carl Jonas Love</div>
         <div class="w-1/4 pr-4">Bok</div>
