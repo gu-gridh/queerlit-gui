@@ -2,7 +2,7 @@
   <div class="mb-4">
     <div class="flex">
       <h3 class="flex-1 uppercase font-bold text-sm">{{ label || "Typ" }}</h3>
-      <span class="underline">rensa</span>
+      <span class="underline text-sm">rensa</span>
     </div>
     <div v-for="(count, value) in valuesD" :key="value" class="flex">
       <div class="flex-1">
