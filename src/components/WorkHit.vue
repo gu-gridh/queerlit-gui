@@ -26,10 +26,10 @@
         <div class="w-1/4 pr-4">1874</div>
       </div>
       <div class="my-2">
-        <Term>androgyni</Term>
-        <Term>kvinnor</Term>
-        <Term>bögar</Term>
-        <Term>föräldraskap (HBTQI)</Term>
+        <Term class="mr-1 mb-1">androgyni</Term>
+        <Term class="mr-1 mb-1">kvinnor</Term>
+        <Term class="mr-1 mb-1">bögar</Term>
+        <Term class="mr-1 mb-1">föräldraskap (HBTQI)</Term>
       </div>
     </article>
   </router-link>

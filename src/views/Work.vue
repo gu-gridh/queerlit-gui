@@ -38,10 +38,10 @@
         <Labeled label="Utgivningsår" class="pr-4"> 1834 </Labeled>
       </div>
       <Labeled label="Ämnesord" class="my-4 text-lg">
-        <Term>androgyni</Term>
-        <Term>kvinnor</Term>
-        <Term>bögar</Term>
-        <Term>föräldraskap (HBTQI)</Term>
+        <Term class="mr-1 mb-1">androgyni</Term>
+        <Term class="mr-1 mb-1">kvinnor</Term>
+        <Term class="mr-1 mb-1">bögar</Term>
+        <Term class="mr-1 mb-1">föräldraskap (HBTQI)</Term>
       </Labeled>
       <Labeled label="Beskrivning" class="my-4">
         Drottningens Juvelsmycke utgavs i två volymer i november 1834 inom
@@ -68,7 +68,7 @@
     <div class="flex my-4">
       <div class="flex-1 mr-4 border p-4">
         <Labeled label="Mer om Drottningens juvelsmycke">
-          <div>• Wikipedia</div>
+          <div class="mt-2">• Wikipedia</div>
           <div>
             •
             <a
@@ -88,13 +88,13 @@
       </div>
       <div class="flex-1 mr-4 border p-4">
         <Labeled label="Mer om C. J. L. Almqvist">
-          <div>• Fler verk</div>
+          <div class="mt-2">• Fler verk</div>
           <div>• Wikipedia</div>
         </Labeled>
       </div>
       <div class="flex-1 border p-4">
         <Labeled label="Finns på">
-          <div>• Göteborg: Biskopsgården</div>
+          <div class="mt-2">• Göteborg: Biskopsgården</div>
           <div>• Göteborg: Torslanda</div>
           <div>• Göteborg: Stadsbiblioteket</div>
           <div>• Stockholm: Medborgarplatsen</div>
