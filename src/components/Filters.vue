@@ -1,5 +1,5 @@
 <template>
-  <aside id="filters" class="p-8">
+  <aside id="filters" class="pr-8 py-4">
     <Filter />
     <Filter />
     <Filter />

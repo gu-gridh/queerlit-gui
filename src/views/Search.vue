@@ -1,6 +1,6 @@
 <template>
   <Search @search="search" />
-  <div class="flex container">
+  <div class="flex px-8 lg:container">
     <div class="bg-pink-50 -ml-96 w-96"></div>
     <Filters class="w-1/4 bg-pink-50" />
     <Results class="flex-1" />

@@ -30,12 +30,12 @@
           class="max-h-full border"
         />
       </div>
-      <div class="flex my-4">
-        <Labeled label="Författare" class="w-1/3 pr-4">
+      <div class="flex justify-between my-4">
+        <Labeled label="Författare" class="pr-4">
           Almqvist, Carl Jonas Love
         </Labeled>
-        <Labeled label="typ" class="w-1/3 pr-4"> Bok </Labeled>
-        <Labeled label="Utgivningsår" class="w-1/3 pr-4"> 1834 </Labeled>
+        <Labeled label="typ" class="pr-4"> Bok </Labeled>
+        <Labeled label="Utgivningsår" class="pr-4"> 1834 </Labeled>
       </div>
       <Labeled label="Ämnesord" class="my-4 text-lg">
         <Term>androgyni</Term>

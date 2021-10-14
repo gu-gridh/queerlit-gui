@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8">
+  <div class="pl-8 py-4">
     <div class="flex mb-8">
       <div class="w-1/3">37 träffar</div>
       <div class="w-1/3 text-center">◀ 1 2 3 ▶</div>
