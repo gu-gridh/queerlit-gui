@@ -1,11 +1,13 @@
 <template>
-  <div class="container p-8">
-    <input
-      type="search"
-      v-model="terms"
-      @keyup="search"
-      class="border rounded w-full text-xl p-4"
-    />
+  <div class="bg-pink-600 text-white">
+    <div class="container pb-8">
+      <input
+        type="search"
+        v-model="terms"
+        @keyup="search"
+        class="border rounded w-full text-xl p-4"
+      />
+    </div>
   </div>
 </template>
 

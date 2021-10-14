@@ -1,12 +1,25 @@
 <template>
-  <div class="container py-8">
-    <router-link to="/">
-      &laquo; Tillbaka till sökning:
-      <div class="inline-block border rounded p-2 pb-1 pr-8">
-        <Term>androgyni</Term>
-        juvel
-      </div>
-    </router-link>
+  <div class="bg-pink-600 flex mb-12">
+    <div
+      class="
+        container
+        ml-0
+        p-4
+        w-1/2
+        bg-pink-700
+        text-white
+        rounded-r-xl
+        -mb-12
+      "
+    >
+      <router-link to="/" class="flex items-center">
+        <span class="mr-2">&laquo; Tillbaka till sökning:</span>
+        <div class="flex-1 border rounded p-2 pb-1 w-auto bg-white text-black">
+          <Term>androgyni</Term>
+          juvel
+        </div>
+      </router-link>
+    </div>
   </div>
   <div class="container py-8">
     <div class="clearfix">
