@@ -7,6 +7,7 @@
             type="search"
             :value="text"
             @keyup="textEdit"
+            @keyup.enter="search"
             class="w-full p-4"
           />
           <div class="relative h-0">
@@ -26,14 +27,16 @@
             </div>
           </div>
           <div class="bg-yellow-50 p-2 border-dashed border-t-2">
-            <Term
-              v-for="term in terms"
-              :key="term"
-              class="mr-2"
-              @click="removeTerm(term)"
-            >
-              {{ term }}
-            </Term>
+            <div class="-mb-2">
+              <Term
+                v-for="term in terms"
+                :key="term"
+                class="mr-2 mb-2"
+                @click="removeTerm(term)"
+              >
+                {{ term }}
+              </Term>
+            </div>
           </div>
         </div>
         <input
@@ -101,17 +104,21 @@ function matchTerms(input) {
 
 function addTerm(term) {
   store.commit("setQuery", {
-    terms: [...terms.value, term],
+    terms: terms.value.includes(term) ? terms.value : [...terms.value, term],
     // Remove last word from text.
     text: String(text.value).split(" ").slice(0, -1).join(" "),
   });
+  search();
   suggestTerms();
 }
 
 function removeTerm(term) {
   store.commit("setQuery", {
-    terms: terms.value.filter((term) => term != term),
+    terms: terms.value.filter(
+      (term2) => console.log(term, term2, term2 != term) || term2 != term
+    ),
   });
+  search();
 }
 
 function search(event) {

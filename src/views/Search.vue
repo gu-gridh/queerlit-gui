@@ -1,6 +1,6 @@
 <template>
   <Search @search="search" />
-  <div class="flex px-8 lg:container lg:max-w-screen-xl">
+  <div class="flex-1 flex px-8 lg:container lg:max-w-screen-xl">
     <div class="bg-pink-50 -ml-96 w-96"></div>
     <Filters class="w-1/4 bg-pink-50" />
     <Results class="flex-1" />
@@ -13,8 +13,11 @@ import { search as librisSearch } from "@/services/libris";
 import Search from "@/components/Search.vue";
 import Filters from "@/components/Filters.vue";
 import Results from "@/components/Results.vue";
+import { onMounted } from "@vue/runtime-core";
 
 const store = useStore();
+
+onMounted(search());
 
 async function search(text, terms) {
   const { list } = await librisSearch(text, terms);
