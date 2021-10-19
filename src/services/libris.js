@@ -1,14 +1,25 @@
 import axios from "axios";
 
-export function search() {
-  const query = BOOKS.map((item) => `bibid:${item.id}`).join(" OR ");
-  return xsearch({ query });
+export async function search(text = "", terms = []) {
+  const queerlitCond = BOOKS.map((item) => `bibid:${item.id}`).join(" OR ");
+  const textCond =
+    text && ["TIT", "FÖRF", "AMNE"].map((f) => `${f}:(${text}*)`).join(" OR ");
+  const query = [queerlitCond, textCond]
+    .filter((x) => x)
+    .map((x) => `(${x})`)
+    .join(" AND ");
+  const results = await xsearch({ query });
+  const list = results.list.filter((item) =>
+    terms.every((term) => item.terms && item.terms.includes(term))
+  );
+  return { ...results, list };
 }
 
 async function xsearch(params) {
   params = {
     ...params,
     format: "json",
+    n: 50,
   };
   return (
     axios
@@ -19,6 +30,16 @@ async function xsearch(params) {
         ...xsearch,
         list: xsearch.list.map(enrichLibrisItem),
       }))
+  );
+}
+
+export function getTerms() {
+  return BOOKS.reduce(
+    (terms, item, i) => [
+      ...terms,
+      ...(item.terms || []).filter((term) => !terms.includes(term)),
+    ],
+    []
   );
 }
 
@@ -83,7 +104,6 @@ const BOOKS = [
   {
     // title: "Fåglarna sover i luften / Eva-Stina Byggmästar",
     id: "8k71tf87643l6qlx",
-    author: { lastname: "Byggmästar", firstname: "Eva-Stina" },
   },
   {
     // title: "Lena : en bok om fruntimmer / af René",

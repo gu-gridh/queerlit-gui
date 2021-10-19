@@ -69,13 +69,14 @@
 </template>
 
 <script setup>
+import { getTerms } from "@/services/libris";
 import { ref } from "@vue/reactivity";
 import Term from "./Term.vue";
 
 const emit = defineEmits(["search"]);
 
-const text = ref("androgyni");
-const terms = ref(["lesbiska"]);
+const text = ref("");
+const terms = ref([]);
 const termSuggestions = ref([]);
 
 function textEdit() {
@@ -88,14 +89,11 @@ function suggestTerms() {
 }
 
 function matchTerms(input) {
-  const terms = [
-    "androgyni",
-    "kvinnor",
-    "lesbiska",
-    "lesbiska föräldrar",
-    "bögar",
-  ];
-  return input ? terms.filter((term) => term.indexOf(input) === 0) : [];
+  return input
+    ? getTerms().filter(
+        (term) => term.toLowerCase().indexOf(input.toLowerCase()) === 0
+      )
+    : [];
 }
 
 function addTerm(term) {
@@ -109,6 +107,6 @@ function removeTerm(term) {
 }
 
 function search(event) {
-  emit("search", text.value);
+  emit("search", text.value, terms.value);
 }
 </script>

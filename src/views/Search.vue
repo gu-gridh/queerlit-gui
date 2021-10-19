@@ -16,8 +16,8 @@ import Results from "@/components/Results.vue";
 
 const store = useStore();
 
-async function search(terms) {
-  const { list } = await librisSearch();
+async function search(text, terms) {
+  const { list } = await librisSearch(text, terms);
   store.commit("setResults", list);
 }
 </script>
