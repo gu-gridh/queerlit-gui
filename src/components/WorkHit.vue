@@ -20,20 +20,19 @@
         />
       </div>
       <h3 class="text-xl group-hover:underline">
-        Drottningens <span class="bg-blue-200 bg-opacity-75">juvel</span>smycke
+        {{ title }}
       </h3>
-      <div class="flex my-2">
-        <div class="w-1/2 pr-4">Almqvist, Carl Jonas Love</div>
+      <div class="flex my-2 text-lg">
+        <div class="w-1/2 pr-4">
+          {{ creator }}
+        </div>
         <div class="w-1/4 pr-4">Bok</div>
-        <div class="w-1/4 pr-4">1874</div>
+        <div class="w-1/4 pr-4">{{ date }}</div>
       </div>
       <div class="my-2">
-        <Term class="mr-1 mb-1">
-          <span class="bg-blue-200 bg-opacity-75">androgyni</span>
+        <Term v-for="term in terms" :key="term" class="mr-1 mb-1">
+          {{ term }}
         </Term>
-        <Term class="mr-1 mb-1">kvinnor</Term>
-        <Term class="mr-1 mb-1">bögar</Term>
-        <Term class="mr-1 mb-1">föräldraskap (HBTQI)</Term>
       </div>
     </article>
   </router-link>
@@ -41,6 +40,23 @@
 
 <script setup>
 import Term from "@/components/Term.vue";
+
+const props = defineProps({
+  identifier: String,
+  title: String,
+  creator: String,
+  type: String,
+  publisher: [String, Array],
+  date: [String, Array],
+  language: String,
+  terms: Array,
+});
+
+const creator = props.creator
+  .split(", ")
+  .filter((s) => !/^[\d\s-]*$/.test(s))
+  .join(", ");
+const date = Array.isArray(props.date) ? props.date[0] : props.date;
 </script>
 
 <style></style>

@@ -8,12 +8,17 @@
 </template>
 
 <script setup>
+import { useStore } from "vuex";
+import { search as librisSearch } from "@/services/libris";
 import Search from "@/components/Search.vue";
 import Filters from "@/components/Filters.vue";
 import Results from "@/components/Results.vue";
 
+const store = useStore();
+
 async function search(terms) {
-  console.log("searching", terms);
+  const { list } = await librisSearch();
+  store.commit("setResults", list);
 }
 </script>
 
