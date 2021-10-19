@@ -14,13 +14,13 @@
         :key="i"
         class="flex-1 mr-1 bg-black"
         :style="{ height: `${size}%` }"
-      ></div>
+      />
     </div>
 
     <div class="relative h-0 -m-2 z-10 px-2">
       <div
         class="h-4 w-4 rounded-full bg-white border-2 border-black absolute"
-      ></div>
+      />
       <div
         class="
           h-4
@@ -31,14 +31,13 @@
           absolute
           right-2
         "
-      ></div>
+      />
     </div>
   </div>
 </template>
 
 <script setup>
 const bars = [...Array(8)].map((i) => parseInt(Math.random() * 100));
-console.log(bars);
 </script>
 
 <style></style>

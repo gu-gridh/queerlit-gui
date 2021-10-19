@@ -7,8 +7,6 @@
   </router-link>
 </template>
 
-<script>
-export default {};
-</script>
+<script setup></script>
 
 <style></style>

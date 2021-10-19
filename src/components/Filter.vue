@@ -23,7 +23,6 @@ const { label, values } = defineProps({
 
 const valuesD = ref(values);
 
-console.log(values);
 if (!values) {
   valuesD.value = {
     Bok: 10,
