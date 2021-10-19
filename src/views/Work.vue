@@ -15,8 +15,8 @@
       <router-link to="/" class="flex items-center">
         <span class="mr-2">&laquo; Tillbaka till sökning:</span>
         <div class="flex-1 border rounded p-2 pb-1 w-auto bg-white text-black">
-          <Term>androgyni</Term>
-          juvel
+          <Term v-for="term in query.terms" :key="term">{{ term }}</Term>
+          {{ query.text }}
         </div>
       </router-link>
     </div>
@@ -107,6 +107,12 @@
 <script setup>
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/components/Term.vue";
+import { computed } from "@vue/reactivity";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const query = computed(() => store.state.query);
 </script>
 
 <style></style>

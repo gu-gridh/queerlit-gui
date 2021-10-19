@@ -5,7 +5,7 @@
         <div class="border rounded text-xl flex-1 bg-white text-black">
           <input
             type="search"
-            v-model="text"
+            :value="text"
             @keyup="textEdit"
             class="w-full p-4"
           />
@@ -70,16 +70,19 @@
 
 <script setup>
 import { getTerms } from "@/services/libris";
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
+import { useStore } from "vuex";
 import Term from "./Term.vue";
 
+const store = useStore();
 const emit = defineEmits(["search"]);
 
-const text = ref("");
-const terms = ref([]);
+const text = computed(() => store.state.query.text);
+const terms = computed(() => store.state.query.terms);
 const termSuggestions = ref([]);
 
-function textEdit() {
+function textEdit(event) {
+  store.commit("setQuery", { text: event.target.value });
   suggestTerms();
 }
 
@@ -97,13 +100,18 @@ function matchTerms(input) {
 }
 
 function addTerm(term) {
-  terms.value.push(term);
-  text.value = text.value.split(" ").slice(0, -1).join(" ");
+  store.commit("setQuery", {
+    terms: [...terms.value, term],
+    // Remove last word from text.
+    text: String(text.value).split(" ").slice(0, -1).join(" "),
+  });
   suggestTerms();
 }
 
 function removeTerm(term) {
-  terms.value.splice(terms.value.indexOf(term), 1);
+  store.commit("setQuery", {
+    terms: terms.value.filter((term) => term != term),
+  });
 }
 
 function search(event) {
