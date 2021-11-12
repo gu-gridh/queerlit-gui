@@ -21,9 +21,9 @@
       </router-link>
     </div>
   </div>
-  <div class="container xl:max-w-screen-xl py-8">
+  <div v-if="work" class="container xl:max-w-screen-xl py-8">
     <div class="clearfix">
-      <h2 class="text-3xl">Drottningens juvelsmycke</h2>
+      <h2 class="text-3xl">{{ work.title }}</h2>
       <div class="float-right p-1 flex justify-center items-center h-64 w-44">
         <img
           src="@/assets/drottningens-juvelsmycke.jpeg"
@@ -32,16 +32,15 @@
       </div>
       <div class="flex justify-between my-4">
         <Labeled label="Författare" class="pr-4">
-          Almqvist, Carl Jonas Love
+          {{ work.creator }}
         </Labeled>
-        <Labeled label="typ" class="pr-4"> Bok </Labeled>
-        <Labeled label="Utgivningsår" class="pr-4"> 1834 </Labeled>
+        <Labeled label="typ" class="pr-4"> {{ typeLabel }} </Labeled>
+        <Labeled label="Utgivningsår" class="pr-4"> {{ work.date }} </Labeled>
       </div>
       <Labeled label="Ämnesord" class="my-4 text-lg">
-        <Term class="mr-1 mb-1">androgyni</Term>
-        <Term class="mr-1 mb-1">kvinnor</Term>
-        <Term class="mr-1 mb-1">bögar</Term>
-        <Term class="mr-1 mb-1">föräldraskap (HBTQI)</Term>
+        <Term v-for="term in work.terms" :key="term" class="mr-1 mb-1">{{
+          term
+        }}</Term>
       </Labeled>
       <Labeled label="Beskrivning" class="my-4">
         Drottningens Juvelsmycke utgavs i två volymer i november 1834 inom
@@ -107,12 +106,23 @@
 <script setup>
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/components/Term.vue";
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
+import { get } from "@/services/libris";
+import { useRoute } from "vue-router";
+
+const TYPE_LABELS = {
+  book: "Bok",
+};
 
 const store = useStore();
+const route = useRoute();
 
 const query = computed(() => store.state.query);
+const work = ref();
+const typeLabel = computed(() => work.value && TYPE_LABELS[work.value.type]);
+
+get(route.params.id).then((work_) => (work.value = work_));
 </script>
 
 <style></style>

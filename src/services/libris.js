@@ -15,6 +15,11 @@ export async function search(text = "", terms = []) {
   return { ...results, list };
 }
 
+export async function get(bibid) {
+  const result = await xsearch({ query: `bibid:${bibid}` });
+  return result.list[0];
+}
+
 async function xsearch(params) {
   params = {
     ...params,
@@ -28,7 +33,7 @@ async function xsearch(params) {
       // Decorate with custom data.
       .then((xsearch) => ({
         ...xsearch,
-        list: xsearch.list.map(enrichLibrisItem),
+        list: xsearch.list.map(processLibrisItem),
       }))
   );
 }
@@ -43,11 +48,26 @@ export function getTerms() {
   );
 }
 
-function enrichLibrisItem(item) {
+function processLibrisItem(item) {
+  // Enrich with custom data.
   const localItem = BOOKS.find(
     (item2) => item.identifier === `http://libris.kb.se/bib/${item2.id}`
   );
-  return { ...localItem, ...item };
+  item = { ...localItem, ...item };
+
+  // Normalize some values.
+  item.creator = item.creator
+    .split(", ")
+    .filter((s) => !/^[\d\s-]*$/.test(s))
+    .join(", ");
+  const dearray = (x) => (Array.isArray(x) ? x[0] : x);
+  item.date = dearray(item.date);
+  item.publisher = dearray(item.publisher);
+
+  // Add bibid.
+  item.bibid = item.identifier.split("/").pop();
+
+  return item;
 }
 
 const BOOKS = [
@@ -89,7 +109,7 @@ const BOOKS = [
   {
     // title: "Bodil eller hattasken : två pjäser i en",
     id: "1311105",
-    terms: ["Dramatik"],
+    terms: [],
   },
   {
     // title: "En dåres försvarstal / översättning från det franska originalet av John Landquist",

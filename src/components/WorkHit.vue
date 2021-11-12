@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/verk/1" class="group">
+  <router-link :to="`/verk/${bibid}`" class="group">
     <article class="block clearfix mb-2">
       <div
         class="
@@ -40,23 +40,19 @@
 
 <script setup>
 import Term from "@/components/Term.vue";
+import { computed } from "@vue/reactivity";
 
 const props = defineProps({
+  bibid: String,
   identifier: String,
   title: String,
   creator: String,
   type: String,
-  publisher: [String, Array],
-  date: [String, Array],
+  publisher: String,
+  date: String,
   language: String,
   terms: Array,
 });
-
-const creator = props.creator
-  .split(", ")
-  .filter((s) => !/^[\d\s-]*$/.test(s))
-  .join(", ");
-const date = Array.isArray(props.date) ? props.date[0] : props.date;
 </script>
 
 <style></style>
