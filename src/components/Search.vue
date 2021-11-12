@@ -122,6 +122,6 @@ function removeTerm(term) {
 }
 
 function search(event) {
-  emit("search", text.value, terms.value);
+  emit("search");
 }
 </script>

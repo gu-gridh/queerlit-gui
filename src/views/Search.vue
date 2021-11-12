@@ -13,14 +13,17 @@ import { search as librisSearch } from "@/services/libris";
 import Search from "@/components/Search.vue";
 import Filters from "@/components/Filters.vue";
 import Results from "@/components/Results.vue";
-import { onMounted } from "@vue/runtime-core";
+import { computed, onMounted } from "@vue/runtime-core";
 
 const store = useStore();
 
+const text = computed(() => store.state.query.text);
+const terms = computed(() => store.state.query.terms);
+
 onMounted(search());
 
-async function search(text, terms) {
-  const { list } = await librisSearch(text, terms);
+async function search() {
+  const { list } = await librisSearch(text.value, terms.value);
   store.commit("setResults", list);
 }
 </script>

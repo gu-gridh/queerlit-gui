@@ -1,23 +1,8 @@
 <template>
   <div class="bg-pink-600 flex mb-12">
-    <div
-      class="
-        container
-        ml-0
-        p-4
-        w-1/2
-        bg-pink-700
-        text-white
-        rounded-r-xl
-        -mb-12
-      "
-    >
+    <div class="ml-0 p-4 bg-pink-700 text-white rounded-r-xl -mb-7">
       <router-link to="/" class="flex items-center">
-        <span class="mr-2">&laquo; Tillbaka till sökning:</span>
-        <div class="flex-1 border rounded p-2 pb-1 w-auto bg-white text-black">
-          <Term v-for="term in query.terms" :key="term">{{ term }}</Term>
-          {{ query.text }}
-        </div>
+        &laquo; Tillbaka till sökning
       </router-link>
     </div>
   </div>
