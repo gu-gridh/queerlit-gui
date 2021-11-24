@@ -6,7 +6,12 @@
 </template>
 
 <script setup>
+import * as libris from "@/services/libris";
 import Header from "@/components/PageHeader.vue";
+
+if (import.meta.env.DEV) {
+  window.libris = libris;
+}
 </script>
 
 <style>

@@ -23,8 +23,8 @@ const terms = computed(() => store.state.query.terms);
 onMounted(search());
 
 async function search() {
-  const { list } = await librisSearch(text.value, terms.value);
-  store.commit("setResults", list);
+  const { items } = await librisSearch(text.value, terms.value);
+  store.commit("setResults", items);
 }
 </script>
 

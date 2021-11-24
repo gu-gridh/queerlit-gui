@@ -10,7 +10,7 @@
         </select>
       </div>
     </div>
-    <WorkHit v-for="book in results" :key="book.identifier" v-bind="book" />
+    <WorkHit v-for="book in results" :key="book['@id']" v-bind="book" />
     <div class="flex justify-around mb-8">
       <div>◀ 1 2 3 ▶</div>
     </div>

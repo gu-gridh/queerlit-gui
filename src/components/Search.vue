@@ -114,9 +114,7 @@ function addTerm(term) {
 
 function removeTerm(term) {
   store.commit("setQuery", {
-    terms: terms.value.filter(
-      (term2) => console.log(term, term2, term2 != term) || term2 != term
-    ),
+    terms: terms.value.filter((term2) => term2 != term),
   });
   search();
 }

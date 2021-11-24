@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/verk/${bibid}`" class="group">
+  <router-link :to="`/verk/${id}`" class="group">
     <article class="block clearfix mb-2">
       <div
         class="
@@ -43,7 +43,7 @@ import Term from "@/components/Term.vue";
 import { computed } from "@vue/reactivity";
 
 const props = defineProps({
-  bibid: String,
+  id: String,
   identifier: String,
   title: String,
   creator: String,
