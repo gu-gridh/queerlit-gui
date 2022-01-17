@@ -1,9 +1,7 @@
 <template>
   <Search @search="search" />
-  <div class="flex-1 flex px-8 lg:container lg:max-w-screen-xl">
-    <div class="bg-pink-50 -ml-96 w-96"></div>
-    <Filters class="w-1/4 bg-pink-50" />
-    <Results class="flex-1" />
+  <div class="flex-1px-8 lg:container lg:max-w-screen-xl">
+    <Results />
   </div>
 </template>
 
@@ -11,7 +9,6 @@
 import { useStore } from "vuex";
 import { search as librisSearch } from "@/services/libris";
 import Search from "@/components/Search.vue";
-import Filters from "@/components/Filters.vue";
 import Results from "@/components/Results.vue";
 import { computed, onMounted } from "@vue/runtime-core";
 

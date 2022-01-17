@@ -1,11 +1,13 @@
 <template>
-  <div class="bg-pink-600 text-white pb-8">
+  <div class="bg-pink-50 text-gray-600 pb-8">
     <div class="container max-w-screen-md">
-      <div class="flex">
-        <div class="border rounded text-xl flex-1 bg-white text-black">
+      <div class="my-4">
+        <label class="uppercase font-bold text-sm">Fritext</label>
+        <div class="mb-2 border rounded text-xl flex-1 bg-white text-black">
           <input
             type="search"
             :value="text"
+            placeholder="sök här..."
             @keyup="textEdit"
             @keyup.enter="search"
             class="w-full p-4"
@@ -26,46 +28,98 @@
               </Term>
             </div>
           </div>
-          <div class="bg-yellow-50 p-2 border-dashed border-t-2">
-            <div class="-mb-2">
-              <Term
-                v-for="term in terms"
-                :key="term"
-                class="mr-2 mb-2"
-                @click="removeTerm(term)"
+        </div>
+
+        <div class="my-2 mx-4">
+          <span class="flex items-center">
+            ☝️
+            <span class="flex-1"
+              >Byt ut fritext "androgyni" mot ämnesord
+              <Term class="text-sm">androgyni</Term>?
+              <span class="px-2 py-1 mr-1 bg-pink-600 text-white rounded"
+                >Ja</span
               >
-                {{ term }}
-              </Term>
-            </div>
+              <span class="px-2 py-1 mr-1 bg-pink-600 text-white rounded"
+                >×</span
+              >
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="my-4">
+        <label class="uppercase font-bold text-sm">Ämnesord</label>
+        <div class="mb-2 border rounded bg-yellow-50 p-2">
+          <div class="-mb-2">
+            <Term
+              v-for="term in terms"
+              :key="term"
+              class="mr-2 mb-2"
+              @click="removeTerm(term)"
+            >
+              {{ term }}
+            </Term>
+            <div class="py-1 mb-2 bg-yellow-400 inline-block"></div>
           </div>
         </div>
+
+        <div class="my-2 mx-4">
+          <span class="flex items-center">
+            ☝️
+            <span class="flex-1"
+              >Ämnesordet <Term class="text-sm">Lesbiska</Term> används istället
+              för "Flator".
+              <span class="px-2 py-1 mr-1 bg-pink-600 text-white rounded"
+                >Varför?</span
+              >
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap -mx-2">
+        <div class="md:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Titel
+          </label>
+          <input
+            id="search-title"
+            class="block w-full border rounded text-lg text-black py-1 px-2"
+          />
+        </div>
+        <div class="md:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Författare
+          </label>
+          <input
+            id="search-author"
+            class="block w-full border rounded text-lg text-black py-1 px-2"
+          />
+        </div>
+        <div class="md:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Utgivningsår
+          </label>
+          <YearFilter />
+        </div>
+        <div class="md:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Genre/form
+          </label>
+          <input
+            id="search-genreform"
+            class="block w-full border rounded text-lg text-black py-1 px-2"
+          />
+        </div>
+      </div>
+
+      <div class="my-2 text-center">
         <input
           type="submit"
           value="Sök"
-          class="ml-2 rounded text-xl p-4 bg-pink-900 cursor-pointer"
+          class="rounded text-xl p-4 bg-pink-600 text-white cursor-pointer"
           @click="search"
         />
-      </div>
-      <div class="my-2">
-        <span class="flex items-center">
-          ☝️
-          <span class="flex-1"
-            >Byt ut fritext "androgyni" mot ämnesord
-            <Term class="text-sm">androgyni</Term>?
-            <span class="px-2 py-1 mr-1 bg-pink-900 rounded">Ja</span>
-            <span class="px-2 py-1 mr-1 bg-pink-900 rounded">×</span>
-          </span>
-        </span>
-      </div>
-      <div class="my-2">
-        <span class="flex items-center">
-          ☝️
-          <span class="flex-1"
-            >Ämnesordet <Term class="text-sm">lesbisk</Term> används istället
-            för "flator".
-            <span class="px-2 py-1 mr-1 bg-pink-900 rounded">Varför?</span>
-          </span>
-        </span>
       </div>
     </div>
   </div>
@@ -76,6 +130,7 @@ import { getTerms } from "@/services/libris";
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import Term from "./Term.vue";
+import YearFilter from "./YearFilter.vue";
 
 const store = useStore();
 const emit = defineEmits(["search"]);
