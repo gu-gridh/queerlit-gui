@@ -8,7 +8,7 @@
             type="search"
             :value="text"
             placeholder="sök här..."
-            @keyup="textEdit"
+            @keyup="textChange"
             @keyup.enter="search"
             class="w-full p-4"
           />
@@ -83,6 +83,9 @@
             Titel
           </label>
           <input
+            :value="title"
+            @keyup="titleChange"
+            @keyup.enter="search"
             id="search-title"
             class="block w-full border rounded text-lg text-black py-1 px-2"
           />
@@ -92,6 +95,9 @@
             Författare
           </label>
           <input
+            :value="author"
+            @keyup="authorChange"
+            @keyup.enter="search"
             id="search-author"
             class="block w-full border rounded text-lg text-black py-1 px-2"
           />
@@ -126,8 +132,9 @@
 </template>
 
 <script setup>
+import useQuery from "@/composables/query";
 import { getTerms } from "@/services/libris";
-import { computed, ref } from "@vue/reactivity";
+import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import Term from "./Term.vue";
 import YearFilter from "./YearFilter.vue";
@@ -135,13 +142,21 @@ import YearFilter from "./YearFilter.vue";
 const store = useStore();
 const emit = defineEmits(["search"]);
 
-const text = computed(() => store.state.query.text);
-const terms = computed(() => store.state.query.terms);
+const { text, terms, title, author, setQuery } = useQuery();
+
 const termSuggestions = ref([]);
 
-function textEdit(event) {
-  store.commit("setQuery", { text: event.target.value });
+function textChange(event) {
+  setQuery({ text: event.target.value });
   suggestTerms();
+}
+
+function titleChange(event) {
+  setQuery({ title: event.target.value });
+}
+
+function authorChange(event) {
+  setQuery({ author: event.target.value });
 }
 
 function suggestTerms() {

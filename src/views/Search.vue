@@ -6,21 +6,25 @@
 </template>
 
 <script setup>
+import { onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import useQuery from "@/composables/query";
 import { search as librisSearch } from "@/services/libris";
 import Search from "@/components/Search.vue";
 import Results from "@/components/Results.vue";
-import { computed, onMounted } from "@vue/runtime-core";
 
 const store = useStore();
-
-const text = computed(() => store.state.query.text);
-const terms = computed(() => store.state.query.terms);
+const { text, terms, title, author } = useQuery();
 
 onMounted(search());
 
 async function search() {
-  const { items } = await librisSearch(text.value, terms.value);
+  const { items } = await librisSearch(
+    text.value,
+    terms.value,
+    title.value,
+    author.value
+  );
   store.commit("setResults", items);
 }
 </script>
