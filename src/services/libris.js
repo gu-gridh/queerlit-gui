@@ -1,8 +1,10 @@
 import axios from "axios";
 
-export async function search(text = "", terms = []) {
-  const params1 = new URLSearchParams({ q: text || "*" });
-  const params2 = new URLSearchParams({ q: text || "*" });
+export async function search(text = "", terms = [], title = "", author = "") {
+  const q = [text, title, author].join(" ").trim() || "*";
+  const params1 = new URLSearchParams({ q });
+  const params2 = new URLSearchParams({ q });
+
   BOOKS.forEach((book) => {
     book.id.match(/[a-z]/)
       ? params2.append("meta.@id", `https://libris-qa.kb.se/${book.id}`)
@@ -22,8 +24,9 @@ export async function search(text = "", terms = []) {
     items: [...response1.items, ...response2.items],
   };
 
+  // Do filtering that the API cannot do.
   response.items = response.items.filter((item) =>
-    terms.every((term) => item.terms && item.terms.includes(term))
+    responseFilter(item, { text, terms, title, author })
   );
 
   return response;
@@ -74,7 +77,7 @@ function processXlItem(item) {
     processed.title = hasTitle.mainTitle;
   }
   const authorAgent = item.instanceOf.contribution[0].agent;
-  processed.creator = ["givenName", "familyName", "name"]
+  processed.creator = ["givenName", "familyName", "name", "label"]
     .map((p) => authorAgent[p])
     .filter(Boolean)
     .join(" ");
@@ -84,6 +87,15 @@ function processXlItem(item) {
 
   // console.log(item, processed);
   return processed;
+}
+
+function responseFilter(item, { terms = [], title = "", author = "" }) {
+  const matchTerms = terms.every(
+    (term) => item.terms && item.terms.includes(term)
+  );
+  const matchAuthor = item.creator.toLowerCase().includes(author.toLowerCase());
+  const matchTitle = item.title.toLowerCase().includes(title.toLowerCase());
+  return matchTerms && matchAuthor && matchTitle;
 }
 
 const BOOKS = [
