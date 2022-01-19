@@ -9,11 +9,18 @@
   <div v-if="work" class="container xl:max-w-screen-xl py-8">
     <div class="clearfix">
       <h2 class="text-3xl">{{ work.title }}</h2>
-      <div class="float-right p-1 flex justify-center items-center h-64 w-44">
-        <img
-          src="@/assets/drottningens-juvelsmycke.jpeg"
-          class="max-h-full border"
-        />
+      <div class="float-right pl-4">
+        <div class="flex justify-center items-center w-44 mb-2">
+          <img
+            src="@/assets/drottningens-juvelsmycke.jpeg"
+            class="max-h-full border"
+          />
+        </div>
+        <div v-if="work.librisUrl">
+          <a :href="work.librisUrl" class="text-blue-500 underline">
+            Mer info i LIBRIS
+          </a>
+        </div>
       </div>
       <div class="flex justify-between my-4">
         <Labeled label="Författare" class="pr-4">

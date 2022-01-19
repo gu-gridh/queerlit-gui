@@ -20,13 +20,13 @@ export default createStore({
       state,
       { text, terms, title, author, yearStart, yearEnd, genreform }
     ) {
-      if (text != null) state.query.text = text;
+      if (text !== undefined) state.query.text = text;
       if (terms) state.query.terms = terms;
-      if (title != null) state.query.title = title;
-      if (author != null) state.query.author = author;
-      if (yearStart) state.query.yearStart = parseInt(yearStart);
-      if (yearEnd) state.query.yearEnd = parseInt(yearEnd);
-      if (genreform) state.query.genreform = genreform;
+      if (title !== undefined) state.query.title = title;
+      if (author !== undefined) state.query.author = author;
+      if (yearStart !== undefined) state.query.yearStart = parseInt(yearStart);
+      if (yearEnd !== undefined) state.query.yearEnd = parseInt(yearEnd);
+      if (genreform !== undefined) state.query.genreform = genreform;
     },
     setResults(state, results) {
       state.results = results;

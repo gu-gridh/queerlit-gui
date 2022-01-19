@@ -10,7 +10,7 @@ export async function search(
   genreform
 ) {
   // "q" is the free text parameter
-  const q = String(text).trim() || "*";
+  const q = text || "*";
   const params = { q };
 
   if (author) {
@@ -99,6 +99,12 @@ function processXlItem(item) {
         ))
   );
   const processed = { ...localItem, _item: item };
+
+  if (item.meta.sameAs) {
+    processed.librisUrl = item.meta.sameAs
+      .map((x) => x["@id"])
+      .find((id) => /http:\/\/libris.kb.se\/bib\//.test(id));
+  }
 
   // Normalize some values.
   const hasTitle =
