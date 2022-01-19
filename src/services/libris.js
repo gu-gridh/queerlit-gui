@@ -41,7 +41,10 @@ export async function xlFind(params) {
   return axios
     .get("https://libris-qa.kb.se/find", { params })
     .then((response) => response.data)
-    .then((data) => ({ ...data, items: data.items.map(processXlItem) }));
+    .then(({ items, totalItems }) => ({
+      items: items.map(processXlItem),
+      totalItems,
+    }));
 }
 
 export function getTerms() {
@@ -65,10 +68,7 @@ function processXlItem(item) {
             sameAs["@id"] === `http://libris.kb.se/resource/bib/${book.id}`
         ))
   );
-  if (!localItem) {
-    console.log("no localItem", item);
-  }
-  const processed = { ...localItem };
+  const processed = { ...localItem, _item: item };
 
   // Normalize some values.
   const hasTitle =
@@ -76,16 +76,16 @@ function processXlItem(item) {
   if (hasTitle) {
     processed.title = hasTitle.mainTitle;
   }
-  const authorAgent = item.instanceOf.contribution[0].agent;
-  processed.creator = ["givenName", "familyName", "name", "label"]
-    .map((p) => authorAgent[p])
-    .filter(Boolean)
-    .join(" ");
+  processed.creators = item.instanceOf?.contribution?.map((c) =>
+    ["givenName", "familyName", "name", "label"]
+      .map((p) => c.agent[p])
+      .filter(Boolean)
+      .join(" ")
+  );
   const publication = item.publication.find((publication) => publication.year);
-  processed.date = publication.year;
+  processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
 
-  // console.log(item, processed);
   return processed;
 }
 
@@ -93,7 +93,9 @@ function responseFilter(item, { terms = [], title = "", author = "" }) {
   const matchTerms = terms.every(
     (term) => item.terms && item.terms.includes(term)
   );
-  const matchAuthor = item.creator.toLowerCase().includes(author.toLowerCase());
+  const matchAuthor = item.creators.some((c) =>
+    c.toLowerCase().includes(author.toLowerCase())
+  );
   const matchTitle = item.title.toLowerCase().includes(title.toLowerCase());
   return matchTerms && matchAuthor && matchTitle;
 }

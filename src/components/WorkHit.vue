@@ -24,7 +24,7 @@
       </h3>
       <div class="flex my-2 text-lg">
         <div class="w-1/2 pr-4">
-          {{ creator }}
+          {{ creators.join(", ") }}
         </div>
         <div class="w-1/4 pr-4">Bok</div>
         <div class="w-1/4 pr-4">{{ date }}</div>
@@ -42,11 +42,11 @@
 import Term from "@/components/Term.vue";
 import { computed } from "@vue/reactivity";
 
-const props = defineProps({
+defineProps({
   id: String,
   identifier: String,
   title: String,
-  creator: String,
+  creators: Array,
   type: String,
   publisher: String,
   date: String,

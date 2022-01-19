@@ -17,7 +17,7 @@
       </div>
       <div class="flex justify-between my-4">
         <Labeled label="Författare" class="pr-4">
-          {{ work.creator }}
+          {{ work.creators.join(", ") }}
         </Labeled>
         <Labeled label="typ" class="pr-4"> {{ typeLabel }} </Labeled>
         <Labeled label="Utgivningsår" class="pr-4"> {{ work.date }} </Labeled>
