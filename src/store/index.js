@@ -8,8 +8,8 @@ export default createStore({
         terms: [],
         title: "",
         author: "",
-        yearStart: 1850,
-        yearEnd: 2022,
+        yearStart: null,
+        yearEnd: null,
         genreform: "",
       },
       results: null,
@@ -24,8 +24,8 @@ export default createStore({
       if (terms) state.query.terms = terms;
       if (title != null) state.query.title = title;
       if (author != null) state.query.author = author;
-      if (yearStart) state.query.yearStart = yearStart;
-      if (yearEnd) state.query.yearEnd = yearEnd;
+      if (yearStart) state.query.yearStart = parseInt(yearStart);
+      if (yearEnd) state.query.yearEnd = parseInt(yearEnd);
       if (genreform) state.query.genreform = genreform;
     },
     setResults(state, results) {

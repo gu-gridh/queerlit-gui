@@ -106,13 +106,21 @@
           <label for="search-title" class="uppercase font-bold text-sm">
             Utgivningsår
           </label>
-          <YearFilter />
+          <YearFilter
+            :start="yearStart"
+            :end="yearEnd"
+            @change="yearChange"
+            @keyup.enter="search"
+          />
         </div>
         <div class="md:w-1/2 p-2">
           <label for="search-title" class="uppercase font-bold text-sm">
             Genre/form
           </label>
           <input
+            :value="genreform"
+            @keyup="genreformChange"
+            @keyup.enter="search"
             id="search-genreform"
             class="block w-full border rounded text-lg text-black py-1 px-2"
           />
@@ -142,7 +150,8 @@ import YearFilter from "./YearFilter.vue";
 const store = useStore();
 const emit = defineEmits(["search"]);
 
-const { text, terms, title, author, setQuery } = useQuery();
+const { text, terms, title, author, yearStart, yearEnd, genreform, setQuery } =
+  useQuery();
 
 const termSuggestions = ref([]);
 
@@ -157,6 +166,14 @@ function titleChange(event) {
 
 function authorChange(event) {
   setQuery({ author: event.target.value });
+}
+
+function yearChange(yearStart, yearEnd) {
+  setQuery({ yearStart, yearEnd });
+}
+
+function genreformChange(event) {
+  setQuery({ genreform: event.target.value });
 }
 
 function suggestTerms() {

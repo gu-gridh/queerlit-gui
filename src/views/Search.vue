@@ -14,7 +14,8 @@ import Search from "@/components/Search.vue";
 import Results from "@/components/Results.vue";
 
 const store = useStore();
-const { text, terms, title, author } = useQuery();
+const { text, terms, title, author, yearStart, yearEnd, genreform } =
+  useQuery();
 
 onMounted(search());
 
@@ -23,7 +24,10 @@ async function search() {
     text.value,
     terms.value,
     title.value,
-    author.value
+    author.value,
+    yearStart.value,
+    yearEnd.value,
+    genreform.value
   );
   store.commit("setResults", items);
 }

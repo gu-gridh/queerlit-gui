@@ -2,12 +2,14 @@
   <div class="mb-4">
     <div class="flex justify-between">
       <input
-        value="1901"
+        :value="startD"
+        @change="startTextChange"
         size="4"
         class="text-sm text-black p-1 px-2 border rounded"
       />
       <input
-        value="2020"
+        :value="endD"
+        @change="endTextChange"
         size="4"
         class="text-sm text-black p-1 px-2 border rounded"
       />
@@ -35,7 +37,28 @@
 </template>
 
 <script setup>
-const bars = [...Array(8)].map((i) => parseInt(Math.random() * 100));
+import { ref } from "@vue/reactivity";
+
+const emit = defineEmits(["change"]);
+const props = defineProps(["start", "end"]);
+
+// "D" for "data", to distinguish from the props
+const startD = ref(props.start);
+const endD = ref(props.end);
+
+function startTextChange(event) {
+  startD.value = event.target.value;
+  emitChange();
+}
+
+function endTextChange(event) {
+  endD.value = event.target.value;
+  emitChange();
+}
+
+function emitChange() {
+  emit("change", startD.value, endD.value);
+}
 </script>
 
 <style></style>

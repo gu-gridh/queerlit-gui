@@ -1,9 +1,44 @@
 import axios from "axios";
 
-export async function search(text = "", terms = [], title = "", author = "") {
-  const q = [text, title, author].join(" ").trim() || "*";
-  const params1 = new URLSearchParams({ q });
-  const params2 = new URLSearchParams({ q });
+export async function search(
+  text,
+  terms = [],
+  title,
+  author,
+  yearStart,
+  yearEnd,
+  genreform
+) {
+  // "q" is the free text parameter
+  const q = String(text).trim() || "*";
+  const params = { q };
+
+  if (author) {
+    ["givenName", "familyName", "name", "label"].forEach(
+      (prop) => (params["or-instanceOf.contribution.agent." + prop] = author)
+    );
+  }
+
+  if (title) {
+    params["hasTitle.mainTitle"] = title;
+  }
+
+  if (genreform) {
+    params["instanceOf.genreForm.prefLabelByLang.sv"] = genreform;
+  }
+
+  if (yearStart) {
+    params["min-publication.year"] = yearStart;
+  }
+
+  if (yearEnd) {
+    params["max-publication.year"] = yearEnd;
+  }
+
+  console.log("params", params);
+
+  const params1 = new URLSearchParams(params);
+  const params2 = new URLSearchParams(params);
 
   BOOKS.forEach((book) => {
     book.id.match(/[a-z]/)
@@ -23,11 +58,6 @@ export async function search(text = "", terms = [], title = "", author = "") {
     total: response1.totalItems + response2.totalItems,
     items: [...response1.items, ...response2.items],
   };
-
-  // Do filtering that the API cannot do.
-  response.items = response.items.filter((item) =>
-    responseFilter(item, { text, terms, title, author })
-  );
 
   return response;
 }
@@ -76,28 +106,19 @@ function processXlItem(item) {
   if (hasTitle) {
     processed.title = hasTitle.mainTitle;
   }
-  processed.creators = item.instanceOf?.contribution?.map((c) =>
-    ["givenName", "familyName", "name", "label"]
-      .map((p) => c.agent[p])
-      .filter(Boolean)
-      .join(" ")
-  );
-  const publication = item.publication.find((publication) => publication.year);
+  processed.creators = item.instanceOf?.contribution
+    ?.map((c) =>
+      ["givenName", "familyName", "name", "label"]
+        .map((p) => c.agent?.[p]?.trim())
+        .filter(Boolean)
+        .join(" ")
+    )
+    .filter(Boolean);
+  const publication = item.publication?.find((publication) => publication.year);
   processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
 
   return processed;
-}
-
-function responseFilter(item, { terms = [], title = "", author = "" }) {
-  const matchTerms = terms.every(
-    (term) => item.terms && item.terms.includes(term)
-  );
-  const matchAuthor = item.creators.some((c) =>
-    c.toLowerCase().includes(author.toLowerCase())
-  );
-  const matchTitle = item.title.toLowerCase().includes(title.toLowerCase());
-  return matchTerms && matchAuthor && matchTitle;
 }
 
 const BOOKS = [
