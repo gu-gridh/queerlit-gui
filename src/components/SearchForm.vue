@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="my-4">
+      <div v-show="isSearchExpanded" class="my-4">
         <label class="uppercase font-bold text-sm">Ämnesord</label>
         <div class="mb-2 border rounded bg-yellow-50 p-2">
           <div class="-mb-2">
@@ -77,55 +77,58 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap -mx-2">
-        <div class="md:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Titel
-          </label>
-          <input
-            :value="title"
-            @keyup="titleChange"
-            @keyup.enter="search"
-            id="search-title"
-            class="block w-full border rounded text-lg text-black py-1 px-2"
-          />
+      <details :open="isSearchExpanded >= 2" @toggle="toggleFilters">
+        <summary class="uppercase text-sm text-center">Fler filter</summary>
+        <div class="flex flex-wrap -mx-2">
+          <div class="md:w-1/2 p-2">
+            <label for="search-title" class="uppercase font-bold text-sm">
+              Titel
+            </label>
+            <input
+              :value="title"
+              @keyup="titleChange"
+              @keyup.enter="search"
+              id="search-title"
+              class="block w-full border rounded text-lg text-black py-1 px-2"
+            />
+          </div>
+          <div class="md:w-1/2 p-2">
+            <label for="search-title" class="uppercase font-bold text-sm">
+              Författare
+            </label>
+            <input
+              :value="author"
+              @keyup="authorChange"
+              @keyup.enter="search"
+              id="search-author"
+              class="block w-full border rounded text-lg text-black py-1 px-2"
+            />
+          </div>
+          <div class="md:w-1/2 p-2">
+            <label for="search-title" class="uppercase font-bold text-sm">
+              Utgivningsår
+            </label>
+            <YearFilter
+              :start="yearStart"
+              :end="yearEnd"
+              @change="yearChange"
+              @keyup.enter="search"
+            />
+          </div>
+          <div class="md:w-1/2 p-2">
+            <label for="search-title" class="uppercase font-bold text-sm">
+              Genre/form
+            </label>
+            <input
+              :value="genreform"
+              @keyup="genreformChange"
+              @keyup.enter="search"
+              id="search-genreform"
+              class="block w-full border rounded text-lg text-black py-1 px-2"
+            />
+          </div>
         </div>
-        <div class="md:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Författare
-          </label>
-          <input
-            :value="author"
-            @keyup="authorChange"
-            @keyup.enter="search"
-            id="search-author"
-            class="block w-full border rounded text-lg text-black py-1 px-2"
-          />
-        </div>
-        <div class="md:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Utgivningsår
-          </label>
-          <YearFilter
-            :start="yearStart"
-            :end="yearEnd"
-            @change="yearChange"
-            @keyup.enter="search"
-          />
-        </div>
-        <div class="md:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Genre/form
-          </label>
-          <input
-            :value="genreform"
-            @keyup="genreformChange"
-            @keyup.enter="search"
-            id="search-genreform"
-            class="block w-full border rounded text-lg text-black py-1 px-2"
-          />
-        </div>
-      </div>
+      </details>
 
       <div class="my-2 text-center">
         <input
@@ -142,7 +145,7 @@
 <script setup>
 import useQuery from "@/composables/query";
 import { getTerms } from "@/services/libris";
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import Term from "./Term.vue";
 import YearFilter from "./YearFilter.vue";
@@ -154,10 +157,15 @@ const { text, terms, title, author, yearStart, yearEnd, genreform, setQuery } =
   useQuery();
 
 const termSuggestions = ref([]);
+const isSearchExpanded = computed(() => store.getters.isSearchExpanded);
 
 function textChange(event) {
   setQuery({ text: event.target.value });
   suggestTerms();
+}
+
+function toggleFilters(event) {
+  store.commit("setExpandSearch", event.target.open ? 2 : 1);
 }
 
 function titleChange(event) {
@@ -210,3 +218,9 @@ function search(event) {
   emit("search");
 }
 </script>
+
+<style scoped>
+details[open] summary {
+  opacity: 0.5;
+}
+</style>

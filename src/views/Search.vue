@@ -1,5 +1,5 @@
 <template>
-  <Search @search="search" />
+  <SearchForm @search="search" />
   <div class="flex-1px-8 lg:container lg:max-w-screen-xl">
     <Results />
   </div>
@@ -10,7 +10,7 @@ import { onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import useQuery from "@/composables/query";
 import { search as librisSearch } from "@/services/libris";
-import Search from "@/components/Search.vue";
+import SearchForm from "@/components/SearchForm.vue";
 import Results from "@/components/Results.vue";
 
 const store = useStore();
