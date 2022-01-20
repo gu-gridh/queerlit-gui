@@ -1,7 +1,7 @@
 <template>
   <div class="bg-pink-50 text-gray-600 pb-8">
-    <div class="container max-w-screen-md">
-      <div class="my-4">
+    <div class="container max-w-screen-md xl:max-w-full xl:flex">
+      <div class="my-4 xl:w-1/2 xl:pr-4">
         <label class="uppercase font-bold text-sm">Fritext</label>
         <div class="mb-2 border rounded text-xl flex-1 bg-white text-black">
           <input
@@ -29,7 +29,6 @@
             </div>
           </div>
         </div>
-
         <div class="my-2 mx-4">
           <span class="flex items-center">
             ☝️
@@ -47,7 +46,7 @@
         </div>
       </div>
 
-      <div v-show="isSearchExpanded" class="my-4">
+      <div v-show="isSearchExpanded" class="my-4 xl:w-1/2 xl:pl-4">
         <label class="uppercase font-bold text-sm">Ämnesord</label>
         <div class="mb-2 border rounded bg-yellow-50 p-2">
           <div class="-mb-2">
@@ -76,11 +75,15 @@
           </span>
         </div>
       </div>
-
+    </div>
+    <div class="container max-w-screen-md xl:max-w-full my-4">
       <details :open="isSearchExpanded >= 2" @toggle="toggleFilters">
-        <summary class="uppercase text-sm text-center">Fler filter</summary>
+        <summary class="my-2 uppercase text-sm text-center">
+          Fler filter
+        </summary>
+
         <div class="flex flex-wrap -mx-2">
-          <div class="md:w-1/2 p-2">
+          <div class="md:w-1/2 xl:w-1/4 p-2">
             <label for="search-title" class="uppercase font-bold text-sm">
               Titel
             </label>
@@ -92,7 +95,7 @@
               class="block w-full border rounded text-lg text-black py-1 px-2"
             />
           </div>
-          <div class="md:w-1/2 p-2">
+          <div class="md:w-1/2 xl:w-1/4 p-2">
             <label for="search-title" class="uppercase font-bold text-sm">
               Författare
             </label>
@@ -104,7 +107,7 @@
               class="block w-full border rounded text-lg text-black py-1 px-2"
             />
           </div>
-          <div class="md:w-1/2 p-2">
+          <div class="md:w-1/2 xl:w-1/4 p-2">
             <label for="search-title" class="uppercase font-bold text-sm">
               Utgivningsår
             </label>
@@ -115,7 +118,7 @@
               @keyup.enter="search"
             />
           </div>
-          <div class="md:w-1/2 p-2">
+          <div class="md:w-1/2 xl:w-1/4 p-2">
             <label for="search-title" class="uppercase font-bold text-sm">
               Genre/form
             </label>
@@ -129,15 +132,15 @@
           </div>
         </div>
       </details>
+    </div>
 
-      <div class="my-2 text-center">
-        <input
-          type="submit"
-          value="Sök"
-          class="rounded text-xl p-4 bg-pink-600 text-white cursor-pointer"
-          @click="search"
-        />
-      </div>
+    <div class="container my-2 text-center">
+      <input
+        type="submit"
+        value="Sök"
+        class="rounded text-xl p-4 bg-pink-600 text-white cursor-pointer"
+        @click="search"
+      />
     </div>
   </div>
 </template>
