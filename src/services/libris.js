@@ -59,6 +59,9 @@ export async function search(
     items: [...response1.items, ...response2.items],
   };
 
+  // Do filtering that the API cannot do.
+  response.items = response.items.filter((item) => responseFilter(item, terms));
+
   return response;
 }
 
@@ -125,6 +128,10 @@ function processXlItem(item) {
   processed.id = item["@id"].split("/").pop().split("#").shift();
 
   return processed;
+}
+
+function responseFilter(item, terms = []) {
+  return terms.every((term) => item.terms && item.terms.includes(term));
 }
 
 const BOOKS = [
