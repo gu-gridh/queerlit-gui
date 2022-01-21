@@ -14,6 +14,7 @@
         v-model="input"
         :placeholder="terms.length ? 'sök fler ämnesord...' : 'sök ämnesord...'"
         @keyup="suggest"
+        @keyup.backspace="removeLast"
         class="bg-transparent py-1 mb-2 border border-transparent flex-1"
       />
     </div>
@@ -58,6 +59,10 @@ function add(term) {
 function remove(term) {
   terms.value.splice(terms.value.indexOf(term), 1);
   emitChange();
+}
+
+function removeLast() {
+  if (terms.value.length) remove(terms.value[-1]);
 }
 
 function emitChange() {

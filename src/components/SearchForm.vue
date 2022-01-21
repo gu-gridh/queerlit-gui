@@ -1,9 +1,9 @@
 <template>
   <div class="bg-pink-50 text-gray-600 pb-8">
     <div class="container max-w-screen-md xl:max-w-full xl:flex">
-      <div class="my-4 xl:w-1/2 xl:pr-4">
+      <div class="my-4 xl:w-1/2 xl:pr-4 text-xl">
         <label class="uppercase font-bold text-sm">Fritext</label>
-        <div class="mb-2 border rounded text-xl flex-1 bg-white text-black">
+        <div class="mb-2 border rounded flex-1 bg-white text-black">
           <input
             type="search"
             :value="text"
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="my-2 mx-4">
+        <div class="my-2 mx-4 text-base">
           <span class="flex items-center">
             ☝️
             <span class="flex-1"
@@ -46,11 +46,11 @@
         </div>
       </div>
 
-      <div v-show="isSearchExpanded" class="my-4 xl:w-1/2 xl:pl-4">
+      <div v-show="isSearchExpanded" class="my-4 xl:w-1/2 xl:pl-4 xl:text-xl">
         <label class="uppercase font-bold text-sm">Ämnesord</label>
         <TermCombobox @change="search" />
 
-        <div class="my-2 mx-4">
+        <div class="my-2 mx-4 text-base">
           <span class="flex items-center">
             ☝️
             <span class="flex-1"
