@@ -7,7 +7,7 @@ export default createStore({
         text: "",
         terms: [],
         title: "",
-        author: "",
+        author: null,
         yearStart: null,
         yearEnd: null,
         genreform: "",

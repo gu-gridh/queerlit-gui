@@ -88,14 +88,25 @@
               Författare
             </label>
             <input
-              :value="author"
+              type="search"
+              v-model="authorInput"
+              autocomplete="off"
               @keyup="authorChange"
               @keyup.enter="search"
               id="search-author"
               class="block w-full border rounded text-lg text-black py-1 px-2"
             />
-            <div v-for="person in authorSuggestions">
-              {{ person.firstname }} {{ person.lastname }}
+            <div v-show="authorSuggestions.length" class="relative h-0">
+              <div class="bg-white p-1 shadow rounded-b">
+                <div
+                  v-for="person in authorSuggestions"
+                  :key="person._item['@id']"
+                  @click="setAuthor(person)"
+                  class="hover:bg-blue-50 cursor-pointer"
+                >
+                  {{ person.firstname }} {{ person.lastname }}
+                </div>
+              </div>
             </div>
           </div>
           <div class="md:w-1/2 xl:w-1/4 p-2">
@@ -155,6 +166,7 @@ const terms = useTerms();
 const termSuggestions = ref([]);
 const authorSuggestions = ref([]);
 const isSearchExpanded = computed(() => store.getters.isSearchExpanded);
+const authorInput = ref("");
 
 function textChange(event) {
   setQuery({ text: event.target.value });
@@ -170,11 +182,17 @@ function titleChange(event) {
   setQuery({ title: event.target.value });
 }
 
-function authorChange(event) {
-  searchPerson(event.target.value).then(
+function authorChange() {
+  searchPerson(authorInput.value).then(
     (persons) => (authorSuggestions.value = persons)
   );
-  setQuery({ author: event.target.value });
+  setQuery({ author: null });
+}
+
+function setAuthor(author) {
+  authorInput.value = `${author.firstname} ${author.lastname}`;
+  setQuery({ author: author._item });
+  authorSuggestions.value = [];
 }
 
 function yearChange(yearStart, yearEnd) {

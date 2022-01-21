@@ -14,8 +14,9 @@ export async function search(
   const params = { q };
 
   if (author) {
+    // params[instanceOf.contribution.agent.]
     ["givenName", "familyName", "name", "label"].forEach(
-      (prop) => (params["or-instanceOf.contribution.agent." + prop] = author)
+      (prop) => (params["or-instanceOf.contribution.agent.@id"] = author["@id"])
     );
   }
 
@@ -151,6 +152,7 @@ export async function searchPerson(nameQuery) {
   return data.items.map((item) => ({
     firstname: item.givenName,
     lastname: item.familyName,
+    _item: item,
   }));
 }
 
