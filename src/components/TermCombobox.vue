@@ -20,14 +20,11 @@
     </div>
   </div>
   <div v-show="suggestions.length" class="h-0 relative">
-    <div class="shadow bg-white pt-2">
-      <div
-        v-for="term in suggestions"
-        :key="term.id"
-        @click="add(term)"
-        class="px-2 pb-2"
-      >
-        <Term>{{ term.label }}</Term>
+    <div class="shadow bg-white rounded-b pt-2">
+      <div v-for="term in suggestions" :key="term.id" class="px-2 pb-2 flex">
+        <Term @click="add(term)">{{ term.label }}</Term>
+        <div class="flex-1"></div>
+        <div v-if="hasChildren(term)" @click="drilldown(term)">ᛦ</div>
       </div>
     </div>
   </div>
@@ -40,7 +37,7 @@ import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
 
 const { terms, setQuery } = useQuery();
-const { autocomplete } = useTerms();
+const { autocomplete, getChildren, hasChildren } = useTerms();
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
@@ -63,6 +60,12 @@ function remove(term) {
 
 function removeLast() {
   if (terms.value.length) remove(terms.value[-1]);
+}
+
+function drilldown(term) {
+  const children = getChildren(term);
+  suggestions.value = [];
+  setTimeout(() => (suggestions.value = children), 200);
 }
 
 function emitChange() {

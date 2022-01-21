@@ -6,6 +6,12 @@ export function autocomplete(input) {
   );
 }
 
+export function getChildren(parent) {
+  return Object.values(termData).filter(
+    (child) => child.parents && child.parents.includes(parent.id)
+  );
+}
+
 const termData = {
   äldreTranspersoner: {
     label: "Äldre transpersoner",
