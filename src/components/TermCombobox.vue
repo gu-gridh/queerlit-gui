@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded bg-yellow-50 p-2">
+  <div class="border rounded bg-yellow-50 p-2" @unfocus="unfocus">
     <div class="-mb-2 flex flex-wrap">
       <Term
         v-for="term in terms"
@@ -22,6 +22,11 @@
   </div>
   <div v-show="suggestions.length" class="h-0 relative">
     <div class="shadow bg-white rounded-b pt-2">
+      <h3
+        v-if="suggestionsHeading"
+        v-html="suggestionsHeading"
+        class="mb-2 px-2 text-sm"
+      />
       <div v-for="term in suggestions" :key="term.id" class="px-2 pb-2 flex">
         <Term @click="add(term)">{{ term.label }}</Term>
         <div class="flex-1"></div>
@@ -51,16 +56,20 @@ const {
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
+const suggestionsHeading = ref("");
 
 function suggest() {
-  if (input.value) suggestions.value = autocomplete(input.value);
-  else suggestions.value = getRoots();
+  if (input.value) {
+    setSuggestions(autocomplete(input.value), "Menar du:");
+  } else {
+    setSuggestions(getRoots(), "Topptermer");
+  }
 }
 
 function add(term) {
   termsAdd(term);
   input.value = "";
-  suggestions.value = "";
+  setSuggestions([]);
   emitChange();
 }
 
@@ -70,13 +79,21 @@ function remove(term) {
 }
 
 function removeLast() {
-  if (terms.value.length) remove(terms.value[-1]);
+  const lastTerm = terms.value[terms.value.length - 1];
+  if (lastTerm) remove(lastTerm);
 }
 
 function drilldown(term) {
-  const children = getChildren(term);
-  suggestions.value = [];
-  setTimeout(() => (suggestions.value = children), 100);
+  setSuggestions(getChildren(term), `Termer under <em>${term.label}</em>`);
+}
+
+function unfocus() {
+  setSuggestions([]);
+}
+
+function setSuggestions(terms, heading) {
+  suggestions.value = terms || [];
+  suggestionsHeading.value = heading || "";
 }
 
 function emitChange() {

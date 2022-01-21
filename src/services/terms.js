@@ -19,6 +19,37 @@ export function getRoots() {
 }
 
 const termData = {
+  bisexualitet: {
+    label: "Bisexualitet",
+    parents: ["sexuellLäggning"],
+    related: ["homosexualitet", "bisexuella", "polysexualitet"],
+  },
+  bögar: {
+    label: "Bögar",
+    parents: ["män", "homosexuella"],
+  },
+  garderobsbögar: {
+    label: "Garderobsbögar",
+    alt: ["Smygbögar"],
+    parents: ["bögar"],
+  },
+  lesbiska: {
+    label: "Lesbiska",
+    alt: ["Homosexuella kvinnor", "Lesbiska kvinnor", "Lesbianer"],
+    parents: ["kvinnor", "homosexuella"],
+  },
+  föräldrarHBTQI: {
+    label: "Föräldrar (HBTQI)",
+    parents: ["familjemedlemmar", "HBTQIFamiljer"],
+  },
+  HBTQIFamiljer: {
+    label: "HBTQI-familjer",
+  },
+  ungaTranspersoner: {
+    label: "Unga transpersoner",
+    alt: ["Transungdomar", "Transtonåringar"],
+    parents: ["HBTQIUngdomar", "transpersoner"],
+  },
   äldreTranspersoner: {
     label: "Äldre transpersoner",
     parents: ["äldreHBTQIPersoner", "transpersoner"],
@@ -42,6 +73,14 @@ const termData = {
   },
   kön: {
     label: "Kön",
+    related: [
+      "passeraKön",
+      "genderbending",
+      "könsbekräftandeBehandling",
+      "könsmångfald",
+      "könsförhållanden",
+      "genusvetenskap",
+    ],
   },
   transkvinnor: {
     label: "Transkvinnor",

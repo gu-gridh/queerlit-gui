@@ -3,21 +3,21 @@
     <div class="container max-w-screen-md xl:max-w-full xl:flex">
       <div class="my-4 xl:w-1/2 xl:pr-4 text-xl">
         <label class="uppercase font-bold text-sm">Fritext</label>
-        <div class="mb-2 border rounded flex-1 bg-white text-black">
+        <div class="mb-2 border rounded flex-1 bg-white">
           <input
             type="search"
             :value="text"
             placeholder="sök här..."
             @keyup="textChange"
             @keyup.enter="search"
-            class="w-full p-4 bg-transparent"
+            class="w-full p-4 bg-transparent text-black"
           />
           <div class="relative h-0">
             <div
               v-if="termSuggestions.length"
               class="absolute top-0 bg-white p-2 px-4 shadow rounded-b"
             >
-              <div class="opacity-75 text-base mb-2">Sök på ämnesord:</div>
+              <div class="text-sm mb-2">Sök på ämnesord:</div>
               <Term
                 v-for="term in termSuggestions"
                 :key="term.id"
