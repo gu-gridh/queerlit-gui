@@ -106,6 +106,9 @@
               id="search-author"
               class="block w-full border rounded text-lg text-black py-1 px-2"
             />
+            <div v-for="person in authorSuggestions">
+              {{ person.firstname }} {{ person.lastname }}
+            </div>
           </div>
           <div class="md:w-1/2 xl:w-1/4 p-2">
             <label for="search-title" class="uppercase font-bold text-sm">
@@ -147,7 +150,7 @@
 
 <script setup>
 import useQuery from "@/composables/query";
-import { getTerms } from "@/services/libris";
+import { getTerms, searchPerson } from "@/services/libris";
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import Term from "./Term.vue";
@@ -160,6 +163,7 @@ const { text, terms, title, author, yearStart, yearEnd, genreform, setQuery } =
   useQuery();
 
 const termSuggestions = ref([]);
+const authorSuggestions = ref([]);
 const isSearchExpanded = computed(() => store.getters.isSearchExpanded);
 
 function textChange(event) {
@@ -176,6 +180,9 @@ function titleChange(event) {
 }
 
 function authorChange(event) {
+  searchPerson(event.target.value).then(
+    (persons) => (authorSuggestions.value = persons)
+  );
   setQuery({ author: event.target.value });
 }
 

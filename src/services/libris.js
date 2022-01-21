@@ -50,8 +50,8 @@ export async function search(
   });
 
   const [response1, response2] = await Promise.all([
-    xlFind(params1),
-    xlFind(params2),
+    xlFindBooks(params1),
+    xlFindBooks(params2),
   ]);
 
   const response = {
@@ -70,14 +70,21 @@ export async function get(id) {
   return result.items.find((item) => item.id === id);
 }
 
+export async function xlFindBooks(params) {
+  return xlFind(params).then(({ items, totalItems }) => ({
+    items: items.map(processXlItem),
+    totalItems,
+  }));
+}
+
+/**
+ * Query the /find API
+ *
+ * @see https://github.com/libris/librisxl/blob/develop/rest/API.md */
 export async function xlFind(params) {
   return axios
     .get("https://libris-qa.kb.se/find", { params })
-    .then((response) => response.data)
-    .then(({ items, totalItems }) => ({
-      items: items.map(processXlItem),
-      totalItems,
-    }));
+    .then((response) => response.data);
 }
 
 export function getTerms() {
@@ -132,6 +139,19 @@ function processXlItem(item) {
 
 function responseFilter(item, terms = []) {
   return terms.every((term) => item.terms && item.terms.includes(term));
+}
+
+export async function searchPerson(nameQuery) {
+  // Add wildcard at end of each word
+  const q = nameQuery.replaceAll(/\S+/g, "$&*");
+  const params = { "@type": "Person", q, _limit: 20 };
+  console.log("params person", params);
+  const data = await xlFind(params);
+  console.log("searchPerson", data.items);
+  return data.items.map((item) => ({
+    firstname: item.givenName,
+    lastname: item.familyName,
+  }));
 }
 
 const BOOKS = [
