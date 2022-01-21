@@ -13,6 +13,7 @@
         type="search"
         v-model="input"
         :placeholder="terms.length ? 'sök fler ämnesord...' : 'sök ämnesord...'"
+        @focus="suggest"
         @keyup="suggest"
         @keyup.backspace="removeLast"
         class="bg-transparent py-1 mb-2 border border-transparent flex-1"
@@ -24,7 +25,9 @@
       <div v-for="term in suggestions" :key="term.id" class="px-2 pb-2 flex">
         <Term @click="add(term)">{{ term.label }}</Term>
         <div class="flex-1"></div>
-        <div v-if="hasChildren(term)" @click="drilldown(term)">ᛦ</div>
+        <div v-if="hasChildren(term)" @click="drilldown(term)" class="p-1">
+          ᛦ
+        </div>
       </div>
     </div>
   </div>
@@ -37,13 +40,14 @@ import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
 
 const { terms, setQuery } = useQuery();
-const { autocomplete, getChildren, hasChildren } = useTerms();
+const { autocomplete, getRoots, getChildren, hasChildren } = useTerms();
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
 
-function suggest(event) {
-  suggestions.value = autocomplete(input.value);
+function suggest() {
+  if (input.value) suggestions.value = autocomplete(input.value);
+  else suggestions.value = getRoots();
 }
 
 function add(term) {

@@ -12,6 +12,12 @@ export function getChildren(parent) {
   );
 }
 
+export function getRoots() {
+  return Object.values(termData).filter(
+    (term) => !term.parents || !term.parents.length
+  );
+}
+
 const termData = {
   äldreTranspersoner: {
     label: "Äldre transpersoner",
