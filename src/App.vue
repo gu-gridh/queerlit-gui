@@ -7,11 +7,13 @@
 
 <script setup>
 import * as libris from "@/services/libris";
+import * as terms from "@/services/terms";
 import Header from "@/components/PageHeader.vue";
 import "@fontsource/barlow-condensed";
 
 if (import.meta.env.DEV) {
   window.libris = libris;
+  window.terms = terms;
 }
 </script>
 

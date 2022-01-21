@@ -20,11 +20,11 @@
               <div class="opacity-75 text-base mb-2">Sök på ämnesord:</div>
               <Term
                 v-for="term in termSuggestions"
-                :key="term"
+                :key="term.id"
                 class="mr-2"
                 @click="addTerm(term)"
               >
-                {{ term }}
+                {{ term.label }}
               </Term>
             </div>
           </div>
@@ -48,19 +48,7 @@
 
       <div v-show="isSearchExpanded" class="my-4 xl:w-1/2 xl:pl-4">
         <label class="uppercase font-bold text-sm">Ämnesord</label>
-        <div class="mb-2 border rounded bg-yellow-50 p-2">
-          <div class="-mb-2">
-            <Term
-              v-for="term in terms"
-              :key="term"
-              class="mr-2 mb-2"
-              @click="removeTerm(term)"
-            >
-              {{ term }}
-            </Term>
-            <div class="py-1 mb-2 bg-yellow-400 inline-block"></div>
-          </div>
-        </div>
+        <TermCombobox @change="search" />
 
         <div class="my-2 mx-4">
           <span class="flex items-center">
@@ -153,22 +141,25 @@ import useQuery from "@/composables/query";
 import { getTerms, searchPerson } from "@/services/libris";
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
+import useTerms from "@/composables/terms";
 import Term from "./Term.vue";
 import YearFilter from "./YearFilter.vue";
+import TermCombobox from "./TermCombobox.vue";
 
 const store = useStore();
 const emit = defineEmits(["search"]);
 
-const { text, terms, title, author, yearStart, yearEnd, genreform, setQuery } =
+const { text, title, author, yearStart, yearEnd, genreform, setQuery } =
   useQuery();
-
+const terms = useTerms();
 const termSuggestions = ref([]);
 const authorSuggestions = ref([]);
 const isSearchExpanded = computed(() => store.getters.isSearchExpanded);
 
 function textChange(event) {
   setQuery({ text: event.target.value });
-  suggestTerms();
+  const lastWord = text.value.split(" ").pop();
+  termSuggestions.value = terms.autocomplete(lastWord);
 }
 
 function toggleFilters(event) {
@@ -194,33 +185,18 @@ function genreformChange(event) {
   setQuery({ genreform: event.target.value });
 }
 
-function suggestTerms() {
-  const lastWord = text.value.split(" ").pop();
-  termSuggestions.value = matchTerms(lastWord);
-}
-
-function matchTerms(input) {
-  return input
-    ? getTerms().filter(
-        (term) => term.toLowerCase().indexOf(input.toLowerCase()) === 0
-      )
-    : [];
-}
-
 function addTerm(term) {
+  terms.add(term);
   store.commit("setQuery", {
-    terms: terms.value.includes(term) ? terms.value : [...terms.value, term],
     // Remove last word from text.
     text: String(text.value).split(" ").slice(0, -1).join(" "),
   });
   search();
-  suggestTerms();
+  termSuggestions.value = [];
 }
 
 function removeTerm(term) {
-  store.commit("setQuery", {
-    terms: terms.value.filter((term2) => term2 != term),
-  });
+  terms.remove(term);
   search();
 }
 

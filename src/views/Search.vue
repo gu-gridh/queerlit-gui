@@ -22,7 +22,7 @@ onMounted(search());
 async function search() {
   const { items } = await librisSearch(
     text.value,
-    terms.value,
+    terms.value.map((term) => term.label),
     title.value,
     author.value,
     yearStart.value,
