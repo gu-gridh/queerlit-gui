@@ -43,6 +43,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/barlow-condensed@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/barlow-condensed/-/barlow-condensed-4.5.0.tgz#7398a5572f1bffae80a7fdbb5156d5dcd9a80f6f"
+  integrity sha512-dpfoMfPZkdj6jZLmxkrwwQCAqrW3FRb7rMZq82VZsChxeZOYorvnwDZcrtgo7FT4KWYZ+0ZjV41Lf9KyFTOtAg==
+
 "@humanwhocodes/config-array@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.6.0.tgz#b5621fdb3b32309d2d16575456cbc277fa8f021a"

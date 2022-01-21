@@ -8,6 +8,7 @@
 <script setup>
 import * as libris from "@/services/libris";
 import Header from "@/components/PageHeader.vue";
+import "@fontsource/barlow-condensed";
 
 if (import.meta.env.DEV) {
   window.libris = libris;
@@ -15,8 +16,11 @@ if (import.meta.env.DEV) {
 </script>
 
 <style>
+html {
+  font-size: 14pt;
+}
+
 #app {
-  font-family: Helvetica, Arial, sans-serif;
   color: #2c3e50;
 }
 </style>

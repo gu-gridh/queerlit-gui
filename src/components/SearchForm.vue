@@ -10,14 +10,14 @@
             placeholder="sök här..."
             @keyup="textChange"
             @keyup.enter="search"
-            class="w-full p-4"
+            class="w-full p-4 bg-transparent"
           />
           <div class="relative h-0">
             <div
               v-if="termSuggestions.length"
               class="absolute top-0 bg-white p-2 px-4 shadow rounded-b"
             >
-              <div class="opacity-75 text-sm mb-2">Sök på ämnesord:</div>
+              <div class="opacity-75 text-base mb-2">Sök på ämnesord:</div>
               <Term
                 v-for="term in termSuggestions"
                 :key="term"
