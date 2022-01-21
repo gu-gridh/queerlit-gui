@@ -40,7 +40,14 @@ import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
 
 const { terms, setQuery } = useQuery();
-const { autocomplete, getRoots, getChildren, hasChildren } = useTerms();
+const {
+  autocomplete,
+  getRoots,
+  getChildren,
+  hasChildren,
+  add: termsAdd,
+  remove: termsRemove,
+} = useTerms();
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
@@ -51,14 +58,14 @@ function suggest() {
 }
 
 function add(term) {
-  terms.value.push(term);
+  termsAdd(term);
   input.value = "";
   suggestions.value = "";
   emitChange();
 }
 
 function remove(term) {
-  terms.value.splice(terms.value.indexOf(term), 1);
+  termsRemove(term);
   emitChange();
 }
 
@@ -69,7 +76,7 @@ function removeLast() {
 function drilldown(term) {
   const children = getChildren(term);
   suggestions.value = [];
-  setTimeout(() => (suggestions.value = children), 200);
+  setTimeout(() => (suggestions.value = children), 100);
 }
 
 function emitChange() {

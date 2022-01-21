@@ -12,7 +12,7 @@ export default function useTerms() {
   }
 
   function remove(term) {
-    setQuery({ terms: terms.value.filter((term2) => term2.id == term.id) });
+    setQuery({ terms: terms.value.filter((term2) => term2.id != term.id) });
   }
 
   function hasChildren(term) {
