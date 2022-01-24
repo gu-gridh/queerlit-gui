@@ -25,6 +25,7 @@
                 @click="addTerm(term)"
               >
                 {{ term.label }}
+                <icon icon="plus" size="xs" />
               </Term>
             </div>
           </div>

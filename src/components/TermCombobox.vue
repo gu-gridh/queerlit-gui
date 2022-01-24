@@ -8,6 +8,7 @@
         @click="remove(term)"
       >
         {{ term.label }}
+        <icon icon="times" size="xs" />
       </Term>
       <input
         type="search"
@@ -39,10 +40,13 @@
         >
           {{ altMatch }}
         </span>
-        <Term @click="add(term)">{{ term.label }}</Term>
+        <Term @click="add(term)">
+          {{ term.label }}
+          <icon icon="plus" size="xs" />
+        </Term>
         <div class="flex-1"></div>
         <div v-if="hasChildren(term)" @click="drilldown(term)" class="p-1">
-          ᛦ
+          <icon icon="stream" size="xs" />
         </div>
       </div>
     </div>
