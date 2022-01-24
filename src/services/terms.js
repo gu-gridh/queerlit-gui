@@ -1,8 +1,11 @@
 export function autocomplete(input) {
-  input = input.toLowerCase();
   if (!input) return [];
+  const match = (label, s) =>
+    label.toLowerCase().indexOf(s.toLowerCase()) === 0;
   return Object.values(termData).filter(
-    (term) => term.label.toLowerCase().indexOf(input) === 0
+    (term) =>
+      match(term.label, input) ||
+      (term.alt && term.alt.some((alt) => match(alt, input)))
   );
 }
 
@@ -84,12 +87,12 @@ const termData = {
   },
   transkvinnor: {
     label: "Transkvinnor",
-    alt: "Trans-kvinnor",
+    alt: ["Trans-kvinnor"],
     parents: ["kvinnor", "transpersoner"],
   },
   transmän: {
     label: "Transmän",
-    alt: "Trans-män",
+    alt: ["Trans-män"],
     parents: ["män", "transpersoner"],
   },
 };
