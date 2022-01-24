@@ -19,7 +19,7 @@
             >
               <div class="text-sm mb-2">Sök på ämnesord:</div>
               <Term
-                v-for="term in termSuggestions"
+                v-for="{ term } in termSuggestions"
                 :key="term.id"
                 class="mr-2"
                 @click="addTerm(term)"
