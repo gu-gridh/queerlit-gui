@@ -29,39 +29,11 @@
             </div>
           </div>
         </div>
-        <div class="my-2 mx-4 text-base">
-          <span class="flex items-center">
-            ☝️
-            <span class="flex-1"
-              >Byt ut fritext "androgyni" mot ämnesord
-              <Term class="text-sm">androgyni</Term>?
-              <span class="px-2 py-1 mr-1 bg-pink-600 text-white rounded"
-                >Ja</span
-              >
-              <span class="px-2 py-1 mr-1 bg-pink-600 text-white rounded"
-                >×</span
-              >
-            </span>
-          </span>
-        </div>
       </div>
 
       <div v-show="isSearchExpanded" class="my-4 xl:w-1/2 xl:pl-4 xl:text-xl">
         <label class="uppercase font-bold text-sm">Ämnesord</label>
         <TermCombobox @change="search" />
-
-        <div class="my-2 mx-4 text-base">
-          <span class="flex items-center">
-            ☝️
-            <span class="flex-1"
-              >Ämnesordet <Term class="text-sm">Lesbiska</Term> används istället
-              för "Flator".
-              <span class="px-2 py-1 mr-1 bg-pink-600 text-white rounded"
-                >Varför?</span
-              >
-            </span>
-          </span>
-        </div>
       </div>
     </div>
     <div class="container max-w-screen-md xl:max-w-full my-4">
@@ -137,12 +109,7 @@
     </div>
 
     <div class="container my-2 text-center">
-      <input
-        type="submit"
-        value="Sök"
-        class="rounded text-xl p-4 bg-pink-600 text-white cursor-pointer"
-        @click="search"
-      />
+      <QButton class="text-2xl" @click="search">Sök</QButton>
     </div>
   </div>
 </template>
@@ -156,6 +123,7 @@ import useTerms from "@/composables/terms";
 import Term from "./Term.vue";
 import YearFilter from "./YearFilter.vue";
 import TermCombobox from "./TermCombobox.vue";
+import QButton from "./QButton.vue";
 
 const store = useStore();
 const emit = defineEmits(["search"]);
