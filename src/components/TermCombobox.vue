@@ -15,8 +15,8 @@
         :placeholder="terms.length ? 'sök fler ämnesord...' : 'sök ämnesord...'"
         @focus="suggest"
         @keyup="suggest"
-        @keyup.backspace="removeLast"
-        class="bg-transparent py-1 mb-2 border border-transparent flex-1"
+        @keydown.backspace="removeLast"
+        class="bg-transparent py-1 pl-1 mb-2 border border-transparent flex-1"
       />
     </div>
   </div>
@@ -27,7 +27,18 @@
         v-html="suggestionsHeading"
         class="mb-2 px-2 text-sm"
       />
-      <div v-for="term in suggestions" :key="term.id" class="px-2 pb-2 flex">
+      <div
+        v-for="{ term, altMatch } in suggestions"
+        :key="term.id"
+        class="px-2 pb-2 flex"
+      >
+        <span
+          v-if="altMatch"
+          @click="add(term)"
+          class="py-1 mr-1 line-through opacity-75"
+        >
+          {{ altMatch }}
+        </span>
         <Term @click="add(term)">{{ term.label }}</Term>
         <div class="flex-1"></div>
         <div v-if="hasChildren(term)" @click="drilldown(term)" class="p-1">
@@ -78,7 +89,8 @@ function remove(term) {
   emitChange();
 }
 
-function removeLast() {
+function removeLast(event) {
+  if (input.value) return;
   const lastTerm = terms.value[terms.value.length - 1];
   if (lastTerm) remove(lastTerm);
 }
@@ -91,8 +103,8 @@ function unfocus() {
   setSuggestions([]);
 }
 
-function setSuggestions(terms, heading) {
-  suggestions.value = terms || [];
+function setSuggestions(matches, heading) {
+  suggestions.value = matches || [];
   suggestionsHeading.value = heading || "";
 }
 

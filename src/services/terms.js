@@ -1,12 +1,16 @@
 export function autocomplete(input) {
   if (!input) return [];
-  const match = (label, s) =>
-    label.toLowerCase().indexOf(s.toLowerCase()) === 0;
-  return Object.values(termData).filter(
-    (term) =>
-      match(term.label, input) ||
-      (term.alt && term.alt.some((alt) => match(alt, input)))
-  );
+  const match = (label) =>
+    label
+      .toLowerCase()
+      .split(/\s+/)
+      .some((word) => word.indexOf(input.toLowerCase()) === 0);
+  return Object.values(termData).reduce((results, term) => {
+    const altMatch = term.alt && term.alt.find(match);
+    if (!match(term.label) && !altMatch) return results;
+    results.push({ term, altMatch });
+    return results;
+  }, []);
 }
 
 export function getChildren(parent) {
@@ -16,9 +20,9 @@ export function getChildren(parent) {
 }
 
 export function getRoots() {
-  return Object.values(termData).filter(
-    (term) => !term.parents || !term.parents.length
-  );
+  return Object.values(termData)
+    .filter((term) => !term.parents || !term.parents.length)
+    .map((term) => ({ term }));
 }
 
 const termData = {
