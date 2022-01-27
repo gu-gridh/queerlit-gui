@@ -9,6 +9,7 @@
       border border-yellow-200
       text-black
       font-mono
+      text-sm
     "
   >
     <slot />

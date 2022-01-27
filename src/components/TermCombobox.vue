@@ -17,7 +17,7 @@
         @focus="suggest"
         @keyup="suggest"
         @keydown.backspace="removeLast"
-        class="bg-transparent py-1 pl-1 mb-2 border border-transparent flex-1"
+        class="bg-transparent pl-1 mb-2 border border-transparent flex-1"
       />
     </div>
   </div>
@@ -45,7 +45,7 @@
           <icon icon="plus" size="xs" />
         </Term>
         <div class="flex-1"></div>
-        <div v-if="hasChildren(term)" @click="drilldown(term)" class="p-1">
+        <div v-if="hasChildren(term)" @click="drilldown(term)" class="px-1">
           <icon icon="stream" size="xs" />
         </div>
       </div>
