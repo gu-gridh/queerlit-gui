@@ -31,12 +31,12 @@
       <div
         v-for="{ term, altMatch } in suggestions"
         :key="term.id"
-        class="px-2 pb-2 flex"
+        class="px-2 pb-2 flex items-baseline"
       >
         <span
           v-if="altMatch"
           @click="add(term)"
-          class="py-1 mr-1 line-through opacity-75"
+          class="mr-1 line-through opacity-75"
         >
           {{ altMatch }}
         </span>

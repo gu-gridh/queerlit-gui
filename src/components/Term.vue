@@ -5,17 +5,19 @@
       inline-block
       px-2
       py-1
+      leading-snug
       bg-yellow-100
       border border-yellow-200
       text-black
       font-mono
-      text-sm
     "
   >
     <slot />
   </span>
 </template>
 
-<script setup></script>
-
-<style></style>
+<style>
+.term {
+  font-size: smaller;
+}
+</style>
