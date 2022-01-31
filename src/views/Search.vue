@@ -1,6 +1,6 @@
 <template>
   <SearchForm @search="search" />
-  <div class="flex-1px-8 lg:container lg:max-w-screen-xl">
+  <div class="flex-1 container lg:max-w-screen-xl">
     <Results />
   </div>
 </template>
