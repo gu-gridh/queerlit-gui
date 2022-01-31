@@ -60,27 +60,12 @@
             <label for="search-title" class="uppercase font-bold text-sm">
               Författare
             </label>
-            <input
-              type="search"
-              v-model="authorInput"
-              autocomplete="off"
-              @keyup="authorChange"
-              @keyup.enter="search"
-              id="search-author"
-              class="block w-full border rounded text-lg text-black py-1 px-2"
+            <Autocomplete
+              :suggest="searchPerson"
+              :getLabel="(item) => `${item.firstname} ${item.lastname}`"
+              :getId="(item) => item.id"
+              @change="setAuthor"
             />
-            <div v-show="authorSuggestions.length" class="relative h-0">
-              <div class="bg-white p-1 shadow rounded-b">
-                <div
-                  v-for="person in authorSuggestions"
-                  :key="person._item['@id']"
-                  @click="setAuthor(person)"
-                  class="hover:bg-blue-50 cursor-pointer"
-                >
-                  {{ person.firstname }} {{ person.lastname }}
-                </div>
-              </div>
-            </div>
           </div>
           <div class="md:w-1/2 xl:w-1/4 p-2">
             <label for="search-title" class="uppercase font-bold text-sm">
@@ -97,26 +82,12 @@
             <label for="search-title" class="uppercase font-bold text-sm">
               Genre/form
             </label>
-            <input
-              type="search"
-              v-model="genreformInput"
-              autocomplete="off"
-              @keyup="genreformChange"
-              @keyup.enter="search"
-              class="block w-full border rounded text-lg text-black py-1 px-2"
+            <Autocomplete
+              :suggest="searchGenreform"
+              :getLabel="(item) => `${item.label} (${item.scheme})`"
+              :getId="(item) => item.id"
+              @change="setGenreform"
             />
-            <div v-show="genreformSuggestions.length" class="relative h-0">
-              <div class="bg-white p-1 shadow rounded-b">
-                <div
-                  v-for="genreform in genreformSuggestions"
-                  :key="genreform.id"
-                  @click="setGenreform(genreform)"
-                  class="hover:bg-blue-50 cursor-pointer"
-                >
-                  {{ genreform.scheme }}: {{ genreform.label }}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </details>
@@ -138,6 +109,7 @@ import Term from "./Term.vue";
 import YearFilter from "./YearFilter.vue";
 import TermCombobox from "./TermCombobox.vue";
 import QButton from "./QButton.vue";
+import Autocomplete from "./Autocomplete.vue";
 
 const store = useStore();
 const emit = defineEmits(["search"]);
@@ -146,11 +118,7 @@ const { text, title, author, yearStart, yearEnd, genreform, setQuery } =
   useQuery();
 const terms = useTerms();
 const termSuggestions = ref([]);
-const authorSuggestions = ref([]);
-const genreformSuggestions = ref([]);
 const isSearchExpanded = computed(() => store.getters.isSearchExpanded);
-const authorInput = ref("");
-const genreformInput = ref("");
 
 function textChange(event) {
   setQuery({ text: event.target.value });
@@ -166,34 +134,18 @@ function titleChange(event) {
   setQuery({ title: event.target.value });
 }
 
-function authorChange() {
-  searchPerson(authorInput.value).then(
-    (persons) => (authorSuggestions.value = persons)
-  );
-  setQuery({ author: null });
-}
-
 function setAuthor(author) {
-  authorInput.value = `${author.firstname} ${author.lastname}`;
-  setQuery({ author: author._item });
-  authorSuggestions.value = [];
+  setQuery({ author: author && author._item });
+  search();
 }
 
 function yearChange(yearStart, yearEnd) {
   setQuery({ yearStart, yearEnd });
 }
 
-function genreformChange(event) {
-  searchGenreform(genreformInput.value).then(
-    (genreforms) => (genreformSuggestions.value = genreforms)
-  );
-  setQuery({ genreform: null });
-}
-
 function setGenreform(genreform) {
-  genreformInput.value = `${genreform.scheme}: ${genreform.label}`;
-  setQuery({ genreform: genreform.id });
-  genreformSuggestions.value = [];
+  setQuery({ genreform: genreform ? genreform.id : null });
+  search();
 }
 
 function addTerm(term) {
