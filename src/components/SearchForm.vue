@@ -98,12 +98,25 @@
               Genre/form
             </label>
             <input
-              :value="genreform"
+              type="search"
+              v-model="genreformInput"
+              autocomplete="off"
               @keyup="genreformChange"
               @keyup.enter="search"
-              id="search-genreform"
               class="block w-full border rounded text-lg text-black py-1 px-2"
             />
+            <div v-show="genreformSuggestions.length" class="relative h-0">
+              <div class="bg-white p-1 shadow rounded-b">
+                <div
+                  v-for="genreform in genreformSuggestions"
+                  :key="genreform.id"
+                  @click="setGenreform(genreform)"
+                  class="hover:bg-blue-50 cursor-pointer"
+                >
+                  {{ genreform.scheme }}: {{ genreform.label }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </details>
@@ -117,7 +130,7 @@
 
 <script setup>
 import useQuery from "@/composables/query";
-import { getTerms, searchPerson } from "@/services/libris";
+import { getTerms, searchGenreform, searchPerson } from "@/services/libris";
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useTerms from "@/composables/terms";
@@ -134,8 +147,10 @@ const { text, title, author, yearStart, yearEnd, genreform, setQuery } =
 const terms = useTerms();
 const termSuggestions = ref([]);
 const authorSuggestions = ref([]);
+const genreformSuggestions = ref([]);
 const isSearchExpanded = computed(() => store.getters.isSearchExpanded);
 const authorInput = ref("");
+const genreformInput = ref("");
 
 function textChange(event) {
   setQuery({ text: event.target.value });
@@ -169,7 +184,16 @@ function yearChange(yearStart, yearEnd) {
 }
 
 function genreformChange(event) {
-  setQuery({ genreform: event.target.value });
+  searchGenreform(genreformInput.value).then(
+    (genreforms) => (genreformSuggestions.value = genreforms)
+  );
+  setQuery({ genreform: null });
+}
+
+function setGenreform(genreform) {
+  genreformInput.value = `${genreform.scheme}: ${genreform.label}`;
+  setQuery({ genreform: genreform.id });
+  genreformSuggestions.value = [];
 }
 
 function addTerm(term) {

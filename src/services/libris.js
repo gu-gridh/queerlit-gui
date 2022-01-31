@@ -25,7 +25,7 @@ export async function search(
   }
 
   if (genreform) {
-    params["instanceOf.genreForm.prefLabelByLang.sv"] = genreform;
+    params["instanceOf.genreForm.@id"] = genreform;
   }
 
   if (yearStart) {
@@ -152,6 +152,20 @@ export async function searchPerson(nameQuery) {
   return data.items.map((item) => ({
     firstname: item.givenName,
     lastname: item.familyName,
+    _item: item,
+  }));
+}
+
+export async function searchGenreform(query) {
+  const q = query.replaceAll(/\S+/g, "$&*");
+  const params = { "@type": "GenreForm", prefLabel: q, _limit: 20 };
+  console.log("params genreform", params);
+  const data = await xlFind(params);
+  console.log("searchGenreform", data.items);
+  return data.items.map((item) => ({
+    id: item["@id"],
+    label: item.prefLabel,
+    scheme: item.inScheme.code,
     _item: item,
   }));
 }
