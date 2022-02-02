@@ -1,33 +1,27 @@
 <template>
-  <router-link :to="`/verk/${id}`" class="block p-2 mb-4">
-    <article class="block items-baseline">
-      <h3
-        class="
-          my-2
-          text-xl
-          group-hover:underline
-          md:float-left md:w-1/2 md:pr-4
-        "
-      >
-        {{ title }}
-      </h3>
+  <router-link :to="`/verk/${id}`" class="block p-4">
+    <article class="block flex items-baseline">
+      <div class="w-4 mr-2">{{ i }}</div>
+      <div class="flex-1 flex flex-wrap items-baseline">
+        <h3 class="w-full xl:w-1/2 xl:pr-4 mb-2 text-xl group-hover:underline">
+          {{ title }}
+        </h3>
 
-      <div class="md:w-1/2 md:float-right">
-        <div class="my-2 flex">
-          <div v-for="creator in creators" :key="creator" class="mr-4">
-            {{ creator }}
+        <div class="w-full xl:w-1/2">
+          <div class="mb-2 flex flex-wrap">
+            <div v-for="creator in creators" :key="creator" class="mr-4">
+              {{ creator }}
+            </div>
           </div>
+          <div class="my-2">{{ date }}</div>
         </div>
-        <div class="my-2">{{ date }}</div>
-      </div>
 
-      <div class="my-2 md:w-1/2 md:pr-4">
-        <Term v-for="term in terms" :key="term" class="mr-1 mb-1">
-          {{ term }}
-        </Term>
+        <div class="my-2">
+          <Term v-for="term in terms" :key="term" class="mr-1 mb-1">
+            {{ term }}
+          </Term>
+        </div>
       </div>
-
-      <div class="clear-both"></div>
     </article>
   </router-link>
 </template>
@@ -46,6 +40,7 @@ defineProps({
   date: String,
   language: String,
   terms: Array,
+  i: Number,
 });
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="results" class="py-4">
-    <div class="flex mb-8">
+  <div v-if="results">
+    <div class="flex p-4">
       <div class="w-1/3">{{ results.length }} träffar</div>
       <div class="w-1/3 text-center">◀ 1 2 3 ▶</div>
       <div class="w-1/3 text-right">
@@ -14,7 +14,7 @@
       v-for="(book, i) in results"
       :key="book['@id']"
       v-bind="book"
-      :class="i % 2 ? 'bg-gray-100' : ''"
+      :i="i"
     />
     <div class="flex justify-around mb-8">
       <div>◀ 1 2 3 ▶</div>

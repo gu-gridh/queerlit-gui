@@ -3,21 +3,17 @@
     class="
       term
       inline-block
-      px-2
+      px-1
       py-1
       leading-snug
-      bg-yellow-100
-      border border-yellow-200
+      bg-yellow-200
+      border border-yellow-300
+      rounded
       text-black
-      font-mono
     "
   >
     <slot />
   </span>
 </template>
 
-<style>
-.term {
-  font-size: smaller;
-}
-</style>
+<style></style>

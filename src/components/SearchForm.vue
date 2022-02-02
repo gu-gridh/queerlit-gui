@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-pink-50 text-gray-600 pb-8">
-    <div class="container max-w-screen-md xl:max-w-full xl:flex">
-      <div class="my-4 xl:w-1/2 xl:pr-4 text-xl">
-        <label class="uppercase font-bold text-sm">Fritext</label>
+  <div class="py-8">
+    <div class="container">
+      <div class="my-4 text-xl">
+        <label class="uppercase font-bold text-sm hidden">Fritext</label>
         <div class="mb-2 border rounded flex-1 bg-white">
           <input
             type="search"
             :value="text"
-            placeholder="sök här..."
+            placeholder="Sök här..."
             @keyup="textChange"
             @keyup.enter="search"
             class="w-full p-4 bg-transparent text-black"
@@ -32,65 +32,59 @@
         </div>
       </div>
 
-      <div v-show="isSearchExpanded" class="my-4 xl:w-1/2 xl:pl-4 xl:text-xl">
+      <div class="my-4">
         <label class="uppercase font-bold text-sm">Ämnesord</label>
         <TermCombobox @change="search" />
       </div>
     </div>
-    <div class="container max-w-screen-md xl:max-w-full my-4">
-      <details :open="isSearchExpanded >= 2" @toggle="toggleFilters">
-        <summary class="my-2 uppercase text-sm text-center">
-          Fler filter
-        </summary>
-
-        <div class="flex flex-wrap -mx-2">
-          <div class="md:w-1/2 xl:w-1/4 p-2">
-            <label for="search-title" class="uppercase font-bold text-sm">
-              Titel
-            </label>
-            <input
-              :value="title"
-              @keyup="titleChange"
-              @keyup.enter="search"
-              id="search-title"
-              class="block w-full border rounded text-lg text-black py-1 px-2"
-            />
-          </div>
-          <div class="md:w-1/2 xl:w-1/4 p-2">
-            <label for="search-title" class="uppercase font-bold text-sm">
-              Författare
-            </label>
-            <Autocomplete
-              :suggest="searchPerson"
-              :getLabel="(item) => `${item.firstname} ${item.lastname}`"
-              :getId="(item) => item.id"
-              @change="setAuthor"
-            />
-          </div>
-          <div class="md:w-1/2 xl:w-1/4 p-2">
-            <label for="search-title" class="uppercase font-bold text-sm">
-              Utgivningsår
-            </label>
-            <YearFilter
-              :start="yearStart"
-              :end="yearEnd"
-              @change="yearChange"
-              @keyup.enter="search"
-            />
-          </div>
-          <div class="md:w-1/2 xl:w-1/4 p-2">
-            <label for="search-title" class="uppercase font-bold text-sm">
-              Genre/form
-            </label>
-            <Autocomplete
-              :suggest="searchGenreform"
-              :getLabel="(item) => `${item.label} (${item.scheme})`"
-              :getId="(item) => item.id"
-              @change="setGenreform"
-            />
-          </div>
+    <div class="container max-w-screen-md my-4">
+      <div class="flex flex-wrap -mx-2">
+        <div class="w-full sm:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Titel
+          </label>
+          <input
+            :value="title"
+            @keyup="titleChange"
+            @keyup.enter="search"
+            id="search-title"
+            class="block w-full border rounded text-lg text-black py-1 px-2"
+          />
         </div>
-      </details>
+        <div class="w-full sm:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Författare
+          </label>
+          <Autocomplete
+            :suggest="searchPerson"
+            :getLabel="(item) => `${item.firstname} ${item.lastname}`"
+            :getId="(item) => item.id"
+            @change="setAuthor"
+          />
+        </div>
+        <div class="w-full sm:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Utgivningsår
+          </label>
+          <YearFilter
+            :start="yearStart"
+            :end="yearEnd"
+            @change="yearChange"
+            @keyup.enter="search"
+          />
+        </div>
+        <div class="w-full sm:w-1/2 p-2">
+          <label for="search-title" class="uppercase font-bold text-sm">
+            Genre/form
+          </label>
+          <Autocomplete
+            :suggest="searchGenreform"
+            :getLabel="(item) => `${item.label} (${item.scheme})`"
+            :getId="(item) => item.id"
+            @change="setGenreform"
+          />
+        </div>
+      </div>
     </div>
 
     <div class="container my-2 text-center">
@@ -118,16 +112,11 @@ const { text, title, author, yearStart, yearEnd, genreform, setQuery } =
   useQuery();
 const terms = useTerms();
 const termSuggestions = ref([]);
-const isSearchExpanded = computed(() => store.getters.isSearchExpanded);
 
 function textChange(event) {
   setQuery({ text: event.target.value });
   const lastWord = text.value.split(" ").pop();
   termSuggestions.value = terms.autocomplete(lastWord);
-}
-
-function toggleFilters(event) {
-  store.commit("setExpandSearch", event.target.open ? 2 : 1);
 }
 
 function titleChange(event) {

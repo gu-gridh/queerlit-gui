@@ -1,6 +1,5 @@
 <template>
-  <Header />
-  <div class="flex-1 flex flex-col">
+  <div class="flex-1 flex flex-col lg:flex-row">
     <router-view />
   </div>
 </template>
@@ -8,8 +7,7 @@
 <script setup>
 import * as libris from "@/services/libris";
 import * as terms from "@/services/terms";
-import Header from "@/components/PageHeader.vue";
-import "@fontsource/barlow-condensed";
+import "@fontsource/barlow-condensed/300.css";
 
 if (import.meta.env.DEV) {
   window.libris = libris;

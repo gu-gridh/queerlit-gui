@@ -12,7 +12,6 @@ export default createStore({
         yearEnd: null,
         genreform: "",
       },
-      expandSearch: 1,
       results: null,
     };
   },
@@ -31,19 +30,6 @@ export default createStore({
     },
     setResults(state, results) {
       state.results = results;
-    },
-    setExpandSearch(state, expandSearch) {
-      state.expandSearch = expandSearch;
-    },
-  },
-  getters: {
-    isSearchExpanded(state) {
-      const { terms, title, author, yearStart, yearEnd, genreform } =
-        state.query;
-      const hasTermsInput = terms.length > 0;
-      const hasMoreInput = title || author || yearStart || yearEnd || genreform;
-      const expandSearchAuto = hasMoreInput ? 2 : hasTermsInput ? 1 : 0;
-      return Math.max(state.expandSearch, expandSearchAuto);
     },
   },
 });

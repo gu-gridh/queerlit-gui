@@ -1,6 +1,18 @@
 <template>
-  <SearchForm @search="search" />
-  <div class="flex-1 container lg:max-w-screen-xl">
+  <div class="lg:w-1/2 lg:max-w-screen-sm"></div>
+  <div
+    class="
+      bg-pink-50
+      text-gray-600
+      lg:w-1/2 lg:max-w-screen-sm lg:fixed
+      h-full
+      overflow-y-auto
+    "
+  >
+    <PageHeader />
+    <SearchForm @search="search" />
+  </div>
+  <div class="flex-1">
     <Results />
   </div>
 </template>
@@ -10,6 +22,7 @@ import { onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import useQuery from "@/composables/query";
 import { search as librisSearch } from "@/services/libris";
+import PageHeader from "@/components/PageHeader.vue";
 import SearchForm from "@/components/SearchForm.vue";
 import Results from "@/components/Results.vue";
 
