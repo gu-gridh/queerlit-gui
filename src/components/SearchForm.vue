@@ -94,22 +94,36 @@
 </template>
 
 <script setup>
+import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/composables/query";
-import { getTerms, searchGenreform, searchPerson } from "@/services/libris";
-import { computed, ref } from "@vue/reactivity";
+import {
+  getTerms,
+  search as librisSearch,
+  searchGenreform,
+  searchPerson,
+} from "@/services/libris";
+import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useTerms from "@/composables/terms";
-import Term from "./Term.vue";
-import YearFilter from "./YearFilter.vue";
-import TermCombobox from "./TermCombobox.vue";
-import QButton from "./QButton.vue";
-import Autocomplete from "./Autocomplete.vue";
+import Term from "@/components/Term.vue";
+import YearFilter from "@/components/YearFilter.vue";
+import TermCombobox from "@/components/TermCombobox.vue";
+import QButton from "@/components/QButton.vue";
+import Autocomplete from "@/components/Autocomplete.vue";
 
 const store = useStore();
 const emit = defineEmits(["search"]);
 
-const { text, title, author, yearStart, yearEnd, genreform, setQuery } =
-  useQuery();
+const {
+  text,
+  terms: termsQ,
+  title,
+  author,
+  yearStart,
+  yearEnd,
+  genreform,
+  setQuery,
+} = useQuery();
 const terms = useTerms();
 const termSuggestions = ref([]);
 
@@ -152,9 +166,20 @@ function removeTerm(term) {
   search();
 }
 
-function search(event) {
-  emit("search");
+async function search() {
+  const { items } = await librisSearch(
+    text.value,
+    termsQ.value.map((term) => term.label),
+    title.value,
+    author.value,
+    yearStart.value,
+    yearEnd.value,
+    genreform.value
+  );
+  store.commit("setResults", items);
 }
+
+onMounted(search());
 </script>
 
 <style scoped>

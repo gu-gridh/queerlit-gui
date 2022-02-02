@@ -1,14 +1,23 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Search from "@/views/Search.vue";
+import SearchForm from "@/components/SearchForm.vue";
+import Results from "@/components/Results.vue";
 
 const routes = [
   {
     path: "/",
-    component: Search,
+    components: {
+      side: SearchForm,
+      default: Results,
+    },
   },
   {
     path: "/verk/:id",
     component: () => import(/* webpackChunkName: "work" */ "@/views/Work.vue"),
+  },
+  {
+    path: "/ao",
+    component: () =>
+      import(/* webpackChunkName: "ao" */ "@/views/Thesaurus.vue"),
   },
   {
     path: "/ao/:id",
