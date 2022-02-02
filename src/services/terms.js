@@ -13,6 +13,10 @@ export function autocomplete(input) {
   }, []);
 }
 
+export function getTerm(id) {
+  return termData[id];
+}
+
 export function getChildren(parent) {
   return Object.values(termData)
     .filter((child) => child.parents && child.parents.includes(parent.id))
