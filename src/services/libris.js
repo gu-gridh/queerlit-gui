@@ -36,34 +36,18 @@ export async function search(
     params["max-publication.year"] = yearEnd;
   }
 
+  params["@reverse.itemOf.heldBy.@id"] = "https://libris.kb.se/library/QLIT";
+  params["_limit"] = 20;
+
   console.log("params", params);
+  const response = await xlFindBooks(params);
 
-  const params1 = new URLSearchParams(params);
-  const params2 = new URLSearchParams(params);
-
-  BOOKS.forEach((book) => {
-    book.id.match(/[a-z]/)
-      ? params2.append("meta.@id", `https://libris-qa.kb.se/${book.id}`)
-      : params1.append(
-          "sameAs.@id",
-          `http://libris.kb.se/resource/bib/${book.id}`
-        );
-  });
-
-  const [response1, response2] = await Promise.all([
-    xlFindBooks(params1),
-    xlFindBooks(params2),
-  ]);
-
-  const response = {
-    total: response1.totalItems + response2.totalItems,
-    items: [...response1.items, ...response2.items],
+  const result = {
+    total: response.totalItems,
+    // Do filtering that the API cannot do.
+    items: response.items.filter((item) => responseFilter(item, terms)),
   };
-
-  // Do filtering that the API cannot do.
-  response.items = response.items.filter((item) => responseFilter(item, terms));
-
-  return response;
+  return result;
 }
 
 export async function get(id) {
