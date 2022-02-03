@@ -1,12 +1,10 @@
 <template>
-  <div class="bg-pink-600 flex mb-12">
-    <div class="ml-0 p-4 bg-pink-700 text-white rounded-r-xl -mb-7">
-      <router-link to="/" class="flex items-center">
-        &laquo; Tillbaka till sökning
-      </router-link>
-    </div>
+  <div class="p-6">
+    <router-link to="/" class="flex items-center">
+      &laquo; Tillbaka till sökning
+    </router-link>
   </div>
-  <div v-if="work" class="container xl:max-w-screen-xl py-8">
+  <div v-if="work" class="container xl:max-w-screen-xl">
     <div class="clearfix">
       <h2 class="text-3xl">{{ work.title }}</h2>
       <div class="float-right pl-4">
@@ -45,7 +43,7 @@
       </Labeled>
     </div>
     <blockquote class="flex items-center my-4 mt-0 p-4">
-      <p class="whitespace-nowrap overflow-hidden flex-1 mr-4 italic">
+      <p class="flex-1 mr-4 italic">
         Tider af dueller och dubbel-jalousier, hvilka tider likväl af
         intressanta äfventyr, hvilka tider af storm kring lockarna och eld i
         hjertat?

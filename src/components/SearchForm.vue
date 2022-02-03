@@ -110,8 +110,10 @@ import YearFilter from "@/components/YearFilter.vue";
 import TermCombobox from "@/components/TermCombobox.vue";
 import QButton from "@/components/QButton.vue";
 import Autocomplete from "@/components/Autocomplete.vue";
+import { useRouter } from "vue-router";
 
 const store = useStore();
+const router = useRouter();
 const emit = defineEmits(["search"]);
 
 const {
@@ -167,6 +169,7 @@ function removeTerm(term) {
 }
 
 async function search() {
+  router.push("/");
   if (!store.getters.isSearching) {
     const params = [
       text.value,

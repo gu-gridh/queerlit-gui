@@ -13,7 +13,10 @@ const routes = [
   },
   {
     path: "/verk/:id",
-    component: () => import(/* webpackChunkName: "work" */ "@/views/Work.vue"),
+    components: {
+      side: SearchForm,
+      default: () => import(/* webpackChunkName: "work" */ "@/views/Work.vue"),
+    },
   },
   {
     path: "/ao",

@@ -5,8 +5,7 @@
       class="
         bg-gray-300
         text-gray-600
-        lg:w-1/2 lg:max-w-screen-sm lg:fixed
-        h-full
+        lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full
         overflow-y-auto
       "
     >
