@@ -40,13 +40,26 @@ export async function search(
   params["_limit"] = 20;
 
   console.log("params", params);
-  const response = await xlFindBooks(params);
 
+  // Iteratively do local filtering and page until the limit is reached.
   const result = {
-    total: response.totalItems,
-    // Do filtering that the API cannot do.
-    items: response.items.filter((item) => responseFilter(item, terms)),
+    total: 0,
+    items: [],
   };
+  let offset = 0;
+  while (result.items.length < 20 && offset <= result.total) {
+    const response = await xlFindBooks({ ...params, _offset: offset });
+    result.total = response.totalItems;
+    const items = response.items.filter((item) => responseFilter(item, terms));
+    if (items.length) {
+      console.log(`Found ${items.length} new items on offset ${offset}`);
+    }
+    result.items.push(...items);
+    offset += 20;
+  }
+  // Remove tail in case the last reponse surpassed the limit.
+  result.items.splice(20);
+
   return result;
 }
 

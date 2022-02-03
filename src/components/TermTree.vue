@@ -5,10 +5,6 @@
   </div>
 </template>
 
-<script>
-export default { name: "TermTree" };
-</script>
-
 <script setup>
 import { onMounted, ref } from "@vue/runtime-core";
 import useTerms from "@/composables/terms";
