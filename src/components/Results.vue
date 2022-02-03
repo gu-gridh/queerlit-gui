@@ -1,5 +1,8 @@
 <template>
-  <div v-if="results">
+  <div v-if="isSearching" class="p-4 py-10 text-center">
+    <icon icon="spinner" size="6x" spin />
+  </div>
+  <div v-else-if="results">
     <div class="flex p-4">
       <div class="w-1/3">{{ results.length }} träffar</div>
       <div class="w-1/3 text-center">◀ 1 2 3 ▶</div>
@@ -30,6 +33,6 @@ import WorkHit from "@/components/WorkHit.vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-
 const results = computed(() => store.state.results);
+const isSearching = computed(() => store.getters.isSearching);
 </script>

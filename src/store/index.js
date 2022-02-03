@@ -13,6 +13,7 @@ export default createStore({
         genreform: "",
       },
       results: null,
+      currentSearch: null,
     };
   },
   mutations: {
@@ -28,8 +29,14 @@ export default createStore({
       if (yearEnd !== undefined) state.query.yearEnd = parseInt(yearEnd);
       if (genreform !== undefined) state.query.genreform = genreform;
     },
+    setSearching(state, query) {
+      state.currentSearch = query ? JSON.stringify(query) : null;
+    },
     setResults(state, results) {
       state.results = results;
     },
+  },
+  getters: {
+    isSearching: (state) => state.currentSearch != null,
   },
 });

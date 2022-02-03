@@ -167,16 +167,21 @@ function removeTerm(term) {
 }
 
 async function search() {
-  const { items } = await librisSearch(
-    text.value,
-    termsQ.value.map((term) => term.label),
-    title.value,
-    author.value,
-    yearStart.value,
-    yearEnd.value,
-    genreform.value
-  );
-  store.commit("setResults", items);
+  if (!store.getters.isSearching) {
+    const params = [
+      text.value,
+      termsQ.value.map((term) => term.label),
+      title.value,
+      author.value,
+      yearStart.value,
+      yearEnd.value,
+      genreform.value,
+    ];
+    store.commit("setSearching", params);
+    const { items } = await librisSearch(...params);
+    store.commit("setResults", items);
+    store.commit("setSearching", false);
+  }
 }
 
 onMounted(search());
