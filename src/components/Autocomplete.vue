@@ -22,22 +22,26 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
+import { watch } from "@vue/runtime-core";
 
 const props = defineProps(["suggest", "getLabel", "getId"]);
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
+const value = ref(null);
 
 async function change() {
-  emit("change", null);
+  value.value = null;
   suggestions.value = await props.suggest(input.value);
 }
 
 function setValue(item) {
   input.value = props.getLabel ? props.getLabel(item) : item;
   suggestions.value = [];
-  emit("change", item);
+  value.value = item;
 }
+
+watch(value, (x) => emit("change", x));
 </script>
 
 <style></style>
