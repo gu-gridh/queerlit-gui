@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/verk/${id}`" class="block p-4">
+  <router-link :to="`/verk/${id}`" class="block py-2 px-6 hover:bg-gray-50">
     <article class="block flex items-baseline">
       <div class="w-4 mr-2">{{ i }}</div>
       <div class="flex-1 flex flex-wrap items-baseline">

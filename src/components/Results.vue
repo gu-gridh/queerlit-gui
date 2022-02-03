@@ -1,9 +1,9 @@
 <template>
-  <div v-if="isSearching" class="p-4 py-10 text-center">
+  <div v-if="isSearching" class="p-6 py-10 text-center">
     <icon icon="spinner" size="6x" spin />
   </div>
   <div v-else-if="results">
-    <div class="flex p-4">
+    <div class="flex p-6">
       <div class="w-1/3">{{ results.length }} träffar</div>
       <div class="w-1/3 text-center">◀ 1 2 3 ▶</div>
       <div class="w-1/3 text-right">

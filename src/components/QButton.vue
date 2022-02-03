@@ -1,5 +1,5 @@
 <template>
-  <button class="q-button bg-pink-600 text-white rounded cursor-pointer">
+  <button class="q-button bg-gray-500 text-white rounded cursor-pointer">
     <slot />
   </button>
 </template>
