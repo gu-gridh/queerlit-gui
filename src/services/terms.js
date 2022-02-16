@@ -44,6 +44,13 @@ const termData = {
     alt: ["Smygbögar"],
     parents: ["bögar"],
   },
+  homosexuella: {
+    label: "Homosexuella",
+    scopeNote:
+      "Används för skildringar av personer som identifierar sig som, eller av andra identifieras som, homosexuella.",
+    parents: ["HBTQIPersoner"],
+    related: ["homosexualitet", "homofobi", "homosexuellaGemenskaper"],
+  },
   lesbiska: {
     label: "Lesbiska",
     alt: ["Homosexuella kvinnor", "Lesbiska kvinnor", "Lesbianer"],
@@ -71,6 +78,8 @@ const termData = {
   },
   HBTQIPersoner: {
     label: "HBTQI-personer",
+    scopeNote:
+      "Används för skildringar av personer som identifierar sig som, eller av andra identifieras som, homosexuella, bisexuella, transpersoner, queera och/eller intersexpersoner.",
     alt: ["HBT-personer", "HBTQ-personer", "Sexuella minoriteter"],
   },
   transpersoner: {

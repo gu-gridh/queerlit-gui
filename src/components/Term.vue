@@ -8,7 +8,6 @@
       leading-snug
       bg-yellow-200
       border border-yellow-300
-      rounded
       text-black
     "
   >

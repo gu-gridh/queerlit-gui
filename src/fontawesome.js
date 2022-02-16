@@ -4,11 +4,12 @@
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faTimes,
+  faMinus,
   faPlus,
   faSitemap,
   faSpinner,
   faStream,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faTimes, faPlus, faSitemap, faSpinner, faStream);
+library.add(faMinus, faPlus, faSitemap, faSpinner, faStream, faTimes);

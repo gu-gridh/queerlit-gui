@@ -1,5 +1,15 @@
 <template>
-  <TermTree v-for="term in rootTerms" :key="term.id" :parent="term" />
+  <div class="container">
+    <h1 class="text-2xl">Tesaurus</h1>
+  </div>
+  <div class="container">
+    <TermTree
+      v-for="term in rootTerms"
+      :key="term.id"
+      :parent="term"
+      :level="0"
+    />
+  </div>
 </template>
 
 <script setup>

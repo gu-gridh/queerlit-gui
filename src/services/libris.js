@@ -14,10 +14,7 @@ export async function search(
   const params = { q };
 
   if (author) {
-    // params[instanceOf.contribution.agent.]
-    ["givenName", "familyName", "name", "label"].forEach(
-      (prop) => (params["or-instanceOf.contribution.agent.@id"] = author["@id"])
-    );
+    params["instanceOf.contribution.agent.@id"] = author["@id"];
   }
 
   if (title) {
