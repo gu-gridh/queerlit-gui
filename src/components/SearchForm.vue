@@ -4,20 +4,7 @@
       <div class="my-4 text-xl">
         <label class="uppercase font-bold text-sm hidden">Fritext</label>
         <div class="mb-2 border rounded flex-1 bg-white">
-          <input
-            type="search"
-            :value="text"
-            placeholder="Sök här..."
-            @keyup="textChange"
-            @keyup.enter="search"
-            class="w-full p-4 bg-transparent text-black"
-          />
-          <div class="relative h-0">
-            <FreetextAutocomplete
-              :terms="termSuggestions"
-              @chooseTerm="addTerm"
-            />
-          </div>
+          <Freetext @search="search" />
         </div>
       </div>
 
@@ -86,10 +73,9 @@
 import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/composables/query";
 import { searchGenreform, searchPerson } from "@/services/libris";
-import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useTerms from "@/composables/terms";
-import FreetextAutocomplete from "./FreetextAutocomplete.vue";
+import Freetext from "./Freetext.vue";
 import YearFilter from "@/components/YearFilter.vue";
 import TermCombobox from "@/components/TermCombobox.vue";
 import QButton from "@/components/QButton.vue";
@@ -99,16 +85,8 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const { text, title, yearStart, yearEnd, setQuery, serializedQuery } =
-  useQuery();
+const { title, yearStart, yearEnd, setQuery, serializedQuery } = useQuery();
 const terms = useTerms();
-const termSuggestions = ref([]);
-
-function textChange(event) {
-  setQuery({ text: event.target.value });
-  const lastWord = text.value.split(" ").pop();
-  termSuggestions.value = lastWord ? terms.autocomplete(lastWord) : [];
-}
 
 function titleChange(event) {
   setQuery({ title: event.target.value });
@@ -128,16 +106,6 @@ function setGenreform(genreform) {
   search();
 }
 
-function addTerm(term) {
-  terms.add(term);
-  store.commit("setQuery", {
-    // Remove last word from text.
-    text: String(text.value).split(" ").slice(0, -1).join(" "),
-  });
-  search();
-  termSuggestions.value = [];
-}
-
 function removeTerm(term) {
   terms.remove(term);
   search();
@@ -154,9 +122,3 @@ async function search() {
 
 onMounted(search());
 </script>
-
-<style scoped>
-details[open] summary {
-  opacity: 0.5;
-}
-</style>
