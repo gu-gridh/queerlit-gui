@@ -17,7 +17,11 @@
       {{ parent.scopeNote }}
     </div>
 
-    <div v-if="children.length" @click="toggleExpanded" class="my-2 text-sm">
+    <div
+      v-if="children.length"
+      @click="toggleExpanded"
+      class="my-2 text-sm cursor-pointer"
+    >
       <span v-if="expanded">
         <icon icon="minus" size="xs" /> Göm undertermer
       </span>

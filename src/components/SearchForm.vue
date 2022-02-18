@@ -96,12 +96,7 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/composables/query";
-import {
-  getTerms,
-  search as librisSearch,
-  searchGenreform,
-  searchPerson,
-} from "@/services/libris";
+import { searchGenreform, searchPerson } from "@/services/libris";
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useTerms from "@/composables/terms";
@@ -114,18 +109,9 @@ import { useRouter } from "vue-router";
 
 const store = useStore();
 const router = useRouter();
-const emit = defineEmits(["search"]);
 
-const {
-  text,
-  terms: termsQ,
-  title,
-  author,
-  yearStart,
-  yearEnd,
-  genreform,
-  setQuery,
-} = useQuery();
+const { text, title, yearStart, yearEnd, setQuery, serializedQuery } =
+  useQuery();
 const terms = useTerms();
 const termSuggestions = ref([]);
 
@@ -171,19 +157,9 @@ function removeTerm(term) {
 async function search() {
   router.push("/");
   if (!store.getters.isSearching) {
-    const params = [
-      text.value,
-      termsQ.value.map((term) => term.label),
-      title.value,
-      author.value,
-      yearStart.value,
-      yearEnd.value,
-      genreform.value,
-    ];
-    store.commit("setSearching", params);
-    const { items } = await librisSearch(...params);
-    store.commit("setResults", items);
-    store.commit("setSearching", false);
+    store.commit("setSearching", serializedQuery.value);
+    store.commit("setOffset", 0);
+    store.dispatch("search");
   }
 }
 

@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { search } from "@/services/libris";
 
 export default createStore({
   state() {
@@ -13,6 +14,8 @@ export default createStore({
         genreform: "",
       },
       results: null,
+      total: 0,
+      offset: 0,
       currentSearch: null,
     };
   },
@@ -35,8 +38,33 @@ export default createStore({
     setResults(state, results) {
       state.results = results;
     },
+    setTotal(state, total) {
+      state.total = total;
+    },
+    setOffset(state, offset) {
+      state.offset = offset;
+    },
   },
   getters: {
     isSearching: (state) => state.currentSearch != null,
+  },
+  actions: {
+    /** Search Libris using the query, then set results. */
+    async search({ commit, state }) {
+      const query = state.query;
+      const { items, total } = await search(
+        query.text,
+        query.terms,
+        query.title,
+        query.author,
+        query.yearStart,
+        query.yearEnd,
+        query.genreform,
+        state.offset
+      );
+      commit("setResults", items);
+      commit("setTotal", total);
+      commit("setSearching", false);
+    },
   },
 });

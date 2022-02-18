@@ -7,7 +7,8 @@ export async function search(
   author,
   yearStart,
   yearEnd,
-  genreform
+  genreform,
+  offset = 0
 ) {
   // "q" is the free text parameter
   const q = text || "*";
@@ -34,16 +35,16 @@ export async function search(
   }
 
   params["@reverse.itemOf.heldBy.@id"] = "https://libris.kb.se/library/QLIT";
+  params["_offset"] = offset;
   params["_limit"] = 20;
 
   console.log("params", params);
 
   // Iteratively do local filtering and page until the limit is reached.
   const result = {
-    total: 0,
+    total: Infinity,
     items: [],
   };
-  let offset = 0;
   while (result.items.length < 20 && offset <= result.total) {
     const response = await xlFindBooks({ ...params, _offset: offset });
     result.total = response.totalItems;

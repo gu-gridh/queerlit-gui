@@ -16,6 +16,18 @@ export default function useQuery() {
     store.commit("setQuery", obj);
   }
 
+  const serializedQuery = computed(() =>
+    JSON.stringify([
+      text.value,
+      terms.value.map((term) => term.label),
+      title.value,
+      author.value,
+      yearStart.value,
+      yearEnd.value,
+      genreform.value,
+    ])
+  );
+
   return {
     text,
     terms,
@@ -25,5 +37,6 @@ export default function useQuery() {
     yearEnd,
     genreform,
     setQuery,
+    serializedQuery,
   };
 }
