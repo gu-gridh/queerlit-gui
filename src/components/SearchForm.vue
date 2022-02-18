@@ -13,21 +13,10 @@
             class="w-full p-4 bg-transparent text-black"
           />
           <div class="relative h-0">
-            <div
-              v-if="termSuggestions.length"
-              class="absolute top-0 bg-white p-2 px-4 shadow rounded-b"
-            >
-              <div class="text-sm mb-2">Sök på ämnesord:</div>
-              <Term
-                v-for="{ term } in termSuggestions"
-                :key="term.id"
-                class="mr-2"
-                @click="addTerm(term)"
-              >
-                {{ term.label }}
-                <icon icon="plus" size="xs" />
-              </Term>
-            </div>
+            <FreetextAutocomplete
+              :terms="termSuggestions"
+              @chooseTerm="addTerm"
+            />
           </div>
         </div>
       </div>
@@ -100,7 +89,7 @@ import { searchGenreform, searchPerson } from "@/services/libris";
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useTerms from "@/composables/terms";
-import Term from "@/components/Term.vue";
+import FreetextAutocomplete from "./FreetextAutocomplete.vue";
 import YearFilter from "@/components/YearFilter.vue";
 import TermCombobox from "@/components/TermCombobox.vue";
 import QButton from "@/components/QButton.vue";
@@ -118,7 +107,7 @@ const termSuggestions = ref([]);
 function textChange(event) {
   setQuery({ text: event.target.value });
   const lastWord = text.value.split(" ").pop();
-  termSuggestions.value = terms.autocomplete(lastWord);
+  termSuggestions.value = lastWord ? terms.autocomplete(lastWord) : [];
 }
 
 function titleChange(event) {
