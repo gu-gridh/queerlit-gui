@@ -7,9 +7,9 @@
     }"
   >
     <div>
-      <span class="text-lg font-bold">{{ parent.label }}</span>
-      <span v-if="parent.alt" class="ml-4">
-        (även: {{ parent.alt.join(", ") }})
+      <span class="text-lg font-bold">{{ parent.prefLabel }}</span>
+      <span v-if="parent.altLabel" class="ml-4">
+        (även: {{ parent.altLabel.join(", ") }})
       </span>
     </div>
 
@@ -57,7 +57,7 @@ onMounted(() => {
 
 const toggleExpanded = () => (expanded.value = !expanded.value);
 
-const isRoot = computed(() => !props.parent.parents);
+const isRoot = computed(() => !props.parent.broader);
 
 // 333° is the hue for Tailwind's pink-600
 // 92° is approximately ϕ radians, which gives suitable steps around the hue circle.

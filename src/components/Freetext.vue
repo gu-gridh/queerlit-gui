@@ -54,7 +54,7 @@ watchEffect(() => {
           class="mx-2"
           @click="addTerm(term)"
         >
-          {{ term.label }}
+          {{ term.prefLabel }}
           <icon icon="plus" size="xs" />
         </Term>
       </div>

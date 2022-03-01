@@ -7,7 +7,7 @@
         class="mr-2 mb-2"
         @click="remove(term)"
       >
-        {{ term.label }}
+        {{ term.prefLabel }}
         <icon icon="times" size="xs" />
       </Term>
       <input
@@ -41,7 +41,7 @@
           {{ altMatch }}
         </span>
         <Term @click="add(term)">
-          {{ term.label }}
+          {{ term.prefLabel }}
           <icon icon="plus" size="xs" />
         </Term>
         <div class="flex-1"></div>
@@ -100,7 +100,7 @@ function removeLast(event) {
 }
 
 function drilldown(term) {
-  setSuggestions(getChildren(term), `Termer under <em>${term.label}</em>`);
+  setSuggestions(getChildren(term), `Termer under <em>${term.prefLabel}</em>`);
 }
 
 function unfocus() {

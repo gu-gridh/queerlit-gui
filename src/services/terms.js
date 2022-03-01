@@ -6,8 +6,8 @@ export function autocomplete(input) {
       .split(/\s+/)
       .some((word) => word.indexOf(input.toLowerCase()) === 0);
   return Object.values(termData).reduce((results, term) => {
-    const altMatch = term.alt && term.alt.find(match);
-    if (!match(term.label) && !altMatch) return results;
+    const altMatch = term.altLabel && term.altLabel.find(match);
+    if (!match(term.prefLabel) && !altMatch) return results;
     results.push({ term, altMatch });
     return results;
   }, []);
@@ -19,80 +19,80 @@ export function getTerm(id) {
 
 export function getChildren(parent) {
   return Object.values(termData)
-    .filter((child) => child.parents && child.parents.includes(parent.id))
+    .filter((child) => child.broader && child.broader.includes(parent.id))
     .map((term) => ({ term }));
 }
 
 export function getRoots() {
   return Object.values(termData)
-    .filter((term) => !term.parents || !term.parents.length)
+    .filter((term) => !term.broader || !term.broader.length)
     .map((term) => ({ term }));
 }
 
 const termData = {
   bisexualitet: {
-    label: "Bisexualitet",
-    parents: ["sexuellLäggning"],
+    prefLabel: "Bisexualitet",
+    broader: ["sexuellLäggning"],
     related: ["homosexualitet", "bisexuella", "polysexualitet"],
   },
   bögar: {
-    label: "Bögar",
-    parents: ["män", "homosexuella"],
+    prefLabel: "Bögar",
+    broader: ["män", "homosexuella"],
   },
   garderobsbögar: {
-    label: "Garderobsbögar",
-    alt: ["Smygbögar"],
-    parents: ["bögar"],
+    prefLabel: "Garderobsbögar",
+    altLabel: ["Smygbögar"],
+    broader: ["bögar"],
   },
   homosexuella: {
-    label: "Homosexuella",
+    prefLabel: "Homosexuella",
     scopeNote:
       "Används för skildringar av personer som identifierar sig som, eller av andra identifieras som, homosexuella.",
-    parents: ["HBTQIPersoner"],
+    broader: ["HBTQIPersoner"],
     related: ["homosexualitet", "homofobi", "homosexuellaGemenskaper"],
   },
   lesbiska: {
-    label: "Lesbiska",
-    alt: ["Homosexuella kvinnor", "Lesbiska kvinnor", "Lesbianer"],
-    parents: ["kvinnor", "homosexuella"],
+    prefLabel: "Lesbiska",
+    altLabel: ["Homosexuella kvinnor", "Lesbiska kvinnor", "Lesbianer"],
+    broader: ["kvinnor", "homosexuella"],
   },
   föräldrarHBTQI: {
-    label: "Föräldrar (HBTQI)",
-    parents: ["familjemedlemmar", "HBTQIFamiljer"],
+    prefLabel: "Föräldrar (HBTQI)",
+    broader: ["familjemedlemmar", "HBTQIFamiljer"],
   },
   HBTQIFamiljer: {
-    label: "HBTQI-familjer",
+    prefLabel: "HBTQI-familjer",
   },
   ungaTranspersoner: {
-    label: "Unga transpersoner",
-    alt: ["Transungdomar", "Transtonåringar"],
-    parents: ["HBTQIUngdomar", "transpersoner"],
+    prefLabel: "Unga transpersoner",
+    altLabel: ["Transungdomar", "Transtonåringar"],
+    broader: ["HBTQIUngdomar", "transpersoner"],
   },
   äldreTranspersoner: {
-    label: "Äldre transpersoner",
-    parents: ["äldreHBTQIPersoner", "transpersoner"],
+    prefLabel: "Äldre transpersoner",
+    broader: ["äldreHBTQIPersoner", "transpersoner"],
   },
   äldreHBTQIPersoner: {
-    label: "Äldre HBTQI-personer",
-    parents: ["HBTQIPersoner"],
+    prefLabel: "Äldre HBTQI-personer",
+    broader: ["HBTQIPersoner"],
   },
   HBTQIPersoner: {
-    label: "HBTQI-personer",
+    prefLabel: "HBTQI-personer",
     scopeNote:
       "Används för skildringar av personer som identifierar sig som, eller av andra identifieras som, homosexuella, bisexuella, transpersoner, queera och/eller intersexpersoner.",
-    alt: ["HBT-personer", "HBTQ-personer", "Sexuella minoriteter"],
+    altLabel: ["HBT-personer", "HBTQ-personer", "Sexuella minoriteter"],
   },
   transpersoner: {
-    label: "Transpersoner",
-    alt: ["Trans", "Trans*"],
-    parents: ["HBTQIPersoner", "könsidentitet"],
+    prefLabel: "Transpersoner",
+    altLabel: ["Trans", "Trans*"],
+    broader: ["HBTQIPersoner", "könsidentitet"],
   },
   könsidentitet: {
-    label: "Könsidentitet",
-    parents: ["kön"],
+    prefLabel: "Könsidentitet",
+    broader: ["kön"],
   },
   kön: {
-    label: "Kön",
+    prefLabel: "Kön",
     related: [
       "passeraKön",
       "genderbending",
@@ -103,14 +103,14 @@ const termData = {
     ],
   },
   transkvinnor: {
-    label: "Transkvinnor",
-    alt: ["Trans-kvinnor"],
-    parents: ["kvinnor", "transpersoner"],
+    prefLabel: "Transkvinnor",
+    altLabel: ["Trans-kvinnor"],
+    broader: ["kvinnor", "transpersoner"],
   },
   transmän: {
-    label: "Transmän",
-    alt: ["Trans-män"],
-    parents: ["män", "transpersoner"],
+    prefLabel: "Transmän",
+    altLabel: ["Trans-män"],
+    broader: ["män", "transpersoner"],
   },
 };
 
