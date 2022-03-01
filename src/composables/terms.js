@@ -15,8 +15,8 @@ export default function useTerms() {
     setQuery({ terms: terms.value.filter((term2) => term2.id != term.id) });
   }
 
-  function hasChildren(term) {
-    return getChildren(term).length;
+  async function hasChildren(term) {
+    return (await getChildren(term)).length;
   }
 
   return {

@@ -1,4 +1,4 @@
-export function autocomplete(input) {
+export async function autocomplete(input) {
   if (!input) return [];
   const match = (label) =>
     label
@@ -13,17 +13,17 @@ export function autocomplete(input) {
   }, []);
 }
 
-export function getTerm(id) {
+export async function getTerm(id) {
   return termData[id];
 }
 
-export function getChildren(parent) {
+export async function getChildren(parent) {
   return Object.values(termData)
     .filter((child) => child.broader && child.broader.includes(parent.id))
     .map((term) => ({ term }));
 }
 
-export function getRoots() {
+export async function getRoots() {
   return Object.values(termData)
     .filter((term) => !term.broader || !term.broader.length)
     .map((term) => ({ term }));

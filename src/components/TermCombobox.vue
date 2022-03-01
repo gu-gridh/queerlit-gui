@@ -73,11 +73,11 @@ const input = ref("");
 const suggestions = ref([]);
 const suggestionsHeading = ref("");
 
-function suggest() {
+async function suggest() {
   if (input.value) {
-    setSuggestions(autocomplete(input.value), "Menar du:");
+    setSuggestions(await autocomplete(input.value), "Menar du:");
   } else {
-    setSuggestions(getRoots(), "Topptermer");
+    setSuggestions(await getRoots(), "Topptermer");
   }
 }
 
@@ -99,8 +99,8 @@ function removeLast(event) {
   if (lastTerm) remove(lastTerm);
 }
 
-function drilldown(term) {
-  setSuggestions(getChildren(term), `Termer under <em>${term.prefLabel}</em>`);
+async function drilldown(term) {
+  setSuggestions(await getChildren(term), `Termer under <em>${term.prefLabel}</em>`);
 }
 
 function unfocus() {

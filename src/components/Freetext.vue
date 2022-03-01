@@ -26,9 +26,9 @@ function addTerm(term) {
   emit("search");
 }
 
-watchEffect(() => {
+watchEffect(async () => {
   const lastWord = text.value.split(" ").pop();
-  termSuggestions.value = lastWord ? terms.autocomplete(lastWord) : [];
+  termSuggestions.value = lastWord ? await terms.autocomplete(lastWord) : [];
 });
 </script>
 

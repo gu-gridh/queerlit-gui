@@ -51,8 +51,8 @@ const { getChildren } = useTerms();
 const children = ref([]);
 const expanded = ref(props.expanded);
 
-onMounted(() => {
-  children.value = getChildren(props.parent).map(({ term }) => term);
+onMounted(async () => {
+  children.value = (await getChildren(props.parent)).map(({ term }) => term);
 });
 
 const toggleExpanded = () => (expanded.value = !expanded.value);

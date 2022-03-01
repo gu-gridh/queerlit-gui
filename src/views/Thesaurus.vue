@@ -20,8 +20,8 @@ import TermTree from "@/components/TermTree.vue";
 const { getRoots } = useTerms();
 const rootTerms = ref([]);
 
-onMounted(() => {
-  rootTerms.value = getRoots().map(({ term }) => term);
+onMounted(async () => {
+  rootTerms.value = (await getRoots()).map(({ term }) => term);
 });
 </script>
 
