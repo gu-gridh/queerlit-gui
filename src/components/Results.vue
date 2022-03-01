@@ -8,8 +8,8 @@
       <Pagination
         :current="offset / 20 + 1"
         :last="total / 20"
-        @change="setPage"
         class="w-1/3"
+        @change="setPage"
       />
       <div class="w-1/3 text-right">
         Sortering:
@@ -33,8 +33,8 @@
       <Pagination
         :current="offset / 20 + 1"
         :last="total / 20"
-        @change="setPage"
         class="w-1/3 mx-auto"
+        @change="setPage"
       />
     </div>
   </div>

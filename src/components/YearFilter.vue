@@ -3,15 +3,15 @@
     <div class="flex justify-between">
       <input
         :value="startD"
-        @change="startTextChange"
         size="4"
         class="text-sm text-black p-1 px-2 border rounded"
+        @change="startTextChange"
       />
       <input
         :value="endD"
-        @change="endTextChange"
         size="4"
         class="text-sm text-black p-1 px-2 border rounded"
+        @change="endTextChange"
       />
     </div>
 

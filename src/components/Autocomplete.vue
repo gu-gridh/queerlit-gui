@@ -1,18 +1,18 @@
 <template>
   <input
-    type="search"
     v-model="input"
+    type="search"
     autocomplete="off"
-    @keyup="change"
     class="block w-full border rounded text-lg text-black py-1 px-2"
+    @keyup="change"
   />
   <div v-show="suggestions.length" class="relative h-0">
     <div class="bg-white p-1 shadow rounded-b">
       <div
         v-for="item in suggestions"
         :key="getId ? getId(item) : item"
-        @click="setValue(item)"
         class="hover:bg-blue-50 cursor-pointer"
+        @click="setValue(item)"
       >
         {{ getLabel ? getLabel(item) : item }}
       </div>

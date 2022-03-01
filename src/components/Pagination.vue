@@ -28,8 +28,8 @@ const goto = (page) =>
   <div class="flex">
     <span
       v-if="current > 1"
-      @click="goto(current - 1)"
       class="mx-2 cursor-pointer"
+      @click="goto(current - 1)"
     >
       ◀
     </span>
@@ -38,7 +38,7 @@ const goto = (page) =>
     <span class="flex-1 text-center">
       <template v-for="page in gotoable" :key="page">
         <span v-if="current == page" class="mx-2 underline">{{ page }}</span>
-        <span v-else @click="goto(page)" class="mx-2 cursor-pointer">
+        <span v-else class="mx-2 cursor-pointer" @click="goto(page)">
           {{ page }}
         </span>
       </template>
@@ -46,8 +46,8 @@ const goto = (page) =>
 
     <span
       v-if="current < Math.ceil(last)"
-      @click="goto(current + 1)"
       class="mx-2 cursor-pointer"
+      @click="goto(current + 1)"
     >
       ▶
     </span>

@@ -37,9 +37,9 @@ watchEffect(async () => {
     type="search"
     :value="text"
     placeholder="Sök här..."
+    class="w-full p-4 bg-transparent text-black"
     @keyup="textChange"
     @keyup.enter="emit('search')"
-    class="w-full p-4 bg-transparent text-black"
   />
   <div class="relative h-0">
     <div

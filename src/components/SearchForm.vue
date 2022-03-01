@@ -20,11 +20,11 @@
             Titel
           </label>
           <input
+            id="search-title"
             :value="title"
+            class="block w-full border rounded text-lg text-black py-1 px-2"
             @keyup="titleChange"
             @keyup.enter="search"
-            id="search-title"
-            class="block w-full border rounded text-lg text-black py-1 px-2"
           />
         </div>
         <div class="w-full sm:w-1/2 p-2">
@@ -33,8 +33,8 @@
           </label>
           <Autocomplete
             :suggest="searchPerson"
-            :getLabel="(item) => `${item.firstname} ${item.lastname}`"
-            :getId="(item) => item.id"
+            :get-label="(item) => `${item.firstname} ${item.lastname}`"
+            :get-id="(item) => item.id"
             @change="setAuthor"
           />
         </div>
@@ -55,8 +55,8 @@
           </label>
           <Autocomplete
             :suggest="searchGenreform"
-            :getLabel="(item) => `${item.label} (${item.scheme})`"
-            :getId="(item) => item.id"
+            :get-label="(item) => `${item.label} (${item.scheme})`"
+            :get-id="(item) => item.id"
             @change="setGenreform"
           />
         </div>

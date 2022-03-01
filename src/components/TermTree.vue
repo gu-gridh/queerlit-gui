@@ -19,8 +19,8 @@
 
     <div
       v-if="children.length"
-      @click="toggleExpanded"
       class="my-2 text-sm cursor-pointer"
+      @click="toggleExpanded"
     >
       <span v-if="expanded">
         <icon icon="minus" size="xs" /> Göm undertermer

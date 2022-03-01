@@ -11,13 +11,13 @@
         <icon icon="times" size="xs" />
       </Term>
       <input
-        type="search"
         v-model="input"
+        type="search"
         :placeholder="terms.length ? 'sök fler ämnesord...' : 'sök ämnesord...'"
+        class="bg-transparent pl-1 mb-2 border border-transparent flex-1"
         @focus="suggest"
         @keyup="suggest"
         @keydown.backspace="removeLast"
-        class="bg-transparent pl-1 mb-2 border border-transparent flex-1"
       />
     </div>
   </div>
@@ -25,8 +25,8 @@
     <div class="shadow bg-white rounded-b pt-2">
       <h3
         v-if="suggestionsHeading"
-        v-html="suggestionsHeading"
         class="mb-2 px-2 text-sm"
+        v-html="suggestionsHeading"
       />
       <div
         v-for="{ term, altMatch } in suggestions"
@@ -35,8 +35,8 @@
       >
         <span
           v-if="altMatch"
-          @click="add(term)"
           class="mr-1 line-through opacity-75"
+          @click="add(term)"
         >
           {{ altMatch }}
         </span>
@@ -45,7 +45,7 @@
           <icon icon="plus" size="xs" />
         </Term>
         <div class="flex-1"></div>
-        <div v-if="hasChildren(term)" @click="drilldown(term)" class="px-1">
+        <div v-if="hasChildren(term)" class="px-1" @click="drilldown(term)">
           <icon icon="stream" size="xs" />
         </div>
       </div>
@@ -100,7 +100,10 @@ function removeLast(event) {
 }
 
 async function drilldown(term) {
-  setSuggestions(await getChildren(term), `Termer under <em>${term.prefLabel}</em>`);
+  setSuggestions(
+    await getChildren(term),
+    `Termer under <em>${term.prefLabel}</em>`
+  );
 }
 
 function unfocus() {
