@@ -1,3 +1,4 @@
+// TODO Libris: use `q`
 export async function autocomplete(input) {
   if (!input) return [];
   const match = (label) =>
@@ -13,16 +14,19 @@ export async function autocomplete(input) {
   }, []);
 }
 
+// TODO Libris: the term id is its url, fetch that or do `find?@id=<url>`
 export async function getTerm(id) {
   return termData[id];
 }
 
+// TODO Libris: `find?@type=Concept&broader.@id=<uri>`, encodeURLComponent needed, perhaps twice
 export async function getChildren(parent) {
   return Object.values(termData)
     .filter((child) => child.broader && child.broader.includes(parent.id))
     .map((term) => ({ term }));
 }
 
+// TODO Libris: `find?@type=Concept&exists-broader=false`
 export async function getRoots() {
   return Object.values(termData)
     .filter((term) => !term.broader || !term.broader.length)
