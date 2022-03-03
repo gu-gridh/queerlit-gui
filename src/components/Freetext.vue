@@ -1,12 +1,12 @@
 <script setup>
 import { watchEffect } from "@vue/runtime-core";
 import { ref } from "@vue/reactivity";
+import { useStore } from "vuex";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
-import { useStore } from "vuex";
+import Dragscroll from "./Dragscroll.vue";
 
-const props = defineProps([]);
 const emit = defineEmits(["search"]);
 const store = useStore();
 const { text, setQuery } = useQuery();
@@ -47,7 +47,7 @@ watchEffect(async () => {
       class="absolute top-0 bg-white shadow rounded-b w-full overflow-hidden"
     >
       <div class="text-sm m-2">Sök på ämnesord:</div>
-      <div class="my-2 overflow-x-auto whitespace-nowrap">
+      <Dragscroll class="my-2 overflow-hidden whitespace-nowrap">
         <Term
           v-for="{ term } in termSuggestions"
           :key="term.id"
@@ -57,7 +57,7 @@ watchEffect(async () => {
           {{ term.prefLabel }}
           <icon icon="plus" size="xs" />
         </Term>
-      </div>
+      </Dragscroll>
       <div class="text-sm m-2">Sök på ämnesord:</div>
     </div>
   </div>
