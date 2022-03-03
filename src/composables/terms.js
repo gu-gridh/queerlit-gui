@@ -1,6 +1,13 @@
 import { ref } from "@vue/reactivity";
 import useQuery from "@/composables/query";
-import { autocomplete, getTerm, getChildren, getRoots } from "@/services/terms";
+import {
+  autocomplete,
+  getTerm,
+  getParents,
+  getChildren,
+  getRelated,
+  getRoots,
+} from "@/services/terms";
 
 export default function useTerms() {
   const { terms, setQuery } = useQuery();
@@ -22,8 +29,10 @@ export default function useTerms() {
   return {
     autocomplete,
     getTerm,
+    getParents,
     getChildren,
     hasChildren,
+    getRelated,
     getRoots,
     suggestions,
     terms,

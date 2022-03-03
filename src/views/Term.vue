@@ -1,46 +1,107 @@
 <template>
-  <div class="container flex justify-around py-8 items-end">
-    <div class="w-2/3 flex">
-      <div class="w-1/4 text-right">
-        <Labeled label="Bredare">
-          <Term>Föräldrar</Term>
-        </Labeled>
-      </div>
-      <div class="w-2/4 text-center">
-        <Term class="text-2xl">Homosexuella föräldrar</Term>
-        <div class="p-4">
-          <router-link to="/" class="bg-pink-900 text-white px-2 py-1 rounded"
-            >Sök</router-link
+  <article v-if="term" class="container py-10">
+    <h2 class="text-2xl">{{ term.prefLabel }}</h2>
+    <table class="my-4">
+      <tr>
+        <th>Anvisning</th>
+        <td>{{ term.scopeNote }}</td>
+      </tr>
+      <tr v-if="term.altLabel && term.altLabel.length">
+        <th>Alternativa former</th>
+        <td>{{ term.altLabel.join(", ") }}</td>
+      </tr>
+      <tr>
+        <th>URI</th>
+        <td>https://queerlit.dh.gu.se/qlit/0.2/{{ term.id }}</td>
+      </tr>
+    </table>
+    <div class="flex flex-wrap -m-4">
+      <div class="w-1/2 p-4">
+        <Labeled label="Övergripande termer">
+          <router-link
+            v-for="term in parents"
+            :key="term.id"
+            v-slot="{ navigate }"
+            :to="`/ao/${term.id}`"
+            custom
           >
-        </div>
+            <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+              {{ term.prefLabel }}
+            </Term>
+          </router-link>
+        </Labeled>
       </div>
-      <div class="w-1/4">
-        <Labeled label="Smalare">
-          <Term>Lesbiska mödrar</Term>
+      <div class="w-1/2 p-4">
+        <Labeled label="Underordnade termer"
+          ><router-link
+            v-for="term in children"
+            :key="term.id"
+            v-slot="{ navigate }"
+            :to="`/ao/${term.id}`"
+            custom
+          >
+            <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+              {{ term.prefLabel }}
+            </Term>
+          </router-link>
         </Labeled>
       </div>
     </div>
-  </div>
-  <div class="container flex justify-around text-center">
-    <div class="w-2/3">
+
+    <div class="lg:w-1/2 flex-1">
       <Labeled label="Relaterade" class="my-4">
-        <Term class="mr-1 mb-1">Barn till homosexuella</Term>
-        <Term class="mr-1 mb-1">Bisexuella föräldrar</Term>
-      </Labeled>
-      <Labeled label="Nära match" class="my-4">
-        <Term class="mr-1 mb-1">Gay parents (LCSH)</Term>
-      </Labeled>
-      <Labeled label="Bred match" class="my-4">
-        <Term class="mr-1 mb-1">Oac (kssb)</Term>
-        <Term class="mr-1 mb-1">Ohjh (kssb)</Term>
+        <router-link
+          v-for="term in related"
+          :key="term.id"
+          v-slot="{ navigate }"
+          :to="`/ao/${term.id}`"
+          custom
+        >
+          <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+            {{ term.prefLabel }}
+          </Term>
+        </router-link>
       </Labeled>
     </div>
-  </div>
+  </article>
 </template>
 
 <script setup>
+import { ref, watch, watchEffect } from "vue";
 import Term from "@/components/Term.vue";
 import Labeled from "@/components/Labeled.vue";
+import useTerms from "@/composables/terms";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const { getParents, getChildren, getRelated, getTerm } = useTerms();
+
+const term = ref(null);
+const parents = ref([]);
+const children = ref([]);
+const related = ref([]);
+
+watchEffect(async () => (term.value = await getTerm(route.params.id)));
+watch(term, () => {
+  getParents(term.value).then(
+    (terms) => (parents.value = terms.map(({ term }) => term))
+  );
+  getChildren(term.value).then(
+    (terms) => (children.value = terms.map(({ term }) => term))
+  );
+  getRelated(term.value).then(
+    (terms) => (related.value = terms.map(({ term }) => term))
+  );
+});
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+th {
+  @apply font-bold pr-4;
+}
+
+th,
+td {
+  @apply text-left align-top py-2;
+}
+</style>

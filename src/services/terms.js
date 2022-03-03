@@ -19,10 +19,26 @@ export async function getTerm(id) {
   return termData[id];
 }
 
+export async function getParents(child) {
+  return Object.values(termData)
+    .filter((parent) => child.broader && child.broader.includes(parent.id))
+    .map((term) => ({ term }));
+}
+
 // TODO Libris: `find?@type=Concept&broader.@id=<uri>`, encodeURLComponent needed, perhaps twice
 export async function getChildren(parent) {
   return Object.values(termData)
     .filter((child) => child.broader && child.broader.includes(parent.id))
+    .map((term) => ({ term }));
+}
+
+export async function getRelated(termA) {
+  return Object.values(termData)
+    .filter(
+      (termB) =>
+        (termA.related && termA.related.includes(termB.id)) ||
+        (termB.related && termB.related.includes(termA.id))
+    )
     .map((term) => ({ term }));
 }
 
@@ -54,6 +70,14 @@ const termData = {
       "Används för skildringar av personer som identifierar sig som, eller av andra identifieras som, homosexuella.",
     broader: ["HBTQIPersoner"],
     related: ["homosexualitet", "homofobi", "homosexuellaGemenskaper"],
+  },
+  homosexualitet: {
+    prefLabel: "Homosexualitet",
+    scopeNote:
+      "Används för skildringar av förmågan att huvudsakligen bli kär i och/eller attraherad av personer av samma kön som en själv.",
+    altLabel: "Lesbianism",
+    broader: ["sexuellLäggning"],
+    related: ["homosexuella", "heterosexualitet", "bisexualitet"],
   },
   lesbiska: {
     prefLabel: "Lesbiska",

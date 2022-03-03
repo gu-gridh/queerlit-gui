@@ -7,7 +7,9 @@
     }"
   >
     <div>
-      <span class="text-lg font-bold">{{ parent.prefLabel }}</span>
+      <router-link :to="`/ao/${parent.id}`" class="text-lg font-bold">{{
+        parent.prefLabel
+      }}</router-link>
       <span v-if="parent.altLabel" class="ml-4">
         (även: {{ parent.altLabel.join(", ") }})
       </span>
