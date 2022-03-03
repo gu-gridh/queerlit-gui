@@ -12,9 +12,12 @@
         @change="setPage"
       />
       <div class="w-1/3 text-right">
-        Sortering:
-        <select>
-          <option>Relevans</option>
+        <label for="sort-input">Sortering:</label>
+        <select id="sort-input" :value="sort" @change="setSort">
+          <option value="-publication.year">Nyast först</option>
+          <option value="publication.year">Äldst först</option>
+          <option value="">Relevans</option>
+          <option value="_sortKeyByLang.sv">Titel A-Ö</option>
         </select>
       </div>
     </div>
@@ -47,6 +50,7 @@ import WorkHit from "@/components/WorkHit.vue";
 import Pagination from "./Pagination.vue";
 
 const store = useStore();
+const sort = computed(() => store.state.sort);
 const results = computed(() => store.state.results);
 const total = computed(() => store.state.total);
 const offset = computed(() => store.state.offset);
@@ -54,6 +58,11 @@ const isSearching = computed(() => store.getters.isSearching);
 
 function setPage(page) {
   store.commit("setOffset", (page - 1) * 20);
+  store.dispatch("search");
+}
+
+function setSort(event) {
+  store.commit("setSort", event.target.value);
   store.dispatch("search");
 }
 </script>

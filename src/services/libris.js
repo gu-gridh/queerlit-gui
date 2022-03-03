@@ -8,6 +8,7 @@ export async function search(
   yearStart,
   yearEnd,
   genreform,
+  sort,
   offset = 0
 ) {
   // "q" is the free text parameter
@@ -35,6 +36,9 @@ export async function search(
   }
 
   params["@reverse.itemOf.heldBy.@id"] = "https://libris.kb.se/library/QLIT";
+  if (sort) {
+    params["_sort"] = sort;
+  }
   params["_offset"] = offset;
   params["_limit"] = 20;
 
