@@ -1,20 +1,22 @@
 <template>
   <article v-if="term" class="container py-10">
-    <h2 class="text-2xl">{{ term.prefLabel }}</h2>
-    <table class="my-4">
-      <tr>
-        <th>Anvisning</th>
-        <td>{{ term.scopeNote }}</td>
-      </tr>
-      <tr v-if="term.altLabel && term.altLabel.length">
-        <th>Alternativa former</th>
-        <td>{{ term.altLabel.join(", ") }}</td>
-      </tr>
-      <tr>
-        <th>URI</th>
-        <td>https://queerlit.dh.gu.se/qlit/0.2/{{ term.id }}</td>
-      </tr>
-    </table>
+    <div class="bg-yellow-50 border border-yellow-200 p-4 mb-4">
+      <h2 class="text-2xl">{{ term.prefLabel }}</h2>
+      <table class="mt-4">
+        <tr v-if="term.scopeNote">
+          <th>Anvisning</th>
+          <td>{{ term.scopeNote }}</td>
+        </tr>
+        <tr v-if="term.altLabel && term.altLabel.length">
+          <th>Alternativa former</th>
+          <td>{{ term.altLabel.join(", ") }}</td>
+        </tr>
+        <tr>
+          <th>URI</th>
+          <td>https://queerlit.dh.gu.se/qlit/0.2/{{ term.id }}</td>
+        </tr>
+      </table>
+    </div>
     <div class="flex flex-wrap -m-4">
       <div class="w-1/2 p-4">
         <Labeled label="Övergripande termer">
