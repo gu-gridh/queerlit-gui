@@ -8,44 +8,49 @@
           <td>{{ term.scopeNote }}</td>
         </tr>
         <tr v-if="term.altLabel && term.altLabel.length">
-          <th>Alternativa former</th>
-          <td>{{ term.altLabel.join(", ") }}</td>
+          <th>Varianter</th>
+          <td>
+            <div v-for="altLabel in term.altLabel" :key="altLabel">
+              {{ altLabel }}
+            </div>
+          </td>
         </tr>
         <tr>
-          <th>URI</th>
-          <td>https://queerlit.dh.gu.se/qlit/0.2/{{ term.id }}</td>
+          <th class="pb-0">Identifierare</th>
+          <td class="pb-0">https://queerlit.dh.gu.se/qlit/0.2/{{ term.id }}</td>
+        </tr>
+        <tr class="text-sm text-black-700">
+          <td />
+          <td class="pt-0">
+            <icon icon="info-circle" size="xs" />
+            Identifieraren har formen av en URL, men används inte främst som en
+            webbadress. Formen är mest ett sätt att precisera att definitionen
+            är en del av Queerlits tesaurus.
+          </td>
         </tr>
       </table>
     </div>
     <div class="flex flex-wrap -m-4">
       <div class="w-1/2 p-4">
-        <Labeled label="Övergripande termer">
-          <router-link
-            v-for="term in parents"
-            :key="term.id"
-            v-slot="{ navigate }"
-            :to="`/ao/${term.id}`"
-            custom
-          >
-            <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-              {{ term.prefLabel }}
-            </Term>
-          </router-link>
+        <Labeled label="Övergripande">
+          <div v-for="term in parents" :key="term.id">
+            <router-link v-slot="{ navigate }" :to="`/ao/${term.id}`" custom>
+              <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+                {{ term.prefLabel }}
+              </Term>
+            </router-link>
+          </div>
         </Labeled>
       </div>
       <div class="w-1/2 p-4">
-        <Labeled label="Underordnade termer"
-          ><router-link
-            v-for="term in children"
-            :key="term.id"
-            v-slot="{ navigate }"
-            :to="`/ao/${term.id}`"
-            custom
-          >
-            <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-              {{ term.prefLabel }}
-            </Term>
-          </router-link>
+        <Labeled label="Underordnade">
+          <div v-for="term in children" :key="term.id">
+            <router-link v-slot="{ navigate }" :to="`/ao/${term.id}`" custom>
+              <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+                {{ term.prefLabel }}
+              </Term>
+            </router-link>
+          </div>
         </Labeled>
       </div>
     </div>
@@ -102,8 +107,8 @@ th {
   @apply font-bold pr-4;
 }
 
-th,
-td {
+th:not(.pb-0):not(.pt-0),
+td:not(.pb-0):not(.pt-0) {
   @apply text-left align-top py-2;
 }
 </style>
