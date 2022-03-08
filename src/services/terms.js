@@ -88,6 +88,13 @@ const termData = {
     prefLabel: "Föräldrar (HBTQI)",
     broader: ["familjemedlemmar", "HBTQIFamiljer"],
   },
+  HBTQIBarn: {
+    prefLabel: "HBTQI-barn",
+    scopeNote:
+      "Används för skildringar av personer under 15 år som beskrivs som homosexuella, bisexuella, transpersoner, queera och/eller intersexpersoner. Kan användas mer relativt för skildringar av personer som ej genomgått puberteten.",
+    broader: ["barn", "HBTQIPersoner"],
+    related: ["föräldrarHBTQI"],
+  },
   HBTQIFamiljer: {
     prefLabel: "HBTQI-familjer",
   },
@@ -129,6 +136,19 @@ const termData = {
       "könsförhållanden",
       "genusvetenskap",
     ],
+  },
+  transbarn: {
+    prefLabel: "Transbarn",
+    scopeNote:
+      "Används för skildringar av transpersoner under 15 år. Kan användas mer relativt för skildringar av personer som ej genomgått puberteten.",
+    broader: ["HBTQIBarn", "transpersoner"],
+    related: ["föräldrarTillTranspersoner"],
+  },
+  transbarnPerifert: {
+    prefLabel: "Transbarn – perifert",
+    scopeNote:
+      "Används för skildringar där transpersoner under 15 år har en perifer betydelse för verket. Kan användas mer relativt för skildringar av personer som ej genomgått puberteten.'",
+    broader: ["transbarn", "HBTQIBarnPerifert", "transpersonerPerifert"],
   },
   transkvinnor: {
     prefLabel: "Transkvinnor",
