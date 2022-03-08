@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded bg-yellow-50 p-2" @unfocus="unfocus">
+  <div class="border rounded bg-yellow-50 p-2">
     <div class="-mb-2 flex flex-wrap">
       <Term
         v-for="term in terms"
@@ -23,6 +23,12 @@
   </div>
   <div v-show="suggestions.length" class="h-0 relative">
     <div class="shadow bg-white rounded-b pt-2">
+      <icon
+        icon="times"
+        size="sm"
+        class="float-right mx-2 cursor-pointer"
+        @click="unfocus"
+      />
       <h3
         v-if="suggestionsHeading"
         class="mb-2 px-2 text-sm"

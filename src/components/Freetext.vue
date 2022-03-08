@@ -58,7 +58,6 @@ watchEffect(async () => {
           <icon icon="plus" size="xs" />
         </Term>
       </Dragscroll>
-      <div class="text-sm m-2">Sök på ämnesord:</div>
     </div>
   </div>
 </template>
