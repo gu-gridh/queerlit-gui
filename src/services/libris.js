@@ -87,16 +87,6 @@ export async function xlFind(params) {
     .then((response) => response.data);
 }
 
-export function getTerms() {
-  return BOOKS.reduce(
-    (terms, item, i) => [
-      ...terms,
-      ...(item.terms || []).filter((term) => !terms.includes(term)),
-    ],
-    []
-  );
-}
-
 function processXlItem(item) {
   // Enrich with custom data.
   const localItem = BOOKS.find(
@@ -138,7 +128,11 @@ function processXlItem(item) {
 }
 
 function responseFilter(item, terms = []) {
-  return terms.every((term) => item.terms && item.terms.includes(term));
+  return terms.every(
+    (term) =>
+      item.terms &&
+      (item.terms.includes(term.id) || item.terms.includes(term.prefLabel))
+  );
 }
 
 export async function searchPerson(nameQuery) {

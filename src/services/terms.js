@@ -75,7 +75,7 @@ const termData = {
     prefLabel: "Homosexualitet",
     scopeNote:
       "Används för skildringar av förmågan att huvudsakligen bli kär i och/eller attraherad av personer av samma kön som en själv.",
-    altLabel: "Lesbianism",
+    altLabel: ["Lesbianism"],
     broader: ["sexuellLäggning"],
     related: ["homosexuella", "heterosexualitet", "bisexualitet"],
   },
