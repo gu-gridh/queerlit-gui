@@ -4,7 +4,7 @@
     type="search"
     autocomplete="off"
     class="block w-full border rounded text-lg text-black py-1 px-2"
-    @keyup="change"
+    @input="change"
   />
   <div v-show="suggestions.length" class="relative h-0">
     <div class="bg-white p-1 shadow rounded-b">
@@ -12,7 +12,7 @@
         v-for="item in suggestions"
         :key="getId ? getId(item) : item"
         class="hover:bg-blue-50 cursor-pointer"
-        @click="setValue(item)"
+        @click="selectSuggestion(item)"
       >
         {{ getLabel ? getLabel(item) : item }}
       </div>
@@ -22,26 +22,37 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { watchEffect } from "@vue/runtime-core";
 
-const props = defineProps(["suggest", "getLabel", "getId"]);
+// Data flow: parent -> `value` -> `input` -> `suggestions` -> `parent`
+// Parent should pass current value to the `value` prop.
+// If the `value` prop changes, reflect that in `input`.
+// If user types into `input`, populate `suggestions`.
+// If a suggestion is chosen, emit change event.
+const props = defineProps(["value", "suggest", "getLabel", "getId"]);
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
-const value = ref(null);
 
 async function change() {
-  value.value = null;
-  suggestions.value = await props.suggest(input.value);
+  if (props.value) {
+    emit("change", null);
+  }
+  setTimeout(
+    async () => (suggestions.value = await props.suggest(input.value))
+  );
 }
 
-function setValue(item) {
-  input.value = props.getLabel ? props.getLabel(item) : item;
+function selectSuggestion(item) {
   suggestions.value = [];
-  value.value = item;
+  emit("change", item);
 }
 
-watch(value, (x) => emit("change", x));
+function setInput(item) {
+  input.value = item && props.getLabel ? props.getLabel(item) : item || "";
+}
+
+watchEffect(() => setInput(props.value));
 </script>
 
 <style></style>

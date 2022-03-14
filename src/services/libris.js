@@ -66,8 +66,12 @@ export async function search(
 }
 
 export async function get(id) {
-  const result = await search();
-  return result.items.find((item) => item.id === id);
+  const fullId = `https://libris-qa.kb.se/${id}#it`;
+  const result = await xlFindBooks({ "@id": fullId });
+  if (result.items.length != 1) {
+    console.error("get(id) result length should be 1", result);
+  }
+  return result.items[0];
 }
 
 export async function xlFindBooks(params) {
@@ -142,11 +146,7 @@ export async function searchPerson(nameQuery) {
   console.log("params person", params);
   const data = await xlFind(params);
   console.log("searchPerson", data.items);
-  return data.items.map((item) => ({
-    firstname: item.givenName,
-    lastname: item.familyName,
-    _item: item,
-  }));
+  return data.items;
 }
 
 export async function searchGenreform(query) {

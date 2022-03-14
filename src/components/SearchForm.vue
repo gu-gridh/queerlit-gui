@@ -32,8 +32,9 @@
             Författare
           </label>
           <Autocomplete
+            :value="author"
             :suggest="searchPerson"
-            :get-label="(item) => `${item.firstname} ${item.lastname}`"
+            :get-label="(item) => `${item.givenName} ${item.familyName}`"
             :get-id="(item) => item.id"
             @change="setAuthor"
           />
@@ -85,7 +86,8 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const { title, yearStart, yearEnd, setQuery, serializedQuery } = useQuery();
+const { title, author, yearStart, yearEnd, setQuery, serializedQuery } =
+  useQuery();
 const terms = useTerms();
 
 function titleChange(event) {
@@ -93,7 +95,7 @@ function titleChange(event) {
 }
 
 function setAuthor(author) {
-  setQuery({ author: author && author._item });
+  setQuery({ author: author });
   search();
 }
 

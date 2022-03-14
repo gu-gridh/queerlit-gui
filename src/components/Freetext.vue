@@ -1,5 +1,4 @@
 <script setup>
-import { watchEffect } from "@vue/runtime-core";
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useQuery from "@/composables/query";
@@ -23,18 +22,30 @@ const showSuggestions = computed(() =>
 
 function textChange(event) {
   setQuery({ text: event.target.value });
+  // Trigger autocomplete in next tick to make it use new input value.
+  setTimeout(() => autocomplete());
 }
 
 function addTerm(term) {
   terms.add(term);
+  removeLastWord();
+  emit("search");
+}
+
+function addAuthor(author) {
+  setQuery({ author });
+  removeLastWord();
+  emit("search");
+}
+
+function removeLastWord() {
   store.commit("setQuery", {
     // Remove last word from text.
     text: String(text.value).split(" ").slice(0, -1).join(" "),
   });
-  emit("search");
 }
 
-watchEffect(async () => {
+async function autocomplete() {
   const lastWord = text.value.split(" ").pop();
 
   if (lastWord) {
@@ -48,7 +59,7 @@ watchEffect(async () => {
     termSuggestions.value = [];
     authorSuggestions.value = [];
   }
-});
+}
 </script>
 
 <template>
@@ -89,7 +100,7 @@ watchEffect(async () => {
             class="mx-2"
             @click="addAuthor(item)"
           >
-            {{ item.firstname }} {{ item.lastname }}
+            {{ item.givenName }} {{ item.familyName }}
           </span>
         </Dragscroll>
       </div>
