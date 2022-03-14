@@ -43,6 +43,7 @@ function removeLastWord() {
     // Remove last word from text.
     text: String(text.value).split(" ").slice(0, -1).join(" "),
   });
+  setTimeout(() => autocomplete());
 }
 
 async function autocomplete() {
