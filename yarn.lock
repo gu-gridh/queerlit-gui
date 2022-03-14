@@ -709,6 +709,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"click-outside-vue3@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "click-outside-vue3@npm:4.0.1"
+  checksum: bc2cf3336f1343619f60c2e2d5a8cc7cc64ec5d912f42f9f3666c7655c08d77b9a8916a6b98ac505deeb2c11a40ffd58ce91308762e31989e546654b689d0b1e
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -2521,6 +2528,7 @@ __metadata:
     "@vue/compiler-sfc": ^3.2.6
     autoprefixer: ^10.3.7
     axios: ^0.23.0
+    click-outside-vue3: ^4.0.1
     eslint: ^8.0.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-vue: ^8.0
