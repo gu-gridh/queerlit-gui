@@ -17,7 +17,15 @@
           :placeholder="
             terms.length ? 'sök fler ämnesord...' : 'sök ämnesord...'
           "
-          class="bg-transparent pl-1 mb-2 border border-transparent flex-1"
+          class="
+            bg-transparent
+            pl-1
+            mb-2
+            border border-transparent
+            flex-1
+            transition-colors
+          "
+          :class="{ incomplete }"
           @keyup="suggest"
           @keydown.backspace="removeLast"
         />
@@ -62,7 +70,7 @@
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { directive as vClickOutside } from "click-outside-vue3";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
@@ -73,6 +81,8 @@ const { autocomplete, add: termsAdd, remove: termsRemove } = useTerms();
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
+
+const incomplete = computed(() => input.value);
 
 async function suggest() {
   if (input.value) {
@@ -113,4 +123,8 @@ function blur() {
 }
 </script>
 
-<style></style>
+<style scoped>
+.incomplete:not(:focus) {
+  @apply text-red-800;
+}
+</style>

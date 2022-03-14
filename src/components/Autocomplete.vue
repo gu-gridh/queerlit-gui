@@ -4,7 +4,17 @@
       v-model="input"
       type="search"
       autocomplete="off"
-      class="block w-full border rounded text-lg text-black py-1 px-2"
+      class="
+        block
+        w-full
+        border
+        rounded
+        text-lg text-black
+        py-1
+        px-2
+        transition-colors
+      "
+      :class="{ incomplete }"
       @input="change"
     />
     <div v-show="suggestions.length" class="relative h-0">
@@ -23,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { watchEffect } from "@vue/runtime-core";
 import { directive as vClickOutside } from "click-outside-vue3";
 
@@ -36,6 +46,8 @@ const props = defineProps(["value", "suggest", "getLabel", "getId"]);
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
+
+const incomplete = computed(() => input.value && !props.value);
 
 async function change() {
   if (props.value) {
@@ -62,4 +74,8 @@ function blur() {
 }
 </script>
 
-<style></style>
+<style scoped>
+.incomplete:not(:focus) {
+  @apply text-red-800;
+}
+</style>
