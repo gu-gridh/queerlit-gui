@@ -85,7 +85,7 @@ function blur() {
       :value="text"
       placeholder="Sök här..."
       class="w-full p-4 bg-transparent text-black"
-      @keyup="textChange"
+      @input="textChange"
       @keyup.enter="emit('search')"
     />
     <div class="relative h-0">
