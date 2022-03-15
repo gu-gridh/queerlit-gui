@@ -64,7 +64,6 @@ async function autocomplete() {
 }
 
 function blur() {
-  console.log("blur");
   termSuggestions.value = [];
   authorSuggestions.value = [];
 }

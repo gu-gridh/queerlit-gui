@@ -19,12 +19,13 @@
           <label for="search-title" class="uppercase font-bold text-sm">
             Titel
           </label>
-          <input
+          <Autocomplete
             id="search-title"
             :value="title"
-            class="block w-full border rounded text-lg text-black py-1 px-2"
-            @keyup="titleChange"
-            @keyup.enter="search"
+            :suggest="searchTitle"
+            :get-label="(title) => title"
+            :get-id="(title) => title"
+            @change="setTitle"
           />
         </div>
         <div class="w-full sm:w-1/2 p-2">
@@ -35,7 +36,7 @@
             :value="author"
             :suggest="searchPerson"
             :get-label="(item) => `${item.givenName} ${item.familyName}`"
-            :get-id="(item) => item.id"
+            :get-id="(item) => item['@id']"
             @change="setAuthor"
           />
         </div>
@@ -73,7 +74,7 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/composables/query";
-import { searchGenreform, searchPerson } from "@/services/libris";
+import { searchGenreform, searchPerson, searchTitle } from "@/services/libris";
 import { useStore } from "vuex";
 import useTerms from "@/composables/terms";
 import Freetext from "./Freetext.vue";
@@ -90,8 +91,9 @@ const { title, author, yearStart, yearEnd, setQuery, serializedQuery } =
   useQuery();
 const terms = useTerms();
 
-function titleChange(event) {
-  setQuery({ title: event.target.value });
+function setTitle(title) {
+  setQuery({ title });
+  search();
 }
 
 function setAuthor(author) {
