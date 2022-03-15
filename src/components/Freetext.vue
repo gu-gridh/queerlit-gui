@@ -4,7 +4,7 @@ import { useStore } from "vuex";
 import { directive as vClickOutside } from "click-outside-vue3";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
-import { searchPerson } from "@/services/libris";
+import { searchPerson, searchTitle } from "@/services/libris";
 import Term from "@/components/Term.vue";
 import Dragscroll from "./Dragscroll.vue";
 
@@ -13,12 +13,14 @@ const store = useStore();
 const { text, setQuery } = useQuery();
 const terms = useTerms();
 const termSuggestions = ref([]);
+const titleSuggestions = ref([]);
 const authorSuggestions = ref([]);
 
-const showSuggestions = computed(() =>
-  [termSuggestions.value, authorSuggestions.value].some(
-    (list) => list.length > 0
-  )
+const showSuggestions = computed(
+  () =>
+    termSuggestions.value.length ||
+    titleSuggestions.value.length ||
+    authorSuggestions.value.length
 );
 
 function textChange(event) {
@@ -29,6 +31,12 @@ function textChange(event) {
 
 function addTerm(term) {
   terms.add(term);
+  removeLastWord();
+  emit("search");
+}
+
+function setTitle(title) {
+  setQuery({ title });
   removeLastWord();
   emit("search");
 }
@@ -54,11 +62,13 @@ async function autocomplete() {
     terms
       .autocomplete(lastWord)
       .then((terms) => (termSuggestions.value = terms));
+    searchTitle(lastWord).then((titles) => (titleSuggestions.value = titles));
     searchPerson(lastWord).then(
       (persons) => (authorSuggestions.value = persons)
     );
   } else {
     termSuggestions.value = [];
+    titleSuggestions.value = [];
     authorSuggestions.value = [];
   }
 }
@@ -96,6 +106,20 @@ function blur() {
               {{ term.prefLabel }}
               <icon icon="plus" size="xs" />
             </Term>
+          </Dragscroll>
+        </div>
+
+        <div v-if="titleSuggestions.length" class="my-2">
+          <div class="text-sm mx-2">Sök på titel:</div>
+          <Dragscroll class="overflow-hidden whitespace-nowrap">
+            <span
+              v-for="title in titleSuggestions"
+              :key="title"
+              class="mx-2"
+              @click="setTitle(title)"
+            >
+              {{ title }}
+            </span>
           </Dragscroll>
         </div>
 
