@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
 import { directive as vClickOutside } from "click-outside-vue3";
+import debounce from "lodash/debounce";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
 import { searchPerson, searchTitle } from "@/services/libris";
@@ -53,7 +54,7 @@ function removeLastWord() {
   setTimeout(() => autocomplete());
 }
 
-async function autocomplete() {
+const autocomplete = debounce(async () => {
   const lastWord = text.value.split(" ").pop();
 
   if (lastWord) {
@@ -69,7 +70,7 @@ async function autocomplete() {
     titleSuggestions.value = [];
     authorSuggestions.value = [];
   }
-}
+}, 400);
 
 function blur() {
   termSuggestions.value = [];

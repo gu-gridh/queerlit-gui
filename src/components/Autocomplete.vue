@@ -17,7 +17,7 @@
       :class="{ incomplete }"
       @input="change"
     />
-    <div v-show="suggestions.length" class="relative h-0">
+    <div v-show="suggestions.length" class="relative h-0 z-20">
       <div class="bg-white p-1 shadow rounded-b">
         <div
           v-for="item in suggestions"
@@ -36,6 +36,7 @@
 import { computed, ref } from "@vue/reactivity";
 import { watchEffect } from "@vue/runtime-core";
 import { directive as vClickOutside } from "click-outside-vue3";
+import debounce from "lodash/debounce";
 
 // Data flow: parent -> `value` -> `input` -> `suggestions` -> `parent`
 // Parent should pass current value to the `value` prop.
@@ -50,13 +51,21 @@ const suggestions = ref([]);
 const incomplete = computed(() => input.value && !props.value);
 
 async function change() {
+  // Typing should clear any currently selected item.
   if (props.value) {
     emit("change", null);
   }
-  setTimeout(
-    async () => (suggestions.value = await props.suggest(input.value))
-  );
+  getSuggestions();
 }
+
+// No need to load suggestions until user slows down typing.
+const getSuggestions = debounce(async () => {
+  const q = input.value;
+  const items = await props.suggest(q);
+  q == input.value
+    ? (suggestions.value = items)
+    : console.log("too slow", q, input.value);
+}, 400);
 
 function selectSuggestion(item) {
   suggestions.value = [];
