@@ -1,0 +1,24 @@
+<script setup>
+import Dragscroll from "./Dragscroll.vue";
+
+defineProps(["heading", "items", "select"]);
+defineEmits(["select"]);
+</script>
+
+<template>
+  <div v-if="items.length" class="my-2">
+    <div class="text-sm mx-2">{{ heading }}</div>
+    <Dragscroll class="overflow-hidden whitespace-nowrap">
+      <span
+        v-for="(item, i) in items"
+        :key="i"
+        class="mx-2"
+        @click="$emit('select', item)"
+      >
+        <slot :item="item">
+          {{ item }}
+        </slot>
+      </span>
+    </Dragscroll>
+  </div>
+</template>

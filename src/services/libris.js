@@ -159,7 +159,7 @@ export async function searchPerson(nameQuery) {
   console.log("params person", params);
   const data = await xlFind(params);
   console.log("searchPerson", data.items);
-  return data.items;
+  return data.items.filter((author) => author.givenName || author.familyName);
 }
 
 export async function searchGenreform(query) {
