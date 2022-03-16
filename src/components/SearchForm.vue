@@ -56,6 +56,7 @@
             Genre/form
           </label>
           <Autocomplete
+            :value="genreform"
             :suggest="searchGenreform"
             :get-label="(item) => `${item.label} (${item.scheme})`"
             :get-id="(item) => item.id"
@@ -87,8 +88,15 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const { title, author, yearStart, yearEnd, setQuery, serializedQuery } =
-  useQuery();
+const {
+  title,
+  author,
+  genreform,
+  yearStart,
+  yearEnd,
+  setQuery,
+  serializedQuery,
+} = useQuery();
 const terms = useTerms();
 
 function setTitle(title) {
@@ -97,7 +105,7 @@ function setTitle(title) {
 }
 
 function setAuthor(author) {
-  setQuery({ author: author });
+  setQuery({ author });
   search();
 }
 
@@ -106,12 +114,7 @@ function yearChange(yearStart, yearEnd) {
 }
 
 function setGenreform(genreform) {
-  setQuery({ genreform: genreform ? genreform.id : null });
-  search();
-}
-
-function removeTerm(term) {
-  terms.remove(term);
+  setQuery({ genreform });
   search();
 }
 

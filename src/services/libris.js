@@ -24,7 +24,7 @@ export async function search(
   }
 
   if (genreform) {
-    params["instanceOf.genreForm.@id"] = genreform;
+    params["instanceOf.genreForm.@id"] = genreform.id;
   }
 
   if (yearStart) {

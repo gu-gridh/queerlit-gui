@@ -16,6 +16,7 @@
       "
       :class="{ incomplete }"
       @input="change"
+      @keyup.escape="blur"
     />
     <div v-show="suggestions.length" class="relative h-0 z-20">
       <div class="bg-white p-1 shadow rounded-b">
