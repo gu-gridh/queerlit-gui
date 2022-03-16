@@ -162,6 +162,20 @@ export async function searchPerson(nameQuery) {
   return data.items.filter((author) => author.givenName || author.familyName);
 }
 
+export async function searchConcept(conceptQuery, schemeId) {
+  const q = conceptQuery + "*";
+  const params = { "@type": "Concept", q, _limit: 20 };
+  if (schemeId) {
+    params["inScheme.@id"] = schemeId;
+  }
+  const data = await xlFind(params);
+  return data.items;
+}
+
+export async function searchConceptSao(conceptQuery) {
+  return await searchConcept(conceptQuery, "https://id.kb.se/term/sao");
+}
+
 export async function searchGenreform(query) {
   const q = query.replaceAll(/\S+/g, "$&*");
   const params = { "@type": "GenreForm", prefLabel: q, _limit: 20 };

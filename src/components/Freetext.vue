@@ -4,7 +4,7 @@ import { directive as vClickOutside } from "click-outside-vue3";
 import debounce from "lodash/debounce";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
-import { searchPerson, searchTitle } from "@/services/libris";
+import { searchConceptSao, searchPerson, searchTitle } from "@/services/libris";
 import Term from "@/components/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 
@@ -12,12 +12,14 @@ const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
 const terms = useTerms();
 const termSuggestions = ref([]);
+const saoSuggestions = ref([]);
 const titleSuggestions = ref([]);
 const authorSuggestions = ref([]);
 
 const showSuggestions = computed(
   () =>
     termSuggestions.value.length ||
+    saoSuggestions.value.length ||
     titleSuggestions.value.length ||
     authorSuggestions.value.length
 );
@@ -61,12 +63,14 @@ const autocomplete = debounce(async () => {
     terms
       .autocomplete(lastWord)
       .then((terms) => (termSuggestions.value = terms));
+    searchConceptSao(lastWord).then((terms) => (saoSuggestions.value = terms));
     searchTitle(lastWord).then((titles) => (titleSuggestions.value = titles));
     searchPerson(lastWord).then(
       (persons) => (authorSuggestions.value = persons)
     );
   } else {
     termSuggestions.value = [];
+    saoSuggestions.value = [];
     titleSuggestions.value = [];
     authorSuggestions.value = [];
   }
@@ -74,6 +78,7 @@ const autocomplete = debounce(async () => {
 
 function blur() {
   termSuggestions.value = [];
+  saoSuggestions.value = [];
   titleSuggestions.value = [];
   authorSuggestions.value = [];
 }
@@ -102,6 +107,18 @@ function blur() {
         >
           <Term>
             {{ item.term.prefLabel }}
+            <icon icon="plus" size="xs" />
+          </Term>
+        </FreetextSuggestions>
+
+        <FreetextSuggestions
+          v-slot="{ item }"
+          heading="Sök på allmäna ämnesord (SAO):"
+          :items="saoSuggestions"
+          @select="addTerm"
+        >
+          <Term :data="item">
+            {{ item.prefLabel }}
             <icon icon="plus" size="xs" />
           </Term>
         </FreetextSuggestions>

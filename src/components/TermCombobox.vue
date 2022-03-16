@@ -7,6 +7,7 @@
           :key="term.id"
           class="mr-2 mb-2"
           @click="remove(term)"
+          :data="term"
         >
           {{ term.prefLabel }}
           <icon icon="times" size="xs" />
