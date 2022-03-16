@@ -27,8 +27,9 @@
             transition-colors
           "
           :class="{ incomplete }"
-          @keyup="suggest"
+          @input="suggest"
           @keydown.backspace="removeLast"
+          @focus="suggest"
         />
       </div>
       <div
@@ -45,7 +46,7 @@
         <icon icon="stream" />
       </div>
     </div>
-    <div v-show="suggestions.length" class="h-0 relative">
+    <div v-show="suggestions.length" class="h-0 relative z-20">
       <div class="shadow bg-white rounded-b pt-2">
         <div
           v-for="{ term, altMatch } in suggestions"

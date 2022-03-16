@@ -93,6 +93,7 @@ function blur() {
       class="w-full p-4 bg-transparent text-black"
       @input="textChange"
       @keyup.enter="emit('search')"
+      @focus="textChange"
     />
     <div class="relative h-0">
       <div
