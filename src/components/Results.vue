@@ -1,6 +1,6 @@
 <template>
   <div class="result-container">
-  <div v-if="isSearching" class="p-6 py-10 text-center">
+  <div v-if="isSearching" class="spinner p-6 py-10 text-center">
     <icon icon="spinner" size="6x" spin />
   </div>
     
@@ -66,6 +66,10 @@ function setPage(page) {
  
   padding:30px;
    
+}
+
+.spinner{
+    margin-top: 25%;
 }
 
 </style>
