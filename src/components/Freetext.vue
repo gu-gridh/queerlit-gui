@@ -47,7 +47,7 @@ watchEffect(async () => {
       class="absolute top-0 bg-greengrey w-full overflow-hidden"
     >
       <div class="text-sm m-2">Sök på ämnesord:</div>
-      <div class="my-2 overflow-x-auto whitespace-nowrap">
+      <div class="term-suggestions my-2 overflow-x-auto whitespace-nowrap">
         <Term
           v-for="{ term } in termSuggestions"
           :key="term.id"
@@ -65,7 +65,7 @@ watchEffect(async () => {
 
 <style>
 
-.top-0{
- 
+.term-suggestions{
+ padding:10px 0px 25px 0px;
 }
 </style>
