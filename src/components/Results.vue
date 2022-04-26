@@ -69,7 +69,7 @@ function setPage(page) {
 }
 
 .spinner{
-    margin-top: 25%;
+    margin-top: calc(50vh - 150px);
 }
 
 </style>

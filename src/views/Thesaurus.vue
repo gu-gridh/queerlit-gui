@@ -27,6 +27,6 @@ onMounted(async () => {
 
 <style>
 .thesaurus-container{
-  padding:40px;
+  padding:60px 40px 30px 40px;
 }
 </style>

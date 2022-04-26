@@ -15,8 +15,8 @@
 
 <style>
 .term{
-  font-size:20px;
-  font-weight:100;
+  font-size:20px!important;
+  font-weight:100!important;
 background-color:rgb(255,180,0);
 border-radius:6px;
 padding: 5px 12px 5px 12px !important;
