@@ -44,7 +44,7 @@ watchEffect(async () => {
   <div class="relative h-0">
     <div
       v-if="termSuggestions.length"
-      class="absolute top-0 bg-white shadow rounded-b w-full overflow-hidden"
+      class="absolute top-0 bg-greengrey w-full overflow-hidden"
     >
       <div class="text-sm m-2">Sök på ämnesord:</div>
       <div class="my-2 overflow-x-auto whitespace-nowrap">
@@ -58,7 +58,14 @@ watchEffect(async () => {
           <icon icon="plus" size="xs" />
         </Term>
       </div>
-      <div class="text-sm m-2">Sök på ämnesord:</div>
+   
     </div>
   </div>
 </template>
+
+<style>
+
+.top-0{
+ 
+}
+</style>

@@ -1,6 +1,8 @@
 <template>
-  <section class="p-8">
-    <p>
+
+    <div class="search-widget" style="padding:30px; text-align:justify">
+  <section class="p-1">
+
       Till Queerlit-databasen skapas en <em>tesaurus</em>, det vill säga en
       ordlista som sorterar ämnesord. Syftet med det är att göra
       skönlitteraturen i databasen mer lättillgänglig. Genom detaljerade
@@ -9,7 +11,7 @@
         href="https://metadatabyran.kb.se/amnesord-och-genre-form/svenska-amnesord"
         >Svenska Ämnesord (SAO)</a
       >, som är den ämnesordlista de flesta svenska bibliotek använder.
-    </p>
+  
     <p>
       Eftersom tesaurusen byggs upp i länkad data-format förbättras sökbarheten
       även för breda termer. Både strukturen och mängden termer kommer alltså
@@ -27,6 +29,7 @@
       största internationella tesaurusen för HBTQ.
     </p>
   </section>
+  </div>
 </template>
 
 <style scoped>

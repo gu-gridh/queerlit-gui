@@ -1,7 +1,9 @@
 <template>
+  <div class="result-container">
   <div v-if="isSearching" class="p-6 py-10 text-center">
     <icon icon="spinner" size="6x" spin />
   </div>
+    
   <div v-else-if="results">
     <div class="flex p-6">
       <div class="w-1/3">{{ total }} träffar</div>
@@ -38,6 +40,7 @@
       />
     </div>
   </div>
+    </div>
 </template>
 
 <script setup>
@@ -57,3 +60,12 @@ function setPage(page) {
   store.dispatch("search");
 }
 </script>
+
+<style>
+.result-container{
+ 
+  padding:30px;
+   
+}
+
+</style>

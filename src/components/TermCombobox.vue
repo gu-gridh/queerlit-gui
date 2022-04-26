@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded bg-yellow-50 p-2" @unfocus="unfocus">
+  <div class="tag-space p-2" @unfocus="unfocus">
     <div class="-mb-2 flex flex-wrap">
       <Term
         v-for="term in terms"
@@ -13,8 +13,8 @@
       <input
         v-model="input"
         type="search"
-        :placeholder="terms.length ? 'sök fler ämnesord...' : 'sök ämnesord...'"
-        class="bg-transparent pl-1 mb-2 border border-transparent flex-1"
+        :placeholder="terms.length ? 'Sök fler ämnesord...' : ' Ämnesord...'"
+        class="tag-input bg-transparent pl-1 mb-2 border border-transparent flex-1"
         @focus="suggest"
         @keyup="suggest"
         @keydown.backspace="removeLast"
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div v-show="suggestions.length" class="h-0 relative">
-    <div class="shadow bg-white rounded-b pt-2">
+    <div class="bg-greengrey pt-3">
       <h3
         v-if="suggestionsHeading"
         class="mb-2 px-2 text-sm"
@@ -120,4 +120,29 @@ function emitChange() {
 }
 </script>
 
-<style></style>
+<style>
+
+.tag-space{
+  margin-top:-24px;   
+     background-color:#e7ebe9!important;
+      border-radius:0px 0px 5px 5px !important;
+         border-color: grey;
+    border-width:0.5px 0 0 0;
+    border-style:dashed;
+}
+
+.tag-space:hover{
+background-color:#dfe5e2!important;
+}
+
+.bg-greengrey{
+  background-color:#e7ebe9!important;
+  backdrop-filter: blur(5px);
+  margin-top:-5px;
+
+        border-radius:0px 0px 5px 5px !important;
+        border-color:grey;
+     
+}
+
+</style>

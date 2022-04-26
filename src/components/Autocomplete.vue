@@ -1,13 +1,14 @@
 <template>
   <input
     v-model="input"
+        placeholder="Författare"
     type="search"
     autocomplete="off"
-    class="block w-full border rounded text-lg text-black py-1 px-2"
+    class="block w-full advanced-form text-lg text-black py-1 px-2"
     @keyup="change"
   />
   <div v-show="suggestions.length" class="relative h-0">
-    <div class="bg-white p-1 shadow rounded-b">
+    <div class="suggestions bg-white p-1 shadow rounded-b">
       <div
         v-for="item in suggestions"
         :key="getId ? getId(item) : item"
@@ -44,4 +45,10 @@ function setValue(item) {
 watch(value, (x) => emit("change", x));
 </script>
 
-<style></style>
+<style>
+.suggestions{
+  max-height:200px;
+  overflow:hidden;
+  font-size:16px;
+}
+</style>

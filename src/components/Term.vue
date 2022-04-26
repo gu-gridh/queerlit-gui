@@ -1,13 +1,11 @@
 <template>
   <span
     class="
-      term
+    term
       inline-block
       px-1
       py-1
       leading-snug
-      bg-yellow-200
-      border border-yellow-300
       text-black
     "
   >
@@ -15,4 +13,15 @@
   </span>
 </template>
 
-<style></style>
+<style>
+.term{
+  font-size:20px;
+  font-weight:100;
+background-color:rgb(255,180,0);
+border-radius:6px;
+padding: 5px 12px 5px 12px !important;
+cursor:pointer;
+height:38px;
+}
+
+</style>
