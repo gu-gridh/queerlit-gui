@@ -22,7 +22,7 @@
           
           <input
             id="search-title"
-            placeholder="Title"
+            placeholder="Titel"
             :value="title"
             class="block w-full advanced-form  text-lg text-black py-1 px-2"
             @keyup="titleChange"
@@ -51,7 +51,6 @@
         <div class="w-full sm:w-1/2 p-2">
           <Autocomplete
           class="block w-full advanced-form text-lg text-black py-1 px-2"
-           placeholder="Genre / form"
             suggest="searchGenreform"
             :get-label="(item) => `${item.label} (${item.scheme})`"
             :get-id="(item) => item.id"
@@ -169,7 +168,7 @@ padding:0px 10px 0px 10px!important;
 .search-border{
     border-color: grey;
     border-width:0px;
-     background-color:#e7ebe9!important;
+     background-color:#dfe5e2!important;
 }
 
 .search-border:hover{
