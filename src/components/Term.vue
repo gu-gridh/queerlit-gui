@@ -22,7 +22,7 @@ border-radius:6px;
 padding: 5px 12px 5px 12px !important;
 cursor:pointer;
 height:38px;
-  box-shadow: 0rem 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0rem 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
 }
 
 </style>
