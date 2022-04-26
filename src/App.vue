@@ -58,6 +58,26 @@ html {
   height:110px;
   margin-top:30px;
   margin-left:10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.main-nav{
+margin-bottom:20px;
+ transition: all 0.5s ease-in-out;
+}
+
+@media screen and (max-height: 820px) {
+#qlogo{
+  margin-top:0px;
+  width:200px;
+  height:68px;
+}
+
+.main-nav{
+margin-bottom:20px;
+margin-top:0px!important;
+}
+
 }
 
 .left-pane{
@@ -67,9 +87,7 @@ padding:20px 50px 50px 50px;
   
 }
 
-.main-nav{
-margin-bottom:20px;
-}
+
 
 input:focus {
     outline: none !important;

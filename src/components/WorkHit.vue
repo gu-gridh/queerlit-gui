@@ -55,6 +55,11 @@ defineProps({
 .w-4{
   font-weight:100;
   font-size:30px;
-  margin-right: 20px;
+ padding: 0 30px 0 0;
+}
+
+.title{
+ 
+  margin-left: 10px;
 }
 </style>
