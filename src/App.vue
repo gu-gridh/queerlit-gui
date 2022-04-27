@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 flex flex-col lg:flex-row">
+  <div class=" flex-1 flex flex-col lg:flex-row">
     <div class="lg:w-1/2 lg:max-w-screen-sm"></div>
     <div class="left-pane lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full">
       <header>
@@ -83,6 +83,12 @@ html {
   background-color: #b5c0bd;
   overflow-y: auto;
   padding: 20px 50px 50px 50px;
+      box-shadow: inset -1rem 0rem 2rem rgba(0, 0, 0, 0.1);
+  
+}
+
+.right-pane {
+
 }
 
 input:focus {
