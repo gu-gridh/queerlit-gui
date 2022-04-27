@@ -7,8 +7,9 @@
     }"
   >
     <div>
-      <span class="term text-lg font-bold">{{ parent.prefLabel }} </span>
-
+      <router-link :to="`/ao/${parent.id}`" class="text-lg font-bold">
+        <Term>{{ parent.prefLabel }}</Term>
+      </router-link>
       <span v-if="parent.altLabel" class="term-alternative ml-4">
         (även: {{ parent.altLabel.join(", ") }})
       </span>

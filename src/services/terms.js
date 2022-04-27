@@ -19,10 +19,26 @@ export async function getTerm(id) {
   return termData[id];
 }
 
+export async function getParents(child) {
+  return Object.values(termData)
+    .filter((parent) => child.broader && child.broader.includes(parent.id))
+    .map((term) => ({ term }));
+}
+
 // TODO Libris: `find?@type=Concept&broader.@id=<uri>`, encodeURLComponent needed, perhaps twice
 export async function getChildren(parent) {
   return Object.values(termData)
     .filter((child) => child.broader && child.broader.includes(parent.id))
+    .map((term) => ({ term }));
+}
+
+export async function getRelated(termA) {
+  return Object.values(termData)
+    .filter(
+      (termB) =>
+        (termA.related && termA.related.includes(termB.id)) ||
+        (termB.related && termB.related.includes(termA.id))
+    )
     .map((term) => ({ term }));
 }
 
@@ -55,6 +71,14 @@ const termData = {
     broader: ["HBTQIPersoner"],
     related: ["homosexualitet", "homofobi", "homosexuellaGemenskaper"],
   },
+  homosexualitet: {
+    prefLabel: "Homosexualitet",
+    scopeNote:
+      "Används för skildringar av förmågan att huvudsakligen bli kär i och/eller attraherad av personer av samma kön som en själv.",
+    altLabel: ["Lesbianism"],
+    broader: ["sexuellLäggning"],
+    related: ["homosexuella", "heterosexualitet", "bisexualitet"],
+  },
   lesbiska: {
     prefLabel: "Lesbiska",
     altLabel: ["Homosexuella kvinnor", "Lesbiska kvinnor", "Lesbianer"],
@@ -63,6 +87,13 @@ const termData = {
   föräldrarHBTQI: {
     prefLabel: "Föräldrar (HBTQI)",
     broader: ["familjemedlemmar", "HBTQIFamiljer"],
+  },
+  HBTQIBarn: {
+    prefLabel: "HBTQI-barn",
+    scopeNote:
+      "Används för skildringar av personer under 15 år som beskrivs som homosexuella, bisexuella, transpersoner, queera och/eller intersexpersoner. Kan användas mer relativt för skildringar av personer som ej genomgått puberteten.",
+    broader: ["barn", "HBTQIPersoner"],
+    related: ["föräldrarHBTQI"],
   },
   HBTQIFamiljer: {
     prefLabel: "HBTQI-familjer",
@@ -105,6 +136,19 @@ const termData = {
       "könsförhållanden",
       "genusvetenskap",
     ],
+  },
+  transbarn: {
+    prefLabel: "Transbarn",
+    scopeNote:
+      "Används för skildringar av transpersoner under 15 år. Kan användas mer relativt för skildringar av personer som ej genomgått puberteten.",
+    broader: ["HBTQIBarn", "transpersoner"],
+    related: ["föräldrarTillTranspersoner"],
+  },
+  transbarnPerifert: {
+    prefLabel: "Transbarn – perifert",
+    scopeNote:
+      "Används för skildringar där transpersoner under 15 år har en perifer betydelse för verket. Kan användas mer relativt för skildringar av personer som ej genomgått puberteten.'",
+    broader: ["transbarn", "HBTQIBarnPerifert", "transpersonerPerifert"],
   },
   transkvinnor: {
     prefLabel: "Transkvinnor",

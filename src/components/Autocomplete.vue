@@ -1,51 +1,100 @@
 <template>
-  <input
-    v-model="input"
-    placeholder="Författare"
-    type="search"
-    autocomplete="off"
-    class="block w-full advanced-form text-lg text-black py-1 px-2"
-    @keyup="change"
-  />
-  <div v-show="suggestions.length" class="relative h-0">
-    <div class="suggestions bg-white p-1 shadow rounded-b">
-      <div
-        v-for="item in suggestions"
-        :key="getId ? getId(item) : item"
-        class="hover:bg-blue-50 cursor-pointer"
-        @click="setValue(item)"
-      >
-        {{ getLabel ? getLabel(item) : item }}
+  <div v-click-outside="blur">
+    <input
+      v-model="input"
+      :placeholder="placeholder"
+      type="search"
+      autocomplete="off"
+      class="
+        block
+        w-full
+        advanced-form
+        text-lg text-black
+        py-1
+        px-2
+        transition-colors
+      "
+      :class="{ incomplete }"
+      @input="change"
+      @keyup.escape="blur"
+      @focus="change"
+    />
+    <div v-show="suggestions.length" class="relative h-0 z-20">
+      <div class="suggestions bg-white p-1 shadow rounded-b">
+        <div
+          v-for="item in suggestions"
+          :key="getId ? getId(item) : item"
+          class="hover:bg-blue-50 cursor-pointer"
+          @click="selectSuggestion(item)"
+        >
+          {{ getLabel ? getLabel(item) : item }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { computed, ref } from "@vue/reactivity";
+import { watchEffect } from "@vue/runtime-core";
+import { directive as vClickOutside } from "click-outside-vue3";
+import debounce from "lodash/debounce";
 
-const props = defineProps(["suggest", "getLabel", "getId"]);
+// Data flow: parent -> `value` -> `input` -> `suggestions` -> `parent`
+// Parent should pass current value to the `value` prop.
+// If the `value` prop changes, reflect that in `input`.
+// If user types into `input`, populate `suggestions`.
+// If a suggestion is chosen, emit change event.
+const props = defineProps([
+  "placeholder",
+  "value",
+  "suggest",
+  "getLabel",
+  "getId",
+]);
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
-const value = ref(null);
+
+const incomplete = computed(() => input.value && !props.value);
 
 async function change() {
-  value.value = null;
-  suggestions.value = await props.suggest(input.value);
+  // Typing should clear any currently selected item.
+  if (props.value) {
+    emit("change", null);
+  }
+  getSuggestions();
 }
 
-function setValue(item) {
-  input.value = props.getLabel ? props.getLabel(item) : item;
+// No need to load suggestions until user slows down typing.
+const getSuggestions = debounce(async () => {
+  const q = input.value;
+  const items = await props.suggest(q);
+  q == input.value
+    ? (suggestions.value = items)
+    : console.log("too slow", q, input.value);
+}, 400);
+
+function selectSuggestion(item) {
   suggestions.value = [];
-  value.value = item;
+  emit("change", item);
 }
 
-watch(value, (x) => emit("change", x));
+function setInput(item) {
+  input.value = item && props.getLabel ? props.getLabel(item) : item || "";
+}
+
+watchEffect(() => setInput(props.value));
+
+function blur() {
+  suggestions.value = [];
+}
 </script>
 
-<style>
+<style scoped>
+.incomplete:not(:focus) {
+  @apply text-red-800;
+}
 .suggestions {
   max-height: 200px;
   overflow: hidden;

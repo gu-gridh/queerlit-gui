@@ -709,6 +709,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"click-outside-vue3@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "click-outside-vue3@npm:4.0.1"
+  checksum: bc2cf3336f1343619f60c2e2d5a8cc7cc64ec5d912f42f9f3666c7655c08d77b9a8916a6b98ac505deeb2c11a40ffd58ce91308762e31989e546654b689d0b1e
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -2521,15 +2528,18 @@ __metadata:
     "@vue/compiler-sfc": ^3.2.6
     autoprefixer: ^10.3.7
     axios: ^0.23.0
+    click-outside-vue3: ^4.0.1
     eslint: ^8.0.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-vue: ^8.0
+    lodash: ^4.17.21
     postcss: ^8.3.9
     prettier: ^2.4.1
     sass: ^1.49.7
     tailwindcss: ^2.2.16
     vite: ^2.5.4
     vue: ^3.2.6
+    vue-dragscroll: ^3.0.1
     vue-router: 4
     vuex: ^4.0.2
   languageName: unknown
@@ -3067,6 +3077,13 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: cf395366e4895dd90038f592e6609262d78e7f3c99686e7649e9f55e88f6812af6394515bc34f30ed0830001e2b269a6ddd70a28b2d9d3661cf4fb1b254b11e4
+  languageName: node
+  linkType: hard
+
+"vue-dragscroll@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "vue-dragscroll@npm:3.0.1"
+  checksum: 72bc56c96037abc76e39ad4eccd002ab0a87142504b8f55038b47f90ddb2ac3774e6243647be0a3fcc28a8097a41883e255de859ed371464d2c9c471b467d42e
   languageName: node
   linkType: hard
 

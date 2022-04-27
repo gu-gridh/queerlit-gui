@@ -15,6 +15,7 @@ export default createStore({
       },
       results: null,
       total: 0,
+      sort: "-publication.year",
       offset: 0,
       currentSearch: null,
     };
@@ -41,6 +42,9 @@ export default createStore({
     setTotal(state, total) {
       state.total = total;
     },
+    setSort(state, sort) {
+      state.sort = sort;
+    },
     setOffset(state, offset) {
       state.offset = offset;
     },
@@ -60,6 +64,7 @@ export default createStore({
         query.yearStart,
         query.yearEnd,
         query.genreform,
+        state.sort,
         state.offset
       );
       commit("setResults", items);

@@ -103,4 +103,13 @@ input:focus {
 .advanced-form::placeholder {
   font-size: 16px;
 }
+
+.bg-greengrey {
+  background-color: #e7ebe9 !important;
+  backdrop-filter: blur(5px);
+  margin-top: -5px;
+
+  border-radius: 0px 0px 5px 5px !important;
+  border-color: grey;
+}
 </style>

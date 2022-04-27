@@ -1,59 +1,69 @@
 <template>
-  <div class="tag-space p-2" @unfocus="unfocus">
-    <div class="-mb-2 flex flex-wrap">
-      <Term
-        v-for="term in terms"
-        :key="term.id"
-        class="mr-2 mb-2"
-        @click="remove(term)"
-      >
-        {{ term.prefLabel }}
-        <icon icon="times" size="xs" />
-      </Term>
-      <input
-        v-model="input"
-        type="search"
-        :placeholder="terms.length ? 'Sök fler ämnesord...' : ' Ämnesord...'"
-        class="
-          tag-input
-          bg-transparent
-          pl-1
-          mb-2
-          border border-transparent
-          flex-1
-        "
-        @focus="suggest"
-        @keyup="suggest"
-        @keydown.backspace="removeLast"
-      />
-    </div>
-  </div>
-  <div v-show="suggestions.length" class="h-0 relative">
-    <div class="bg-greengrey pt-3">
-      <h3
-        v-if="suggestionsHeading"
-        class="mb-2 px-2 text-sm"
-        v-html="suggestionsHeading"
-      />
-      <div
-        v-for="{ term, altMatch } in suggestions"
-        :key="term.id"
-        class="px-2 pb-2 flex items-baseline"
-      >
-        <span
-          v-if="altMatch"
-          class="mr-1 line-through opacity-75"
-          @click="add(term)"
+  <div v-click-outside="blur">
+    <div class="tag-space p-2 pb-0 flex">
+      <div class="flex-1 flex flex-wrap">
+        <Term
+          v-for="term in terms"
+          :key="term.id"
+          class="mr-2 mb-2"
+          :data="term"
+          @click="remove(term)"
         >
-          {{ altMatch }}
-        </span>
-        <Term @click="add(term)">
           {{ term.prefLabel }}
-          <icon icon="plus" size="xs" />
+          <icon icon="times" size="xs" />
         </Term>
-        <div class="flex-1"></div>
-        <div v-if="hasChildren(term)" class="px-1" @click="drilldown(term)">
-          <icon icon="stream" size="xs" />
+        <input
+          v-model="input"
+          type="search"
+          :placeholder="terms.length ? 'Sök fler ämnesord...' : ' Ämnesord...'"
+          class="
+            tag-input
+            bg-transparent
+            pl-1
+            mb-2
+            border border-transparent
+            flex-1
+            transition-colors
+          "
+          :class="{ incomplete }"
+          @input="suggest"
+          @keydown.backspace="removeLast"
+          @focus="suggest"
+        />
+      </div>
+      <div
+        class="
+          border-l-2 border-yellow-100
+          -m-2
+          mb-0
+          ml-1
+          p-3
+          flex
+          items-center
+        "
+      >
+        <icon icon="stream" />
+      </div>
+    </div>
+    <div v-show="suggestions.length" class="h-0 relative z-20">
+      <div class="bg-greengrey rounded-b pt-2">
+        <div
+          v-for="{ term, altMatch } in suggestions"
+          :key="term.id"
+          class="px-2 pb-2 flex items-baseline"
+        >
+          <span
+            v-if="altMatch"
+            class="mr-1 line-through opacity-75"
+            @click="add(term)"
+          >
+            {{ altMatch }}
+          </span>
+          <Term @click="add(term)">
+            {{ term.prefLabel }}
+            <icon icon="plus" size="xs" />
+          </Term>
+          <div class="flex-1"></div>
         </div>
       </div>
     </div>
@@ -61,30 +71,25 @@
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
+import { directive as vClickOutside } from "click-outside-vue3";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
 
-const { terms, setQuery } = useQuery();
-const {
-  autocomplete,
-  getRoots,
-  getChildren,
-  hasChildren,
-  add: termsAdd,
-  remove: termsRemove,
-} = useTerms();
+const { terms } = useQuery();
+const { autocomplete, add: termsAdd, remove: termsRemove } = useTerms();
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
-const suggestionsHeading = ref("");
+
+const incomplete = computed(() => input.value);
 
 async function suggest() {
   if (input.value) {
-    setSuggestions(await autocomplete(input.value), "Menar du:");
+    setSuggestions(await autocomplete(input.value));
   } else {
-    setSuggestions(await getRoots(), "Topptermer");
+    setSuggestions([]);
   }
 }
 
@@ -100,34 +105,26 @@ function remove(term) {
   emitChange();
 }
 
-function removeLast(event) {
+function removeLast() {
   if (input.value) return;
   const lastTerm = terms.value[terms.value.length - 1];
   if (lastTerm) remove(lastTerm);
 }
 
-async function drilldown(term) {
-  setSuggestions(
-    await getChildren(term),
-    `Termer under <em>${term.prefLabel}</em>`
-  );
-}
-
-function unfocus() {
-  setSuggestions([]);
-}
-
-function setSuggestions(matches, heading) {
+function setSuggestions(matches) {
   suggestions.value = matches || [];
-  suggestionsHeading.value = heading || "";
 }
 
 function emitChange() {
   emit("change", terms.value);
 }
+
+function blur() {
+  setSuggestions([]);
+}
 </script>
 
-<style>
+<style scoped>
 .tag-space {
   margin-top: -24px;
   background-color: #e7ebe9 !important;
@@ -141,12 +138,7 @@ function emitChange() {
   background-color: #dfe5e2 !important;
 }
 
-.bg-greengrey {
-  background-color: #e7ebe9 !important;
-  backdrop-filter: blur(5px);
-  margin-top: -5px;
-
-  border-radius: 0px 0px 5px 5px !important;
-  border-color: grey;
+.incomplete:not(:focus) {
+  @apply text-red-800;
 }
 </style>

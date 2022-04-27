@@ -14,24 +14,26 @@
       </div>
 
       <div class="subtitle">Avancerat</div>
-
       <div class="container-b max-w-screen-md my-4">
         <div class="flex flex-wrap -mx-2">
           <div class="w-full sm:w-1/2 p-2">
-            <input
+            <Autocomplete
               id="search-title"
               placeholder="Titel"
               :value="title"
-              class="block w-full advanced-form text-lg text-black py-1 px-2"
-              @keyup="titleChange"
-              @keyup.enter="search"
+              :suggest="searchTitle"
+              :get-label="(title) => title"
+              :get-id="(title) => title"
+              @change="setTitle"
             />
           </div>
           <div class="w-full sm:w-1/2 p-2">
             <Autocomplete
+              placeholder="Författare"
+              :value="author"
               :suggest="searchPerson"
-              :get-label="(item) => `${item.firstname} ${item.lastname}`"
-              :get-id="(item) => item.id"
+              :get-label="(item) => `${item.givenName} ${item.familyName}`"
+              :get-id="(item) => item['@id']"
               @change="setAuthor"
             />
           </div>
@@ -43,11 +45,11 @@
               @keyup.enter="search"
             />
           </div>
-
           <div class="w-full sm:w-1/2 p-2">
             <Autocomplete
-              class="block w-full advanced-form text-lg text-black py-1 px-2"
-              suggest="searchGenreform"
+              placeholder="Genre/form"
+              :value="genreform"
+              :suggest="searchGenreform"
               :get-label="(item) => `${item.label} (${item.scheme})`"
               :get-id="(item) => item.id"
               @change="setGenreform"
@@ -66,7 +68,7 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/composables/query";
-import { searchGenreform, searchPerson } from "@/services/libris";
+import { searchGenreform, searchPerson, searchTitle } from "@/services/libris";
 import { useStore } from "vuex";
 import useTerms from "@/composables/terms";
 import Freetext from "./Freetext.vue";
@@ -79,15 +81,24 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const { title, yearStart, yearEnd, setQuery, serializedQuery } = useQuery();
+const {
+  title,
+  author,
+  genreform,
+  yearStart,
+  yearEnd,
+  setQuery,
+  serializedQuery,
+} = useQuery();
 const terms = useTerms();
 
-function titleChange(event) {
-  setQuery({ title: event.target.value });
+function setTitle(title) {
+  setQuery({ title });
+  search();
 }
 
 function setAuthor(author) {
-  setQuery({ author: author && author._item });
+  setQuery({ author });
   search();
 }
 
@@ -96,12 +107,7 @@ function yearChange(yearStart, yearEnd) {
 }
 
 function setGenreform(genreform) {
-  setQuery({ genreform: genreform ? genreform.id : null });
-  search();
-}
-
-function removeTerm(term) {
-  terms.remove(term);
+  setQuery({ genreform });
   search();
 }
 

@@ -28,7 +28,11 @@ const routes = [
   },
   {
     path: "/ao/:id",
-    component: () => import(/* webpackChunkName: "term" */ "@/views/Term.vue"),
+
+    components: {
+      side: ThesaurusInfo,
+      default: () => import(/* webpackChunkName: "term" */ "@/views/Term.vue"),
+    },
   },
 ];
 

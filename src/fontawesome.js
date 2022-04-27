@@ -4,6 +4,7 @@
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faInfoCircle,
   faMinus,
   faPlus,
   faSitemap,
@@ -12,4 +13,12 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faMinus, faPlus, faSitemap, faSpinner, faStream, faTimes);
+library.add(
+  faInfoCircle,
+  faMinus,
+  faPlus,
+  faSitemap,
+  faSpinner,
+  faStream,
+  faTimes
+);

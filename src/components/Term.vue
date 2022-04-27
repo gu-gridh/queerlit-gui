@@ -1,10 +1,24 @@
+<script setup>
+import { computed } from "@vue/reactivity";
+
+const props = defineProps(["data"]);
+
+const type = computed(() => props.data?.inScheme?.["@id"]?.split("/").pop());
+const label = computed(() => props.data?.prefLabel);
+</script>
+
 <template>
-  <span class="term inline-block px-1 py-1 leading-snug text-black">
-    <slot />
+  <span
+    class="term inline-block px-1 py-1 leading-snug text-black"
+    :class="[type && `type-${type}`]"
+  >
+    <slot>
+      {{ label }}
+    </slot>
   </span>
 </template>
 
-<style>
+<style scoped>
 .term {
   font-size: 20px !important;
   font-weight: 100 !important;
@@ -14,5 +28,9 @@
   cursor: pointer;
   height: 38px;
   box-shadow: 0rem 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.type-sao {
+  @apply bg-gray-200 border-gray-300;
 }
 </style>

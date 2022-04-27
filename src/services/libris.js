@@ -8,6 +8,7 @@ export async function search(
   yearStart,
   yearEnd,
   genreform,
+  sort,
   offset = 0
 ) {
   // "q" is the free text parameter
@@ -23,7 +24,7 @@ export async function search(
   }
 
   if (genreform) {
-    params["instanceOf.genreForm.@id"] = genreform;
+    params["instanceOf.genreForm.@id"] = genreform.id;
   }
 
   if (yearStart) {
@@ -35,6 +36,9 @@ export async function search(
   }
 
   params["@reverse.itemOf.heldBy.@id"] = "https://libris.kb.se/library/QLIT";
+  if (sort) {
+    params["_sort"] = sort;
+  }
   params["_offset"] = offset;
   params["_limit"] = 20;
 
@@ -62,8 +66,12 @@ export async function search(
 }
 
 export async function get(id) {
-  const result = await search();
-  return result.items.find((item) => item.id === id);
+  const fullId = `https://libris-qa.kb.se/${id}#it`;
+  const result = await xlFindBooks({ "@id": fullId });
+  if (result.items.length != 1) {
+    console.error("get(id) result length should be 1", result);
+  }
+  return result.items[0];
 }
 
 export async function xlFindBooks(params) {
@@ -81,16 +89,6 @@ export async function xlFind(params) {
   return axios
     .get("https://libris-qa.kb.se/find", { params })
     .then((response) => response.data);
-}
-
-export function getTerms() {
-  return BOOKS.reduce(
-    (terms, item, i) => [
-      ...terms,
-      ...(item.terms || []).filter((term) => !terms.includes(term)),
-    ],
-    []
-  );
 }
 
 function processXlItem(item) {
@@ -134,7 +132,24 @@ function processXlItem(item) {
 }
 
 function responseFilter(item, terms = []) {
-  return terms.every((term) => item.terms && item.terms.includes(term));
+  return terms.every(
+    (term) =>
+      item.terms &&
+      (item.terms.includes(term.id) || item.terms.includes(term.prefLabel))
+  );
+}
+
+export async function searchTitle(titleQuery) {
+  const params = {
+    "@type": "Instance",
+    "@reverse.itemOf.heldBy.@id": "https://libris.kb.se/library/QLIT",
+    "hasTitle.mainTitle": titleQuery + "*",
+    _sort: "hasTitle.mainTitle",
+  };
+  console.log("searchTitle", params);
+  const data = await xlFind(params);
+  const titles = data.items.map((item) => item.hasTitle?.[0]?.mainTitle);
+  return titles.filter((t, i) => titles.indexOf(t) == i);
 }
 
 export async function searchPerson(nameQuery) {
@@ -144,11 +159,21 @@ export async function searchPerson(nameQuery) {
   console.log("params person", params);
   const data = await xlFind(params);
   console.log("searchPerson", data.items);
-  return data.items.map((item) => ({
-    firstname: item.givenName,
-    lastname: item.familyName,
-    _item: item,
-  }));
+  return data.items.filter((author) => author.givenName || author.familyName);
+}
+
+export async function searchConcept(conceptQuery, schemeId) {
+  const q = conceptQuery + "*";
+  const params = { "@type": "Concept", q, _limit: 20 };
+  if (schemeId) {
+    params["inScheme.@id"] = schemeId;
+  }
+  const data = await xlFind(params);
+  return data.items;
+}
+
+export async function searchConceptSao(conceptQuery) {
+  return await searchConcept(conceptQuery, "https://id.kb.se/term/sao");
 }
 
 export async function searchGenreform(query) {
