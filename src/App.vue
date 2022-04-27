@@ -51,61 +51,56 @@ html {
   color: #2c3e50;
 }
 
-#qlogo{
-  background-image:url(assets/qlogo.svg);
-  background-size:cover;
-  width:325px;
-  height:110px;
-  margin-top:30px;
-  margin-left:10px;
+#qlogo {
+  background-image: url(assets/qlogo.svg);
+  background-size: cover;
+  width: 325px;
+  height: 110px;
+  margin-top: 30px;
+  margin-left: 10px;
   transition: all 0.5s ease-in-out;
 }
 
-.main-nav{
-margin-bottom:20px;
- transition: all 0.5s ease-in-out;
+.main-nav {
+  margin-bottom: 20px;
+  transition: all 0.5s ease-in-out;
 }
 
 @media screen and (max-height: 820px) {
-#qlogo{
-  margin-top:0px;
-  width:200px;
-  height:68px;
+  #qlogo {
+    margin-top: 0px;
+    width: 200px;
+    height: 68px;
+  }
+
+  .main-nav {
+    margin-bottom: 20px;
+    margin-top: 0px !important;
+  }
 }
 
-.main-nav{
-margin-bottom:20px;
-margin-top:0px!important;
+.left-pane {
+  background-color: #b5c0bd;
+  overflow-y: auto;
+  padding: 20px 50px 50px 50px;
 }
-
-}
-
-.left-pane{
-background-color:#b5c0bd;
-overflow-y:auto;
-padding:20px 50px 50px 50px;
-  
-}
-
-
 
 input:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
-::placeholder { 
-  color: #666666!important;
-  opacity: 1.0!important; /* Firefox */
-  font-size:24px;
-  font-weight:100;
+::placeholder {
+  color: #666666 !important;
+  opacity: 1 !important; /* Firefox */
+  font-size: 24px;
+  font-weight: 100;
 }
 
-.tag-input::placeholder { 
-  font-size:20px!important;
+.tag-input::placeholder {
+  font-size: 20px !important;
 }
 
-.advanced-form::placeholder { 
-  font-size:16px;
+.advanced-form::placeholder {
+  font-size: 16px;
 }
-
 </style>

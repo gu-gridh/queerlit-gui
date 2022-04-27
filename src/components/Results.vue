@@ -1,46 +1,46 @@
 <template>
   <div class="result-container">
-  <div v-if="isSearching" class="spinner p-6 py-10 text-center">
-    <icon icon="spinner" size="6x" spin />
-  </div>
-    
-  <div v-else-if="results">
-    <div class="flex p-6">
-      <div class="w-1/3">{{ total }} träffar</div>
-      <Pagination
-        :current="offset / 20 + 1"
-        :last="total / 20"
-        class="w-1/3"
-        @change="setPage"
+    <div v-if="isSearching" class="spinner p-6 py-10 text-center">
+      <icon icon="spinner" size="6x" spin />
+    </div>
+
+    <div v-else-if="results">
+      <div class="flex p-6">
+        <div class="w-1/3">{{ total }} träffar</div>
+        <Pagination
+          :current="offset / 20 + 1"
+          :last="total / 20"
+          class="w-1/3"
+          @change="setPage"
+        />
+        <div class="w-1/3 text-right">
+          Sortering:
+          <select>
+            <option>Relevans</option>
+          </select>
+        </div>
+      </div>
+      <WorkHit
+        v-for="(book, i) in results"
+        :key="book['@id']"
+        v-bind="book"
+        :i="offset + i + 1"
       />
-      <div class="w-1/3 text-right">
-        Sortering:
-        <select>
-          <option>Relevans</option>
-        </select>
+
+      <div v-if="!results.length" class="my-8 text-center text-xl">
+        Inga träffar!
+      </div>
+
+      <div class="p-6">
+        <Pagination
+          :current="offset / 20 + 1"
+          :last="total / 20"
+          class="w-1/3 mx-auto"
+          @change="setPage"
+        />
       </div>
     </div>
-    <WorkHit
-      v-for="(book, i) in results"
-      :key="book['@id']"
-      v-bind="book"
-      :i="offset + i + 1"
-    />
-
-    <div v-if="!results.length" class="my-8 text-center text-xl">
-      Inga träffar!
-    </div>
-
-    <div class="p-6">
-      <Pagination
-        :current="offset / 20 + 1"
-        :last="total / 20"
-        class="w-1/3 mx-auto"
-        @change="setPage"
-      />
-    </div>
   </div>
-    </div>
 </template>
 
 <script setup>
@@ -62,14 +62,11 @@ function setPage(page) {
 </script>
 
 <style>
-.result-container{
- 
-  padding:30px;
-   
+.result-container {
+  padding: 30px;
 }
 
-.spinner{
-    margin-top: calc(50vh - 150px);
+.spinner {
+  margin-top: calc(50vh - 150px);
 }
-
 </style>

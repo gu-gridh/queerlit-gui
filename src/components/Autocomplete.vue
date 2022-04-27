@@ -1,7 +1,7 @@
 <template>
   <input
     v-model="input"
-        placeholder="Författare"
+    placeholder="Författare"
     type="search"
     autocomplete="off"
     class="block w-full advanced-form text-lg text-black py-1 px-2"
@@ -46,9 +46,9 @@ watch(value, (x) => emit("change", x));
 </script>
 
 <style>
-.suggestions{
-  max-height:200px;
-  overflow:hidden;
-  font-size:16px;
+.suggestions {
+  max-height: 200px;
+  overflow: hidden;
+  font-size: 16px;
 }
 </style>

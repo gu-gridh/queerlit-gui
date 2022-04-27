@@ -58,14 +58,12 @@ watchEffect(async () => {
           <icon icon="plus" size="xs" />
         </Term>
       </div>
-   
     </div>
   </div>
 </template>
 
 <style>
-
-.term-suggestions{
- padding:10px 0px 25px 0px;
+.term-suggestions {
+  padding: 10px 0px 25px 0px;
 }
 </style>

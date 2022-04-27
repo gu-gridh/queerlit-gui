@@ -14,7 +14,14 @@
         v-model="input"
         type="search"
         :placeholder="terms.length ? 'Sök fler ämnesord...' : ' Ämnesord...'"
-        class="tag-input bg-transparent pl-1 mb-2 border border-transparent flex-1"
+        class="
+          tag-input
+          bg-transparent
+          pl-1
+          mb-2
+          border border-transparent
+          flex-1
+        "
         @focus="suggest"
         @keyup="suggest"
         @keydown.backspace="removeLast"
@@ -121,28 +128,25 @@ function emitChange() {
 </script>
 
 <style>
-
-.tag-space{
-  margin-top:-24px;   
-     background-color:#e7ebe9!important;
-      border-radius:0px 0px 5px 5px !important;
-         border-color: grey;
-    border-width:0.5px 0 0 0;
-    border-style:dashed;
+.tag-space {
+  margin-top: -24px;
+  background-color: #e7ebe9 !important;
+  border-radius: 0px 0px 5px 5px !important;
+  border-color: grey;
+  border-width: 0.5px 0 0 0;
+  border-style: dashed;
 }
 
-.tag-space:hover{
-background-color:#dfe5e2!important;
+.tag-space:hover {
+  background-color: #dfe5e2 !important;
 }
 
-.bg-greengrey{
-  background-color:#e7ebe9!important;
+.bg-greengrey {
+  background-color: #e7ebe9 !important;
   backdrop-filter: blur(5px);
-  margin-top:-5px;
+  margin-top: -5px;
 
-        border-radius:0px 0px 5px 5px !important;
-        border-color:grey;
-     
+  border-radius: 0px 0px 5px 5px !important;
+  border-color: grey;
 }
-
 </style>

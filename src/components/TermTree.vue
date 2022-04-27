@@ -8,7 +8,7 @@
   >
     <div>
       <span class="term text-lg font-bold">{{ parent.prefLabel }} </span>
-      
+
       <span v-if="parent.altLabel" class="term-alternative ml-4">
         (även: {{ parent.altLabel.join(", ") }})
       </span>
@@ -66,15 +66,13 @@ const hue = computed(() => 333 + props.level * 92);
 </script>
 
 <style>
-.term-group{
-  padding:0px 0px 20px 20px;
-
+.term-group {
+  padding: 0px 0px 20px 20px;
 }
 
-.term-alternative{
-  display:block;
-  margin-top:10px;
-   margin-left:0px;
-
+.term-alternative {
+  display: block;
+  margin-top: 10px;
+  margin-left: 0px;
 }
 </style>
