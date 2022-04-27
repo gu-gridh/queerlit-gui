@@ -98,7 +98,7 @@ function blur() {
     <div class="relative h-0">
       <div
         v-if="showSuggestions"
-        class="absolute top-0 bg-greengrey w-full overflow-hidden"
+        class="top-sort absolute top-0 bg-greengrey w-full overflow-hidden"
       >
         <FreetextSuggestions
           v-slot="{ item }"
@@ -145,6 +145,6 @@ function blur() {
 
 <style>
 .term-suggestions {
-  padding: 10px 0px 25px 0px;
+  padding: 10px 0px 15px 0px;
 }
 </style>

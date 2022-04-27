@@ -1,13 +1,13 @@
 <template>
-  <router-link :to="`/verk/${id}`" class="block py-2 px-6 hover:bg-gray-50">
+  <router-link :to="`/verk/${id}`" class="block">
     <article class="article block flex items-baseline">
       <div class="w-4 mr-2">{{ i }}.</div>
       <div class="flex-1 flex flex-wrap items-baseline">
-        <h3 class="w-full xl:w-1/2 xl:pr-4 mb-2 text-xl group-hover:underline">
+        <h3 class="w-full xl:w-3/5 xl:pr-6 mb-2 text-xl group-hover:underline">
           {{ title }}
         </h3>
 
-        <div class="w-full xl:w-1/2">
+        <div class="w-full xl:w-2/5">
           <div class="mb-2 flex flex-wrap">
             <div v-for="creator in creators" :key="creator" class="mr-4">
               {{ creator }}
@@ -49,7 +49,14 @@ defineProps({
   border-style: dashed;
   border-width: 0px 0px 0.5px 0px;
   border-color: black;
+  padding:20px;
+    transition: all 0.1s ease-in-out;
 }
+
+.article:hover {
+ background-color:#f1f4f2;
+}
+
 
 .w-4 {
   font-weight: 100;
@@ -60,4 +67,5 @@ defineProps({
 .title {
   margin-left: 10px;
 }
+
 </style>

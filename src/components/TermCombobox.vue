@@ -33,7 +33,8 @@
       </div>
       <div
         class="
-          border-l-2 border-yellow-100
+        
+          
           -m-2
           mb-0
           ml-1
@@ -46,7 +47,7 @@
       </div>
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
-      <div class="bg-greengrey rounded-b pt-2">
+      <div class="top-sort bg-greengrey rounded-b pt-2">
         <div
           v-for="{ term, altMatch } in suggestions"
           :key="term.id"
@@ -141,4 +142,6 @@ function blur() {
 .incomplete:not(:focus) {
   @apply text-red-800;
 }
+
+
 </style>

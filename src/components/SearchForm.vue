@@ -8,7 +8,7 @@
           </div>
         </div>
 
-        <div class="my-4">
+        <div class="my-4 text-xl">
           <TermCombobox @change="search" />
         </div>
       </div>
@@ -176,5 +176,9 @@ onMounted(search());
   border-color: grey;
   border-width: 0.5px;
   height: 35px;
+}
+
+.top-sort{
+  z-index:100;
 }
 </style>

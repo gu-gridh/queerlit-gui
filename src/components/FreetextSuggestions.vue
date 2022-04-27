@@ -25,6 +25,8 @@ defineEmits(["select"]);
 
 <style>
 .term-suggestions {
-  padding: 10px 0px 25px 0px;
+  padding: 10px 0px 15px 0px;
+    font-size:20px!important;
 }
+
 </style>

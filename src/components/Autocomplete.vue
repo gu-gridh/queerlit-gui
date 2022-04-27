@@ -6,6 +6,7 @@
       type="search"
       autocomplete="off"
       class="
+      
         block
         w-full
         advanced-form

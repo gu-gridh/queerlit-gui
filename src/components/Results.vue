@@ -5,15 +5,15 @@
     </div>
     <div v-else-if="results">
       <div class="flex p-6">
-        <div class="w-1/3">{{ total }} träffar</div>
+        <div class="w-2/6">{{ total }} träffar</div>
         <Pagination
           :current="offset / 20 + 1"
           :last="total / 20"
-          class="w-1/3"
+          class="w-2/6 pagination"
           @change="setPage"
         />
-        <div class="w-1/3 text-right">
-          <label for="sort-input">Sortering:</label>
+        <div class="w-2/6 text-right">
+          <label for="sort-input">Sortering: </label>
           <select id="sort-input" :value="sort" @change="setSort">
             <option value="-publication.year">Nyast först</option>
             <option value="publication.year">Äldst först</option>
@@ -77,4 +77,31 @@ function setSort(event) {
 .spinner {
   margin-top: calc(50vh - 150px);
 }
+
+select {
+  width: auto;
+  height: auto;
+  font-weight:600;
+  cursor: pointer;
+  border-radius: 4;
+  color:rgb(70,150,200)!important;
+  background-color: #e7ebe9;
+  padding: 5px 10px 5px 10px!important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select::-ms-expand {
+  display: none; 
+}
+
+*:focus {
+    outline: none;
+}
+
+.pagination{
+  margin-top:5px;
+}
+
 </style>

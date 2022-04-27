@@ -28,6 +28,11 @@ const label = computed(() => props.data?.prefLabel);
   cursor: pointer;
   height: 38px;
   box-shadow: 0rem 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease-in-out;
+}
+
+.term:hover {
+  transform:scale(1.03);
 }
 
 .type-sao {
