@@ -1,5 +1,5 @@
 <template>
-  <div class="search-widget" style="padding: 30px; text-align: justify">
+  <div class="search-widget" style="padding: 30px; text-align: left">
     <section class="p-1">
       Till Queerlit-databasen skapas en <em>tesaurus</em>, det vill säga en
       ordlista som sorterar ämnesord. Syftet med det är att göra
