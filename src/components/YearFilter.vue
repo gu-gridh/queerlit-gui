@@ -63,4 +63,8 @@ function emitChange() {
 }
 </script>
 
-<style></style>
+<style scoped>
+::placeholder {
+  font-size: 16px;
+}
+</style>

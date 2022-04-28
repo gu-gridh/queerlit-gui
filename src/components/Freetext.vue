@@ -90,7 +90,7 @@ function blur() {
       type="search"
       :value="text"
       placeholder="Sök här..."
-      class="w-full p-4 bg-transparent text-black"
+      class="w-full p-4 pb-3 bg-transparent text-black"
       @input="textChange"
       @keyup.enter="emit('search')"
       @focus="textChange"
@@ -98,7 +98,15 @@ function blur() {
     <div class="relative h-0">
       <div
         v-if="showSuggestions"
-        class="top-sort absolute top-0 bg-greengrey w-full overflow-hidden"
+        class="
+          top-sort
+          absolute
+          top-0
+          bg-smoke-200
+          w-full
+          overflow-hidden
+          rounded-b
+        "
       >
         <FreetextSuggestions
           v-slot="{ item }"

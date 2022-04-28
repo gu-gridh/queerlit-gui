@@ -1,6 +1,16 @@
 <template>
   <div v-click-outside="blur">
-    <div class="tag-space p-2 pb-0 flex">
+    <div
+      class="
+        bg-smoke-200
+        hover:bg-smoke-300
+        p-2
+        pb-0
+        flex
+        border-t border-dashed border-gray-500
+      "
+      :class="{ 'rounded-b': !suggestions.length }"
+    >
       <div class="flex-1 flex flex-wrap">
         <Term
           v-for="term in terms"
@@ -17,7 +27,6 @@
           type="search"
           :placeholder="terms.length ? 'Sök fler ämnesord...' : ' Ämnesord...'"
           class="
-            tag-input
             bg-transparent
             pl-1
             mb-2
@@ -36,7 +45,7 @@
       </div>
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
-      <div class="top-sort bg-greengrey rounded-b pt-2">
+      <div class="top-sort bg-smoke-200 rounded-b pt-2">
         <div
           v-for="{ term, altMatch } in suggestions"
           :key="term.id"
@@ -115,17 +124,8 @@ function blur() {
 </script>
 
 <style scoped>
-.tag-space {
-  margin-top: -24px;
-  background-color: #e7ebe9 !important;
-  border-radius: 0px 0px 5px 5px !important;
-  border-color: grey;
-  border-width: 0.5px 0 0 0;
-  border-style: dashed;
-}
-
-.tag-space:hover {
-  background-color: #dfe5e2 !important;
+::placeholder {
+  font-size: 20px;
 }
 
 .incomplete:not(:focus) {

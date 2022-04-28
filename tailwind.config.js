@@ -6,10 +6,19 @@ module.exports = {
       fontFamily: {
         sans: ["Barlow Condensed", "Arial Narrow", "Arial", "sans-serif"],
       },
+      colors: {
+        text: "#2c3e50",
+        "smoke-200": "#e7ebe9",
+        "smoke-300": "#dfe5e2",
+        "smoke-500": "#b5c0bd",
+      },
+      screens: {
+        low: { raw: "(max-height: 820px)" },
+      },
     },
     container: {
       center: true,
-      padding: "2rem",
+      padding: "2.5rem",
     },
   },
   variants: {

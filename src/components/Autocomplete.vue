@@ -92,6 +92,9 @@ function blur() {
 </script>
 
 <style scoped>
+::placeholder {
+  font-size: 16px;
+}
 .incomplete:not(:focus) {
   @apply text-red-800;
 }

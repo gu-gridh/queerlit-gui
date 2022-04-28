@@ -96,10 +96,6 @@ select::-ms-expand {
   display: none;
 }
 
-*:focus {
-  outline: none;
-}
-
 .pagination {
   margin-top: 5px;
 }

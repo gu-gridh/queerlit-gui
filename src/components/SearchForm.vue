@@ -2,13 +2,13 @@
   <div class="search-widget">
     <div class="py-8">
       <div class="">
-        <div class="my-4 text-xl">
-          <div class="mb-2 search-border search-rounded flex-1">
+        <div class="mt-4 text-xl">
+          <div class="search-border rounded-t flex-1">
             <Freetext @search="search" />
           </div>
         </div>
 
-        <div class="my-4 text-xl">
+        <div class="mb-4 text-xl">
           <TermCombobox @change="search" />
         </div>
       </div>
@@ -156,10 +156,6 @@ onMounted(search());
 .border {
   border-color: grey;
   border-width: 0.5px;
-}
-
-.search-rounded {
-  border-radius: 5px !important;
 }
 
 .search-border {
