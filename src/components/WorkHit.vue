@@ -49,14 +49,13 @@ defineProps({
   border-style: dashed;
   border-width: 0px 0px 0.5px 0px;
   border-color: black;
-  padding:20px;
-    transition: all 0.1s ease-in-out;
+  padding: 20px;
+  transition: all 0.1s ease-in-out;
 }
 
 .article:hover {
- background-color:#f1f4f2;
+  background-color: #f1f4f2;
 }
-
 
 .w-4 {
   font-weight: 100;
@@ -67,5 +66,4 @@ defineProps({
 .title {
   margin-left: 10px;
 }
-
 </style>

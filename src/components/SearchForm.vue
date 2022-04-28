@@ -178,7 +178,7 @@ onMounted(search());
   height: 35px;
 }
 
-.top-sort{
-  z-index:100;
+.top-sort {
+  z-index: 100;
 }
 </style>

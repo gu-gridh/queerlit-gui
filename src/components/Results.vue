@@ -81,27 +81,26 @@ function setSort(event) {
 select {
   width: auto;
   height: auto;
-  font-weight:600;
+  font-weight: 600;
   cursor: pointer;
   border-radius: 4;
-  color:rgb(70,150,200)!important;
+  color: rgb(70, 150, 200) !important;
   background-color: #e7ebe9;
-  padding: 5px 10px 5px 10px!important;
+  padding: 5px 10px 5px 10px !important;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
 
 select::-ms-expand {
-  display: none; 
+  display: none;
 }
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
-.pagination{
-  margin-top:5px;
+.pagination {
+  margin-top: 5px;
 }
-
 </style>

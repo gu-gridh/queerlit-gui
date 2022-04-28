@@ -32,7 +32,7 @@ const label = computed(() => props.data?.prefLabel);
 }
 
 .term:hover {
-  transform:scale(1.03);
+  transform: scale(1.03);
 }
 
 .type-sao {

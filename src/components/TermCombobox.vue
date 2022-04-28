@@ -31,18 +31,7 @@
           @focus="suggest"
         />
       </div>
-      <div
-        class="
-        
-          
-          -m-2
-          mb-0
-          ml-1
-          p-3
-          flex
-          items-center
-        "
-      >
+      <div class="-m-2 mb-0 ml-1 p-3 flex items-center">
         <icon icon="stream" />
       </div>
     </div>
@@ -142,6 +131,4 @@ function blur() {
 .incomplete:not(:focus) {
   @apply text-red-800;
 }
-
-
 </style>
