@@ -162,7 +162,13 @@ export async function searchConceptSao(conceptQuery) {
 
 export async function searchGenreform(query) {
   const q = query.replaceAll(/\S+/g, "$&*");
-  const params = { "@type": "GenreForm", prefLabel: q, _limit: 10 };
+  const params = new URLSearchParams({
+    "@type": "GenreForm",
+    prefLabel: q,
+    _limit: 10,
+  });
+  params.append("inScheme.@id", "https://id.kb.se/term/barngf");
+  params.append("inScheme.@id", "https://id.kb.se/term/saogf");
   console.log("params genreform", params);
   const data = await xlFind(params);
   console.log("searchGenreform", data.items);
