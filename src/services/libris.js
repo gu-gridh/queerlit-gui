@@ -13,56 +13,48 @@ export async function search(
 ) {
   // "q" is the free text parameter
   const q = text || "*";
-  const params = { q };
+  const params = new URLSearchParams();
+  params.set("q", q);
+
+  if (terms && terms.length) {
+    params.append("instanceOf.subject.@id", terms[0]["@id"]);
+  }
 
   if (author) {
-    params["instanceOf.contribution.agent.@id"] = author["@id"];
+    params.set("instanceOf.contribution.agent.@id", author["@id"]);
   }
 
   if (title) {
-    params["hasTitle.mainTitle"] = title;
+    params.set("hasTitle.mainTitle", title);
   }
 
   if (genreform) {
-    params["instanceOf.genreForm.@id"] = genreform.id;
+    params.set("instanceOf.genreForm.@id", genreform.id);
   }
 
   if (yearStart) {
-    params["min-publication.year"] = yearStart;
+    params.set("min-publication.year", yearStart);
   }
 
   if (yearEnd) {
-    params["max-publication.year"] = yearEnd;
+    params.set("max-publication.year", yearEnd);
   }
 
-  params["@reverse.itemOf.heldBy.@id"] = "https://libris.kb.se/library/QLIT";
+  params.set("@reverse.itemOf.heldBy.@id", "https://libris.kb.se/library/QLIT");
   if (sort) {
-    params["_sort"] = sort;
+    params.set("_sort", sort);
   }
-  params["_offset"] = offset;
-  params["_limit"] = 20;
+  params.set("_offset", offset);
+  params.set("_limit", 20);
 
   console.log("params", params);
 
-  // Iteratively do local filtering and page until the limit is reached.
-  const result = {
-    total: Infinity,
-    items: [],
-  };
-  while (result.items.length < 20 && offset <= result.total) {
-    const response = await xlFindBooks({ ...params, _offset: offset });
-    result.total = response.totalItems;
-    const items = response.items.filter((item) => responseFilter(item, terms));
-    if (items.length) {
-      console.log(`Found ${items.length} new items on offset ${offset}`);
-    }
-    result.items.push(...items);
-    offset += 20;
-  }
-  // Remove tail in case the last reponse surpassed the limit.
-  result.items.splice(20);
+  const response = await xlFindBooks(params);
 
-  return result;
+  return {
+    total: response.totalItems,
+    items: response.items,
+  };
 }
 
 export async function get(id) {
@@ -129,14 +121,6 @@ function processXlItem(item) {
   processed.id = item["@id"].split("/").pop().split("#").shift();
 
   return processed;
-}
-
-function responseFilter(item, terms = []) {
-  return terms.every(
-    (term) =>
-      item.terms &&
-      (item.terms.includes(term.id) || item.terms.includes(term.prefLabel))
-  );
 }
 
 export async function searchTitle(titleQuery) {
