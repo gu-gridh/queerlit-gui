@@ -58,7 +58,7 @@ export async function search(
 }
 
 export async function get(id) {
-  const fullId = `https://libris-qa.kb.se/${id}#it`;
+  const fullId = `https://libris.kb.se/${id}#it`;
   const result = await xlFindBooks({ "@id": fullId });
   if (result.items.length != 1) {
     console.error("get(id) result length should be 1", result);
@@ -79,7 +79,7 @@ export async function xlFindBooks(params) {
  * @see https://github.com/libris/librisxl/blob/develop/rest/API.md */
 export async function xlFind(params) {
   return axios
-    .get("https://libris-qa.kb.se/find", { params })
+    .get("https://libris.kb.se/find", { params })
     .then((response) => response.data);
 }
 
@@ -87,7 +87,7 @@ function processXlItem(item) {
   // Enrich with custom data.
   const localItem = BOOKS.find(
     (book) =>
-      item["@id"] === `https://libris-qa.kb.se/${book.id}#it` ||
+      item["@id"] === `https://libris.kb.se/${book.id}#it` ||
       (item.sameAs &&
         item.sameAs.some(
           (sameAs) =>
