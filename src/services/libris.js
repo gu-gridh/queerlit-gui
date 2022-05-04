@@ -16,9 +16,9 @@ export async function search(
   const params = new URLSearchParams();
   params.set("q", q);
 
-  if (terms && terms.length) {
-    params.append("instanceOf.subject.@id", terms[0]["@id"]);
-  }
+  (terms || []).forEach((term) =>
+    params.append("instanceOf.subject.@id", term["@id"])
+  );
 
   if (author) {
     params.set("instanceOf.contribution.agent.@id", author["@id"]);
@@ -47,7 +47,7 @@ export async function search(
   params.set("_offset", offset);
   params.set("_limit", 20);
 
-  console.log("params", params);
+  console.log("params", [...params.entries()]);
 
   const response = await xlFindBooks(params);
 
