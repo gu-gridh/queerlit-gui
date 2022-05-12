@@ -7,10 +7,10 @@
           <th>Anvisning</th>
           <td>{{ term.scopeNote }}</td>
         </tr>
-        <tr v-if="term.altLabel && term.altLabel.length">
+        <tr v-if="term.altLabels && term.altLabels.length">
           <th>Varianter</th>
           <td>
-            <div v-for="altLabel in term.altLabel" :key="altLabel">
+            <div v-for="altLabel in term.altLabels" :key="altLabel">
               {{ altLabel }}
             </div>
           </td>
@@ -33,24 +33,32 @@
     <div class="flex flex-wrap -m-4">
       <div class="w-1/2 p-4">
         <Labeled label="Övergripande">
-          <div v-for="term in parents" :key="term.name">
-            <router-link v-slot="{ navigate }" :to="`/ao/${term.name}`" custom>
-              <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-                {{ term.prefLabel }}
-              </Term>
-            </router-link>
-          </div>
+          <router-link
+            v-for="term in parents"
+            :key="term.name"
+            v-slot="{ navigate }"
+            :to="`/ao/${term.name}`"
+            custom
+          >
+            <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+              {{ term.prefLabel }}
+            </Term>
+          </router-link>
         </Labeled>
       </div>
       <div class="w-1/2 p-4">
         <Labeled label="Underordnade">
-          <div v-for="term in children" :key="term.name">
-            <router-link v-slot="{ navigate }" :to="`/ao/${term.name}`" custom>
-              <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-                {{ term.prefLabel }}
-              </Term>
-            </router-link>
-          </div>
+          <router-link
+            v-for="term in children"
+            :key="term.name"
+            v-slot="{ navigate }"
+            :to="`/ao/${term.name}`"
+            custom
+          >
+            <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+              {{ term.prefLabel }}
+            </Term>
+          </router-link>
         </Labeled>
       </div>
     </div>
