@@ -112,10 +112,10 @@ function blur() {
           v-slot="{ item }"
           heading="Sök på ämnesord:"
           :items="termSuggestions"
-          @select="(item) => addTerm(item.term)"
+          @select="addTerm"
         >
           <Term class="cursor-pointer">
-            {{ item.term.prefLabel }}
+            {{ item.prefLabel }}
             <icon icon="plus" size="xs" />
           </Term>
         </FreetextSuggestions>

@@ -65,11 +65,9 @@ import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/composables/query";
 import { searchGenreform, searchPerson, searchTitle } from "@/services/libris";
 import { useStore } from "vuex";
-import useTerms from "@/composables/terms";
 import Freetext from "./Freetext.vue";
 import YearFilter from "@/components/YearFilter.vue";
 import TermCombobox from "@/components/TermCombobox.vue";
-import QButton from "@/components/QButton.vue";
 import Autocomplete from "@/components/Autocomplete.vue";
 import { useRouter } from "vue-router";
 
@@ -85,7 +83,6 @@ const {
   setQuery,
   serializedQuery,
 } = useQuery();
-const terms = useTerms();
 
 function setTitle(title) {
   setQuery({ title });

@@ -3,19 +3,10 @@ import axios from "axios";
 const QLIT_BASE = "https://queerlit.dh.gu.se/qlit/v1/api/";
 
 // TODO Libris: use `q`
-export async function autocomplete(input) {
-  if (!input) return [];
-  const match = (label) =>
-    label
-      .toLowerCase()
-      .split(/\s+/)
-      .some((word) => word.indexOf(input.toLowerCase()) === 0);
-  return Object.values(termData).reduce((results, term) => {
-    const altMatch = term.altLabel && term.altLabel.find(match);
-    if (!match(term.prefLabel) && !altMatch) return results;
-    results.push({ term, altMatch });
-    return results;
-  }, []);
+export async function autocomplete(s) {
+  // Do not sort alphabetically.
+  const data = await qlitGet("autocomplete", { s });
+  return data.slice(0, 10);
 }
 
 async function qlitGet(endpoint, params) {

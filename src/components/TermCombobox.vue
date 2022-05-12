@@ -47,17 +47,17 @@
     <div v-show="suggestions.length" class="h-0 relative z-20">
       <div class="bg-smoke-200 rounded-b pt-2">
         <div
-          v-for="{ term, altMatch } in suggestions"
+          v-for="term in suggestions"
           :key="term.id"
           class="px-2 pb-2 flex items-baseline"
         >
-          <span
+          <!-- <span
             v-if="altMatch"
             class="mr-1 line-through opacity-75"
             @click="add(term)"
           >
             {{ altMatch }}
-          </span>
+          </span> -->
           <Term @click="add(term)">
             {{ term.prefLabel }}
             <icon icon="plus" size="xs" />
@@ -93,7 +93,11 @@ async function suggest() {
 }
 
 function add(term) {
-  termsAdd(term);
+  // Hack: Turn qlit-server term into something similar to a Libris term.
+  termsAdd({
+    "@id": term.uri,
+    prefLabel: term.prefLabel,
+  });
   input.value = "";
   setSuggestions([]);
   emitChange();
