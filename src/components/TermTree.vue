@@ -1,6 +1,6 @@
 <template>
   <div
-    class="term-group mt-4 pl-2 border-l-4 border-transparent"
+    class="mt-4 pl-4 pb-4 border-l-4 border-transparent"
     :class="[isRoot ? '-ml-2' : 'ml-8']"
     :style="{
       borderColor: `hsl(${hue} 70% 80% / ${0 + expanded})`,
@@ -10,12 +10,12 @@
       <router-link :to="`/ao/${parent.id}`" class="text-lg font-bold">
         <Term>{{ parent.prefLabel }}</Term>
       </router-link>
-      <span v-if="parent.altLabel" class="term-alternative ml-4">
+      <div v-if="parent.altLabel" class="my-2">
         (även: {{ parent.altLabel.join(", ") }})
-      </span>
+      </div>
     </div>
 
-    <div class="term-alternative ml-4">
+    <div v-if="parent.scopeNote" class="my-2">
       {{ parent.scopeNote }}
     </div>
 
@@ -66,14 +66,4 @@ const isRoot = computed(() => !props.parent.broader);
 const hue = computed(() => 333 + props.level * 92);
 </script>
 
-<style>
-.term-group {
-  padding: 0px 0px 20px 20px;
-}
-
-.term-alternative {
-  display: block;
-  margin-top: 10px;
-  margin-left: 0px;
-}
-</style>
+<style></style>

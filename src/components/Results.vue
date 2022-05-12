@@ -1,5 +1,5 @@
 <template>
-  <div class="result-container">
+  <div class="p-6">
     <div v-if="isSearching" class="spinner p-6 py-10 text-center">
       <icon icon="spinner" size="6x" spin />
     </div>
@@ -9,12 +9,27 @@
         <Pagination
           :current="offset / 20 + 1"
           :last="total / 20"
-          class="w-2/6 pagination"
+          class="w-2/6"
           @change="setPage"
         />
         <div class="w-2/6 text-right">
           <label for="sort-input">Sortering: </label>
-          <select id="sort-input" :value="sort" @change="setSort">
+          <select
+            id="sort-input"
+            :value="sort"
+            class="
+              appearance-none
+              rounded
+              font-bold
+              cursor-pointer
+              -my-1
+              p-1
+              px-2
+              bg-smoke-200
+              text-qblue
+            "
+            @change="setSort"
+          >
             <option value="-publication.year">Nyast först</option>
             <option value="publication.year">Äldst först</option>
             <option value="">Relevans</option>
@@ -70,33 +85,7 @@ function setSort(event) {
 </script>
 
 <style>
-.result-container {
-  padding: 30px;
-}
-
 .spinner {
   margin-top: calc(50vh - 150px);
-}
-
-select {
-  width: auto;
-  height: auto;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 4;
-  color: rgb(70, 150, 200) !important;
-  background-color: #e7ebe9;
-  padding: 5px 10px 5px 10px !important;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-.pagination {
-  margin-top: 5px;
 }
 </style>

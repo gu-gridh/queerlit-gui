@@ -4,14 +4,14 @@
       <input
         :value="startD"
         size="4"
-        class="text-sm text-black p-1 px-2 advanced-form"
+        class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
         placeholder="Från"
         @change="startTextChange"
       />
       <input
         :value="endD"
         size="4"
-        class="text-sm text-black p-1 px-2 advanced-form"
+        class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
         placeholder="Till"
         @change="endTextChange"
       />

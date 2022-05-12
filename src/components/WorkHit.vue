@@ -1,7 +1,16 @@
 <template>
   <router-link :to="`/verk/${id}`" class="block">
-    <article class="article block flex items-baseline">
-      <div class="w-4 mr-2">{{ i }}.</div>
+    <article
+      class="
+        border-b border-dashed border-black
+        p-4
+        transition-color
+        flex
+        items-baseline
+        hover:bg-smoke-100
+      "
+    >
+      <div class="w-4 mr-2 font-thin text-2xl pr-6">{{ i }}.</div>
       <div class="flex-1 flex flex-wrap items-baseline">
         <h3 class="w-full xl:w-3/5 xl:pr-6 mb-2 text-xl group-hover:underline">
           {{ title }}
@@ -28,7 +37,6 @@
 
 <script setup>
 import Term from "@/components/Term.vue";
-import { computed } from "@vue/reactivity";
 
 defineProps({
   id: String,
@@ -44,26 +52,4 @@ defineProps({
 });
 </script>
 
-<style>
-.article {
-  border-style: dashed;
-  border-width: 0px 0px 0.5px 0px;
-  border-color: black;
-  padding: 20px;
-  transition: all 0.1s ease-in-out;
-}
-
-.article:hover {
-  background-color: #f1f4f2;
-}
-
-.w-4 {
-  font-weight: 100;
-  font-size: 30px;
-  padding: 0 30px 0 0;
-}
-
-.title {
-  margin-left: 10px;
-}
-</style>
+<style></style>

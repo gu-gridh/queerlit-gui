@@ -8,7 +8,7 @@ defineEmits(["select"]);
 <template>
   <div v-if="items.length" class="my-2">
     <div class="text-sm mx-2">{{ heading }}</div>
-    <Dragscroll class="term-suggestions overflow-hidden whitespace-nowrap">
+    <Dragscroll class="overflow-hidden whitespace-nowrap pt-2 pb-3 text-lg">
       <span
         v-for="(item, i) in items"
         :key="i"
@@ -23,9 +23,4 @@ defineEmits(["select"]);
   </div>
 </template>
 
-<style>
-.term-suggestions {
-  padding: 10px 0px 15px 0px;
-  font-size: 20px !important;
-}
-</style>
+<style></style>

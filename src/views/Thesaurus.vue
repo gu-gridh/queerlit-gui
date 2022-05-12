@@ -1,8 +1,6 @@
 <template>
-  <div class="thesaurus-container">
-    <h1 class="text-6xl">Tesaurus</h1>
-  </div>
-  <div style="padding: 0px 40px 50px 40px">
+  <div class="container">
+    <h1 class="text-6xl my-10">Tesaurus</h1>
     <TermTree
       v-for="term in rootTerms"
       :key="term.id"
@@ -25,8 +23,4 @@ onMounted(async () => {
 });
 </script>
 
-<style>
-.thesaurus-container {
-  padding: 60px 40px 30px 40px;
-}
-</style>
+<style></style>

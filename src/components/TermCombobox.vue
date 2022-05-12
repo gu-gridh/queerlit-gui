@@ -45,7 +45,7 @@
       </div>
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
-      <div class="top-sort bg-smoke-200 rounded-b pt-2">
+      <div class="bg-smoke-200 rounded-b pt-2">
         <div
           v-for="{ term, altMatch } in suggestions"
           :key="term.id"

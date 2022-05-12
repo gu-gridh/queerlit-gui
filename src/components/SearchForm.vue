@@ -1,67 +1,62 @@
 <template>
-  <div class="search-widget">
-    <div class="py-8">
-      <div class="">
-        <div class="mt-4 text-xl">
-          <div class="search-border rounded-t flex-1">
-            <Freetext @search="search" />
-          </div>
-        </div>
+  <div class="bg-white rounded-xl shadow-lg">
+    <div class="py-8 px-6">
+      <Freetext class="mt-4 flex-1" @search="search" />
+      <TermCombobox class="mb-4 text-xl" @change="search" />
+    </div>
 
-        <div class="mb-4 text-xl">
-          <TermCombobox @change="search" />
+    <div
+      class="
+        container-b
+        max-w-screen-md
+        py-8
+        px-6
+        border-t border-dashed border-gray-500
+      "
+    >
+      <h3 class="text-lg mb-2">Avancerat</h3>
+      <div class="flex flex-wrap -mx-2">
+        <div class="w-full sm:w-1/2 p-2">
+          <Autocomplete
+            id="search-title"
+            placeholder="Titel"
+            :value="title"
+            :suggest="searchTitle"
+            :get-label="(title) => title"
+            :get-id="(title) => title"
+            @change="setTitle"
+          />
         </div>
-      </div>
-
-      <div class="subtitle">Avancerat</div>
-      <div class="container-b max-w-screen-md my-4">
-        <div class="flex flex-wrap -mx-2">
-          <div class="w-full sm:w-1/2 p-2">
-            <Autocomplete
-              id="search-title"
-              placeholder="Titel"
-              :value="title"
-              :suggest="searchTitle"
-              :get-label="(title) => title"
-              :get-id="(title) => title"
-              @change="setTitle"
-            />
-          </div>
-          <div class="w-full sm:w-1/2 p-2">
-            <Autocomplete
-              placeholder="Författare"
-              :value="author"
-              :suggest="searchPerson"
-              :get-label="(item) => `${item.givenName} ${item.familyName}`"
-              :get-id="(item) => item['@id']"
-              @change="setAuthor"
-            />
-          </div>
-          <div class="w-full sm:w-1/2 p-2">
-            <YearFilter
-              :start="yearStart"
-              :end="yearEnd"
-              @change="yearChange"
-              @keyup.enter="search"
-            />
-          </div>
-          <div class="w-full sm:w-1/2 p-2">
-            <Autocomplete
-              placeholder="Genre/form"
-              :value="genreform"
-              :suggest="searchGenreform"
-              :get-label="(item) => `${item.label} (${item.scheme})`"
-              :get-id="(item) => item.id"
-              @change="setGenreform"
-            />
-          </div>
+        <div class="w-full sm:w-1/2 p-2">
+          <Autocomplete
+            placeholder="Författare"
+            :value="author"
+            :suggest="searchPerson"
+            :get-label="(item) => `${item.givenName} ${item.familyName}`"
+            :get-id="(item) => item['@id']"
+            @change="setAuthor"
+          />
+        </div>
+        <div class="w-full sm:w-1/2 p-2">
+          <YearFilter
+            :start="yearStart"
+            :end="yearEnd"
+            @change="yearChange"
+            @keyup.enter="search"
+          />
+        </div>
+        <div class="w-full sm:w-1/2 p-2">
+          <Autocomplete
+            placeholder="Genre/form"
+            :value="genreform"
+            :suggest="searchGenreform"
+            :get-label="(item) => `${item.label} (${item.scheme})`"
+            :get-id="(item) => item.id"
+            @change="setGenreform"
+          />
         </div>
       </div>
     </div>
-
-    <!-- <div class="container my-2 text-center">
-      <QButton class="text-2xl" @click="search">Sök</QButton>
-    </div> -->
   </div>
 </template>
 
@@ -123,58 +118,4 @@ async function search() {
 onMounted(search());
 </script>
 
-<style>
-.search-widget {
-  background-color: white;
-  border-radius: 15px;
-  padding: 0px 30px 0 30px;
-  box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2);
-  transition: all 0.5s ease-in-out;
-}
-
-.subtitle {
-  width: calc(100% + 60px);
-  border-color: grey;
-  border-width: 0.5px 0 0 0;
-  border-style: dashed;
-  padding: 40px 0 10px 40px;
-  margin-top: 50px;
-  margin-left: -30px;
-  margin-bottom: 0px;
-  font-size: 120%;
-}
-
-.container-b {
-  margin-top: 0px !important;
-  padding: 0px 10px 0px 10px !important;
-}
-
-.rounded {
-  border-radius: 5px !important;
-}
-
-.border {
-  border-color: grey;
-  border-width: 0.5px;
-}
-
-.search-border {
-  border-color: grey;
-  border-width: 0px;
-  background-color: #dfe5e2 !important;
-}
-
-.search-border:hover {
-  background-color: #dfe5e2 !important;
-}
-
-.advanced-form {
-  border-color: grey;
-  border-width: 0.5px;
-  height: 35px;
-}
-
-.top-sort {
-  z-index: 100;
-}
-</style>
+<style></style>

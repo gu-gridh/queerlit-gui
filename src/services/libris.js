@@ -155,7 +155,7 @@ export async function searchTitle(titleQuery) {
 export async function searchPerson(nameQuery) {
   // Add wildcard at end of each word
   const q = nameQuery.replaceAll(/\S+/g, "$&*");
-  const params = { "@type": "Person", q, _limit: 20 };
+  const params = { "@type": "Person", q, _limit: 10 };
   console.log("params person", params);
   const data = await xlFind(params);
   console.log("searchPerson", data.items);
@@ -164,7 +164,7 @@ export async function searchPerson(nameQuery) {
 
 export async function searchConcept(conceptQuery, schemeId) {
   const q = conceptQuery + "*";
-  const params = { "@type": "Concept", q, _limit: 20 };
+  const params = { "@type": "Concept", q, _limit: 10 };
   if (schemeId) {
     params["inScheme.@id"] = schemeId;
   }
@@ -178,7 +178,7 @@ export async function searchConceptSao(conceptQuery) {
 
 export async function searchGenreform(query) {
   const q = query.replaceAll(/\S+/g, "$&*");
-  const params = { "@type": "GenreForm", prefLabel: q, _limit: 20 };
+  const params = { "@type": "GenreForm", prefLabel: q, _limit: 10 };
   console.log("params genreform", params);
   const data = await xlFind(params);
   console.log("searchGenreform", data.items);

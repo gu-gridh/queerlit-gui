@@ -8,8 +8,9 @@
       class="
         block
         w-full
-        advanced-form
         text-lg text-black
+        border border-gray-500
+        leading-snug
         py-1
         px-2
         transition-colors
@@ -20,11 +21,22 @@
       @focus="change"
     />
     <div v-show="suggestions.length" class="relative h-0 z-20">
-      <div class="suggestions bg-white p-1 shadow rounded-b">
+      <div
+        class="
+          suggestions
+          bg-white
+          py-1
+          shadow
+          rounded-b
+          text-sm
+          whitespace-nowrap
+          overflow-hidden
+        "
+      >
         <div
           v-for="item in suggestions"
           :key="getId ? getId(item) : item"
-          class="hover:bg-blue-50 cursor-pointer"
+          class="hover:bg-blue-50 cursor-pointer px-1"
           @click="selectSuggestion(item)"
         >
           {{ getLabel ? getLabel(item) : item }}
@@ -71,7 +83,7 @@ const getSuggestions = debounce(async () => {
   const q = input.value;
   const items = await props.suggest(q);
   q == input.value
-    ? (suggestions.value = items)
+    ? (suggestions.value = items.slice(0, 10))
     : console.log("too slow", q, input.value);
 }, 400);
 
@@ -97,10 +109,5 @@ function blur() {
 }
 .incomplete:not(:focus) {
   @apply text-red-800;
-}
-.suggestions {
-  max-height: 200px;
-  overflow: hidden;
-  font-size: 16px;
 }
 </style>

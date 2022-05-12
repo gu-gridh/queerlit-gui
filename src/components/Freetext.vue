@@ -90,7 +90,7 @@ function blur() {
       type="search"
       :value="text"
       placeholder="Sök här..."
-      class="w-full p-4 pb-3 bg-transparent text-black"
+      class="w-full p-4 pb-3 bg-smoke-300 rounded-t text-black text-xl"
       @input="textChange"
       @keyup.enter="emit('search')"
       @focus="textChange"
@@ -99,13 +99,13 @@ function blur() {
       <div
         v-if="showSuggestions"
         class="
-          top-sort
           absolute
           top-0
           bg-smoke-200
           w-full
           overflow-hidden
           rounded-b
+          z-20
         "
       >
         <FreetextSuggestions
@@ -114,7 +114,7 @@ function blur() {
           :items="termSuggestions"
           @select="(item) => addTerm(item.term)"
         >
-          <Term>
+          <Term class="cursor-pointer">
             {{ item.term.prefLabel }}
             <icon icon="plus" size="xs" />
           </Term>
@@ -126,7 +126,7 @@ function blur() {
           :items="saoSuggestions"
           @select="addTerm"
         >
-          <Term :data="item">
+          <Term :data="item" class="cursor-pointer">
             {{ item.prefLabel }}
             <icon icon="plus" size="xs" />
           </Term>
@@ -151,8 +151,4 @@ function blur() {
   </div>
 </template>
 
-<style>
-.term-suggestions {
-  padding: 10px 0px 15px 0px;
-}
-</style>
+<style></style>
