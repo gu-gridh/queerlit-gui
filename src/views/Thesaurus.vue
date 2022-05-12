@@ -3,7 +3,7 @@
     <h1 class="text-6xl my-10">Tesaurus</h1>
     <TermTree
       v-for="term in rootTerms"
-      :key="term.id"
+      :key="term.name"
       :parent="term"
       :level="0"
     />
@@ -19,7 +19,7 @@ const { getRoots } = useTerms();
 const rootTerms = ref([]);
 
 onMounted(async () => {
-  rootTerms.value = (await getRoots()).map(({ term }) => term);
+  rootTerms.value = await getRoots();
 });
 </script>
 

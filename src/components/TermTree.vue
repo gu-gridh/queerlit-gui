@@ -7,11 +7,11 @@
     }"
   >
     <div>
-      <router-link :to="`/ao/${parent.id}`" class="text-lg font-bold">
+      <router-link :to="`/ao/${parent.name}`" class="text-lg font-bold">
         <Term>{{ parent.prefLabel }}</Term>
       </router-link>
-      <div v-if="parent.altLabel" class="my-2">
-        (även: {{ parent.altLabel.join(", ") }})
+      <div v-if="parent.altLabels && parent.altLabels.length" class="my-2">
+        (även: {{ parent.altLabels.join(", ") }})
       </div>
     </div>
 
@@ -20,7 +20,7 @@
     </div>
 
     <div
-      v-if="children.length"
+      v-if="parent.narrower.length"
       class="my-2 text-sm cursor-pointer"
       @click="toggleExpanded"
     >
@@ -31,39 +31,46 @@
     </div>
 
     <div v-if="expanded">
-      <TermTree
-        v-for="child in children"
-        :key="child.id"
-        :parent="child"
-        :level="level + 1"
-        :expanded="false"
-      />
+      <div v-if="children">
+        <TermTree
+          v-for="child in children"
+          :key="child.name"
+          :parent="child"
+          :level="level + 1"
+          :expanded="false"
+        />
+      </div>
+      <div v-else>Laddar...</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "@vue/runtime-core";
+import { computed, ref, watch } from "@vue/runtime-core";
 import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
-import QButton from "./QButton.vue";
 
 const props = defineProps(["parent", "level", "expanded"]);
 const { getChildren } = useTerms();
-const children = ref([]);
+const children = ref(null);
 const expanded = ref(props.expanded);
-
-onMounted(async () => {
-  children.value = (await getChildren(props.parent)).map(({ term }) => term);
-});
 
 const toggleExpanded = () => (expanded.value = !expanded.value);
 
-const isRoot = computed(() => !props.parent.broader);
+const isRoot = computed(
+  () => !props.parent.broader || !props.parent.broader.length
+);
 
 // 333° is the hue for Tailwind's pink-600
 // 92° is approximately ϕ radians, which gives suitable steps around the hue circle.
 const hue = computed(() => 333 + props.level * 92);
+
+// Load children when expanding.
+watch(expanded, async () => {
+  if (expanded.value && !children.value) {
+    children.value = await getChildren(props.parent.name);
+  }
+});
 </script>
 
 <style></style>

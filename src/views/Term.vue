@@ -17,7 +17,7 @@
         </tr>
         <tr>
           <th class="pb-0">Identifierare</th>
-          <td class="pb-0">https://queerlit.dh.gu.se/qlit/0.2/{{ term.id }}</td>
+          <td class="pb-0">{{ term.uri }}</td>
         </tr>
         <tr class="text-sm text-black-700">
           <td />
@@ -33,8 +33,8 @@
     <div class="flex flex-wrap -m-4">
       <div class="w-1/2 p-4">
         <Labeled label="Övergripande">
-          <div v-for="term in parents" :key="term.id">
-            <router-link v-slot="{ navigate }" :to="`/ao/${term.id}`" custom>
+          <div v-for="term in parents" :key="term.name">
+            <router-link v-slot="{ navigate }" :to="`/ao/${term.name}`" custom>
               <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
                 {{ term.prefLabel }}
               </Term>
@@ -44,8 +44,8 @@
       </div>
       <div class="w-1/2 p-4">
         <Labeled label="Underordnade">
-          <div v-for="term in children" :key="term.id">
-            <router-link v-slot="{ navigate }" :to="`/ao/${term.id}`" custom>
+          <div v-for="term in children" :key="term.name">
+            <router-link v-slot="{ navigate }" :to="`/ao/${term.name}`" custom>
               <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
                 {{ term.prefLabel }}
               </Term>
@@ -59,9 +59,9 @@
       <Labeled label="Relaterade" class="my-4">
         <router-link
           v-for="term in related"
-          :key="term.id"
+          :key="term.name"
           v-slot="{ navigate }"
-          :to="`/ao/${term.id}`"
+          :to="`/ao/${term.name}`"
           custom
         >
           <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
@@ -90,15 +90,9 @@ const related = ref([]);
 
 watchEffect(async () => (term.value = await getTerm(route.params.id)));
 watch(term, () => {
-  getParents(term.value).then(
-    (terms) => (parents.value = terms.map(({ term }) => term))
-  );
-  getChildren(term.value).then(
-    (terms) => (children.value = terms.map(({ term }) => term))
-  );
-  getRelated(term.value).then(
-    (terms) => (related.value = terms.map(({ term }) => term))
-  );
+  getParents(term.value.name).then((terms) => (parents.value = terms));
+  getChildren(term.value.name).then((terms) => (children.value = terms));
+  getRelated(term.value.name).then((terms) => (related.value = terms));
 });
 </script>
 

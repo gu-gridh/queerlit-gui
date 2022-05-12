@@ -1,3 +1,7 @@
+import axios from "axios";
+
+const QLIT_BASE = "https://queerlit.dh.gu.se/qlit/v1/api/";
+
 // TODO Libris: use `q`
 export async function autocomplete(input) {
   if (!input) return [];
@@ -14,39 +18,34 @@ export async function autocomplete(input) {
   }, []);
 }
 
-// TODO Libris: the term id is its url, fetch that or do `find?@id=<url>`
-export async function getTerm(id) {
-  return termData[id];
+async function qlitGet(endpoint, params) {
+  const response = await axios.get(QLIT_BASE + endpoint, { params });
+  return response.data;
+}
+
+async function qlitList(endpoint, params) {
+  const data = await qlitGet(endpoint, params);
+  return data.sort((a, b) => a.prefLabel.localeCompare(b.prefLabel, "sv"));
+}
+
+export async function getTerm(name) {
+  return qlitGet("term/" + name);
 }
 
 export async function getParents(child) {
-  return Object.values(termData)
-    .filter((parent) => child.broader && child.broader.includes(parent.id))
-    .map((term) => ({ term }));
+  return qlitList("parents", { child });
 }
 
-// TODO Libris: `find?@type=Concept&broader.@id=<uri>`, encodeURLComponent needed, perhaps twice
 export async function getChildren(parent) {
-  return Object.values(termData)
-    .filter((child) => child.broader && child.broader.includes(parent.id))
-    .map((term) => ({ term }));
+  return qlitList("children", { parent });
 }
 
-export async function getRelated(termA) {
-  return Object.values(termData)
-    .filter(
-      (termB) =>
-        (termA.related && termA.related.includes(termB.id)) ||
-        (termB.related && termB.related.includes(termA.id))
-    )
-    .map((term) => ({ term }));
+export async function getRelated(other) {
+  return qlitList("related", { other });
 }
 
-// TODO Libris: `find?@type=Concept&exists-broader=false`
 export async function getRoots() {
-  return Object.values(termData)
-    .filter((term) => !term.broader || !term.broader.length)
-    .map((term) => ({ term }));
+  return qlitList("roots");
 }
 
 const termData = {
