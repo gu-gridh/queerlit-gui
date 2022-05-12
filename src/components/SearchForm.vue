@@ -1,26 +1,25 @@
 <template>
-  <div class="py-8">
-    <div class="container">
-      <div class="my-4 text-xl">
-        <label class="uppercase font-bold text-sm hidden">Fritext</label>
-        <div class="mb-2 border rounded flex-1 bg-white">
-          <Freetext @search="search" />
-        </div>
-      </div>
-
-      <div class="my-4">
-        <label class="uppercase font-bold text-sm">Ämnesord</label>
-        <TermCombobox @change="search" />
-      </div>
+  <div class="bg-white rounded-xl shadow-lg">
+    <div class="py-8 px-6">
+      <Freetext class="mt-4 flex-1" @search="search" />
+      <TermCombobox class="mb-4 text-xl" @change="search" />
     </div>
-    <div class="container max-w-screen-md my-4">
+
+    <div
+      class="
+        container-b
+        max-w-screen-md
+        py-8
+        px-6
+        border-t border-dashed border-gray-500
+      "
+    >
+      <h3 class="text-lg mb-2">Avancerat</h3>
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Titel
-          </label>
           <Autocomplete
             id="search-title"
+            placeholder="Titel"
             :value="title"
             :suggest="searchTitle"
             :get-label="(title) => title"
@@ -29,10 +28,8 @@
           />
         </div>
         <div class="w-full sm:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Författare
-          </label>
           <Autocomplete
+            placeholder="Författare"
             :value="author"
             :suggest="searchPerson"
             :get-label="(item) => `${item.givenName} ${item.familyName}`"
@@ -41,9 +38,6 @@
           />
         </div>
         <div class="w-full sm:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Utgivningsår
-          </label>
           <YearFilter
             :start="yearStart"
             :end="yearEnd"
@@ -52,10 +46,8 @@
           />
         </div>
         <div class="w-full sm:w-1/2 p-2">
-          <label for="search-title" class="uppercase font-bold text-sm">
-            Genre/form
-          </label>
           <Autocomplete
+            placeholder="Genre/form"
             :value="genreform"
             :suggest="searchGenreform"
             :get-label="(item) => `${item.label} (${item.scheme})`"
@@ -64,10 +56,6 @@
           />
         </div>
       </div>
-    </div>
-
-    <div class="container my-2 text-center">
-      <QButton class="text-2xl" @click="search">Sök</QButton>
     </div>
   </div>
 </template>
@@ -129,3 +117,5 @@ async function search() {
 
 onMounted(search());
 </script>
+
+<style></style>

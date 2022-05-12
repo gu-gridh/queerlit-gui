@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="text-2xl">Tesaurus</h1>
-  </div>
-  <div class="container">
+    <h1 class="text-6xl my-10">Tesaurus</h1>
     <TermTree
       v-for="term in rootTerms"
       :key="term.id"

@@ -1,21 +1,21 @@
 <template>
   <div
-    class="mt-4 pl-2 border-l-4 border-transparent"
+    class="mt-4 pl-4 pb-4 border-l-4 border-transparent"
     :class="[isRoot ? '-ml-2' : 'ml-8']"
     :style="{
       borderColor: `hsl(${hue} 70% 80% / ${0 + expanded})`,
     }"
   >
     <div>
-      <router-link :to="`/ao/${parent.id}`" class="text-lg font-bold">{{
-        parent.prefLabel
-      }}</router-link>
-      <span v-if="parent.altLabel" class="ml-4">
+      <router-link :to="`/ao/${parent.id}`" class="text-lg font-bold">
+        <Term>{{ parent.prefLabel }}</Term>
+      </router-link>
+      <div v-if="parent.altLabel" class="my-2">
         (även: {{ parent.altLabel.join(", ") }})
-      </span>
+      </div>
     </div>
 
-    <div>
+    <div v-if="parent.scopeNote" class="my-2">
       {{ parent.scopeNote }}
     </div>
 

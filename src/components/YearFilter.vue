@@ -4,13 +4,15 @@
       <input
         :value="startD"
         size="4"
-        class="text-sm text-black p-1 px-2 border rounded"
+        class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
+        placeholder="Från"
         @change="startTextChange"
       />
       <input
         :value="endD"
         size="4"
-        class="text-sm text-black p-1 px-2 border rounded"
+        class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
+        placeholder="Till"
         @change="endTextChange"
       />
     </div>
@@ -61,4 +63,8 @@ function emitChange() {
 }
 </script>
 
-<style></style>
+<style scoped>
+::placeholder {
+  font-size: 16px;
+}
+</style>

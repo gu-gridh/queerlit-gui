@@ -1,29 +1,50 @@
 <template>
-  <div class="flex-1 flex flex-col lg:flex-row">
+  <div class="flex-1 flex flex-col lg:flex-row text-text">
     <div class="lg:w-1/2 lg:max-w-screen-sm"></div>
     <div
       class="
-        bg-gray-300
-        text-gray-600
+        bg-smoke-500
         lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full
         overflow-y-auto
       "
     >
-      <header>
-        <div class="container max-w-screen-md py-8">
+      <div class="container py-12">
+        <header class="max-w-screen-md pb-8">
           <router-link to="/" class="flex-1">
-            <h1 class="text-7xl font-thin">Queerlit</h1>
+            <img
+              src="@/assets/qlogo.svg"
+              class="
+                ml-2
+                mt-6
+                h-24
+                transition-all
+                duration-500
+                low:mt-0 low:h-14
+              "
+            />
           </router-link>
+        </header>
+
+        <nav
+          class="
+            main-nav
+            text-lg
+            mt-6
+            mb-4
+            transition-all
+            duration-500
+            low:mt-0
+          "
+        >
+          <router-link to="/" class="p-1 px-4 mr-1">Sök</router-link>
+          <router-link to="/ao" class="p-1 px-4 mr-1">Tesaurus</router-link>
+          <a href="https://queerlit.dh.gu.se/om/" class="p-1 px-4 mr-1">Om</a>
+        </nav>
+
+        <div class="bg-white rounded-xl shadow-lg">
+          <router-view name="side" />
         </div>
-      </header>
-
-      <nav class="main-nav container text-lg mt-6">
-        <router-link to="/" class="p-1 px-4 mr-1">Sök</router-link>
-        <router-link to="/ao" class="p-1 px-4 mr-1">Tesaurus</router-link>
-        <a href="https://queerlit.dh.gu.se/om/" class="p-1 px-4 mr-1">Om</a>
-      </nav>
-
-      <router-view name="side" />
+      </div>
     </div>
     <div class="flex-1">
       <router-view />
@@ -54,7 +75,12 @@ html {
   font-size: 14pt;
 }
 
-#app {
-  color: #2c3e50;
+*:focus {
+  outline: none !important;
+}
+
+::placeholder {
+  color: #666666 !important;
+  /* font-size: inherit; */
 }
 </style>

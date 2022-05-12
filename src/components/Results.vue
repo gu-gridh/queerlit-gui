@@ -1,44 +1,61 @@
 <template>
-  <div v-if="isSearching" class="p-6 py-10 text-center">
-    <icon icon="spinner" size="6x" spin />
-  </div>
-  <div v-else-if="results">
-    <div class="flex p-6">
-      <div class="w-1/3">{{ total }} träffar</div>
-      <Pagination
-        :current="offset / 20 + 1"
-        :last="total / 20"
-        class="w-1/3"
-        @change="setPage"
-      />
-      <div class="w-1/3 text-right">
-        <label for="sort-input">Sortering:</label>
-        <select id="sort-input" :value="sort" @change="setSort">
-          <option value="-publication.year">Nyast först</option>
-          <option value="publication.year">Äldst först</option>
-          <option value="">Relevans</option>
-          <option value="_sortKeyByLang.sv">Titel A-Ö</option>
-        </select>
+  <div class="p-6">
+    <div v-if="isSearching" class="spinner p-6 py-10 text-center">
+      <icon icon="spinner" size="6x" spin />
+    </div>
+    <div v-else-if="results">
+      <div class="flex p-6">
+        <div class="w-2/6">{{ total }} träffar</div>
+        <Pagination
+          :current="offset / 20 + 1"
+          :last="total / 20"
+          class="w-2/6"
+          @change="setPage"
+        />
+        <div class="w-2/6 text-right">
+          <label for="sort-input">Sortering: </label>
+          <select
+            id="sort-input"
+            :value="sort"
+            class="
+              appearance-none
+              rounded
+              font-bold
+              cursor-pointer
+              -my-1
+              p-1
+              px-2
+              bg-smoke-200
+              text-qblue
+            "
+            @change="setSort"
+          >
+            <option value="-publication.year">Nyast först</option>
+            <option value="publication.year">Äldst först</option>
+            <option value="">Relevans</option>
+            <option value="_sortKeyByLang.sv">Titel A-Ö</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <WorkHit
-      v-for="(book, i) in results"
-      :key="book['@id']"
-      v-bind="book"
-      :i="offset + i + 1"
-    />
-
-    <div v-if="!results.length" class="my-8 text-center text-xl">
-      Inga träffar!
-    </div>
-
-    <div class="p-6">
-      <Pagination
-        :current="offset / 20 + 1"
-        :last="total / 20"
-        class="w-1/3 mx-auto"
-        @change="setPage"
+      <WorkHit
+        v-for="(book, i) in results"
+        :key="book['@id']"
+        v-bind="book"
+        :i="offset + i + 1"
       />
+
+      <div v-if="!results.length" class="my-8 text-center text-xl">
+        Inga träffar!
+      </div>
+
+      <div class="p-6">
+        <Pagination
+          :current="offset / 20 + 1"
+          :last="total / 20"
+          class="w-1/3 mx-auto"
+          @change="setPage"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -66,3 +83,9 @@ function setSort(event) {
   store.dispatch("search");
 }
 </script>
+
+<style>
+.spinner {
+  margin-top: calc(50vh - 150px);
+}
+</style>

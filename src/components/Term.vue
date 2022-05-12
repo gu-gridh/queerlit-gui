@@ -12,12 +12,15 @@ const label = computed(() => props.data?.prefLabel);
     class="
       term
       inline-block
-      px-1
+      px-2
       py-1
       leading-snug
-      bg-yellow-200
-      border border-yellow-300
       text-black
+      bg-tagyellow
+      font-thin
+      rounded-md
+      shadow-md
+      transition-all
     "
     :class="[type && `type-${type}`]"
   >
@@ -28,7 +31,11 @@ const label = computed(() => props.data?.prefLabel);
 </template>
 
 <style scoped>
+.term:hover {
+  transform: scale(1.03);
+}
+
 .type-sao {
-  @apply bg-gray-200 border-gray-300;
+  @apply bg-gray-200;
 }
 </style>

@@ -1,13 +1,23 @@
 <template>
   <div v-click-outside="blur">
-    <div class="border rounded bg-yellow-50 p-2 pb-0 flex">
+    <div
+      class="
+        bg-smoke-200
+        hover:bg-smoke-300
+        p-2
+        pb-0
+        flex
+        border-t border-dashed border-gray-500
+      "
+      :class="{ 'rounded-b': !suggestions.length }"
+    >
       <div class="flex-1 flex flex-wrap">
         <Term
           v-for="term in terms"
           :key="term.id"
           class="mr-2 mb-2"
-          @click="remove(term)"
           :data="term"
+          @click="remove(term)"
         >
           {{ term.prefLabel }}
           <icon icon="times" size="xs" />
@@ -15,9 +25,7 @@
         <input
           v-model="input"
           type="search"
-          :placeholder="
-            terms.length ? 'sök fler ämnesord...' : 'sök ämnesord...'
-          "
+          :placeholder="terms.length ? 'Sök fler ämnesord...' : ' Ämnesord...'"
           class="
             bg-transparent
             pl-1
@@ -32,22 +40,12 @@
           @focus="suggest"
         />
       </div>
-      <div
-        class="
-          border-l-2 border-yellow-100
-          -m-2
-          mb-0
-          ml-1
-          p-3
-          flex
-          items-center
-        "
-      >
+      <div class="-m-2 mb-0 ml-1 p-3 flex items-center">
         <icon icon="stream" />
       </div>
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
-      <div class="shadow bg-white rounded-b pt-2">
+      <div class="bg-smoke-200 rounded-b pt-2">
         <div
           v-for="{ term, altMatch } in suggestions"
           :key="term.id"
@@ -126,6 +124,10 @@ function blur() {
 </script>
 
 <style scoped>
+::placeholder {
+  font-size: 20px;
+}
+
 .incomplete:not(:focus) {
   @apply text-red-800;
 }
