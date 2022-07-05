@@ -40,7 +40,7 @@
           @focus="suggest"
         />
       </div>
-      <div class="-m-2 mb-0 ml-1 p-3 flex items-center">
+      <div class="-m-2 mb-0 ml-1 p-3 flex items-center" style="transform: scale(0.8);">
         <icon icon="stream" />
       </div>
     </div>
