@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const QLIT_BASE = "https://queerlit.dh.gu.se/qlit/v1/api/";
+const QLIT_BASE =
+  import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
 
 // TODO Libris: use `q`
 export async function autocomplete(s) {

@@ -33,23 +33,43 @@
     <div class="flex flex-wrap -m-4">
       <div class="w-1/2 p-4">
         <Labeled label="Övergripande">
-          <router-link
-            v-for="term in parents"
-            :key="term.name"
-            v-slot="{ navigate }"
-            :to="`/ao/${term.name}`"
-            custom
-          >
-            <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-              {{ term.prefLabel }}
-            </Term>
-          </router-link>
+          <ul>
+            <li v-for="term in parents" :key="term.name">
+              <router-link
+                v-slot="{ navigate }"
+                :to="`/ao/${term.name}`"
+                custom
+              >
+                <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+                  {{ term.prefLabel }}
+                </Term>
+              </router-link>
+            </li>
+          </ul>
         </Labeled>
       </div>
       <div class="w-1/2 p-4">
         <Labeled label="Underordnade">
+          <ul>
+            <li v-for="term in children" :key="term.name">
+              <router-link
+                v-slot="{ navigate }"
+                :to="`/ao/${term.name}`"
+                custom
+              >
+                <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
+                  {{ term.prefLabel }}
+                </Term>
+              </router-link>
+            </li>
+          </ul>
+        </Labeled>
+      </div>
+
+      <div class="w-full p-4">
+        <Labeled label="Relaterade">
           <router-link
-            v-for="term in children"
+            v-for="term in related"
             :key="term.name"
             v-slot="{ navigate }"
             :to="`/ao/${term.name}`"
@@ -61,22 +81,18 @@
           </router-link>
         </Labeled>
       </div>
-    </div>
 
-    <div class="lg:w-1/2 flex-1">
-      <Labeled label="Relaterade" class="my-4">
-        <router-link
-          v-for="term in related"
-          :key="term.name"
-          v-slot="{ navigate }"
-          :to="`/ao/${term.name}`"
-          custom
-        >
-          <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-            {{ term.prefLabel }}
-          </Term>
-        </router-link>
-      </Labeled>
+      <div class="p-4 flex-1">
+        <Labeled label="Motsvarar">
+          <UriList :uris="term.exactMatch" />
+        </Labeled>
+      </div>
+
+      <div class="p-4 flex-1">
+        <Labeled label="Motsvarar ungefär">
+          <UriList :uris="term.closeMatch" />
+        </Labeled>
+      </div>
     </div>
   </article>
 </template>
@@ -87,6 +103,7 @@ import Term from "@/components/Term.vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/composables/terms";
 import { useRoute } from "vue-router";
+import UriList from "@/components/UriList.vue";
 
 const route = useRoute();
 const { getParents, getChildren, getRelated, getTerm } = useTerms();
