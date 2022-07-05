@@ -31,6 +31,7 @@
             pl-1
             mb-2
             border border-transparent
+            w-36
             flex-1
             transition-colors
           "
