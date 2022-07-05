@@ -41,7 +41,7 @@
         />
       </div>
       <div class="-m-2 mb-0 ml-1 p-3 flex items-center">
-        <icon icon="stream" />
+        <icon icon="stream" size="xs" />
       </div>
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
