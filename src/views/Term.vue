@@ -84,13 +84,13 @@
 
       <div class="p-4 flex-1">
         <Labeled label="Motsvarar">
-          <UriList :uris="term.exactMatch" />
+          <ExternalTermList :terms="term.exactMatch" />
         </Labeled>
       </div>
 
       <div class="p-4 flex-1">
         <Labeled label="Motsvarar ungefär">
-          <UriList :uris="term.closeMatch" />
+          <ExternalTermList :terms="term.closeMatch" />
         </Labeled>
       </div>
     </div>
@@ -103,7 +103,7 @@ import Term from "@/components/Term.vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/composables/terms";
 import { useRoute } from "vue-router";
-import UriList from "@/components/UriList.vue";
+import ExternalTermList from "@/components/ExternalTermList.vue";
 
 const route = useRoute();
 const { getParents, getChildren, getRelated, getTerm } = useTerms();
