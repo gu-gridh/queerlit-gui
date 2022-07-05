@@ -4,9 +4,9 @@
       <icon icon="spinner" size="6x" spin />
     </div>
     <div v-else-if="results">
-      <div class="flex flex-wrap sm:flex-nowrap p-6">
-        <div class="w-1/3">{{ total }} träffar</div>
-        <div class="w-1/3 flex-1 sm:order-3 text-right">
+      <div class="flex flex-wrap md:flex-nowrap p-6">
+        <div class="flex-1">{{ total }} träffar</div>
+        <div class="flex-1 md:order-3 text-right">
           <label for="sort-input">Sortering: </label>
           <select
             id="sort-input"
@@ -33,7 +33,7 @@
         <Pagination
           :current="offset / 20 + 1"
           :last="total / 20"
-          class="w-full pt-4 sm:flex-1 sm:pt-0"
+          class="w-full pt-4 md:flex-1 md:pt-0"
           @change="setPage"
         />
       </div>
@@ -52,7 +52,7 @@
         <Pagination
           :current="offset / 20 + 1"
           :last="total / 20"
-          class="w-1/3 mx-auto"
+          class="md:w-1/3 mx-auto"
           @change="setPage"
         />
       </div>

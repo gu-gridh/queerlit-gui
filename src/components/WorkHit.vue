@@ -10,7 +10,12 @@
         hover:bg-smoke-100
       "
     >
-      <div class="w-4 mr-2 font-thin text-2xl pr-6">{{ i }}.</div>
+      <div
+        class="tabular-nums w-6 mr-2 font-thin text-2xl"
+        :class="{ 'w-8': i > 80, 'w-10': i > 980 }"
+      >
+        {{ i }}.
+      </div>
       <div class="flex-1 flex flex-wrap items-baseline">
         <h3 class="w-full xl:w-3/5 xl:pr-6 mb-2 text-xl group-hover:underline">
           {{ title }}

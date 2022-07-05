@@ -37,7 +37,7 @@
           "
         >
           <router-link to="/" class="p-1 px-4 mr-1">Sök</router-link>
-          <router-link to="/ao" class="p-1 px-4 mr-1">Tesaurus</router-link>
+          <router-link to="/ao" class="p-1 px-4 mr-1">Ämnen</router-link>
           <a href="https://queerlit.dh.gu.se/om/" class="p-1 px-4 mr-1">Om</a>
         </nav>
 

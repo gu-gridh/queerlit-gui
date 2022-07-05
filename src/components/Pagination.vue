@@ -25,7 +25,7 @@ const goto = (page) =>
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex justify-center">
     <span
       v-if="current > 1"
       class="mx-2 cursor-pointer"
@@ -35,7 +35,7 @@ const goto = (page) =>
     </span>
     <span v-else class="mx-2 opacity-20">◀</span>
 
-    <span class="flex-1 text-center">
+    <span>
       <template v-for="page in gotoable" :key="page">
         <span v-if="current == page" class="mx-2 underline">{{ page }}</span>
         <span v-else class="mx-2 cursor-pointer" @click="goto(page)">
