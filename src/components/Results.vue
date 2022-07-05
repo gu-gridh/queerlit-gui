@@ -4,15 +4,9 @@
       <icon icon="spinner" size="6x" spin />
     </div>
     <div v-else-if="results">
-      <div class="flex p-6">
-        <div class="w-2/6">{{ total }} träffar</div>
-        <Pagination
-          :current="offset / 20 + 1"
-          :last="total / 20"
-          class="w-2/6"
-          @change="setPage"
-        />
-        <div class="w-2/6 text-right">
+      <div class="flex flex-wrap sm:flex-nowrap p-6">
+        <div class="w-1/3">{{ total }} träffar</div>
+        <div class="w-1/3 flex-1 sm:order-3 text-right">
           <label for="sort-input">Sortering: </label>
           <select
             id="sort-input"
@@ -36,6 +30,12 @@
             <option value="_sortKeyByLang.sv">Titel A-Ö</option>
           </select>
         </div>
+        <Pagination
+          :current="offset / 20 + 1"
+          :last="total / 20"
+          class="w-full pt-4 sm:flex-1 sm:pt-0"
+          @change="setPage"
+        />
       </div>
       <WorkHit
         v-for="(book, i) in results"

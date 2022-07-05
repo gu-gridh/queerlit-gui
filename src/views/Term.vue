@@ -17,7 +17,7 @@
         </tr>
         <tr>
           <th class="pb-0">Identifierare</th>
-          <td class="pb-0">{{ term.uri }}</td>
+          <td class="pb-0 break-all">{{ term.uri }}</td>
         </tr>
         <tr class="text-sm text-black-700">
           <td />

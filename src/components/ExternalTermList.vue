@@ -44,9 +44,9 @@ const termsEnriched = computed(() =>
         <template v-if="term.scheme && term.prefLabel">
           {{ term.scheme }}: {{ term.prefLabel }}
         </template>
-        <template v-else>
+        <span v-else class="break-all">
           {{ term.uri }}
-        </template>
+        </span>
       </a>
     </li>
   </ul>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-8">
+  <div class="bg-white rounded-xl shadow-lg p-4 md:p-8">
     <p>
       Till Queerlit-databasen skapas en <em>tesaurus</em>, det vill säga en
       ordlista som sorterar ämnesord. Syftet med det är att göra
