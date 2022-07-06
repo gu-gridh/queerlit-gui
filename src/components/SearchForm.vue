@@ -2,7 +2,7 @@
   <div class="bg-white rounded-xl shadow-lg">
     <div class="py-8 px-6">
       <Freetext class="mt-4 flex-1" @search="search" />
-      <TermCombobox class="mb-4 text-xl" @change="search" />
+      <TermCombobox class="mb-4" @change="search" />
     </div>
 
     <div

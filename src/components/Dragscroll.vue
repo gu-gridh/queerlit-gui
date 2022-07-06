@@ -1,24 +1,27 @@
 <script setup>
 // Avoid emitting click event when scrolldragging
+
+import { ref } from "@vue/reactivity";
+
 // See: https://github.com/donmbelembe/vue-dragscroll/issues/61
-let dragging = false;
+const dragging = ref(false);
 let timer = null;
 
 function start() {
   // Wait a little before setting dragging. Consider a very short drag as a click.
-  timer = setTimeout(() => (dragging = true), 100);
+  timer = setTimeout(() => (dragging.value = true), 100);
 }
 
 function end() {
   // If the drag is very short, the timer is still on, so cancel it.
   clearTimeout(timer);
   // Postpone the unsetting to let the click event go first.
-  setTimeout(() => (dragging = false));
+  setTimeout(() => (dragging.value = false));
 }
 
 function click(event) {
   // Cancel the click event if it's the release of a dragscroll.
-  if (dragging) {
+  if (dragging.value) {
     event.stopPropagation();
   }
 }
@@ -27,6 +30,8 @@ function click(event) {
 <template>
   <div
     v-dragscroll
+    class="dragscroll"
+    :class="{ dragging }"
     @dragscrollstart="start"
     @dragscrollend="end"
     @click.capture="click"

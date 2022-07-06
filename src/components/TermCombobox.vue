@@ -5,6 +5,7 @@
         bg-smoke-200
         hover:bg-smoke-300
         p-2
+        pl-4
         pb-0
         flex
         border-t border-dashed border-gray-500
@@ -15,7 +16,7 @@
         <Term
           v-for="term in terms"
           :key="term.id"
-          class="mr-2 mb-2"
+          class="mr-2 mb-2 text-md cursor-pointer"
           :data="term"
           @click="remove(term)"
         >
@@ -25,15 +26,15 @@
         <input
           v-model="input"
           type="search"
-          :placeholder="terms.length ? 'Sök fler ämnesord...' : ' Ämnesord...'"
+          :placeholder="terms.length ? 'Sök fler ämnesord...' : 'Ämnesord...'"
           class="
             bg-transparent
-            pl-1
             mb-2
             border border-transparent
             w-36
             flex-1
             transition-colors
+            text-xl
           "
           :class="{ incomplete: input }"
           @input="suggest"

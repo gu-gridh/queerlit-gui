@@ -10,7 +10,8 @@ const label = computed(() => props.data?.prefLabel);
 <template>
   <span
     class="
-      term
+      transform
+      hover:scale-105
       inline-block
       px-2
       py-1
@@ -31,10 +32,6 @@ const label = computed(() => props.data?.prefLabel);
 </template>
 
 <style scoped>
-.term:hover {
-  transform: scale(1.03);
-}
-
 .type-sao {
   @apply bg-gray-200;
 }
