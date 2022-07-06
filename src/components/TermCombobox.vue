@@ -35,7 +35,7 @@
             flex-1
             transition-colors
           "
-          :class="{ incomplete }"
+          :class="{ incomplete: input }"
           @input="suggest"
           @keydown.backspace="removeLast"
           @focus="suggest"
@@ -52,13 +52,6 @@
           :key="term.id"
           class="px-2 pb-2 flex items-baseline"
         >
-          <!-- <span
-            v-if="altMatch"
-            class="mr-1 line-through opacity-75"
-            @click="add(term)"
-          >
-            {{ altMatch }}
-          </span> -->
           <Term @click="add(term)">
             {{ term.prefLabel }}
             <icon icon="plus" size="xs" />
@@ -71,34 +64,29 @@
 </template>
 
 <script setup>
-import { computed, ref } from "@vue/reactivity";
+import { ref } from "@vue/reactivity";
 import { directive as vClickOutside } from "click-outside-vue3";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
+import { searchConceptQlit } from "@/services/libris";
 
 const { terms } = useQuery();
-const { autocomplete, add: termsAdd, remove: termsRemove } = useTerms();
+const { add: termsAdd, remove: termsRemove } = useTerms();
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
 
-const incomplete = computed(() => input.value);
-
 async function suggest() {
   if (input.value) {
-    setSuggestions(await autocomplete(input.value));
+    setSuggestions(await searchConceptQlit(input.value));
   } else {
     setSuggestions([]);
   }
 }
 
 function add(term) {
-  // Hack: Turn qlit-server term into something similar to a Libris term.
-  termsAdd({
-    "@id": term.uri,
-    prefLabel: term.prefLabel,
-  });
+  termsAdd(term);
   input.value = "";
   setSuggestions([]);
   emitChange();

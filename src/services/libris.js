@@ -160,6 +160,10 @@ export async function searchConceptSao(conceptQuery) {
   return await searchConcept(conceptQuery, "https://id.kb.se/term/sao");
 }
 
+export async function searchConceptQlit(conceptQuery) {
+  return await searchConcept(conceptQuery, "https://queerlit.dh.gu.se/qlit/v1");
+}
+
 export async function searchGenreform(query) {
   const q = query.replaceAll(/\S+/g, "$&*");
   const params = new URLSearchParams({

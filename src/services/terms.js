@@ -3,13 +3,6 @@ import axios from "axios";
 const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
 
-// TODO Libris: use `q`
-export async function autocomplete(s) {
-  // Do not sort alphabetically.
-  const data = await qlitGet("autocomplete", { s });
-  return data.slice(0, 10);
-}
-
 async function qlitGet(endpoint, params) {
   const response = await axios.get(QLIT_BASE + endpoint, { params });
   return response.data;

@@ -4,21 +4,26 @@ import { directive as vClickOutside } from "click-outside-vue3";
 import debounce from "lodash/debounce";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
-import { searchConceptSao, searchPerson, searchTitle } from "@/services/libris";
+import {
+  searchConceptQlit,
+  searchConceptSao,
+  searchPerson,
+  searchTitle,
+} from "@/services/libris";
 import Term from "@/components/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 
 const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
 const terms = useTerms();
-const termSuggestions = ref([]);
+const qlitSuggestions = ref([]);
 const saoSuggestions = ref([]);
 const titleSuggestions = ref([]);
 const authorSuggestions = ref([]);
 
 const showSuggestions = computed(
   () =>
-    termSuggestions.value.length ||
+    qlitSuggestions.value.length ||
     saoSuggestions.value.length ||
     titleSuggestions.value.length ||
     authorSuggestions.value.length
@@ -60,16 +65,16 @@ const autocomplete = debounce(async () => {
   const lastWord = text.value.split(" ").pop();
 
   if (lastWord) {
-    terms
-      .autocomplete(lastWord)
-      .then((terms) => (termSuggestions.value = terms));
+    searchConceptQlit(lastWord).then(
+      (terms) => (qlitSuggestions.value = terms)
+    );
     searchConceptSao(lastWord).then((terms) => (saoSuggestions.value = terms));
     searchTitle(lastWord).then((titles) => (titleSuggestions.value = titles));
     searchPerson(lastWord).then(
       (persons) => (authorSuggestions.value = persons)
     );
   } else {
-    termSuggestions.value = [];
+    qlitSuggestions.value = [];
     saoSuggestions.value = [];
     titleSuggestions.value = [];
     authorSuggestions.value = [];
@@ -77,7 +82,7 @@ const autocomplete = debounce(async () => {
 }, 400);
 
 function blur() {
-  termSuggestions.value = [];
+  qlitSuggestions.value = [];
   saoSuggestions.value = [];
   titleSuggestions.value = [];
   authorSuggestions.value = [];
@@ -111,7 +116,7 @@ function blur() {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Sök på ämnesord:"
-          :items="termSuggestions"
+          :items="qlitSuggestions"
           @select="addTerm"
         >
           <Term class="cursor-pointer">
