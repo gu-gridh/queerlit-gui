@@ -52,7 +52,7 @@
           :key="term.id"
           class="px-2 pb-2 flex items-baseline"
         >
-          <Term @click="add(term)">
+          <Term :data="term" class="cursor-pointer" @click="add(term)">
             {{ term.prefLabel }}
             <icon icon="plus" size="xs" />
           </Term>

@@ -146,33 +146,39 @@ export async function searchPerson(nameQuery) {
   return data.items.filter((author) => author.givenName || author.familyName);
 }
 
-export async function searchConcept(conceptQuery, schemeId) {
+export async function searchConcept(conceptQuery, schemeIds = []) {
   const q = conceptQuery + "*";
-  const params = { "@type": "Concept", q, _limit: 10 };
-  if (schemeId) {
-    params["inScheme.@id"] = schemeId;
+  const params = new URLSearchParams({
+    "@type": "Concept",
+    q,
+    _limit: 10,
+  });
+  // Filter by any of the given schemes
+  if (schemeIds.length) {
+    schemeIds.forEach((schemeId) => params.append("inScheme.@id", schemeId));
   }
   const data = await xlFind(params);
   return data.items;
 }
 
 export async function searchConceptSao(conceptQuery) {
-  return await searchConcept(conceptQuery, "https://id.kb.se/term/sao");
+  return await searchConcept(conceptQuery, [ConceptScheme.SAO]);
 }
 
 export async function searchConceptQlit(conceptQuery) {
-  return await searchConcept(conceptQuery, "https://queerlit.dh.gu.se/qlit/v1");
+  return await searchConcept(conceptQuery, [ConceptScheme.QLIT]);
 }
 
 export async function searchGenreform(query) {
+  // Add an asterisk after each word (`\S+` is any word, `$&` is that matched word)
   const q = query.replaceAll(/\S+/g, "$&*");
   const params = new URLSearchParams({
     "@type": "GenreForm",
     prefLabel: q,
     _limit: 10,
   });
-  params.append("inScheme.@id", "https://id.kb.se/term/barngf");
-  params.append("inScheme.@id", "https://id.kb.se/term/saogf");
+  params.append("inScheme.@id", ConceptScheme.BarnGF);
+  params.append("inScheme.@id", ConceptScheme.SAOGF);
   console.log("params genreform", params);
   const data = await xlFind(params);
   console.log("searchGenreform", data.items);
@@ -182,6 +188,25 @@ export async function searchGenreform(query) {
     scheme: item.inScheme.code,
     _item: item,
   }));
+}
+
+/** Constants for uris. */
+export class ConceptScheme {
+  static get QLIT() {
+    return "https://queerlit.dh.gu.se/qlit/v1";
+  }
+  static get SAO() {
+    return "https://id.kb.se/term/sao";
+  }
+  static get Barn() {
+    return "https://id.kb.se/term/barn";
+  }
+  static get SAOGF() {
+    return "https://id.kb.se/term/saogf";
+  }
+  static get BarnGF() {
+    return "https://id.kb.se/term/barngf";
+  }
 }
 
 const BOOKS = [
