@@ -21,12 +21,15 @@ const saoSuggestions = ref([]);
 const titleSuggestions = ref([]);
 const authorSuggestions = ref([]);
 
-const showSuggestions = computed(
-  () =>
-    qlitSuggestions.value.length ||
-    saoSuggestions.value.length ||
-    titleSuggestions.value.length ||
-    authorSuggestions.value.length
+const lenses = [
+  { suggestions: qlitSuggestions, autocomplete: searchConceptQlit },
+  { suggestions: saoSuggestions, autocomplete: searchConceptSao },
+  { suggestions: titleSuggestions, autocomplete: searchTitle },
+  { suggestions: authorSuggestions, autocomplete: searchPerson },
+];
+
+const showSuggestions = computed(() =>
+  lenses.some(({ suggestions }) => suggestions.value.length)
 );
 
 function textChange(event) {
@@ -65,27 +68,20 @@ const autocomplete = debounce(async () => {
   const lastWord = text.value.split(" ").pop();
 
   if (lastWord) {
-    searchConceptQlit(lastWord).then(
-      (terms) => (qlitSuggestions.value = terms)
-    );
-    searchConceptSao(lastWord).then((terms) => (saoSuggestions.value = terms));
-    searchTitle(lastWord).then((titles) => (titleSuggestions.value = titles));
-    searchPerson(lastWord).then(
-      (persons) => (authorSuggestions.value = persons)
+    lenses.forEach(({ autocomplete, suggestions }) =>
+      autocomplete(lastWord).then((items) => (suggestions.value = items))
     );
   } else {
-    qlitSuggestions.value = [];
-    saoSuggestions.value = [];
-    titleSuggestions.value = [];
-    authorSuggestions.value = [];
+    clearSuggestions();
   }
 }, 400);
 
 function blur() {
-  qlitSuggestions.value = [];
-  saoSuggestions.value = [];
-  titleSuggestions.value = [];
-  authorSuggestions.value = [];
+  clearSuggestions();
+}
+
+function clearSuggestions() {
+  lenses.forEach(({ suggestions }) => (suggestions.value = []));
 }
 </script>
 
