@@ -76,7 +76,7 @@ watch(
       <input
         v-model="value"
         :size="2"
-        class="border text-center px-0"
+        class="border rounded text-center"
         :class="{ 'bg-yellow-100': !isInputValid }"
         @keydown.down="onInputDown"
         @keydown.up="onInputUp"

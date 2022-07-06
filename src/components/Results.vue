@@ -13,14 +13,12 @@
             :value="sort"
             class="
               appearance-none
+              border
               rounded
-              font-bold
               cursor-pointer
               -my-1
-              p-1
-              px-2
-              bg-smoke-200
-              text-qblue
+              pl-1
+              pr-5
             "
             @change="setSort"
           >
@@ -87,5 +85,9 @@ function setSort(event) {
 <style>
 .spinner {
   margin-top: calc(50vh - 150px);
+}
+
+select {
+  background: url(@/assets/dropdown.svg) no-repeat 95% 50%;
 }
 </style>
