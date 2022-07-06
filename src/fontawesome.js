@@ -4,6 +4,8 @@
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
   faInfoCircle,
   faMinus,
   faPlus,
@@ -14,6 +16,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
   faInfoCircle,
   faMinus,
   faPlus,
