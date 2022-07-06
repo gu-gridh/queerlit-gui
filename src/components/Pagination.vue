@@ -61,10 +61,10 @@ watch(
 </script>
 
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center whitespace-nowrap">
     <span
       v-if="current > 1"
-      class="mx-2 cursor-pointer"
+      class="mr-2 cursor-pointer"
       @click="goto(current - 1)"
     >
       ◀
@@ -89,7 +89,7 @@ watch(
 
     <span
       v-if="current < Math.ceil(last)"
-      class="mx-2 cursor-pointer"
+      class="ml-2 cursor-pointer"
       @click="goto(current + 1)"
     >
       ▶
