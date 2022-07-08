@@ -43,8 +43,8 @@
 </template>
 
 <script setup>
-import * as libris from "@/services/libris";
-import * as terms from "@/services/terms";
+import * as libris from "@/services/libris.service";
+import * as terms from "@/services/terms.service";
 import "@fontsource/barlow-condensed/300.css";
 
 // Make internal apis available in browser console.

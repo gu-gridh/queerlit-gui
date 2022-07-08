@@ -6,7 +6,7 @@ import {
   getChildren,
   getRelated,
   getRoots,
-} from "@/services/terms";
+} from "@/services/terms.service";
 
 export default function useTerms() {
   const { terms, setQuery } = useQuery();

@@ -9,7 +9,7 @@ import {
   searchConceptSao,
   searchPerson,
   searchTitle,
-} from "@/services/libris";
+} from "@/services/libris.service";
 import Term from "@/components/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 

@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { search } from "@/services/libris";
+import { search } from "@/services/libris.service";
 
 export default createStore({
   state() {

@@ -70,7 +70,7 @@ import { directive as vClickOutside } from "click-outside-vue3";
 import useQuery from "@/composables/query";
 import useTerms from "@/composables/terms";
 import Term from "@/components/Term.vue";
-import { searchConceptQlit } from "@/services/libris";
+import { searchConceptQlit } from "@/services/libris.service";
 
 const { terms } = useQuery();
 const { add: termsAdd, remove: termsRemove } = useTerms();

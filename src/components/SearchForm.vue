@@ -63,7 +63,11 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/composables/query";
-import { searchGenreform, searchPerson, searchTitle } from "@/services/libris";
+import {
+  searchGenreform,
+  searchPerson,
+  searchTitle,
+} from "@/services/libris.service";
 import { useStore } from "vuex";
 import Freetext from "./Freetext.vue";
 import YearFilter from "@/components/YearFilter.vue";
