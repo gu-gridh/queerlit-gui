@@ -4,7 +4,7 @@
       <icon icon="spinner" size="6x" spin />
     </div>
     <div v-else-if="results">
-      <div class="flex p-6">
+      <div class="flex pb-6">
         <div class="flex-1 flex flex-wrap">
           <span class="mr-2">{{ total }} träffar</span>
           <Pagination

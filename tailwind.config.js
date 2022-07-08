@@ -16,7 +16,7 @@ module.exports = {
         tagyellow: "rgb(255, 180, 0)",
       },
       screens: {
-        low: { raw: "(max-height: 820px)" },
+        low: { raw: "(max-height: 900px)" },
       },
     },
     container: {

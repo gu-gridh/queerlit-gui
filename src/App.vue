@@ -25,20 +25,10 @@
           </router-link>
         </header>
 
-        <nav
-          class="
-            main-nav
-            text-lg
-            mt-6
-            mb-4
-            transition-all
-            duration-500
-            low:mt-0
-          "
-        >
-          <router-link to="/" class="p-1 px-4 mr-1">Sök</router-link>
-          <router-link to="/ao" class="p-1 px-4 mr-1">Ämnen</router-link>
-          <a href="https://queerlit.dh.gu.se/om/" class="p-1 px-4 mr-1">Om</a>
+        <nav class="text-lg mt-6 mb-4 transition-all duration-500 low:mt-0">
+          <router-link to="/" class="main-nav-link">Titlar</router-link>
+          <router-link to="/ao" class="main-nav-link">Ämnen</router-link>
+          <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">Om</a>
         </nav>
 
         <div class="bg-white rounded-xl shadow-lg">
@@ -65,8 +55,11 @@ if (import.meta.env.DEV) {
 </script>
 
 <style lang="scss" scoped>
-.main-nav .router-link-active {
-  @apply bg-white rounded-lg text-gray-800;
+.main-nav-link {
+  @apply p-1 px-4 mr-1 hover:bg-opacity-25 hover:bg-white rounded-lg transition-all;
+}
+.main-nav-link.router-link-active {
+  @apply bg-white rounded-lg text-gray-800 shadow-lg;
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="text-6xl my-10">Tesaurus</h1>
+    <h1 class="text-6xl my-10">Ämnen</h1>
     <TermTree
       v-for="term in rootTerms"
       :key="term.name"
