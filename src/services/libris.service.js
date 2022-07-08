@@ -117,6 +117,10 @@ function processXlItem(item) {
   processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
   processed.summary = (item.summary || item.instanceOf?.summary)?.[0].label;
+  if (Array.isArray(processed.summary)) {
+    console.warn("Work summary is array", processed.summary);
+    processed.summary = processed.summary[0];
+  }
 
   return processed;
 }
