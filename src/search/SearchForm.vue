@@ -56,7 +56,19 @@
           />
         </div>
       </div>
+      <div class="text-center mt-4">
+        <QButton class="text-xl">Sök</QButton>
+      </div>
     </div>
+  </div>
+  <div class="text-center mt-4">
+    <a
+      href="https://libris.kb.se/form_extended.jsp?q=bib%3aqlit&f=ext"
+      title="LIBRIS är en nationell söktjänst med information om titlar på svenska bibliotek."
+      class="underline text-blue-900"
+    >
+      Sök i LIBRIS
+    </a>
   </div>
 </template>
 
@@ -72,6 +84,7 @@ import Freetext from "./Freetext.vue";
 import YearFilter from "@/search/YearFilter.vue";
 import TermCombobox from "@/terms/TermCombobox.vue";
 import Autocomplete from "@/search/Autocomplete.vue";
+import QButton from "@/components/QButton.vue";
 
 const store = useStore();
 

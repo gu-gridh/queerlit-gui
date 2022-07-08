@@ -8,7 +8,7 @@
         overflow-y-auto
       "
     >
-      <div class="container py-12">
+      <div class="container pt-12">
         <header class="max-w-screen-md pb-8">
           <router-link to="/" class="flex-1">
             <img
@@ -31,9 +31,9 @@
           <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">Om</a>
         </nav>
 
-        <div class="bg-white rounded-xl shadow-lg">
+        <aside>
           <router-view name="side" />
-        </div>
+        </aside>
       </div>
     </div>
     <div class="flex-1">
