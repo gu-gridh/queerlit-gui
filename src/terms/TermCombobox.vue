@@ -1,15 +1,7 @@
 <template>
   <div v-click-outside="blur">
     <div
-      class="
-        bg-smoke-200
-        hover:bg-smoke-300
-        p-2
-        pl-4
-        pb-0
-        flex
-        border-t border-dashed border-gray-500
-      "
+      class="bg-smoke-200 hover:bg-smoke-300 p-2 pl-4 pb-0 flex rounded-t"
       :class="{ 'rounded-b': !suggestions.length }"
     >
       <div class="flex-1 flex flex-wrap">

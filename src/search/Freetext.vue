@@ -92,6 +92,7 @@ function clearSuggestions() {
       :value="text"
       placeholder="Sök här..."
       class="w-full p-4 pb-3 bg-smoke-300 rounded-t text-black text-xl"
+      :class="{ 'rounded-b': !showSuggestions }"
       @input="textChange"
       @keyup.enter="emit('search')"
       @focus="textChange"

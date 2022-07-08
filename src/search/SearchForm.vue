@@ -1,20 +1,20 @@
 <template>
   <div class="bg-white rounded-xl shadow-lg">
     <div class="py-8 px-6">
-      <Freetext class="mt-4 flex-1" @search="search" />
-      <TermCombobox class="mb-4" @change="search" />
+      <Freetext @search="search" />
     </div>
 
     <div
       class="
         container-b
         max-w-screen-md
-        py-8
+        py-4
         px-6
         border-t border-dashed border-gray-500
       "
     >
       <h3 class="text-lg mb-2">Avancerat</h3>
+      <TermCombobox class="mb-4" @change="search" />
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
           <Autocomplete
