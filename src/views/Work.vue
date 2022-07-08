@@ -26,20 +26,6 @@
         Mer info i LIBRIS
       </a>
     </div>
-    <Labeled label="Fulltext online">
-      <blockquote class="flex items-center my-4 mt-0 p-4">
-        <p class="flex-1 mr-4 italic">
-          Tider af dueller och dubbel-jalousier, hvilka tider likväl af
-          intressanta äfventyr, hvilka tider af storm kring lockarna och eld i
-          hjertat?
-        </p>
-        <a
-          href="https://litteraturbanken.se/f%C3%B6rfattare/AlmqvistCJL/titlar/SamladeVerk6/sida/III/etext"
-          class="border p-1 px-2"
-          >Läs hela</a
-        >
-      </blockquote>
-    </Labeled>
     <div class="flex my-4">
       <div class="flex-1 mr-4 border p-4">
         <Labeled label="Mer om titeln">
