@@ -94,7 +94,7 @@ function processXlItem(item) {
             sameAs["@id"] === `http://libris.kb.se/resource/bib/${book.id}`
         ))
   );
-  const processed = { ...localItem, _item: item };
+  const processed = { terms: [], ...localItem, _item: item };
 
   if (item.meta.controlNumber)
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;

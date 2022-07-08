@@ -38,9 +38,9 @@
         </div>
       </div>
       <WorkHit
-        v-for="(book, i) in results"
-        :key="book['@id']"
-        v-bind="book"
+        v-for="(work, i) in results"
+        :key="work['@id']"
+        :work="work"
         :i="offset + i + 1"
       />
 

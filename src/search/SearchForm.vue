@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="text-center mt-4">
-        <QButton class="text-xl">Sök</QButton>
+        <QButton class="text-xl" @click="search">Sök</QButton>
       </div>
     </div>
   </div>
