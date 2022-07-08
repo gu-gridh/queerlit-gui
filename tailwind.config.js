@@ -5,6 +5,14 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Barlow Condensed", "Arial Narrow", "Arial", "sans-serif"],
+        label: [
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica",
+          "sans-serif",
+        ],
       },
       colors: {
         text: "#2c3e50",

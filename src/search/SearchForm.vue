@@ -61,7 +61,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "@vue/runtime-core";
 import useQuery from "@/search/query.composable";
 import {
   searchGenreform,
@@ -73,10 +72,8 @@ import Freetext from "./Freetext.vue";
 import YearFilter from "@/search/YearFilter.vue";
 import TermCombobox from "@/terms/TermCombobox.vue";
 import Autocomplete from "@/search/Autocomplete.vue";
-import { useRouter } from "vue-router";
 
 const store = useStore();
-const router = useRouter();
 
 const {
   title,
@@ -108,7 +105,6 @@ function setGenreform(genreform) {
 }
 
 async function search() {
-  router.push("/");
   if (!store.getters.isSearching) {
     store.commit("setSearching", serializedQuery.value);
     store.commit("setOffset", 0);
@@ -116,7 +112,7 @@ async function search() {
   }
 }
 
-onMounted(search());
+search();
 </script>
 
 <style></style>

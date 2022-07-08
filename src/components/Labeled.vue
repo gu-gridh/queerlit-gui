@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="uppercase text-sm">{{ label }}</div>
+    <div class="font-label uppercase font-medium text-xs">{{ label }}</div>
     <div>
       <slot />
     </div>
@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-const { label } = defineProps({ label: String });
+defineProps({ label: String });
 </script>
 
 <style></style>

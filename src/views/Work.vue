@@ -5,58 +5,44 @@
     </router-link>
   </div>
   <div v-if="work" class="container xl:max-w-screen-xl">
-    <div class="clearfix">
-      <h2 class="text-3xl">{{ work.title }}</h2>
-      <div class="float-right pl-4">
-        <div class="flex justify-center items-center w-44 mb-2">
-          <img
-            src="@/assets/drottningens-juvelsmycke.jpeg"
-            class="max-h-full border"
-          />
-        </div>
-        <div v-if="work.librisUrl">
-          <a :href="work.librisUrl" class="text-blue-500 underline">
-            Mer info i LIBRIS
-          </a>
-        </div>
-      </div>
-      <div class="flex justify-between my-4">
-        <Labeled label="Författare" class="pr-4">
-          {{ work.creators.join(", ") }}
-        </Labeled>
-        <Labeled label="typ" class="pr-4"> {{ typeLabel }} </Labeled>
-        <Labeled label="Utgivningsår" class="pr-4"> {{ work.date }} </Labeled>
-      </div>
-      <Labeled label="Ämnesord" class="my-4 text-lg">
-        <Term v-for="term in work.terms" :key="term" class="mr-1 mb-1">{{
-          term
-        }}</Term>
+    <h2 class="text-3xl">{{ work.title }}</h2>
+    <div class="flex justify-between my-4">
+      <Labeled label="Författare" class="pr-4">
+        {{ work.creators.join(", ") }}
       </Labeled>
-      <Labeled label="Beskrivning" class="my-4">
-        Drottningens Juvelsmycke utgavs i två volymer i november 1834 inom
-        duodesserien av Törnrosens bok (Swensk Bibliographi 1834 nr 11
-        [november], s. 90). De annonserades i Aftonbladet 20/11 1834.
-        Annonstext: ”Af Trycket har utkommit i tvenne Band, och säljes à 2 R:dr
-        B:ko: DROTTNINGENS JUVELSMYCKE, eller Azouras Lazuli Tintomara.
-        Romantiserad berättelse om hemliga händelser näst före, under och efter
-        Kon. Gustaf III:s mord.”
-      </Labeled>
+      <Labeled label="typ" class="pr-4"> {{ typeLabel }} </Labeled>
+      <Labeled label="Utgivningsår" class="pr-4"> {{ work.date }} </Labeled>
     </div>
-    <blockquote class="flex items-center my-4 mt-0 p-4">
-      <p class="flex-1 mr-4 italic">
-        Tider af dueller och dubbel-jalousier, hvilka tider likväl af
-        intressanta äfventyr, hvilka tider af storm kring lockarna och eld i
-        hjertat?
-      </p>
-      <a
-        href="https://litteraturbanken.se/f%C3%B6rfattare/AlmqvistCJL/titlar/SamladeVerk6/sida/III/etext"
-        class="border p-1 px-2"
-        >Läs hela</a
-      >
-    </blockquote>
+    <Labeled label="Ämnesord" class="my-4 text-lg">
+      <Term v-for="term in work.terms" :key="term" class="mr-1 mb-1">{{
+        term
+      }}</Term>
+    </Labeled>
+    <Labeled v-if="work.summary" label="Beskrivning" class="my-4">
+      {{ work.summary }}
+    </Labeled>
+    <div v-if="work.librisUrl" class="my-4">
+      <a :href="work.librisUrl" class="text-blue-700 underline">
+        Mer info i LIBRIS
+      </a>
+    </div>
+    <Labeled label="Fulltext online">
+      <blockquote class="flex items-center my-4 mt-0 p-4">
+        <p class="flex-1 mr-4 italic">
+          Tider af dueller och dubbel-jalousier, hvilka tider likväl af
+          intressanta äfventyr, hvilka tider af storm kring lockarna och eld i
+          hjertat?
+        </p>
+        <a
+          href="https://litteraturbanken.se/f%C3%B6rfattare/AlmqvistCJL/titlar/SamladeVerk6/sida/III/etext"
+          class="border p-1 px-2"
+          >Läs hela</a
+        >
+      </blockquote>
+    </Labeled>
     <div class="flex my-4">
       <div class="flex-1 mr-4 border p-4">
-        <Labeled label="Mer om Drottningens juvelsmycke">
+        <Labeled label="Mer om titeln">
           <div class="mt-2">• Wikipedia</div>
           <div>
             •
@@ -76,7 +62,7 @@
         </Labeled>
       </div>
       <div class="flex-1 mr-4 border p-4">
-        <Labeled label="Mer om C. J. L. Almqvist">
+        <Labeled label="Mer om författaren">
           <div class="mt-2">• Fler verk</div>
           <div>• Wikipedia</div>
         </Labeled>
@@ -97,22 +83,27 @@
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
 import { computed, ref } from "@vue/reactivity";
-import { useStore } from "vuex";
 import { get } from "@/services/libris.service";
 import { useRoute } from "vue-router";
+import { watch } from "@vue/runtime-core";
 
 const TYPE_LABELS = {
   book: "Bok",
 };
 
-const store = useStore();
 const route = useRoute();
 
-const query = computed(() => store.state.query);
 const work = ref();
 const typeLabel = computed(() => work.value && TYPE_LABELS[work.value.type]);
 
 get(route.params.id).then((work_) => (work.value = work_));
+
+// Expose full data to developer console.
+if (import.meta.env.DEV) {
+  watch(work, () => {
+    console.log({ work: work.value });
+  });
+}
 </script>
 
 <style></style>

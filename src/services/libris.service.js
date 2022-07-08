@@ -96,11 +96,8 @@ function processXlItem(item) {
   );
   const processed = { ...localItem, _item: item };
 
-  if (item.meta.sameAs) {
-    processed.librisUrl = item.meta.sameAs
-      .map((x) => x["@id"])
-      .find((id) => /http:\/\/libris.kb.se\/bib\//.test(id));
-  }
+  if (item.meta.controlNumber)
+    processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Normalize some values.
   const hasTitle =
@@ -119,6 +116,7 @@ function processXlItem(item) {
   const publication = item.publication?.find((publication) => publication.year);
   processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
+  processed.summary = (item.summary || item.instanceOf?.summary)?.[0].label;
 
   return processed;
 }
