@@ -47,8 +47,8 @@
 
 <script setup>
 import { computed, ref, watch } from "@vue/runtime-core";
-import useTerms from "@/composables/terms";
-import Term from "@/components/Term.vue";
+import useTerms from "@/terms/terms.composable";
+import Term from "@/terms/Term.vue";
 
 const props = defineProps(["parent", "level", "expanded"]);
 const { getChildren } = useTerms();

@@ -99,11 +99,11 @@
 
 <script setup>
 import { ref, watch, watchEffect } from "vue";
-import Term from "@/components/Term.vue";
+import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
-import useTerms from "@/composables/terms";
+import useTerms from "@/terms/terms.composable";
 import { useRoute } from "vue-router";
-import ExternalTermList from "@/components/ExternalTermList.vue";
+import ExternalTermList from "@/terms/ExternalTermList.vue";
 
 const route = useRoute();
 const { getParents, getChildren, getRelated, getTerm } = useTerms();

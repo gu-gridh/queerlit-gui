@@ -2,15 +2,15 @@
 import { computed, ref } from "@vue/reactivity";
 import { directive as vClickOutside } from "click-outside-vue3";
 import debounce from "lodash/debounce";
-import useQuery from "@/composables/query";
-import useTerms from "@/composables/terms";
+import useQuery from "@/search/query.composable";
+import useTerms from "@/terms/terms.composable";
 import {
   searchConceptQlit,
   searchConceptSao,
   searchPerson,
   searchTitle,
 } from "@/services/libris.service";
-import Term from "@/components/Term.vue";
+import Term from "@/terms/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 
 const emit = defineEmits(["search"]);

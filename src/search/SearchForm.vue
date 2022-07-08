@@ -62,7 +62,7 @@
 
 <script setup>
 import { onMounted } from "@vue/runtime-core";
-import useQuery from "@/composables/query";
+import useQuery from "@/search/query.composable";
 import {
   searchGenreform,
   searchPerson,
@@ -70,9 +70,9 @@ import {
 } from "@/services/libris.service";
 import { useStore } from "vuex";
 import Freetext from "./Freetext.vue";
-import YearFilter from "@/components/YearFilter.vue";
-import TermCombobox from "@/components/TermCombobox.vue";
-import Autocomplete from "@/components/Autocomplete.vue";
+import YearFilter from "@/search/YearFilter.vue";
+import TermCombobox from "@/terms/TermCombobox.vue";
+import Autocomplete from "@/search/Autocomplete.vue";
 import { useRouter } from "vue-router";
 
 const store = useStore();

@@ -12,8 +12,8 @@
 
 <script setup>
 import { onMounted, ref } from "@vue/runtime-core";
-import useTerms from "@/composables/terms";
-import TermTree from "@/components/TermTree.vue";
+import useTerms from "@/terms/terms.composable";
+import TermTree from "@/terms/TermTree.vue";
 
 const { getRoots } = useTerms();
 const rootTerms = ref([]);

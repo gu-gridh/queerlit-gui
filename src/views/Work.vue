@@ -95,7 +95,7 @@
 
 <script setup>
 import Labeled from "@/components/Labeled.vue";
-import Term from "@/components/Term.vue";
+import Term from "@/terms/Term.vue";
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import { get } from "@/services/libris.service";

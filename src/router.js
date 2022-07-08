@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SearchForm from "@/components/SearchForm.vue";
-import Results from "@/components/Results.vue";
-import ThesaurusInfo from "@/components/ThesaurusInfo.vue";
+import SearchForm from "@/search/SearchForm.vue";
+import Results from "@/search/Results.vue";
+import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 
 const routes = [
   {

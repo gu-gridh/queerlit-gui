@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import Term from "@/components/Term.vue";
+import Term from "@/terms/Term.vue";
 
 defineProps({
   id: String,

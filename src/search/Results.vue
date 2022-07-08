@@ -64,8 +64,8 @@
 <script setup>
 import { computed } from "@vue/reactivity";
 import { useStore } from "vuex";
-import WorkHit from "@/components/WorkHit.vue";
-import Pagination from "./Pagination.vue";
+import WorkHit from "@/search/WorkHit.vue";
+import Pagination from "@/search/Pagination.vue";
 
 const store = useStore();
 const sort = computed(() => store.state.sort);
