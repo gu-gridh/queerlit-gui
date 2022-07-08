@@ -1,14 +1,14 @@
 <template>
   <div v-click-outside="blur">
     <div
-      class="bg-smoke-200 hover:bg-smoke-300 p-2 pl-4 pb-0 flex rounded-t"
+      class="bg-smoke-200 hover:bg-smoke-300 p-2 pb-0 flex rounded-t"
       :class="{ 'rounded-b': !suggestions.length }"
     >
       <div class="flex-1 flex flex-wrap">
         <Term
           v-for="term in terms"
           :key="term.id"
-          class="mr-2 mb-2 text-md cursor-pointer"
+          class="term-added mr-2 mb-2 text-md cursor-pointer"
           :data="term"
           @click="remove(term)"
         >
@@ -21,6 +21,7 @@
           :placeholder="terms.length ? 'Sök fler ämnesord...' : 'Ämnesord...'"
           class="
             bg-transparent
+            ml-2
             mb-2
             border border-transparent
             w-36
@@ -116,5 +117,9 @@ function blur() {
 
 .incomplete:not(:focus) {
   @apply text-red-800;
+}
+
+.term-added:last-of-type {
+  @apply mr-0;
 }
 </style>
