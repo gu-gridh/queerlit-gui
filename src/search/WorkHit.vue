@@ -30,13 +30,13 @@
           <div class="my-2">{{ work.date }}</div>
         </div>
 
-        <div v-if="work.terms.length" class="my-2">
+        <div v-if="work.terms.length" class="w-full my-2">
           <Term v-for="term in work.terms" :key="term" class="mr-1 mb-1">
             {{ term }}
           </Term>
         </div>
 
-        <div v-if="work.summary" class="my-2 text-sm">
+        <div v-if="work.summary" class="w-full my-2 text-sm">
           {{ ellipsis(work.summary, 80) }}
         </div>
       </div>

@@ -80,6 +80,7 @@ import {
   searchTitle,
 } from "@/services/libris.service";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import Freetext from "./Freetext.vue";
 import YearFilter from "@/search/YearFilter.vue";
 import TermCombobox from "@/terms/TermCombobox.vue";
@@ -87,6 +88,7 @@ import Autocomplete from "@/search/Autocomplete.vue";
 import QButton from "@/components/QButton.vue";
 
 const store = useStore();
+const router = useRouter();
 
 const {
   title,
@@ -117,7 +119,8 @@ function setGenreform(genreform) {
   search();
 }
 
-async function search() {
+async function search(focus = true) {
+  if (focus) router.push("/");
   if (!store.getters.isSearching) {
     store.commit("setSearching", serializedQuery.value);
     store.commit("setOffset", 0);
@@ -125,7 +128,8 @@ async function search() {
   }
 }
 
-search();
+// Make an initial search as soon as the search form is visible, but don't switch pages.
+search(false);
 </script>
 
 <style></style>
