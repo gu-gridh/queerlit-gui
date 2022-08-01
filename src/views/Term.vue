@@ -98,7 +98,7 @@
 </template>
 
 <script setup>
-import { ref, watch, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
@@ -113,11 +113,18 @@ const parents = ref([]);
 const children = ref([]);
 const related = ref([]);
 
-watchEffect(async () => (term.value = await getTerm(route.params.id)));
-watch(term, () => {
-  getParents(term.value.name).then((terms) => (parents.value = terms));
-  getChildren(term.value.name).then((terms) => (children.value = terms));
-  getRelated(term.value.name).then((terms) => (related.value = terms));
+// Get term data instantly and if the term name parameter changes.
+watchEffect(async () => {
+  term.value = await getTerm(route.params.id);
+  parents.value = [];
+  children.value = [];
+  related.value = [];
+  if (term.value.broader.length)
+    getParents(term.value.name).then((terms) => (parents.value = terms));
+  if (term.value.narrower.length)
+    getChildren(term.value.name).then((terms) => (children.value = terms));
+  if (term.value.related.length)
+    getRelated(term.value.name).then((terms) => (related.value = terms));
 });
 </script>
 

@@ -3,11 +3,13 @@ import axios from "axios";
 const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
 
+/** Get a single term. */
 async function qlitGet(endpoint, params) {
   const response = await axios.get(QLIT_BASE + endpoint, { params });
   return response.data;
 }
 
+/** Get multiple terms and sort alphabetically. */
 async function qlitList(endpoint, params) {
   const data = await qlitGet(endpoint, params);
   return data.sort((a, b) => a.prefLabel.localeCompare(b.prefLabel, "sv"));
