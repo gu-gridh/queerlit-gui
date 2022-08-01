@@ -6,13 +6,13 @@
       borderColor: `hsl(${hue} 70% 80% / ${0 + expanded})`,
     }"
   >
-    <div>
+    <div class="flex flex-wrap justify-between items-baseline gap-4">
       <router-link :to="`/ao/${parent.name}`" class="text-lg font-bold">
         <Term>{{ parent.prefLabel }}</Term>
       </router-link>
-      <div v-if="parent.altLabels && parent.altLabels.length" class="my-2">
-        (även: {{ parent.altLabels.join(", ") }})
-      </div>
+      <span v-if="parent.altLabels && parent.altLabels.length">
+        Varianter: {{ parent.altLabels.join(", ") }}
+      </span>
     </div>
 
     <div v-if="parent.scopeNote" class="my-2">
