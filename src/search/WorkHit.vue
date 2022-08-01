@@ -54,7 +54,11 @@ defineProps({
 
 function ellipsis(text, limit) {
   if (text.length < limit) return text;
-  return text.substring(0, 200).replace(/\s\S+$/, "...");
+  // 1. Truncate; 2. Strip possibly incomplete trailing word; 3. Add ellipsis
+  return text
+    .substring(0, 200)
+    .replace(/\p{L}+$/u, "")
+    .replace(/\P{L}$/u, "…");
 }
 </script>
 
