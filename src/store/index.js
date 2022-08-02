@@ -9,7 +9,7 @@ export default createStore({
   state: {
     results: null,
     total: 0,
-    sort: "-publication.year",
+    sort: "-meta.modified",
     offset: 0,
     currentSearch: null,
   },

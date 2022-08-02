@@ -34,6 +34,7 @@
             <option value="publication.year">Äldst först</option>
             <option value="">Relevans</option>
             <option value="_sortKeyByLang.sv">Titel A-Ö</option>
+            <option value="-meta.modified">Senast ändrad först</option>
           </select>
         </div>
       </div>

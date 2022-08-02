@@ -23,4 +23,17 @@ export default {
       if (genreform !== undefined) state.genreform = genreform;
     },
   },
+  getters: {
+    isQueryEmpty(state) {
+      return (
+        !state.text &&
+        !state.title &&
+        !state.author &&
+        !state.yearStart &&
+        !state.yearEnd &&
+        !state.genreform &&
+        !state.terms.length
+      );
+    },
+  },
 };
