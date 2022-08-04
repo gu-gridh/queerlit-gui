@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from "@vue/reactivity";
+import { watch } from "@vue/runtime-core";
 import Dragscroll from "./Dragscroll.vue";
 
-defineProps(["heading", "items", "select"]);
+const props = defineProps(["heading", "items", "select"]);
 defineEmits(["select"]);
 
 const hscroll = ref(null);
@@ -22,11 +23,18 @@ function scrollStepRight() {
 }
 
 function checkScrollPosition() {
-  isScrolledToStart.value = hscroll.value.$el.scrollLeft == 0;
-  isScrolledToEnd.value =
-    hscroll.value.$el.scrollLeft + hscroll.value.$el.clientWidth ==
-    hscroll.value.$el.scrollWidth;
+  if (!hscroll.value) return;
+  const el = hscroll.value.$el;
+  // Update our flags.
+  isScrolledToStart.value = el.scrollLeft == 0;
+  isScrolledToEnd.value = el.scrollLeft + el.clientWidth == el.scrollWidth;
 }
+
+// If the suggestion list is short, the scrolled-to-end flag should be true.
+watch(
+  () => props.items,
+  () => setTimeout(checkScrollPosition)
+);
 </script>
 
 <template>
