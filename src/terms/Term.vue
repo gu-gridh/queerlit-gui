@@ -3,7 +3,11 @@ import { computed } from "@vue/reactivity";
 
 const props = defineProps(["data"]);
 
-const type = computed(() => props.data?.inScheme?.["@id"]?.split("/").pop());
+const isQlit = computed(
+  () =>
+    !props.data ||
+    props.data.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1"
+);
 const label = computed(() => props.data?.prefLabel);
 </script>
 
@@ -20,10 +24,10 @@ const label = computed(() => props.data?.prefLabel);
       bg-tagyellow
       font-thin
       rounded-md
-      shadow-md
+      shadow
       transition-all
     "
-    :class="[type && `type-${type}`]"
+    :class="{ 'tag-external': !isQlit }"
   >
     <slot>
       {{ label }}
@@ -32,7 +36,7 @@ const label = computed(() => props.data?.prefLabel);
 </template>
 
 <style scoped>
-.type-sao {
+.tag-external {
   @apply bg-gray-200;
 }
 </style>

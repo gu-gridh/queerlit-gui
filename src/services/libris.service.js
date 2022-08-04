@@ -95,9 +95,19 @@ function processXlItem(item) {
         ))
   );
   const processed = { terms: [], ...localItem, _item: item };
+  if (processed.terms) {
+    processed.terms = processed.terms.map((label) => ({
+      "@id": "https://queerlit.dh.gu.se/qlit/v1/xyz",
+      inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
+      prefLabel: label,
+    }));
+  }
 
   if (item.meta.controlNumber)
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
+
+  // Find terms
+  processed.terms.push(...(item.instanceOf?.subject || []));
 
   // Normalize some values.
   const hasTitle =
@@ -116,9 +126,9 @@ function processXlItem(item) {
   const publication = item.publication?.find((publication) => publication.year);
   processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
+  // The summary can be in the Instance or the Text record, and it can be one or multiple values.
   processed.summary = (item.summary || item.instanceOf?.summary)?.[0].label;
   if (Array.isArray(processed.summary)) {
-    console.warn("Work summary is array", processed.summary);
     processed.summary = processed.summary[0];
   }
 
