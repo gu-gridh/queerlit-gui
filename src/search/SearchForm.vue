@@ -123,7 +123,6 @@ async function search(focus = true) {
   if (focus) router.push("/");
   if (!store.getters.isSearching) {
     store.commit("setSearching", serializedQuery.value);
-    store.commit("setOffset", 0);
     store.dispatch("search");
   }
 }

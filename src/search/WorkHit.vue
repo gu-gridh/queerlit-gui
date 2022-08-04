@@ -36,7 +36,11 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-          />
+            @click.prevent="filterTerm(term)"
+          >
+            {{ term.prefLabel }}
+            <icon icon="search" size="xs" />
+          </Term>
         </div>
 
         <div v-if="otherTerms.length" class="w-full mb-2 text-sm">
@@ -45,7 +49,11 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-          />
+            @click.prevent="filterTerm(term)"
+          >
+            {{ term.prefLabel }}
+            <icon icon="search" size="xs" />
+          </Term>
         </div>
 
         <div v-if="work.summary" class="w-full my-2 text-sm">
@@ -58,13 +66,18 @@
 
 <script setup>
 import { computed } from "@vue/reactivity";
+import { useStore } from "vuex";
 import negate from "lodash/negate";
 import Term from "@/terms/Term.vue";
+import useTerms from "@/terms/terms.composable";
 
 const props = defineProps({
   work: { type: Object, required: true },
   i: { type: Number, required: true },
 });
+
+const { add } = useTerms();
+const store = useStore();
 
 function ellipsis(text, limit) {
   if (text.length < limit) return text;
@@ -80,6 +93,11 @@ const otherTerms = computed(() => props.work.terms.filter(negate(termIsQlit)));
 
 function termIsQlit(term) {
   return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
+}
+
+function filterTerm(term) {
+  add(term);
+  store.dispatch("search");
 }
 </script>
 

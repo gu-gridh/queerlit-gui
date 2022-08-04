@@ -77,7 +77,7 @@ const isSearching = computed(() => store.getters.isSearching);
 
 function setPage(page) {
   store.commit("setOffset", (page - 1) * 20);
-  store.dispatch("search");
+  store.dispatch("search", { retain: true });
 }
 
 function setSort(event) {

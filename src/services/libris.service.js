@@ -97,7 +97,7 @@ function processXlItem(item) {
   const processed = { terms: [], ...localItem, _item: item };
   if (processed.terms) {
     processed.terms = processed.terms.map((label) => ({
-      "@id": "https://queerlit.dh.gu.se/qlit/v1/xyz",
+      "@id": "https://queerlit.dh.gu.se/qlit/v1/dummy-" + label,
       inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
       prefLabel: label,
     }));

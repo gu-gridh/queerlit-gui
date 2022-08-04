@@ -35,7 +35,10 @@ export default createStore({
   },
   actions: {
     /** Search Libris using the query, then set results. */
-    async search({ commit, state }) {
+    async search({ commit, state }, { retain } = {}) {
+      if (!retain) {
+        commit("setOffset", 0);
+      }
       const query = state.query;
       const { items, total } = await search(
         query.text,
