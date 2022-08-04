@@ -14,9 +14,22 @@
       <Labeled label="Utgivningsår" class="pr-4"> {{ work.date }} </Labeled>
     </div>
     <Labeled label="Ämnesord" class="my-4 text-lg">
-      <Term v-for="term in work.terms" :key="term" class="mr-1 mb-1">{{
-        term
-      }}</Term>
+      <div>
+        <Term
+          v-for="term in qlitTerms"
+          :key="term"
+          :data="term"
+          class="mr-1 mb-1"
+        />
+      </div>
+      <div class="text-base">
+        <Term
+          v-for="term in otherTerms"
+          :key="term"
+          :data="term"
+          class="mr-1 mb-1"
+        />
+      </div>
     </Labeled>
     <Labeled v-if="work.summary" label="Beskrivning" class="my-4">
       {{ work.summary }}
@@ -66,12 +79,13 @@
 </template>
 
 <script setup>
-import Labeled from "@/components/Labeled.vue";
-import Term from "@/terms/Term.vue";
 import { computed, ref } from "@vue/reactivity";
 import { get } from "@/services/libris.service";
 import { useRoute } from "vue-router";
 import { watch } from "@vue/runtime-core";
+import negate from "lodash/negate";
+import Labeled from "@/components/Labeled.vue";
+import Term from "@/terms/Term.vue";
 
 const TYPE_LABELS = {
   book: "Bok",
@@ -87,8 +101,15 @@ get(route.params.id).then((work_) => (work.value = work_));
 // Expose full data to developer console.
 if (import.meta.env.DEV) {
   watch(work, () => {
-    console.log({ work: work.value });
+    console.log("work", { ...work.value });
   });
+}
+
+const qlitTerms = computed(() => work.value.terms.filter(termIsQlit));
+const otherTerms = computed(() => work.value.terms.filter(negate(termIsQlit)));
+
+function termIsQlit(term) {
+  return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
 }
 </script>
 
