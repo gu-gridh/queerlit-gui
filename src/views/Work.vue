@@ -14,20 +14,37 @@
       <Labeled label="Utgivningsår" class="pr-4"> {{ work.date }} </Labeled>
     </div>
     <Labeled label="Ämnesord" class="my-4 text-lg">
-      <div>
+      <div class="mt-1">
         <Term
           v-for="term in qlitTerms"
           :key="term"
           :data="term"
           class="mr-1 mb-1"
-        />
+          :options="[
+            {
+              label: `Sök på <em>${term.prefLabel}</em>`,
+              action: () => filterTerm(term),
+            },
+            {
+              label: `Om ämnesordet <em>${term.prefLabel}</em>`,
+              action: () => gotoTerm(term),
+            },
+          ]"
+        >
+        </Term>
       </div>
-      <div class="text-base">
+      <div class="text-base mt-2">
         <Term
           v-for="term in otherTerms"
           :key="term"
           :data="term"
           class="mr-1 mb-1"
+          :options="[
+            {
+              label: `Sök på <em>${term.prefLabel}</em>`,
+              action: () => filterTerm(term),
+            },
+          ]"
         />
       </div>
     </Labeled>
@@ -80,10 +97,12 @@
 
 <script setup>
 import { computed, ref } from "@vue/reactivity";
+import { useStore } from "vuex";
 import { get } from "@/services/libris.service";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { watch } from "@vue/runtime-core";
 import negate from "lodash/negate";
+import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
 
@@ -91,7 +110,10 @@ const TYPE_LABELS = {
   book: "Bok",
 };
 
+const store = useStore();
+const router = useRouter();
 const route = useRoute();
+const { add } = useTerms();
 
 const work = ref();
 const typeLabel = computed(() => work.value && TYPE_LABELS[work.value.type]);
@@ -110,6 +132,16 @@ const otherTerms = computed(() => work.value.terms.filter(negate(termIsQlit)));
 
 function termIsQlit(term) {
   return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
+}
+
+function filterTerm(term) {
+  add(term);
+  store.dispatch("search");
+  router.push("/");
+}
+
+function gotoTerm(term) {
+  router.push(`/ao/${term.name}`);
 }
 </script>
 

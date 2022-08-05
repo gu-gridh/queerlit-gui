@@ -36,10 +36,18 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-            @click.prevent="filterTerm(term)"
+            :options="[
+              {
+                label: `Sök på <em>${term.prefLabel}</em>`,
+                action: () => filterTerm(term),
+              },
+              {
+                label: `Om ämnesordet <em>${term.prefLabel}</em>`,
+                action: () => gotoTerm(term),
+              },
+            ]"
           >
             {{ term.prefLabel }}
-            <icon icon="search" size="xs" />
           </Term>
         </div>
 
@@ -49,10 +57,14 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-            @click.prevent="filterTerm(term)"
+            :options="[
+              {
+                label: `Sök på <em>${term.prefLabel}</em>`,
+                action: () => filterTerm(term),
+              },
+            ]"
           >
             {{ term.prefLabel }}
-            <icon icon="search" size="xs" />
           </Term>
         </div>
 
@@ -70,6 +82,7 @@ import { useStore } from "vuex";
 import negate from "lodash/negate";
 import Term from "@/terms/Term.vue";
 import useTerms from "@/terms/terms.composable";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   work: { type: Object, required: true },
@@ -78,6 +91,7 @@ const props = defineProps({
 
 const { add } = useTerms();
 const store = useStore();
+const router = useRouter();
 
 function ellipsis(text, limit) {
   if (text.length < limit) return text;
@@ -98,6 +112,10 @@ function termIsQlit(term) {
 function filterTerm(term) {
   add(term);
   store.dispatch("search");
+}
+
+function gotoTerm(term) {
+  router.push(`/ao/${term.name}`);
 }
 </script>
 
