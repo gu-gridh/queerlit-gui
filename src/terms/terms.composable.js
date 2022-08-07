@@ -6,6 +6,7 @@ import {
   getChildren,
   getRelated,
   getRoots,
+  searchTerms,
 } from "@/services/terms.service";
 
 export default function useTerms() {
@@ -34,6 +35,7 @@ export default function useTerms() {
     hasChildren,
     getRelated,
     getRoots,
+    searchTerms,
     suggestions,
     terms,
     add,

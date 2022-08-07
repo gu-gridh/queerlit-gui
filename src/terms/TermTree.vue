@@ -1,7 +1,7 @@
 <template>
   <div
     class="mt-4 pl-4 pb-4 border-l-4 border-transparent"
-    :class="[isRoot ? '-ml-2' : 'ml-8']"
+    :class="[level == 0 ? '-ml-2' : 'ml-8']"
     :style="{
       borderColor: `hsl(${hue} 70% 80% / ${0 + expanded})`,
     }"
@@ -56,10 +56,6 @@ const children = ref(null);
 const expanded = ref(props.expanded);
 
 const toggleExpanded = () => (expanded.value = !expanded.value);
-
-const isRoot = computed(
-  () => !props.parent.broader || !props.parent.broader.length
-);
 
 // 333° is the hue for Tailwind's pink-600
 // 92° is approximately ϕ radians, which gives suitable steps around the hue circle.
