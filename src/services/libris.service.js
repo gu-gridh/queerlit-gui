@@ -1,3 +1,4 @@
+import { compareEmptyLast } from "@/util";
 import axios from "axios";
 
 export async function search(
@@ -132,6 +133,8 @@ function processXlItem(item) {
     processed.summary = processed.summary[0];
   }
 
+  processed.libraries = item["@reverse"]?.itemOf?.map((l) => l.heldBy["@id"]);
+
   return processed;
 }
 
@@ -200,6 +203,16 @@ export async function searchGenreform(query) {
     scheme: item.inScheme.code,
     _item: item,
   }));
+}
+
+const librariesCache = [];
+export async function getLibraries() {
+  if (!librariesCache.length) {
+    const data = await xlFind({ "@type": "Library", _limit: 2000 });
+    data.items.sort((a, b) => compareEmptyLast(a.name, b.name));
+    librariesCache.push(...data.items);
+  }
+  return librariesCache;
 }
 
 /** Constants for uris. */

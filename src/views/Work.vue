@@ -85,10 +85,11 @@
       </div>
       <div class="flex-1 border p-4">
         <Labeled label="Finns på">
-          <div class="mt-2">• Göteborg: Biskopsgården</div>
-          <div>• Göteborg: Torslanda</div>
-          <div>• Göteborg: Stadsbiblioteket</div>
-          <div>• Stockholm: Medborgarplatsen</div>
+          <ul class="mt-2">
+            <li v-for="library in workLibraries" :key="library['@id']">
+              {{ library.name }}
+            </li>
+          </ul>
         </Labeled>
       </div>
     </div>
@@ -98,7 +99,7 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
-import { get } from "@/services/libris.service";
+import { get, getLibraries } from "@/services/libris.service";
 import { useRoute, useRouter } from "vue-router";
 import { watch } from "@vue/runtime-core";
 import negate from "lodash/negate";
@@ -116,19 +117,26 @@ const route = useRoute();
 const { add } = useTerms();
 
 const work = ref();
+const allLibraries = ref([]);
 const typeLabel = computed(() => work.value && TYPE_LABELS[work.value.type]);
+const qlitTerms = computed(() => work.value.terms.filter(termIsQlit));
+const otherTerms = computed(() => work.value.terms.filter(negate(termIsQlit)));
+const workLibraries = computed(() =>
+  allLibraries.value.filter((library) =>
+    work.value?.libraries?.includes(library["@id"])
+  )
+);
 
 get(route.params.id).then((work_) => (work.value = work_));
+getLibraries().then((libraries) => (allLibraries.value = libraries));
 
 // Expose full data to developer console.
 if (import.meta.env.DEV) {
   watch(work, () => {
     console.log("work", { ...work.value });
+    window.work = work.value;
   });
 }
-
-const qlitTerms = computed(() => work.value.terms.filter(termIsQlit));
-const otherTerms = computed(() => work.value.terms.filter(negate(termIsQlit)));
 
 function termIsQlit(term) {
   return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
@@ -145,4 +153,8 @@ function gotoTerm(term) {
 }
 </script>
 
-<style></style>
+<style>
+ul li::before {
+  content: "• ";
+}
+</style>
