@@ -17,7 +17,7 @@ export async function search(
   params.set("q", q);
 
   (terms || []).forEach((term) =>
-    params.append("instanceOf.subject.@id", term["@id"])
+    params.append("matches-instanceOf.subject.@id", term["@id"])
   );
 
   if (author) {

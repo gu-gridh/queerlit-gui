@@ -1,6 +1,6 @@
 export default {
   state: {
-    text: "nästan i mål",
+    text: "",
     terms: [],
     title: "",
     author: null,
