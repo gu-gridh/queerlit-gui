@@ -44,7 +44,6 @@ function toggleMenu() {
         hover:scale-105
         transition-all
         px-2
-        leading-snug
         py-1
         text-black
         font-thin

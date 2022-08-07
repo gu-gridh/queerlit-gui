@@ -16,26 +16,28 @@
       >
         {{ i }}.
       </div>
-      <div class="flex-1 flex flex-wrap items-baseline gap-x-6">
-        <h3 class="w-64 flex-grow mb-2 text-xl group-hover:underline">
-          {{ work.title }}
-        </h3>
+      <div class="flex-1">
+        <div class="flex flex-wrap items-baseline gap-x-6">
+          <h3 class="w-64 flex-grow mb-1 text-xl group-hover:underline">
+            {{ work.title }}
+          </h3>
 
-        <div class="w-48 flex-grow">
-          <div class="mb-2 flex flex-wrap">
-            <div v-for="creator in work.creators" :key="creator" class="mr-4">
-              {{ creator }}
+          <div class="w-48 flex-grow">
+            <div class="flex flex-wrap">
+              <div v-for="creator in work.creators" :key="creator" class="mr-4">
+                {{ creator }}
+              </div>
             </div>
+            {{ work.date }}
           </div>
-          <div class="my-2">{{ work.date }}</div>
         </div>
 
-        <div v-if="qlitTerms.length" class="w-full my-2">
+        <div v-if="qlitTerms.length" class="my-2 leading-8">
           <Term
             v-for="term in qlitTerms"
             :key="term"
             :data="term"
-            class="mr-1 mb-2"
+            class="mr-1"
             :options="[
               {
                 label: `Sök på <em>${term.prefLabel}</em>`,
@@ -51,12 +53,12 @@
           </Term>
         </div>
 
-        <div v-if="otherTerms.length" class="w-full mb-2 text-sm">
+        <div v-if="otherTerms.length" class="my-2 text-sm leading-8">
           <Term
             v-for="term in otherTerms"
             :key="term"
             :data="term"
-            class="mr-1 mb-2"
+            class="mr-1"
             :options="[
               {
                 label: `Sök på <em>${term.prefLabel}</em>`,
@@ -68,7 +70,7 @@
           </Term>
         </div>
 
-        <div v-if="work.summary" class="w-full my-2 text-sm">
+        <div v-if="work.summary" class="my-2 text-sm">
           {{ ellipsis(work.summary, 80) }}
         </div>
       </div>
