@@ -16,16 +16,15 @@
           </td>
         </tr>
         <tr>
-          <th class="pb-0">Identifierare</th>
-          <td class="pb-0 break-all">{{ term.uri }}</td>
-        </tr>
-        <tr class="text-sm text-black-700">
-          <td />
-          <td class="pt-0">
-            <icon icon="info-circle" size="xs" />
-            Identifieraren har formen av en URL, men används inte främst som en
-            webbadress. Formen är mest ett sätt att precisera att definitionen
-            är en del av Queerlits tesaurus.
+          <th>Identifierare</th>
+          <td>
+            <div class="break-all">{{ term.uri }}</div>
+            <div class="text-sm">
+              <icon icon="info-circle" size="xs" />
+              Identifieraren har formen av en URL, men används inte främst som
+              en webbadress. Formen är mest ett sätt att precisera att
+              definitionen är en del av Queerlits tesaurus.
+            </div>
           </td>
         </tr>
       </table>
@@ -131,12 +130,12 @@ watchEffect(async () => {
 </script>
 
 <style lang="scss" scoped>
-th {
-  @apply font-bold pr-4;
+th,
+td {
+  @apply py-2 text-left align-baseline;
 }
 
-th:not(.pb-0):not(.pt-0),
-td:not(.pb-0):not(.pt-0) {
-  @apply text-left align-top py-2;
+th {
+  @apply font-bold pr-4;
 }
 </style>
