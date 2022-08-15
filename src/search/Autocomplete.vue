@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="blur">
+  <div v-on-click-outside="blur">
     <input
       v-model="input"
       :placeholder="placeholder"
@@ -49,7 +49,7 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
 import { watchEffect } from "@vue/runtime-core";
-import { directive as vClickOutside } from "click-outside-vue3";
+import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 
 // Data flow: parent -> `value` -> `input` -> `suggestions` -> `parent`

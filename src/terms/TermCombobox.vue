@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="blur">
+  <div v-on-click-outside="blur">
     <div
       class="bg-smoke-200 hover:bg-smoke-300 p-2 flex rounded-t"
       :class="{ 'rounded-b': !suggestions.length }"
@@ -58,7 +58,7 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
-import { directive as vClickOutside } from "click-outside-vue3";
+import { vOnClickOutside } from "@vueuse/components";
 import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";

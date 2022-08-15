@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
-import { directive as vClickOutside } from "click-outside-vue3";
+import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
@@ -86,7 +86,7 @@ function clearSuggestions() {
 </script>
 
 <template>
-  <div v-click-outside="blur">
+  <div v-on-click-outside="blur">
     <input
       type="search"
       :value="text"

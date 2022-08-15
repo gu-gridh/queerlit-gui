@@ -338,7 +338,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:^9.1.0":
+"@vueuse/components@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "@vueuse/components@npm:9.1.0"
+  dependencies:
+    "@vueuse/core": 9.1.0
+    "@vueuse/shared": 9.1.0
+    vue-demi: "*"
+  checksum: 67267007952903ff49220141b391dbc97ce17a2a8d589bf64564125c1f5f199e87441602a8d6f49fdec4e6c894b177d6f12dcc0632dfbb68aa4622246d64f248
+  languageName: node
+  linkType: hard
+
+"@vueuse/core@npm:9.1.0, @vueuse/core@npm:^9.1.0":
   version: 9.1.0
   resolution: "@vueuse/core@npm:9.1.0"
   dependencies:
@@ -741,13 +752,6 @@ __metadata:
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
   checksum: 2ac8cd2b2f5ec986a3c743935ec85b07bc174d5421a5efc8017e1f146a1cf5f781ae962618f416352103b32c9cd7e203276e8c28241bbe946160cab16149fb68
-  languageName: node
-  linkType: hard
-
-"click-outside-vue3@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "click-outside-vue3@npm:4.0.1"
-  checksum: bc2cf3336f1343619f60c2e2d5a8cc7cc64ec5d912f42f9f3666c7655c08d77b9a8916a6b98ac505deeb2c11a40ffd58ce91308762e31989e546654b689d0b1e
   languageName: node
   linkType: hard
 
@@ -2561,10 +2565,10 @@ __metadata:
     "@fortawesome/vue-fontawesome": ^3.0.0-5
     "@vitejs/plugin-vue": ^1.6.1
     "@vue/compiler-sfc": ^3.2.6
+    "@vueuse/components": ^9.1.0
     "@vueuse/core": ^9.1.0
     autoprefixer: ^10.3.7
     axios: ^0.23.0
-    click-outside-vue3: ^4.0.1
     eslint: ^8.0.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-vue: ^8.0

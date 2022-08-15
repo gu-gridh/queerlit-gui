@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
-import { directive as vClickOutside } from "click-outside-vue3";
+import { vOnClickOutside } from "@vueuse/components";
 
 const props = defineProps(["data", "options"]);
 
@@ -32,7 +32,7 @@ function toggleMenu() {
 
 <template>
   <span
-    v-click-outside="() => (isMenuVisible = false)"
+    v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
     @click="toggleMenu()"
     @mouseenter="showMenu()"
