@@ -8,7 +8,7 @@
         overflow-y-auto
       "
     >
-      <div class="container pt-12">
+      <div class="container py-12">
         <header class="max-w-screen-md pb-8">
           <router-link to="/" class="flex-1">
             <img

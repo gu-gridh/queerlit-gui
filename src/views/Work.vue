@@ -106,6 +106,7 @@ import negate from "lodash/negate";
 import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
+import useTitle from "./title.composable";
 
 const TYPE_LABELS = {
   book: "Bok",
@@ -126,6 +127,7 @@ const workLibraries = computed(() =>
     work.value?.libraries?.includes(library["@id"])
   )
 );
+useTitle(computed(() => work.value && work.value.title));
 
 get(route.params.id).then((work_) => (work.value = work_));
 getLibraries().then((libraries) => (allLibraries.value = libraries));
@@ -153,7 +155,7 @@ function gotoTerm(term) {
 }
 </script>
 
-<style>
+<style scoped>
 ul li::before {
   content: "• ";
 }

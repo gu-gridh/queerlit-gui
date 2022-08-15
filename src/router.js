@@ -25,6 +25,7 @@ const routes = [
       default: () =>
         import(/* webpackChunkName: "ao" */ "@/views/Thesaurus.vue"),
     },
+    meta: { title: "Ämnen" },
   },
   {
     path: "/ao/:id",

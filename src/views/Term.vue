@@ -99,7 +99,8 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from "vue";
+import { computed, ref, watchEffect } from "vue";
+import useTitle from "./title.composable";
 import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
@@ -113,6 +114,7 @@ const term = ref(null);
 const parents = ref([]);
 const children = ref([]);
 const related = ref([]);
+useTitle(computed(() => term.value && term.value.prefLabel));
 
 // Get term data instantly and if the term name parameter changes.
 watchEffect(async () => {

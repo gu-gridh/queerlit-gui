@@ -65,6 +65,7 @@
 <script setup>
 import { computed } from "@vue/reactivity";
 import { useStore } from "vuex";
+import useTitle from "@/views/title.composable";
 import WorkHit from "@/search/WorkHit.vue";
 import Pagination from "@/search/Pagination.vue";
 
@@ -74,6 +75,7 @@ const results = computed(() => store.state.results);
 const total = computed(() => store.state.total);
 const offset = computed(() => store.state.offset);
 const isSearching = computed(() => store.getters.isSearching);
+useTitle();
 
 function setPage(page) {
   store.commit("setOffset", (page - 1) * 20);

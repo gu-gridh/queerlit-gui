@@ -25,11 +25,13 @@ import { onMounted, ref, watchEffect } from "@vue/runtime-core";
 import useTerms from "@/terms/terms.composable";
 import TermTree from "@/terms/TermTree.vue";
 import debounce from "lodash/debounce";
+import useTitle from "@/views/title.composable";
 
 const { getRoots, searchTerms } = useTerms();
 const rootTerms = ref([]);
 const terms = ref([]);
 const termTextInput = ref("");
+useTitle();
 
 onMounted(async () => {
   rootTerms.value = await getRoots();
