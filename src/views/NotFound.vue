@@ -18,3 +18,9 @@
     </p>
   </div>
 </template>
+
+<script setup>
+import useTitle from "./title.composable";
+
+useTitle();
+</script>

@@ -104,9 +104,11 @@ import { useRoute, useRouter } from "vue-router";
 import { watch } from "@vue/runtime-core";
 import negate from "lodash/negate";
 import useTerms from "@/terms/terms.composable";
+import NotFound from "./NotFound.vue";
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
 import useTitle from "./title.composable";
+import use404 from "./404.composable";
 
 const TYPE_LABELS = {
   book: "Bok",
@@ -116,6 +118,7 @@ const store = useStore();
 const router = useRouter();
 const route = useRoute();
 const { add } = useTerms();
+const { flag404 } = use404();
 
 const work = ref();
 const allLibraries = ref([]);
@@ -129,7 +132,9 @@ const workLibraries = computed(() =>
 );
 useTitle(computed(() => work.value && work.value.title));
 
-get(route.params.id).then((work_) => (work.value = work_));
+get(route.params.id)
+  .then((work_) => (work.value = work_))
+  .catch(flag404);
 getLibraries().then((libraries) => (allLibraries.value = libraries));
 
 // Expose full data to developer console.

@@ -7,7 +7,6 @@ export default function useTitle(customTitle) {
 
   // `customTitle` can be a ref
   const title = customTitle || route.meta.title;
-  console.log(customTitle, route.meta.title);
   if (title) {
     return vueUseTitle(title, { titleTemplate: "%s • Queerlit" });
   }

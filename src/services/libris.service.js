@@ -63,6 +63,7 @@ export async function get(id) {
   const result = await xlFindBooks({ "@id": fullId });
   if (result.items.length != 1) {
     console.error("get(id) result length should be 1", result);
+    throw RangeError("get(id) result length should be 1");
   }
   return result.items[0];
 }

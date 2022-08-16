@@ -101,6 +101,7 @@
 <script setup>
 import { computed, ref, watchEffect } from "vue";
 import useTitle from "./title.composable";
+import use404 from "./404.composable";
 import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
@@ -109,6 +110,7 @@ import ExternalTermList from "@/terms/ExternalTermList.vue";
 
 const route = useRoute();
 const { getParents, getChildren, getRelated, getTerm } = useTerms();
+const { flag404 } = use404();
 
 const term = ref(null);
 const parents = ref([]);
@@ -118,7 +120,7 @@ useTitle(computed(() => term.value && term.value.prefLabel));
 
 // Get term data instantly and if the term name parameter changes.
 watchEffect(async () => {
-  term.value = await getTerm(route.params.id);
+  term.value = await getTerm(route.params.id).catch(flag404);
   parents.value = [];
   children.value = [];
   related.value = [];
