@@ -13,3 +13,18 @@ body {
   height: 0;
   clear: both;
 }
+
+.q-body {
+  p {
+    @apply my-2;
+  }
+  p:first-child {
+    @apply mt-0;
+  }
+  p:last-child {
+    @apply mb-0;
+  }
+  a {
+    @apply underline;
+  }
+}

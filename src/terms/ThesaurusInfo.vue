@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-4 md:p-8">
+  <div class="bg-white rounded-xl shadow-lg p-4 md:p-8 q-body">
     <p>
       Till Queerlit-databasen skapas en <em>tesaurus</em>, det vill säga en
       ordlista som sorterar ämnesord. Syftet med det är att göra
@@ -30,18 +30,3 @@
     </p>
   </div>
 </template>
-
-<style scoped>
-p {
-  @apply my-2;
-}
-p:first-child {
-  @apply mt-0;
-}
-p:last-child {
-  @apply mb-0;
-}
-a {
-  @apply underline;
-}
-</style>

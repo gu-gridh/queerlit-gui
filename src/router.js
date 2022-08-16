@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import SearchForm from "@/search/SearchForm.vue";
 import Results from "@/search/Results.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
+import NotFound from "@/views/NotFound.vue";
 
 const routes = [
   {
@@ -32,6 +33,13 @@ const routes = [
     components: {
       side: ThesaurusInfo,
       default: () => import(/* webpackChunkName: "term" */ "@/views/Term.vue"),
+    },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    components: {
+      default: NotFound,
+      side: SearchForm,
     },
   },
 ];
