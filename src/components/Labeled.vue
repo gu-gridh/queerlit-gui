@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <div class="font-label uppercase font-medium text-xs">{{ label }}</div>
+  <section>
+    <header class="font-label uppercase font-medium text-xs">
+      {{ label }}
+    </header>
     <div>
       <slot />
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>

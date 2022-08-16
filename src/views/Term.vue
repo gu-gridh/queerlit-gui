@@ -31,7 +31,7 @@
     </div>
     <div class="flex flex-wrap -m-4">
       <div class="w-1/2 p-4">
-        <Labeled label="Övergripande">
+        <Labeled label="Bredare">
           <ul class="py-1">
             <li v-for="term in parents" :key="term.name" class="my-1">
               <router-link
