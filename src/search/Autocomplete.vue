@@ -75,7 +75,8 @@ async function change() {
   if (props.value) {
     emit("change", null);
   }
-  getSuggestions();
+  if (input.value) getSuggestions();
+  else suggestions.value = [];
 }
 
 // No need to load suggestions until user slows down typing.

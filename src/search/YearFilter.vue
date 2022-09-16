@@ -2,14 +2,14 @@
   <div class="mb-4">
     <div class="flex justify-between">
       <input
-        :value="startD"
+        v-model="start"
         size="4"
         class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
         placeholder="Från"
         @change="startTextChange"
       />
       <input
-        :value="endD"
+        v-model="end"
         size="4"
         class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
         placeholder="Till"
@@ -44,22 +44,30 @@ import { ref } from "@vue/reactivity";
 const emit = defineEmits(["change"]);
 const props = defineProps(["start", "end"]);
 
-// "D" for "data", to distinguish from the props
-const startD = ref(props.start);
-const endD = ref(props.end);
+const MIN = 1800;
+const MAX = new Date().getFullYear();
 
-function startTextChange(event) {
-  startD.value = event.target.value;
+// "D" for "data", to distinguish from the props
+const start = ref(props.start || MIN);
+const end = ref(props.end || MAX);
+
+function startTextChange() {
+  if (!start.value) start.value = MIN;
   emitChange();
 }
 
-function endTextChange(event) {
-  endD.value = event.target.value;
+function endTextChange() {
+  if (!end.value) end.value = MAX;
   emitChange();
 }
 
 function emitChange() {
-  emit("change", startD.value, endD.value);
+  // Coalesce to empty at the min/max boundaries.
+  emit(
+    "change",
+    start.value != MIN && start.value,
+    end.value != MAX && end.value
+  );
 }
 </script>
 
