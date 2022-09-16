@@ -103,7 +103,7 @@ function blur() {
       >
         <FreetextSuggestions
           v-slot="{ item }"
-          heading="Sök på ämnesord:"
+          heading="Ämnesord (QLIT):"
           :items="suggestions.qlit"
           @select="addTerm"
         >
@@ -115,7 +115,7 @@ function blur() {
 
         <FreetextSuggestions
           v-slot="{ item }"
-          heading="Sök på allmäna ämnesord (SAO):"
+          heading="Allmäna ämnesord (SAO):"
           :items="suggestions.sao"
           @select="addTerm"
         >
@@ -127,7 +127,7 @@ function blur() {
 
         <FreetextSuggestions
           v-slot="{ item }"
-          heading="Sök på barnämnesord:"
+          heading="Barnämnesord:"
           :items="suggestions.barn"
           @select="addTerm"
         >
@@ -138,14 +138,14 @@ function blur() {
         </FreetextSuggestions>
 
         <FreetextSuggestions
-          heading="Sök på titel:"
+          heading="Titel:"
           :items="suggestions.title"
           @select="setTitle"
         />
 
         <FreetextSuggestions
           v-slot="{ item }"
-          heading="Sök på författare:"
+          heading="Författare:"
           :items="suggestions.author"
           @select="addAuthor"
         >

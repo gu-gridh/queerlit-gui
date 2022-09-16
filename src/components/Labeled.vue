@@ -1,6 +1,9 @@
 <template>
   <section>
-    <header class="font-label uppercase font-medium text-xs">
+    <header
+      class="font-label uppercase font-medium text-xs"
+      :class="labelClass"
+    >
       {{ label }}
     </header>
     <div>
@@ -10,7 +13,7 @@
 </template>
 
 <script setup>
-defineProps({ label: String });
+defineProps({ label: String, labelClass: [Object, String] });
 </script>
 
 <style></style>

@@ -2,6 +2,7 @@
 import { ref } from "@vue/reactivity";
 import { watch } from "@vue/runtime-core";
 import Dragscroll from "./Dragscroll.vue";
+import Labeled from "@/components/Labeled.vue";
 
 const props = defineProps(["heading", "items", "select"]);
 defineEmits(["select"]);
@@ -38,8 +39,12 @@ watch(
 </script>
 
 <template>
-  <div v-if="items.length" class="my-2">
-    <div class="text-sm mx-2">{{ heading }}</div>
+  <Labeled
+    :label="heading"
+    v-if="items.length"
+    class="my-2"
+    label-class="mx-2 opacity-80"
+  >
     <div class="relative" @wheel.prevent="scroll">
       <span
         v-show="!isScrolledToStart"
@@ -67,7 +72,7 @@ watch(
         <span
           v-for="(item, i) in items"
           :key="i"
-          class="mx-1"
+          class="mx-1 cursor-pointer"
           @click="$emit('select', item)"
         >
           <slot :item="item">
@@ -94,7 +99,7 @@ watch(
         <icon icon="angle-double-right" size="xs" />
       </span>
     </div>
-  </div>
+  </Labeled>
 </template>
 
 <style>
