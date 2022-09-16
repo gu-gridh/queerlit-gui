@@ -17,13 +17,19 @@
       <TermCombobox class="mb-4" @change="search" />
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
-          <Autocomplete
-            id="search-title"
+          <input
             placeholder="Titel"
             :value="title"
-            :suggest="searchTitle"
-            :get-label="(title) => title"
-            :get-id="(title) => title"
+            class="
+              block
+              w-full
+              text-lg text-black
+              border border-gray-500
+              leading-snug
+              py-1
+              px-2
+              transition-colors
+            "
             @change="setTitle"
           />
         </div>
@@ -74,11 +80,7 @@
 
 <script setup>
 import useQuery from "@/search/query.composable";
-import {
-  searchGenreform,
-  searchPerson,
-  searchTitle,
-} from "@/services/libris.service";
+import { searchGenreform, searchPerson } from "@/services/libris.service";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Freetext from "./Freetext.vue";
@@ -100,8 +102,8 @@ const {
   serializedQuery,
 } = useQuery();
 
-function setTitle(title) {
-  setQuery({ title });
+function setTitle(event) {
+  setQuery({ title: event.target.value });
   search();
 }
 
@@ -131,4 +133,8 @@ async function search(focus = true) {
 search(false);
 </script>
 
-<style></style>
+<style scoped>
+::placeholder {
+  font-size: 16px;
+}
+</style>

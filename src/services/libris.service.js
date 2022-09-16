@@ -139,19 +139,6 @@ function processXlItem(item) {
   return processed;
 }
 
-export async function searchTitle(titleQuery) {
-  const params = {
-    "@type": "Instance",
-    "@reverse.itemOf.heldBy.@id": "https://libris.kb.se/library/QLIT",
-    "hasTitle.mainTitle": titleQuery + "*",
-    _sort: "hasTitle.mainTitle",
-  };
-  console.log("searchTitle", params);
-  const data = await xlFind(params);
-  const titles = data.items.map((item) => item.hasTitle?.[0]?.mainTitle);
-  return titles.filter((t, i) => titles.indexOf(t) == i);
-}
-
 export async function searchPerson(nameQuery) {
   // Add wildcard at end of each word
   const q = nameQuery.replaceAll(/\S+/g, "$&*");
