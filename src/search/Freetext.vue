@@ -1,5 +1,4 @@
 <script setup>
-import { computed, ref } from "@vue/reactivity";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import useQuery from "@/search/query.composable";
@@ -11,29 +10,24 @@ import {
   searchPerson,
   searchTitle,
 } from "@/services/libris.service";
+import useMulticomplete from "./multicomplete.composable";
 import Term from "@/terms/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 
 const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
 const terms = useTerms();
-const qlitSuggestions = ref([]);
-const saoSuggestions = ref([]);
-const barnSuggestions = ref([]);
-const titleSuggestions = ref([]);
-const authorSuggestions = ref([]);
 
-const lenses = [
-  { suggestions: qlitSuggestions, autocomplete: searchConceptQlit },
-  { suggestions: saoSuggestions, autocomplete: searchConceptSao },
-  { suggestions: barnSuggestions, autocomplete: searchConceptBarn },
-  { suggestions: titleSuggestions, autocomplete: searchTitle },
-  { suggestions: authorSuggestions, autocomplete: searchPerson },
-];
-
-const showSuggestions = computed(() =>
-  lenses.some(({ suggestions }) => suggestions.value.length)
-);
+const Multicomplete = useMulticomplete({
+  qlit: searchConceptQlit,
+  sao: searchConceptSao,
+  barn: searchConceptBarn,
+  title: searchTitle,
+  author: searchPerson,
+});
+// The component needs a direct reference to these reactives.
+const suggestions = Multicomplete.suggestions;
+const hasSuggestions = Multicomplete.hasSuggestions;
 
 function textChange(event) {
   setQuery({ text: event.target.value });
@@ -71,20 +65,14 @@ const autocomplete = debounce(async () => {
   const lastWord = text.value.split(" ").pop();
 
   if (lastWord) {
-    lenses.forEach(({ autocomplete, suggestions }) =>
-      autocomplete(lastWord).then((items) => (suggestions.value = items))
-    );
+    Multicomplete.autocomplete(lastWord);
   } else {
-    clearSuggestions();
+    Multicomplete.clear();
   }
 }, 400);
 
 function blur() {
-  clearSuggestions();
-}
-
-function clearSuggestions() {
-  lenses.forEach(({ suggestions }) => (suggestions.value = []));
+  Multicomplete.clear();
 }
 </script>
 
@@ -95,14 +83,14 @@ function clearSuggestions() {
       :value="text"
       placeholder="Sök här..."
       class="w-full p-4 pb-3 bg-smoke-300 rounded-t text-black text-xl"
-      :class="{ 'rounded-b': !showSuggestions }"
+      :class="{ 'rounded-b': !hasSuggestions }"
       @input="textChange"
       @keyup.enter="emit('search')"
       @focus="textChange"
     />
     <div class="relative h-0">
       <div
-        v-if="showSuggestions"
+        v-if="hasSuggestions"
         class="
           absolute
           top-0
@@ -116,7 +104,7 @@ function clearSuggestions() {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Sök på ämnesord:"
-          :items="qlitSuggestions"
+          :items="suggestions.qlit"
           @select="addTerm"
         >
           <Term class="cursor-pointer">
@@ -128,7 +116,7 @@ function clearSuggestions() {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Sök på allmäna ämnesord (SAO):"
-          :items="saoSuggestions"
+          :items="suggestions.sao"
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
@@ -140,7 +128,7 @@ function clearSuggestions() {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Sök på barnämnesord:"
-          :items="barnSuggestions"
+          :items="suggestions.barn"
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
@@ -151,14 +139,14 @@ function clearSuggestions() {
 
         <FreetextSuggestions
           heading="Sök på titel:"
-          :items="titleSuggestions"
+          :items="suggestions.title"
           @select="setTitle"
         />
 
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Sök på författare:"
-          :items="authorSuggestions"
+          :items="suggestions.author"
           @select="addAuthor"
         >
           {{ item.givenName }} {{ item.familyName }}
