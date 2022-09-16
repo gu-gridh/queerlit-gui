@@ -7,6 +7,7 @@ import useTerms from "@/terms/terms.composable";
 import {
   searchConceptQlit,
   searchConceptSao,
+  searchConceptBarn,
   searchPerson,
   searchTitle,
 } from "@/services/libris.service";
@@ -18,12 +19,14 @@ const { text, setQuery } = useQuery();
 const terms = useTerms();
 const qlitSuggestions = ref([]);
 const saoSuggestions = ref([]);
+const barnSuggestions = ref([]);
 const titleSuggestions = ref([]);
 const authorSuggestions = ref([]);
 
 const lenses = [
   { suggestions: qlitSuggestions, autocomplete: searchConceptQlit },
   { suggestions: saoSuggestions, autocomplete: searchConceptSao },
+  { suggestions: barnSuggestions, autocomplete: searchConceptBarn },
   { suggestions: titleSuggestions, autocomplete: searchTitle },
   { suggestions: authorSuggestions, autocomplete: searchPerson },
 ];
@@ -126,6 +129,18 @@ function clearSuggestions() {
           v-slot="{ item }"
           heading="Sök på allmäna ämnesord (SAO):"
           :items="saoSuggestions"
+          @select="addTerm"
+        >
+          <Term :data="item" class="cursor-pointer">
+            {{ item.prefLabel }}
+            <icon icon="plus" size="xs" />
+          </Term>
+        </FreetextSuggestions>
+
+        <FreetextSuggestions
+          v-slot="{ item }"
+          heading="Sök på barnämnesord:"
+          :items="barnSuggestions"
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">

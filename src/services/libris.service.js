@@ -178,11 +178,15 @@ export async function searchConcept(conceptQuery, schemeIds = []) {
 }
 
 export async function searchConceptSao(conceptQuery) {
-  return await searchConcept(conceptQuery, [ConceptScheme.SAO]);
+  return await searchConcept(conceptQuery, [ConceptScheme.Sao]);
+}
+
+export async function searchConceptBarn(conceptQuery) {
+  return await searchConcept(conceptQuery, [ConceptScheme.Barn]);
 }
 
 export async function searchConceptQlit(conceptQuery) {
-  return await searchConcept(conceptQuery, [ConceptScheme.QLIT]);
+  return await searchConcept(conceptQuery, [ConceptScheme.Qlit]);
 }
 
 export async function searchGenreform(query) {
@@ -193,8 +197,8 @@ export async function searchGenreform(query) {
     prefLabel: q,
     _limit: 10,
   });
-  params.append("inScheme.@id", ConceptScheme.BarnGF);
-  params.append("inScheme.@id", ConceptScheme.SAOGF);
+  params.append("inScheme.@id", ConceptScheme.BarnGf);
+  params.append("inScheme.@id", ConceptScheme.SaoGF);
   console.log("params genreform", params);
   const data = await xlFind(params);
   console.log("searchGenreform", data.items);
@@ -218,19 +222,19 @@ export async function getLibraries() {
 
 /** Constants for uris. */
 export class ConceptScheme {
-  static get QLIT() {
+  static get Qlit() {
     return "https://queerlit.dh.gu.se/qlit/v1";
   }
-  static get SAO() {
+  static get Sao() {
     return "https://id.kb.se/term/sao";
   }
   static get Barn() {
     return "https://id.kb.se/term/barn";
   }
-  static get SAOGF() {
+  static get SaoGf() {
     return "https://id.kb.se/term/saogf";
   }
-  static get BarnGF() {
+  static get BarnGf() {
     return "https://id.kb.se/term/barngf";
   }
 }
