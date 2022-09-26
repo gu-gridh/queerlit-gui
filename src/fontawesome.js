@@ -8,6 +8,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
+  faArrowLeft,
   faInfoCircle,
   faMinus,
   faPlus,
@@ -21,6 +22,7 @@ import {
 library.add(
   faAngleDoubleLeft,
   faAngleDoubleRight,
+  faArrowLeft,
   faInfoCircle,
   faMinus,
   faPlus,

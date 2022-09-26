@@ -1,7 +1,8 @@
 <template>
   <div class="p-6">
     <router-link to="/" class="flex items-center">
-      &laquo; Tillbaka till sökning
+      <icon icon="arrow-left" size="xs" class="mr-1" />
+      Tillbaka till sökning
     </router-link>
   </div>
   <div v-if="work" class="container xl:max-w-screen-xl">

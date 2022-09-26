@@ -1,5 +1,11 @@
 <template>
-  <article v-if="term" class="container py-10">
+  <div class="p-6">
+    <router-link to="/ao">
+      <icon icon="arrow-left" size="xs" class="mr-1" />
+      Tillbaka till ämnen
+    </router-link>
+  </div>
+  <article v-if="term" class="container">
     <div class="bg-yellow-50 border border-yellow-200 p-4 mb-4">
       <h2 class="text-2xl">{{ term.prefLabel }}</h2>
       <table class="mt-4">
