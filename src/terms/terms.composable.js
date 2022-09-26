@@ -8,6 +8,7 @@ import {
   getRoots,
   searchTerms,
 } from "@/services/terms.service";
+import negate from "lodash/negate";
 
 export default function useTerms() {
   const { terms, setQuery } = useQuery();
@@ -28,6 +29,22 @@ export default function useTerms() {
     return (await getChildren(term)).length;
   }
 
+  function termIsQlit(term) {
+    return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
+  }
+
+  function sortTerms(terms) {
+    return (
+      terms && {
+        qlit: terms
+          .filter(termIsQlit)
+          // Add the `name` prop so we can use them more like the ones from the thesaurus backend.
+          .map((term) => ({ name: term["@id"].split("/").pop(), ...term })),
+        other: terms.filter(negate(termIsQlit)),
+      }
+    );
+  }
+
   return {
     getTerm,
     getParents,
@@ -40,5 +57,6 @@ export default function useTerms() {
     terms,
     add,
     remove,
+    sortTerms,
   };
 }

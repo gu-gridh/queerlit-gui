@@ -32,9 +32,9 @@
           </div>
         </div>
 
-        <div v-if="qlitTerms.length" class="my-2 leading-8">
+        <div v-if="terms.qlit.length" class="my-2 leading-8">
           <Term
-            v-for="term in qlitTerms"
+            v-for="term in terms.qlit"
             :key="term"
             :data="term"
             class="mr-1"
@@ -53,9 +53,9 @@
           </Term>
         </div>
 
-        <div v-if="otherTerms.length" class="my-2 text-sm leading-8">
+        <div v-if="terms.other.length" class="my-2 text-sm leading-8">
           <Term
-            v-for="term in otherTerms"
+            v-for="term in terms.other"
             :key="term"
             :data="term"
             class="mr-1"
@@ -81,7 +81,6 @@
 <script setup>
 import { computed } from "@vue/reactivity";
 import { useStore } from "vuex";
-import negate from "lodash/negate";
 import Term from "@/terms/Term.vue";
 import useTerms from "@/terms/terms.composable";
 import { useRouter } from "vue-router";
@@ -91,7 +90,7 @@ const props = defineProps({
   i: { type: Number, required: true },
 });
 
-const { add } = useTerms();
+const { add, sortTerms } = useTerms();
 const store = useStore();
 const router = useRouter();
 
@@ -104,12 +103,7 @@ function ellipsis(text, limit) {
     .replace(/\P{L}$/u, "…");
 }
 
-const qlitTerms = computed(() => props.work.terms.filter(termIsQlit));
-const otherTerms = computed(() => props.work.terms.filter(negate(termIsQlit)));
-
-function termIsQlit(term) {
-  return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
-}
+const terms = computed(() => sortTerms(props.work.terms));
 
 function filterTerm(term) {
   add(term);

@@ -17,7 +17,7 @@
     <Labeled label="Ämnesord" class="my-4 text-lg">
       <div class="mt-1">
         <Term
-          v-for="term in qlitTerms"
+          v-for="term in terms.qlit"
           :key="term"
           :data="term"
           class="mr-1 mb-1"
@@ -36,7 +36,7 @@
       </div>
       <div class="text-base mt-2">
         <Term
-          v-for="term in otherTerms"
+          v-for="term in terms.other"
           :key="term"
           :data="term"
           class="mr-1 mb-1"
@@ -103,9 +103,7 @@ import { useStore } from "vuex";
 import { get, getLibraries } from "@/services/libris.service";
 import { useRoute, useRouter } from "vue-router";
 import { watch } from "@vue/runtime-core";
-import negate from "lodash/negate";
 import useTerms from "@/terms/terms.composable";
-import NotFound from "./NotFound.vue";
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
 import useTitle from "./title.composable";
@@ -118,14 +116,13 @@ const TYPE_LABELS = {
 const store = useStore();
 const router = useRouter();
 const route = useRoute();
-const { add } = useTerms();
+const { add, sortTerms } = useTerms();
 const { flag404 } = use404();
 
 const work = ref();
 const allLibraries = ref([]);
 const typeLabel = computed(() => work.value && TYPE_LABELS[work.value.type]);
-const qlitTerms = computed(() => work.value.terms.filter(termIsQlit));
-const otherTerms = computed(() => work.value.terms.filter(negate(termIsQlit)));
+const terms = computed(() => sortTerms(work.value?.terms));
 const workLibraries = computed(() =>
   allLibraries.value.filter((library) =>
     work.value?.libraries?.includes(library["@id"])
@@ -144,10 +141,6 @@ if (import.meta.env.DEV) {
     console.log("work", { ...work.value });
     window.work = work.value;
   });
-}
-
-function termIsQlit(term) {
-  return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
 }
 
 function filterTerm(term) {
