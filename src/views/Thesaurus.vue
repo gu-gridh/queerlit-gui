@@ -6,6 +6,9 @@
       :parent="term"
       :level="0"
     />
+    <div v-if="termTextQuery && !terms.length" class="my-8 text-center text-xl">
+      Inga träffar!
+    </div>
   </div>
 </template>
 

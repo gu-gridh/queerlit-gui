@@ -46,12 +46,19 @@
 </template>
 
 <script setup>
+import debounce from "lodash/debounce";
 import { computed } from "vue";
 import { useStore } from "vuex";
 
 const { state, commit } = useStore();
+
+const setTermTextQueryDebounced = debounce(
+  (value) => commit("setTermTextQuery", value),
+  400
+);
+
 const termTextQuery = computed({
   get: () => state.termTextQuery,
-  set: (value) => commit("setTermTextQuery", value),
+  set: setTermTextQueryDebounced,
 });
 </script>
