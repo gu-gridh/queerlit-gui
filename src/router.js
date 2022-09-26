@@ -7,6 +7,7 @@ import NotFound from "@/views/NotFound.vue";
 const routes = [
   {
     path: "/",
+    name: "Search",
     components: {
       side: SearchForm,
       default: Results,
@@ -14,6 +15,7 @@ const routes = [
   },
   {
     path: "/verk/:id",
+    name: "Work",
     components: {
       side: SearchForm,
       default: () => import(/* webpackChunkName: "work" */ "@/views/Work.vue"),
@@ -21,6 +23,7 @@ const routes = [
   },
   {
     path: "/ao",
+    name: "Thesaurus",
     components: {
       side: ThesaurusInfo,
       default: () =>
@@ -30,6 +33,7 @@ const routes = [
   },
   {
     path: "/ao/:id",
+    name: "Term",
     components: {
       side: ThesaurusInfo,
       default: () => import(/* webpackChunkName: "term" */ "@/views/Term.vue"),
@@ -37,6 +41,7 @@ const routes = [
   },
   {
     path: "/:pathMatch(.*)*",
+    name: "NotFound",
     components: {
       default: NotFound,
       side: SearchForm,

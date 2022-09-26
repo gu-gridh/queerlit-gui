@@ -126,7 +126,7 @@ useTitle(computed(() => term.value && term.value.prefLabel));
 
 // Get term data instantly and if the term name parameter changes.
 watchEffect(async () => {
-  if (!route.params.id) return;
+  if (route.name != "Term") return;
   term.value = await getTerm(route.params.id).catch(flag404);
   parents.value = [];
   children.value = [];
