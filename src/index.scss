@@ -15,14 +15,19 @@ body {
 }
 
 .q-body {
+  h1,
+  h2,
+  h3,
+  h4,
   p {
     @apply my-2;
-  }
-  p:first-child {
-    @apply mt-0;
-  }
-  p:last-child {
-    @apply mb-0;
+
+    &:first-child {
+      @apply mt-0;
+    }
+    &:last-child {
+      @apply mb-0;
+    }
   }
   a {
     @apply underline;

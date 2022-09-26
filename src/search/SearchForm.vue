@@ -4,15 +4,7 @@
       <Freetext @search="search" />
     </div>
 
-    <div
-      class="
-        container-b
-        max-w-screen-md
-        py-4
-        px-6
-        border-t border-dashed border-gray-500
-      "
-    >
+    <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <h3 class="text-lg mb-2">Avancerat</h3>
       <TermCombobox class="mb-4" @change="search" />
       <div class="flex flex-wrap -mx-2">

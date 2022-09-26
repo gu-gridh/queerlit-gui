@@ -12,6 +12,7 @@ export default createStore({
     sort: "-meta.modified",
     offset: 0,
     currentSearch: null,
+    termTextQuery: "",
   },
   mutations: {
     setSearching(state, query) {
@@ -28,6 +29,9 @@ export default createStore({
     },
     setOffset(state, offset) {
       state.offset = offset;
+    },
+    setTermTextQuery(state, termTextQuery) {
+      state.termTextQuery = termTextQuery;
     },
   },
   getters: {

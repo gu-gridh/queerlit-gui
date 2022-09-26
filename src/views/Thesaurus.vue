@@ -1,16 +1,5 @@
 <template>
-  <div class="container">
-    <header class="flex flex-wrap my-10 items-end">
-      <h1 class="flex-1 text-6xl">Ämnen</h1>
-      <div class="flex-1 text-xl">
-        <input
-          v-model="termTextInput"
-          type="text"
-          class="border rounded p-2"
-          placeholder="Sök bland ämnesord..."
-        />
-      </div>
-    </header>
+  <div class="container py-6">
     <TermTree
       v-for="term in terms"
       :key="term.name"
@@ -21,28 +10,30 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watchEffect } from "@vue/runtime-core";
+import { computed, onMounted, ref, watchEffect } from "@vue/runtime-core";
 import useTerms from "@/terms/terms.composable";
 import TermTree from "@/terms/TermTree.vue";
 import debounce from "lodash/debounce";
 import useTitle from "@/views/title.composable";
+import { useStore } from "vuex";
 
 const { getRoots, searchTerms } = useTerms();
 const rootTerms = ref([]);
 const terms = ref([]);
-const termTextInput = ref("");
+const { state } = useStore();
 useTitle();
+const termTextQuery = computed(() => state.termTextQuery);
 
 onMounted(async () => {
   rootTerms.value = await getRoots();
 });
 
 const findTerms = debounce(async () => {
-  terms.value = await searchTerms(termTextInput.value);
+  terms.value = await searchTerms(termTextQuery.value);
 }, 400);
 
 watchEffect(async () => {
-  if (termTextInput.value) {
+  if (termTextQuery.value) {
     findTerms();
   } else {
     terms.value = rootTerms.value;
