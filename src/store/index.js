@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import { search } from "@/services/libris.service";
 import query from "@/search/query.store";
+import { union, without } from "lodash";
 
 export default createStore({
   modules: {
@@ -13,6 +14,9 @@ export default createStore({
     offset: 0,
     currentSearch: null,
     termTextQuery: "",
+    // Remember which nodes in the term tree are expanded,
+    // but forget it if the term search query changes.
+    termsExpanded: [],
   },
   mutations: {
     setSearching(state, query) {
@@ -32,6 +36,12 @@ export default createStore({
     },
     setTermTextQuery(state, termTextQuery) {
       state.termTextQuery = termTextQuery;
+      state.termsExpanded = [];
+    },
+    toggleTermExpanded(state, { name, expanded }) {
+      state.termsExpanded = expanded
+        ? union(state.termsExpanded, [name])
+        : without(state.termsExpanded, name);
     },
   },
   getters: {

@@ -1,6 +1,6 @@
 <template>
   <div class="container py-6">
-    <div>
+    <div :key="termTextQuery">
       <TermTree
         v-for="term in termsLimited"
         :key="term.name"

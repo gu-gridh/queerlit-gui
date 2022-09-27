@@ -46,23 +46,33 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from "@vue/runtime-core";
+import { computed, ref, watchEffect } from "@vue/runtime-core";
+import { useStore } from "vuex";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
 
 const props = defineProps(["parent", "level", "expanded"]);
+const { state, commit } = useStore();
 const { getChildren } = useTerms();
 const children = ref(null);
-const expanded = ref(props.expanded);
+const expanded = ref(
+  props.expanded || state.termsExpanded.includes(props.parent.name)
+);
 
-const toggleExpanded = () => (expanded.value = !expanded.value);
+const toggleExpanded = () => {
+  expanded.value = !expanded.value;
+  commit("toggleTermExpanded", {
+    name: props.parent.name,
+    expanded: expanded.value,
+  });
+};
 
 // 333° is the hue for Tailwind's pink-600
 // 92° is approximately ϕ radians, which gives suitable steps around the hue circle.
 const hue = computed(() => 333 + props.level * 92);
 
 // Load children when expanding.
-watch(expanded, async () => {
+watchEffect(async () => {
   if (expanded.value && !children.value) {
     children.value = await getChildren(props.parent.name);
   }
