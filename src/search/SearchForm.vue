@@ -36,12 +36,7 @@
           />
         </div>
         <div class="w-full sm:w-1/2 p-2">
-          <YearFilter
-            :start="yearStart"
-            :end="yearEnd"
-            @change="yearChange"
-            @keyup.enter="search"
-          />
+          <YearFilter :start="yearStart" :end="yearEnd" @change="yearChange" />
         </div>
         <div class="w-full sm:w-1/2 p-2">
           <Autocomplete
@@ -106,6 +101,7 @@ function setAuthor(author) {
 
 function yearChange(yearStart, yearEnd) {
   setQuery({ yearStart, yearEnd });
+  search();
 }
 
 function setGenreform(genreform) {

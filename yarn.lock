@@ -837,6 +837,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.6.5":
+  version: 3.25.3
+  resolution: "core-js@npm:3.25.3"
+  checksum: 26ca0a5e575e6da03dc30099f48bc00db50a1c0a3f81299165f111cb163869ae453de5e345f2cb7bc8be85a9adcee11fca94f0fbdbdf6d483c68e1c55a9efc5a
+  languageName: node
+  linkType: hard
+
 "cosmiconfig@npm:^7.0.1":
   version: 7.0.1
   resolution: "cosmiconfig@npm:7.0.1"
@@ -2579,6 +2586,7 @@ __metadata:
     tailwindcss: ^2.2.16
     vite: ^2.5.4
     vue: ^3.2.6
+    vue-3-slider-component: ^0.1.0
     vue-dragscroll: ^3.0.1
     vue-router: 4
     vuex: ^4.0.2
@@ -3117,6 +3125,15 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: cf395366e4895dd90038f592e6609262d78e7f3c99686e7649e9f55e88f6812af6394515bc34f30ed0830001e2b269a6ddd70a28b2d9d3661cf4fb1b254b11e4
+  languageName: node
+  linkType: hard
+
+"vue-3-slider-component@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "vue-3-slider-component@npm:0.1.0"
+  dependencies:
+    core-js: ^3.6.5
+  checksum: 7b34016f500c20f667bc012e915037c847429e36cf3458f2dda2fd99140bbed34cb43d89abe46db37bdea6c8a7ab880879820262f146337b86c1664c7cf31984
   languageName: node
   linkType: hard
 

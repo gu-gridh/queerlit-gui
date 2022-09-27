@@ -21,6 +21,7 @@
     "lodash": "^4.17.21",
     "sass": "^1.49.7",
     "vue": "^3.2.6",
+    "vue-3-slider-component": "^0.1.0",
     "vue-dragscroll": "^3.0.1",
     "vue-router": "4",
     "vuex": "^4.0.2"

@@ -1,15 +1,15 @@
 <template>
-  <div class="mb-4">
-    <div class="flex justify-between">
+  <div class="mb-2">
+    <div class="flex justify-between mb-1">
       <input
-        v-model="start"
+        v-model.number="range[0]"
         size="4"
         class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
         placeholder="Från"
         @change="startTextChange"
       />
       <input
-        v-model="end"
+        v-model.number="range[1]"
         size="4"
         class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
         placeholder="Till"
@@ -17,58 +17,48 @@
       />
     </div>
 
-    <div class="flex items-end mx-2 mr-1 mt-3 border-b-2 border-gray-600"></div>
-
-    <div class="relative h-0 -m-2 z-10 px-2">
-      <div
-        class="h-4 w-4 rounded-full bg-white border-2 border-gray-600 absolute"
-      />
-      <div
-        class="
-          h-4
-          w-4
-          rounded-full
-          bg-white
-          border-2 border-gray-600
-          absolute
-          right-2
-        "
-      />
-    </div>
+    <VueSlider
+      v-model="range"
+      :min="MIN"
+      :max="MAX"
+      tooltip="none"
+      :processStyle="{ backgroundColor: 'currentColor' }"
+      class="text-text"
+      @change="emitChange"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref } from "@vue/reactivity";
-
-const emit = defineEmits(["change"]);
-const props = defineProps(["start", "end"]);
+import debounce from "lodash/debounce";
+import VueSlider from "vue-3-slider-component";
 
 const MIN = 1800;
 const MAX = new Date().getFullYear();
 
-// "D" for "data", to distinguish from the props
-const start = ref(props.start || MIN);
-const end = ref(props.end || MAX);
+const emit = defineEmits(["change"]);
+const props = defineProps(["start", "end"]);
+const range = ref([props.start || MIN, props.end || MAX]);
 
 function startTextChange() {
-  if (!start.value) start.value = MIN;
+  if (!range.value[0]) range.value[0] = MIN;
   emitChange();
 }
 
 function endTextChange() {
-  if (!end.value) end.value = MAX;
+  if (!range.value[1]) range.value[1] = MAX;
   emitChange();
 }
 
-function emitChange() {
-  // Coalesce to empty at the min/max boundaries.
+const emitChange = debounce(() => {
+  // When range extends to min or max, report as empty, thus letting the API determine filtering.
   emit(
     "change",
-    start.value != MIN && start.value,
-    end.value != MAX && end.value
+    range.value[0] != MIN && range.value[0],
+    range.value[1] != MAX && range.value[1]
   );
-}
+}, 400);
 </script>
 
 <style scoped>
