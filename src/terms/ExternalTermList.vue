@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "@vue/reactivity";
-import { compareEmptyLast } from "@/util";
+import { compareEmptyLast, urlBasename } from "@/util";
 
 const props = defineProps({
   terms: {
@@ -18,12 +18,12 @@ function enrichTerm(term) {
 
   if (term.uri.indexOf("https://id.kb.se/term/sao/") == 0) {
     term.scheme = "SAO";
-    term.prefLabel = term.uri.split("/").pop();
+    term.prefLabel = urlBasename(term.uri);
   }
 
   if (term.uri.indexOf("https://id.kb.se/term/barn/") == 0) {
     term.scheme = "Barnämnesord";
-    term.prefLabel = term.uri.split("/").pop();
+    term.prefLabel = urlBasename(term.uri);
   }
 
   return term;
