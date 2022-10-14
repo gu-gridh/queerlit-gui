@@ -39,6 +39,7 @@
           type="search"
           placeholder="Sök bland ämnesord..."
           class="w-full p-4 pb-3 bg-smoke-300 rounded text-black text-xl"
+          @change="gotoThesaurus"
         />
       </div>
     </div>
@@ -48,9 +49,11 @@
 <script setup>
 import debounce from "lodash/debounce";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const { state, commit } = useStore();
+const router = useRouter();
 
 const setTermTextQueryDebounced = debounce(
   (value) => commit("setTermTextQuery", value),
@@ -61,4 +64,8 @@ const termTextQuery = computed({
   get: () => state.termTextQuery,
   set: setTermTextQueryDebounced,
 });
+
+function gotoThesaurus() {
+  router.push("/ao");
+}
 </script>
