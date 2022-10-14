@@ -1,6 +1,8 @@
 <script setup>
-import { computed } from "@vue/reactivity";
+import { ref } from "@vue/reactivity";
+import { watchEffect } from "vue";
 import { compareEmptyLast, urlBasename } from "@/util";
+import { getLcshLabel } from "@/services/lcsh.service";
 
 const props = defineProps({
   terms: {
@@ -10,7 +12,15 @@ const props = defineProps({
   },
 });
 
-function enrichTerm(term) {
+const termsEnriched = ref(null);
+
+watchEffect(async () => {
+  termsEnriched.value = (await Promise.all(props.terms.map(enrichTerm)))
+    .sort((a, b) => String(a.prefLabel).localeCompare(b.prefLabel))
+    .sort((a, b) => compareEmptyLast(a.scheme, b.scheme));
+});
+
+async function enrichTerm(term) {
   term = { ...term };
 
   if (term.uri.indexOf("https://homosaurus.org/") == 0)
@@ -26,15 +36,13 @@ function enrichTerm(term) {
     term.prefLabel = urlBasename(term.uri);
   }
 
+  if (term.uri.indexOf("http://id.loc.gov/authorities/subjects/") == 0) {
+    term.scheme = "LCSH";
+    term.prefLabel = await getLcshLabel(term.uri);
+  }
+
   return term;
 }
-
-const termsEnriched = computed(() =>
-  props.terms
-    .map((term) => enrichTerm(term))
-    .sort((a, b) => String(a.prefLabel).localeCompare(b.prefLabel))
-    .sort((a, b) => compareEmptyLast(a.scheme, b.scheme))
-);
 </script>
 
 <template>
