@@ -86,30 +86,13 @@ export async function xlFind(params) {
 }
 
 function processXlItem(item) {
-  // Enrich with custom data.
-  const localItem = BOOKS.find(
-    (book) =>
-      item["@id"] === `https://libris.kb.se/${book.id}#it` ||
-      (item.sameAs &&
-        item.sameAs.some(
-          (sameAs) =>
-            sameAs["@id"] === `http://libris.kb.se/resource/bib/${book.id}`
-        ))
-  );
-  const processed = { terms: [], ...localItem, _item: item };
-  if (processed.terms) {
-    processed.terms = processed.terms.map((label) => ({
-      "@id": "https://queerlit.dh.gu.se/qlit/v1/dummy-" + label,
-      inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
-      prefLabel: label,
-    }));
-  }
+  const processed = { _item: item };
 
   if (item.meta.controlNumber)
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Find terms
-  processed.terms.push(...(item.instanceOf?.subject || []));
+  processed.terms = item.instanceOf?.subject || [];
 
   // Normalize some values.
   const hasTitle =
@@ -135,6 +118,15 @@ function processXlItem(item) {
   }
 
   processed.libraries = item["@reverse"]?.itemOf?.map((l) => l.heldBy["@id"]);
+
+  processed.extent = item.extent?.map((e) => e.label).join(", ");
+  processed.note = item.hasNote?.map((n) => n.label).join(", ");
+  processed.identifiedBy = item.identifiedBy?.map(
+    (i) =>
+      (i["@type"] ? `${i["@type"]}: ` : "") +
+      i.value +
+      (i.qualifier ? ` (${i.qualifier.join(", ")})` : "")
+  );
 
   return processed;
 }
@@ -215,107 +207,3 @@ export class ConceptScheme {
     return "https://id.kb.se/term/barngf";
   }
 }
-
-const BOOKS = [
-  {
-    // title: "Clownen Jac",
-    // id: "3ld06xjf1rf7f02",
-    id: "904603",
-    terms: ["Bögar", "Garderobsbögar"],
-  },
-  {
-    // title: "Vålnaden",
-    // id: "gzrg9t1s44fp615",
-    id: "3106134",
-    terms: [],
-  },
-  {
-    // title: "Vox amoris",
-    id: "p2v00txrmcz719z5",
-    terms: ["Lesbiska"],
-  },
-  {
-    // title: "Sovdags för Lydia",
-    // id: "bvnvlj6n21145p0",
-    id: "16439900",
-    terms: ["Bilderbok", "Föräldrar (HBTQI)", "HBTQI-familjer"],
-  },
-  {
-    // title: "Iggy 4-ever",
-    // id: "m5z6nc1z33nz4js",
-    id: "17047889",
-    terms: ["Transmän", "Unga transpersoner"],
-  },
-  {
-    // title: "Trånga jeans : [en homosexroman]",
-    // id: "5ngc96lh4106n2n",
-    id: "8227005",
-    terms: [],
-  },
-  {
-    // title: "Chain reaction",
-    // id: "vd6j10p61xk6m91",
-    id: "19597056",
-    terms: [],
-  },
-  {
-    // title: "Bodil eller hattasken : två pjäser i en",
-    // id: "5ng3r18h3c562fh",
-    id: "1311105",
-    terms: [],
-  },
-  {
-    // title: "En dåres försvarstal / översättning från det franska originalet av John Landquist",
-    // id: "j1tjbgmv070r7ql",
-    id: "3094916",
-    terms: ["Lesbiska", "Bisexualitet"],
-  },
-  {
-    // title: "Den svenske stortjufven Lasse-Majas äfventyr ifrån hans födelse till dess han blef frigifven från Carlstens fästning år 1838",
-    // id: "zg8xnd593pnc8wp",
-    id: "2190489",
-    terms: ["Transkvinnor", "Bögar", "Lesbiska"],
-  },
-  {
-    // title: "Fåglarna sover i luften / Eva-Stina Byggmästar",
-    id: "8k71tf87643l6qlx",
-  },
-  {
-    // title: "Lena : en bok om fruntimmer / af René",
-    // id: "0h9x0jmb46nbjr9",
-    id: "1625680",
-    terms: ["Lesbiska"],
-  },
-  {
-    // Nästan i mål! En komisk transition av Olivia Skoglund(2020)
-    id: "9l11nlkh7jnwp14m",
-    terms: [
-      "bröst",
-      "censur",
-      "dejtingsidor",
-      "polistrakasserier",
-      "dragqueens",
-      "bögar",
-      "homofobi",
-      "Hormonbehandling (kön)",
-      "Hårborttagning",
-      "Id-kort",
-      "Namnändring",
-      "Juridiskt namn",
-      "Komma ut",
-      "Könsbekräftande behandling",
-      "Könsdysfori",
-      "Könsidentitet",
-      "Könsorgan",
-      "Könsroller",
-      "Misogyni",
-      "Passera (kön)",
-      "Sexuella trakasserier",
-      "Transbarn",
-      "Transitionering",
-      "Transkvinnor",
-      "Unga transpersoner",
-      "Homofobi",
-    ],
-  },
-];

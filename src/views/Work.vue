@@ -53,6 +53,13 @@
     <Labeled v-if="work.summary" label="Beskrivning" class="my-4">
       {{ work.summary }}
     </Labeled>
+    <Labeled label="Övrigt" class="my-4">
+      <div v-if="work.extent">{{ work.extent }}</div>
+      <div v-if="work.note">{{ work.note }}</div>
+      <div v-for="identifiedBy in work.identifiedBy" :key="identifiedBy">
+        {{ identifiedBy }}
+      </div>
+    </Labeled>
     <div v-if="work.librisUrl" class="my-4">
       <a :href="work.librisUrl" class="text-blue-700 underline">
         Se posten i LIBRIS
