@@ -22,17 +22,17 @@ const routes = [
     },
   },
   {
-    path: "/ao",
+    path: "/subjects",
     name: "Thesaurus",
     components: {
       side: ThesaurusInfo,
       default: () =>
-        import(/* webpackChunkName: "ao" */ "@/views/Thesaurus.vue"),
+        import(/* webpackChunkName: "subjects" */ "@/views/Thesaurus.vue"),
     },
     meta: { title: "Ämnen" },
   },
   {
-    path: "/ao/:id",
+    path: "/subjects/:id",
     name: "Term",
     components: {
       side: ThesaurusInfo,

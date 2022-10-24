@@ -66,6 +66,6 @@ const termTextQuery = computed({
 });
 
 function gotoThesaurus() {
-  router.push("/ao");
+  router.push("/subjects");
 }
 </script>

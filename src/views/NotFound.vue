@@ -8,7 +8,9 @@
         <router-link to="/">Söka efter verk Queerlit-bibliografin</router-link>
       </li>
       <li>
-        <router-link to="/ao">Bläddra bland Queerlits ämnesord</router-link>
+        <router-link to="/subjects"
+          >Bläddra bland Queerlits ämnesord</router-link
+        >
       </li>
       <li><a href="https://queerlit.dh.gu.se/om/">Läs mer om projektet</a></li>
     </ul>

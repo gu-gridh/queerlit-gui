@@ -1,6 +1,6 @@
 <template>
   <div class="p-6">
-    <router-link to="/ao">
+    <router-link to="/subjects">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Tillbaka till ämnen
     </router-link>
@@ -42,7 +42,7 @@
             <li v-for="term in parents" :key="term.name" class="my-1">
               <router-link
                 v-slot="{ navigate }"
-                :to="`/ao/${term.name}`"
+                :to="`/subjects/${term.name}`"
                 custom
               >
                 <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
@@ -59,7 +59,7 @@
             <li v-for="term in children" :key="term.name" class="my-1">
               <router-link
                 v-slot="{ navigate }"
-                :to="`/ao/${term.name}`"
+                :to="`/subjects/${term.name}`"
                 custom
               >
                 <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
@@ -78,7 +78,7 @@
               v-for="term in related"
               :key="term.name"
               v-slot="{ navigate }"
-              :to="`/ao/${term.name}`"
+              :to="`/subjects/${term.name}`"
               custom
             >
               <Term class="mr-1 my-1 cursor-pointer" @click="navigate">

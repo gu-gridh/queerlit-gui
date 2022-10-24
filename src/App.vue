@@ -27,7 +27,7 @@
 
         <nav class="text-lg mt-6 mb-4 transition-all duration-500 low:mt-0">
           <router-link to="/" class="main-nav-link">Titlar</router-link>
-          <router-link to="/ao" class="main-nav-link">Ämnen</router-link>
+          <router-link to="/subjects" class="main-nav-link">Ämnen</router-link>
           <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">Om</a>
         </nav>
 

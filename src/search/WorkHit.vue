@@ -111,7 +111,7 @@ function filterTerm(term) {
 }
 
 function gotoTerm(term) {
-  router.push(`/ao/${term.name}`);
+  router.push(`/subjects/${term.name}`);
 }
 </script>
 

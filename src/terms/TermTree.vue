@@ -7,7 +7,7 @@
     }"
   >
     <div class="flex flex-wrap justify-between items-baseline gap-4">
-      <router-link :to="`/ao/${parent.name}`" class="text-lg font-bold">
+      <router-link :to="`/subjects/${parent.name}`" class="text-lg font-bold">
         <Term>{{ parent.prefLabel }}</Term>
       </router-link>
       <span v-if="parent.altLabels && parent.altLabels.length">
