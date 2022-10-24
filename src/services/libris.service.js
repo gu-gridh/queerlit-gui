@@ -197,16 +197,6 @@ export async function searchGenreform(query) {
   }));
 }
 
-const librariesCache = [];
-export async function getLibraries() {
-  if (!librariesCache.length) {
-    const data = await xlFind({ "@type": "Library", _limit: 2000 });
-    data.items.sort((a, b) => compareEmptyLast(a.name, b.name));
-    librariesCache.push(...data.items);
-  }
-  return librariesCache;
-}
-
 /** Constants for uris. */
 export class ConceptScheme {
   static get Qlit() {

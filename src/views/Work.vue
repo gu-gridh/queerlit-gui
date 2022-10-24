@@ -54,45 +54,8 @@
     </Labeled>
     <div v-if="work.librisUrl" class="my-4">
       <a :href="work.librisUrl" class="text-blue-700 underline">
-        Mer info i LIBRIS
+        Se posten i LIBRIS
       </a>
-    </div>
-    <div class="flex my-4">
-      <div class="flex-1 mr-4 border p-4">
-        <Labeled label="Mer om titeln">
-          <div class="mt-2">• Wikipedia</div>
-          <div>
-            •
-            <a
-              href="https://digitaltperspektiv.firebaseapp.com/fokus/drottningens-juvelsmycke/hem"
-              >Digitalt perspektiv</a
-            >
-          </div>
-          <div>
-            •
-            <span class="italic"
-              >Drottningens juvelsmycke, en kärlekens fuga</span
-            >, artikel av Eva Borgström
-          </div>
-          <div>• Recension av Lennart Bromander</div>
-          <div>• Litteraturbanken</div>
-        </Labeled>
-      </div>
-      <div class="flex-1 mr-4 border p-4">
-        <Labeled label="Mer om författaren">
-          <div class="mt-2">• Fler verk</div>
-          <div>• Wikipedia</div>
-        </Labeled>
-      </div>
-      <div class="flex-1 border p-4">
-        <Labeled label="Finns på">
-          <ul class="mt-2">
-            <li v-for="library in workLibraries" :key="library['@id']">
-              {{ library.name }}
-            </li>
-          </ul>
-        </Labeled>
-      </div>
     </div>
   </div>
 </template>
@@ -100,7 +63,7 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
-import { get, getLibraries } from "@/services/libris.service";
+import { get } from "@/services/libris.service";
 import { useRoute, useRouter } from "vue-router";
 import { watch } from "@vue/runtime-core";
 import useTerms from "@/terms/terms.composable";
@@ -120,20 +83,13 @@ const { add, sortTerms } = useTerms();
 const { flag404 } = use404();
 
 const work = ref();
-const allLibraries = ref([]);
 const typeLabel = computed(() => work.value && TYPE_LABELS[work.value.type]);
 const terms = computed(() => sortTerms(work.value?.terms));
-const workLibraries = computed(() =>
-  allLibraries.value.filter((library) =>
-    work.value?.libraries?.includes(library["@id"])
-  )
-);
 useTitle(computed(() => work.value && work.value.title));
 
 get(route.params.id)
   .then((work_) => (work.value = work_))
   .catch(flag404);
-getLibraries().then((libraries) => (allLibraries.value = libraries));
 
 // Expose full data to developer console.
 if (import.meta.env.DEV) {
@@ -153,9 +109,3 @@ function gotoTerm(term) {
   router.push(`/subjects/${term.name}`);
 }
 </script>
-
-<style scoped>
-ul li::before {
-  content: "• ";
-}
-</style>

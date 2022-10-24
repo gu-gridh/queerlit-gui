@@ -4,7 +4,7 @@ Search interface for the [Queerlit](https://queerlit.dh.gu.se/) database and the
 
 ## Development
 
-1. Install Node.js and [Yarn 2](https://yarnpkg.com/getting-started/install).
+1. Install Node.js and [Yarn 3](https://yarnpkg.com/getting-started/install).
 2. `yarn install`
 3. `yarn dev`
 
