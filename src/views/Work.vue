@@ -8,11 +8,12 @@
   <div v-if="work" class="container xl:max-w-screen-xl">
     <h2 class="text-3xl">{{ work.title }}</h2>
     <div class="flex justify-between my-4">
-      <Labeled label="Författare" class="pr-4">
+      <Labeled label="Författare" class="flex-1 pr-4">
         {{ work.creators.join(", ") }}
       </Labeled>
-      <Labeled label="typ" class="pr-4"> {{ typeLabel }} </Labeled>
-      <Labeled label="Utgivningsår" class="pr-4"> {{ work.date }} </Labeled>
+      <Labeled label="Utgivningsår" class="flex-1 pr-4">
+        {{ work.date }}
+      </Labeled>
     </div>
     <Labeled label="Ämnesord" class="my-4 text-lg">
       <div class="mt-1">
@@ -72,10 +73,6 @@ import Term from "@/terms/Term.vue";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 
-const TYPE_LABELS = {
-  book: "Bok",
-};
-
 const store = useStore();
 const router = useRouter();
 const route = useRoute();
@@ -83,7 +80,6 @@ const { add, sortTerms } = useTerms();
 const { flag404 } = use404();
 
 const work = ref();
-const typeLabel = computed(() => work.value && TYPE_LABELS[work.value.type]);
 const terms = computed(() => sortTerms(work.value?.terms));
 useTitle(computed(() => work.value && work.value.title));
 
@@ -94,7 +90,6 @@ get(route.params.id)
 // Expose full data to developer console.
 if (import.meta.env.DEV) {
   watch(work, () => {
-    console.log("work", { ...work.value });
     window.work = work.value;
   });
 }
