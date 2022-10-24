@@ -1,6 +1,6 @@
 <template>
   <div class="p-6">
-    <router-link to="/subjects">
+    <router-link to="/">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Tillbaka till ämnen
     </router-link>
@@ -40,11 +40,7 @@
         <Labeled label="Bredare">
           <ul class="py-1">
             <li v-for="term in parents" :key="term.name" class="my-1">
-              <router-link
-                v-slot="{ navigate }"
-                :to="`/subjects/${term.name}`"
-                custom
-              >
+              <router-link v-slot="{ navigate }" :to="`/${term.name}`" custom>
                 <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
                   {{ term.prefLabel }}
                 </Term>
@@ -57,11 +53,7 @@
         <Labeled label="Underordnade">
           <ul>
             <li v-for="term in children" :key="term.name" class="my-1">
-              <router-link
-                v-slot="{ navigate }"
-                :to="`/subjects/${term.name}`"
-                custom
-              >
+              <router-link v-slot="{ navigate }" :to="`/${term.name}`" custom>
                 <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
                   {{ term.prefLabel }}
                 </Term>
@@ -78,7 +70,7 @@
               v-for="term in related"
               :key="term.name"
               v-slot="{ navigate }"
-              :to="`/subjects/${term.name}`"
+              :to="`/${term.name}`"
               custom
             >
               <Term class="mr-1 my-1 cursor-pointer" @click="navigate">

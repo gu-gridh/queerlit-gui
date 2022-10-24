@@ -1,42 +1,25 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SearchForm from "@/search/SearchForm.vue";
-import Results from "@/search/Results.vue";
+import Term from "@/views/Term.vue";
+import Thesaurus from "@/views/Thesaurus.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
 
 const routes = [
   {
     path: "/",
-    name: "Search",
-    components: {
-      side: SearchForm,
-      default: Results,
-    },
-  },
-  {
-    path: "/verk/:id",
-    name: "Work",
-    components: {
-      side: SearchForm,
-      default: () => import(/* webpackChunkName: "work" */ "@/views/Work.vue"),
-    },
-  },
-  {
-    path: "/subjects",
     name: "Thesaurus",
     components: {
       side: ThesaurusInfo,
-      default: () =>
-        import(/* webpackChunkName: "subjects" */ "@/views/Thesaurus.vue"),
+      default: Thesaurus,
     },
     meta: { title: "Ämnen" },
   },
   {
-    path: "/subjects/:id",
+    path: "/:id",
     name: "Term",
     components: {
       side: ThesaurusInfo,
-      default: () => import(/* webpackChunkName: "term" */ "@/views/Term.vue"),
+      default: Term,
     },
   },
   {
@@ -44,7 +27,7 @@ const routes = [
     name: "NotFound",
     components: {
       default: NotFound,
-      side: SearchForm,
+      side: ThesaurusInfo,
     },
   },
 ];

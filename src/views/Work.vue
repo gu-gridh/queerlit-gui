@@ -108,6 +108,6 @@ function filterTerm(term) {
 }
 
 function gotoTerm(term) {
-  router.push(`/subjects/${term.name}`);
+  router.push(`/${term.name}`);
 }
 </script>
