@@ -189,6 +189,24 @@ export async function searchGenreform(query) {
   }));
 }
 
+/** Build a string of the label of a subject label. */
+export function getSubjectLabel(subject) {
+  return subject["@type"] == "ComplexSubject"
+    ? subject.termComponentList.map(getSubjectLabel).filter(Boolean).join("–")
+    : ["Person", "Organization"].includes(subject["@type"])
+    ? getPersonName(subject)
+    : subject.prefLabel;
+}
+
+/** Build a string of a person's name. */
+export function getPersonName(person) {
+  // Sometimes the name is split in two, sometimes not.
+  return ["givenName", "familyName", "name", "label"]
+    .map((prop) => person[prop]?.trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
 /** Constants for uris. */
 export class ConceptScheme {
   static get Qlit() {

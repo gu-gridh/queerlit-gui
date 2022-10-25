@@ -40,7 +40,7 @@
           v-for="term in terms.other"
           :key="term"
           :data="term"
-          class="mr-1 mb-1"
+          class="mr-1 mb-2"
           :options="[
             {
               label: `Sök på <em>${term.prefLabel}</em>`,

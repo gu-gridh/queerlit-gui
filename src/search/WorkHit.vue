@@ -65,9 +65,7 @@
                 action: () => filterTerm(term),
               },
             ]"
-          >
-            {{ term.prefLabel }}
-          </Term>
+          />
         </div>
 
         <div v-if="work.summary" class="my-2 text-sm">
