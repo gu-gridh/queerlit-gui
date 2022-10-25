@@ -32,39 +32,39 @@
           </div>
         </div>
 
-        <div v-if="terms.qlit.length" class="my-2 leading-8">
+        <div v-if="terms.qlit.length" class="my-2">
           <Term
             v-for="term in terms.qlit"
             :key="term"
             :data="term"
-            class="mr-1"
+            class="mr-1 mb-2"
             :options="[
               {
-                label: `Sök på <em>${term.prefLabel}</em>`,
+                label: `Sök på <em>${term._label}</em>`,
                 action: () => filterTerm(term),
               },
               {
-                label: `Om ämnesordet <em>${term.prefLabel}</em>`,
+                label: `Om ämnesordet <em>${term._label}</em>`,
                 action: () => gotoTerm(term),
               },
             ]"
-          >
-            {{ term.prefLabel }}
-          </Term>
+          />
         </div>
 
-        <div v-if="terms.other.length" class="my-2 text-sm leading-8">
+        <div v-if="terms.other.length" class="my-2 text-sm">
           <Term
             v-for="term in terms.other"
             :key="term"
             :data="term"
-            class="mr-1"
-            :options="[
-              {
-                label: `Sök på <em>${term.prefLabel}</em>`,
-                action: () => filterTerm(term),
-              },
-            ]"
+            class="mr-1 mb-2"
+            :options="
+              term['@id'] && [
+                {
+                  label: `Sök på <em>${term._label}</em>`,
+                  action: () => filterTerm(term),
+                },
+              ]
+            "
           />
         </div>
 

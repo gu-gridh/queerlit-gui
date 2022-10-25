@@ -24,11 +24,11 @@
           class="mr-1 mb-1"
           :options="[
             {
-              label: `Sök på <em>${term.prefLabel}</em>`,
+              label: `Sök på <em>${term._label}</em>`,
               action: () => filterTerm(term),
             },
             {
-              label: `Om ämnesordet <em>${term.prefLabel}</em>`,
+              label: `Om ämnesordet <em>${term._label}</em>`,
               action: () => gotoTerm(term),
             },
           ]"
@@ -41,12 +41,14 @@
           :key="term"
           :data="term"
           class="mr-1 mb-2"
-          :options="[
-            {
-              label: `Sök på <em>${term.prefLabel}</em>`,
-              action: () => filterTerm(term),
-            },
-          ]"
+          :options="
+            term['@id'] && [
+              {
+                label: `Sök på <em>${term._label}</em>`,
+                action: () => filterTerm(term),
+              },
+            ]
+          "
         />
       </div>
     </Labeled>

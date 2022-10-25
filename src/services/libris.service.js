@@ -92,7 +92,7 @@ function processXlItem(item) {
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Find terms
-  processed.terms = item.instanceOf?.subject || [];
+  processed.terms = item.instanceOf?.subject?.map(processXlTerm) || [];
 
   // Normalize some values.
   const hasTitle =
@@ -153,7 +153,7 @@ export async function searchConcept(conceptQuery, schemeIds = []) {
     schemeIds.forEach((schemeId) => params.append("inScheme.@id", schemeId));
   }
   const data = await xlFind(params);
-  return data.items;
+  return data.items.map(processXlTerm);
 }
 
 export async function searchConceptSao(conceptQuery) {
@@ -187,6 +187,12 @@ export async function searchGenreform(query) {
     scheme: item.inScheme.code,
     _item: item,
   }));
+}
+
+function processXlTerm(term) {
+  const processed = { ...term };
+  processed._label = getSubjectLabel(term);
+  return processed;
 }
 
 /** Build a string of the label of a subject label. */

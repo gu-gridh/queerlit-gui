@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+import { useStore } from "vuex";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import "@fontsource/barlow-condensed/latin-300.css";
@@ -51,9 +52,11 @@ import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 
 const { is404 } = use404();
+const { state } = useStore();
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {
+  window.state = state;
   window.libris = libris;
   window.terms = terms;
 }
