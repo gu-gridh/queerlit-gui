@@ -137,6 +137,20 @@ function processXlItem(item) {
     )
     .filter(Boolean);
 
+  processed.publication = item.publication?.map((p) =>
+    [
+      getPersonName(p.agent),
+      p.year,
+      getSubjectLabel(unarray(p.country)),
+      getPersonName(unarray(p.place)),
+    ]
+      .filter(Boolean)
+      .join(", ")
+  );
+
+  processed.intendedAudience =
+    item.instanceOf?.intendedAudience?.map(getSubjectLabel);
+
   return processed;
 }
 
@@ -202,6 +216,7 @@ function processXlTerm(term) {
 
 /** Build a string of the label of a subject label. */
 export function getSubjectLabel(subject) {
+  if (!subject) return undefined;
   if (subject["@type"] == "ComplexSubject")
     return subject.termComponentList
       .map(getSubjectLabel)
@@ -218,7 +233,7 @@ export function getSubjectLabel(subject) {
 export function getPersonName(person) {
   // Sometimes the name is split in two, sometimes not.
   return ["givenName", "familyName", "name", "label"]
-    .map((prop) => person[prop]?.trim())
+    .map((prop) => unarray(person?.[prop])?.trim())
     .filter(Boolean)
     .join(" ");
 }

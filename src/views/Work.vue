@@ -61,13 +61,29 @@
         <div v-for="(term, i) in work.genreform" :key="i">
           {{ term._label }}
         </div>
+        <div v-if="!work.genreform.length">—</div>
       </Labeled>
+
       <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
         <div v-for="{ type, code } in work.classification" :key="type + code">
           <template v-if="type">{{ type }}: </template>
           {{ code }}
         </div>
         <div v-if="!work.classification">—</div>
+      </Labeled>
+
+      <Labeled label="Publicering" class="w-full sm:w-1/2 pr-4">
+        <div v-for="publication in work.publication" :key="publication">
+          {{ publication }}
+        </div>
+        <div v-if="!work.publication">—</div>
+      </Labeled>
+
+      <Labeled label="Målgrupp" class="w-full sm:w-1/2 pr-4">
+        <div v-for="audience in work.intendedAudience" :key="audience">
+          {{ audience }}
+        </div>
+        <div v-if="!work.intendedAudience">—</div>
       </Labeled>
     </div>
 
