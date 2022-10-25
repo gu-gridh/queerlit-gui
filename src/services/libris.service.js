@@ -122,6 +122,16 @@ function processXlItem(item) {
       (i.qualifier ? ` (${i.qualifier.join(", ")})` : "")
   );
 
+  processed.classification = item.instanceOf?.classification
+    ?.map((c) =>
+      c["@type"] == "ClassificationDdc"
+        ? { type: "DDC", code: c.code }
+        : c.inScheme
+        ? { type: c.inScheme.code, code: c.code }
+        : null
+    )
+    .filter(Boolean);
+
   return processed;
 }
 
