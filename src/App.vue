@@ -26,7 +26,13 @@
         </header>
 
         <nav class="text-lg mt-6 mb-4 transition-all duration-500 low:mt-0">
-          <router-link to="/" class="main-nav-link">Titlar</router-link>
+          <router-link
+            to="/"
+            class="main-nav-link"
+            :class="{ 'router-link-active': isTitlesRoute }"
+          >
+            Titlar
+          </router-link>
           <router-link to="/subjects" class="main-nav-link">Ämnen</router-link>
           <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">Om</a>
         </nav>
@@ -44,7 +50,9 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import "@fontsource/barlow-condensed/latin-300.css";
@@ -53,6 +61,9 @@ import NotFound from "./views/NotFound.vue";
 
 const { is404 } = use404();
 const { state } = useStore();
+const route = useRoute();
+
+const isTitlesRoute = computed(() => route.fullPath.indexOf("/verk") === 0);
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {
