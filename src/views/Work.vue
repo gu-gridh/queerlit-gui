@@ -57,6 +57,11 @@
     </Labeled>
 
     <div class="flex flex-wrap my-4 gap-y-2">
+      <Labeled label="Genre/form" class="w-full sm:w-1/2 pr-4">
+        <div v-for="(term, i) in work.genreform" :key="i">
+          {{ term._label }}
+        </div>
+      </Labeled>
       <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
         <div v-for="{ type, code } in work.classification" :key="type + code">
           <template v-if="type">{{ type }}: </template>

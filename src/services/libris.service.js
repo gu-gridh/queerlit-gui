@@ -95,6 +95,11 @@ function processXlItem(item) {
       ?.map(processXlTerm)
       .filter((term) => term._label) || [];
 
+  processed.genreform =
+    item.instanceOf?.genreForm
+      ?.map(processXlTerm)
+      .filter((term) => term._label) || [];
+
   // Normalize some values.
   const hasTitle =
     item.hasTitle && item.hasTitle.find((hasTitle) => hasTitle.mainTitle);
@@ -204,6 +209,7 @@ export function getSubjectLabel(subject) {
       .join("–");
   if (["Person", "Organization"].includes(subject["@type"]))
     return getPersonName(subject);
+  if (subject.prefLabelByLang) return subject.prefLabelByLang.sv;
   if (subject.prefLabel) return subject.prefLabel;
   console.log("Term has no label", subject);
 }
