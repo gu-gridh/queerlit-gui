@@ -92,7 +92,10 @@ function processXlItem(item) {
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Find terms
-  processed.terms = item.instanceOf?.subject?.map(processXlTerm) || [];
+  processed.terms =
+    item.instanceOf?.subject
+      ?.map(processXlTerm)
+      .filter((term) => term._label) || [];
 
   // Normalize some values.
   const hasTitle =
@@ -153,7 +156,7 @@ export async function searchConcept(conceptQuery, schemeIds = []) {
     schemeIds.forEach((schemeId) => params.append("inScheme.@id", schemeId));
   }
   const data = await xlFind(params);
-  return data.items.map(processXlTerm);
+  return data.items.map(processXlTerm).filter((term) => term._label);
 }
 
 export async function searchConceptSao(conceptQuery) {
@@ -177,7 +180,7 @@ export async function searchGenreform(query) {
     _limit: 10,
   });
   params.append("inScheme.@id", ConceptScheme.BarnGf);
-  params.append("inScheme.@id", ConceptScheme.SaoGF);
+  params.append("inScheme.@id", ConceptScheme.SaoGf);
   console.log("params genreform", params);
   const data = await xlFind(params);
   console.log("searchGenreform", data.items);
@@ -197,11 +200,15 @@ function processXlTerm(term) {
 
 /** Build a string of the label of a subject label. */
 export function getSubjectLabel(subject) {
-  return subject["@type"] == "ComplexSubject"
-    ? subject.termComponentList.map(getSubjectLabel).filter(Boolean).join("–")
-    : ["Person", "Organization"].includes(subject["@type"])
-    ? getPersonName(subject)
-    : subject.prefLabel;
+  if (subject["@type"] == "ComplexSubject")
+    return subject.termComponentList
+      .map(getSubjectLabel)
+      .filter(Boolean)
+      .join("–");
+  if (["Person", "Organization"].includes(subject["@type"]))
+    return getPersonName(subject);
+  if (subject.prefLabel) return subject.prefLabel;
+  console.log("Term has no label", subject);
 }
 
 /** Build a string of a person's name. */
