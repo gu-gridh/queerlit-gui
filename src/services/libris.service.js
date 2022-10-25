@@ -1,4 +1,4 @@
-import { compareEmptyLast } from "@/util";
+import { compareEmptyLast, unarray } from "@/util";
 import axios from "axios";
 
 export async function search(
@@ -102,21 +102,14 @@ function processXlItem(item) {
     processed.title = hasTitle.mainTitle;
   }
   processed.creators = item.instanceOf?.contribution
-    ?.map((c) =>
-      ["givenName", "familyName", "name", "label"]
-        .map((p) => c.agent?.[p]?.trim())
-        .filter(Boolean)
-        .join(" ")
-    )
+    ?.map((c) => getPersonName(unarray(c.agent)))
     .filter(Boolean);
   const publication = item.publication?.find((publication) => publication.year);
   processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
   // The summary can be in the Instance or the Text record, and it can be one or multiple values.
   processed.summary = (item.summary || item.instanceOf?.summary)?.[0].label;
-  if (Array.isArray(processed.summary)) {
-    processed.summary = processed.summary[0];
-  }
+  processed.summary = unarray(processed.summary);
 
   processed.libraries = item["@reverse"]?.itemOf?.map((l) => l.heldBy["@id"]);
 

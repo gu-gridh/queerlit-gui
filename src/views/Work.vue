@@ -9,14 +9,14 @@
     <h2 class="text-3xl">{{ work.title }}</h2>
     <div class="flex justify-between my-4">
       <Labeled label="Författare" class="flex-1 pr-4">
-        {{ work.creators.join(", ") }}
+        {{ work.creators?.join(", ") }}
       </Labeled>
       <Labeled label="Utgivningsår" class="flex-1 pr-4">
         {{ work.date }}
       </Labeled>
     </div>
     <Labeled label="Ämnesord" class="my-4 text-lg">
-      <div class="mt-1">
+      <div class="my-1">
         <Term
           v-for="term in terms.qlit"
           :key="term"
@@ -35,7 +35,7 @@
         >
         </Term>
       </div>
-      <div class="text-base mt-2">
+      <div class="text-base my-1">
         <Term
           v-for="term in terms.other"
           :key="term"
