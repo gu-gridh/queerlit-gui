@@ -83,9 +83,7 @@ async function change() {
 const getSuggestions = debounce(async () => {
   const q = input.value;
   const items = await props.suggest(q);
-  q == input.value
-    ? (suggestions.value = items.slice(0, 10))
-    : console.log("too slow", q, input.value);
+  if (q == input.value) suggestions.value = items.slice(0, 10);
 }, 400);
 
 function selectSuggestion(item) {

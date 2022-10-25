@@ -48,8 +48,6 @@ export async function search(
   params.set("_offset", offset);
   params.set("_limit", 20);
 
-  console.log("params", [...params.entries()]);
-
   const response = await xlFindBooks(params);
 
   return {
@@ -138,9 +136,7 @@ export async function searchPerson(nameQuery) {
   // Add wildcard at end of each word
   const q = nameQuery.replaceAll(/\S+/g, "$&*");
   const params = { "@type": "Person", q, _limit: 10 };
-  console.log("params person", params);
   const data = await xlFind(params);
-  console.log("searchPerson", data.items);
   return data.items.filter((author) => author.givenName || author.familyName);
 }
 
@@ -181,9 +177,7 @@ export async function searchGenreform(query) {
   });
   params.append("inScheme.@id", ConceptScheme.BarnGf);
   params.append("inScheme.@id", ConceptScheme.SaoGf);
-  console.log("params genreform", params);
   const data = await xlFind(params);
-  console.log("searchGenreform", data.items);
   return data.items.map((item) => ({
     id: item["@id"],
     label: item.prefLabel,

@@ -28,7 +28,6 @@ const goto = (page) =>
     : console.warn(`Pagination cannot goto ${page}`);
 
 function onInputChange(event) {
-  console.log("input change!");
   isInputValid.value = isValidPage(event.target.value);
   if (isInputValid.value) {
     goto(event.target.value);
