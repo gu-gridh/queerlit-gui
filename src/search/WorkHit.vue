@@ -17,7 +17,7 @@
         {{ i }}.
       </div>
       <div class="flex-1">
-        <div class="flex flex-wrap items-baseline gap-x-6">
+        <div class="flex flex-wrap items-baseline gap-x-6 mb-2">
           <h3 class="w-64 flex-grow mb-1 text-xl group-hover:underline">
             {{ work.title }}
           </h3>
@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <div v-if="terms.qlit.length" class="my-2">
+        <div v-if="terms.qlit.length" class="mt-2">
           <Term
             v-for="term in terms.qlit"
             :key="term"
@@ -51,7 +51,7 @@
           />
         </div>
 
-        <div v-if="terms.other.length" class="my-2 text-sm">
+        <div v-if="terms.other.length" class="mb-2 text-sm">
           <Term
             v-for="term in terms.other"
             :key="term"
