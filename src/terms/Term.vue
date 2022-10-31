@@ -9,7 +9,6 @@ const isQlit = computed(
     !props.data ||
     props.data.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1"
 );
-const label = computed(() => props.data?.prefLabel);
 const isMenuVisible = ref(false);
 const isToggleable = ref(false);
 
@@ -53,7 +52,7 @@ function toggleMenu() {
       :class="[isQlit ? 'bg-tagyellow' : 'bg-gray-200']"
     >
       <slot>
-        {{ label }}
+        {{ data._label }}
       </slot>
     </span>
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">

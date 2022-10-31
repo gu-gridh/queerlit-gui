@@ -46,7 +46,7 @@
           class="px-2 pb-2 flex items-baseline"
         >
           <Term :data="term" class="cursor-pointer" @click="add(term)">
-            {{ term.prefLabel }}
+            {{ term._label }}
             <icon icon="plus" size="xs" />
           </Term>
           <div class="flex-1"></div>

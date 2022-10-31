@@ -1,4 +1,4 @@
-import { compareEmptyLast } from "@/util";
+import { compareEmptyLast, unarray } from "@/util";
 import axios from "axios";
 
 export async function search(
@@ -48,8 +48,6 @@ export async function search(
   params.set("_offset", offset);
   params.set("_limit", 20);
 
-  console.log("params", [...params.entries()]);
-
   const response = await xlFindBooks(params);
 
   return {
@@ -92,7 +90,15 @@ function processXlItem(item) {
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Find terms
-  processed.terms = item.instanceOf?.subject || [];
+  processed.terms =
+    item.instanceOf?.subject
+      ?.map(processXlTerm)
+      .filter((term) => term._label) || [];
+
+  processed.genreform =
+    item.instanceOf?.genreForm
+      ?.map(processXlTerm)
+      .filter((term) => term._label) || [];
 
   // Normalize some values.
   const hasTitle =
@@ -101,21 +107,14 @@ function processXlItem(item) {
     processed.title = hasTitle.mainTitle;
   }
   processed.creators = item.instanceOf?.contribution
-    ?.map((c) =>
-      ["givenName", "familyName", "name", "label"]
-        .map((p) => c.agent?.[p]?.trim())
-        .filter(Boolean)
-        .join(" ")
-    )
+    ?.map((c) => getPersonName(unarray(c.agent)))
     .filter(Boolean);
   const publication = item.publication?.find((publication) => publication.year);
   processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
   // The summary can be in the Instance or the Text record, and it can be one or multiple values.
   processed.summary = (item.summary || item.instanceOf?.summary)?.[0].label;
-  if (Array.isArray(processed.summary)) {
-    processed.summary = processed.summary[0];
-  }
+  processed.summary = unarray(processed.summary);
 
   processed.libraries = item["@reverse"]?.itemOf?.map((l) => l.heldBy["@id"]);
 
@@ -128,6 +127,30 @@ function processXlItem(item) {
       (i.qualifier ? ` (${i.qualifier.join(", ")})` : "")
   );
 
+  processed.classification = item.instanceOf?.classification
+    ?.map((c) =>
+      c["@type"] == "ClassificationDdc"
+        ? { type: "DDC", code: c.code }
+        : c.inScheme
+        ? { type: c.inScheme.code, code: c.code }
+        : null
+    )
+    .filter(Boolean);
+
+  processed.publication = item.publication?.map((p) =>
+    [
+      getPersonName(p.agent),
+      p.year,
+      getSubjectLabel(unarray(p.country)),
+      getPersonName(unarray(p.place)),
+    ]
+      .filter(Boolean)
+      .join(", ")
+  );
+
+  processed.intendedAudience =
+    item.instanceOf?.intendedAudience?.map(getSubjectLabel);
+
   return processed;
 }
 
@@ -135,9 +158,7 @@ export async function searchPerson(nameQuery) {
   // Add wildcard at end of each word
   const q = nameQuery.replaceAll(/\S+/g, "$&*");
   const params = { "@type": "Person", q, _limit: 10 };
-  console.log("params person", params);
   const data = await xlFind(params);
-  console.log("searchPerson", data.items);
   return data.items.filter((author) => author.givenName || author.familyName);
 }
 
@@ -153,7 +174,7 @@ export async function searchConcept(conceptQuery, schemeIds = []) {
     schemeIds.forEach((schemeId) => params.append("inScheme.@id", schemeId));
   }
   const data = await xlFind(params);
-  return data.items;
+  return data.items.map(processXlTerm).filter((term) => term._label);
 }
 
 export async function searchConceptSao(conceptQuery) {
@@ -177,16 +198,44 @@ export async function searchGenreform(query) {
     _limit: 10,
   });
   params.append("inScheme.@id", ConceptScheme.BarnGf);
-  params.append("inScheme.@id", ConceptScheme.SaoGF);
-  console.log("params genreform", params);
+  params.append("inScheme.@id", ConceptScheme.SaoGf);
   const data = await xlFind(params);
-  console.log("searchGenreform", data.items);
   return data.items.map((item) => ({
     id: item["@id"],
     label: item.prefLabel,
     scheme: item.inScheme.code,
     _item: item,
   }));
+}
+
+function processXlTerm(term) {
+  const processed = { ...term };
+  processed._label = getSubjectLabel(term);
+  return processed;
+}
+
+/** Build a string of the label of a subject label. */
+export function getSubjectLabel(subject) {
+  if (!subject) return undefined;
+  if (subject["@type"] == "ComplexSubject")
+    return subject.termComponentList
+      .map(getSubjectLabel)
+      .filter(Boolean)
+      .join("–");
+  if (["Person", "Organization"].includes(subject["@type"]))
+    return getPersonName(subject);
+  if (subject.prefLabelByLang) return subject.prefLabelByLang.sv;
+  if (subject.prefLabel) return subject.prefLabel;
+  console.log("Term has no label", subject);
+}
+
+/** Build a string of a person's name. */
+export function getPersonName(person) {
+  // Sometimes the name is split in two, sometimes not.
+  return ["givenName", "familyName", "name", "label"]
+    .map((prop) => unarray(person?.[prop])?.trim())
+    .filter(Boolean)
+    .join(" ");
 }
 
 /** Constants for uris. */

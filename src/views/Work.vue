@@ -7,16 +7,16 @@
   </div>
   <div v-if="work" class="container xl:max-w-screen-xl">
     <h2 class="text-3xl">{{ work.title }}</h2>
-    <div class="flex justify-between my-4">
-      <Labeled label="Författare" class="flex-1 pr-4">
-        {{ work.creators.join(", ") }}
+    <div class="flex flex-wrap my-4 gap-y-2">
+      <Labeled label="Författare" class="w-full sm:w-1/2 pr-4">
+        {{ work.creators?.join(", ") }}
       </Labeled>
-      <Labeled label="Utgivningsår" class="flex-1 pr-4">
+      <Labeled label="Utgivningsår" class="w-full sm:w-1/2 pr-4">
         {{ work.date }}
       </Labeled>
     </div>
     <Labeled label="Ämnesord" class="my-4 text-lg">
-      <div class="mt-1">
+      <div class="my-1">
         <Term
           v-for="term in terms.qlit"
           :key="term"
@@ -24,35 +24,69 @@
           class="mr-1 mb-1"
           :options="[
             {
-              label: `Sök på <em>${term.prefLabel}</em>`,
+              label: `Sök på <em>${term._label}</em>`,
               action: () => filterTerm(term),
             },
             {
-              label: `Om ämnesordet <em>${term.prefLabel}</em>`,
+              label: `Om ämnesordet <em>${term._label}</em>`,
               action: () => gotoTerm(term),
             },
           ]"
         >
         </Term>
       </div>
-      <div class="text-base mt-2">
+      <div class="text-base my-1">
         <Term
           v-for="term in terms.other"
           :key="term"
           :data="term"
-          class="mr-1 mb-1"
-          :options="[
-            {
-              label: `Sök på <em>${term.prefLabel}</em>`,
-              action: () => filterTerm(term),
-            },
-          ]"
+          class="mr-1 mb-2"
+          :options="
+            term['@id'] && [
+              {
+                label: `Sök på <em>${term._label}</em>`,
+                action: () => filterTerm(term),
+              },
+            ]
+          "
         />
       </div>
     </Labeled>
     <Labeled v-if="work.summary" label="Beskrivning" class="my-4">
       {{ work.summary }}
     </Labeled>
+
+    <div class="flex flex-wrap my-4 gap-y-2">
+      <Labeled label="Genre/form" class="w-full sm:w-1/2 pr-4">
+        <div v-for="(term, i) in work.genreform" :key="i">
+          {{ term._label }}
+        </div>
+        <div v-if="!work.genreform.length">—</div>
+      </Labeled>
+
+      <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
+        <div v-for="{ type, code } in work.classification" :key="type + code">
+          <template v-if="type">{{ type }}: </template>
+          {{ code }}
+        </div>
+        <div v-if="!work.classification">—</div>
+      </Labeled>
+
+      <Labeled label="Publicering" class="w-full sm:w-1/2 pr-4">
+        <div v-for="publication in work.publication" :key="publication">
+          {{ publication }}
+        </div>
+        <div v-if="!work.publication">—</div>
+      </Labeled>
+
+      <Labeled label="Målgrupp" class="w-full sm:w-1/2 pr-4">
+        <div v-for="audience in work.intendedAudience" :key="audience">
+          {{ audience }}
+        </div>
+        <div v-if="!work.intendedAudience">—</div>
+      </Labeled>
+    </div>
+
     <Labeled label="Övrigt" class="my-4">
       <div v-if="work.extent">{{ work.extent }}</div>
       <div v-if="work.note">{{ work.note }}</div>

@@ -100,7 +100,7 @@ function blur() {
           @select="addTerm"
         >
           <Term class="cursor-pointer">
-            {{ item.prefLabel }}
+            {{ item._label }}
             <icon icon="plus" size="xs" />
           </Term>
         </FreetextSuggestions>
@@ -112,7 +112,7 @@ function blur() {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item.prefLabel }}
+            {{ item._label }}
             <icon icon="plus" size="xs" />
           </Term>
         </FreetextSuggestions>
@@ -124,7 +124,7 @@ function blur() {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item.prefLabel }}
+            {{ item._label }}
             <icon icon="plus" size="xs" />
           </Term>
         </FreetextSuggestions>
