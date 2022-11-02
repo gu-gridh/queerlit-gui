@@ -45,6 +45,8 @@
         />
       </Labeled>
 
+      <CollectionsSmall />
+
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
           <Labeled label="Titel" for-id="title">
@@ -124,6 +126,7 @@ import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
 import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
+import CollectionsSmall from "@/terms/CollectionsSmall.vue  ";
 import QInput from "@/components/QInput.vue";
 
 const { doSearch, setQuery } = useSearch();
