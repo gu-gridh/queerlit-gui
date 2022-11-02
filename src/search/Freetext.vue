@@ -7,7 +7,6 @@ import {
   searchConceptQlit,
   searchConceptSao,
   searchConceptBarn,
-  searchPerson,
 } from "@/services/libris.service";
 import useMulticomplete from "./multicomplete.composable";
 import Term from "@/terms/Term.vue";
@@ -21,7 +20,6 @@ const Multicomplete = useMulticomplete({
   qlit: searchConceptQlit,
   sao: searchConceptSao,
   barn: searchConceptBarn,
-  author: searchPerson,
 });
 // The component needs a direct reference to these reactives.
 const suggestions = Multicomplete.suggestions;
@@ -35,12 +33,6 @@ function textChange(event) {
 
 function addTerm(term) {
   terms.add(term);
-  removeLastWord();
-  emit("search");
-}
-
-function addAuthor(author) {
-  setQuery({ author });
   removeLastWord();
   emit("search");
 }
@@ -90,6 +82,7 @@ function blur() {
           w-full
           overflow-hidden
           rounded-b
+          shadow
           z-20
         "
       >
@@ -127,15 +120,6 @@ function blur() {
             {{ item._label }}
             <icon icon="plus" size="xs" />
           </Term>
-        </FreetextSuggestions>
-
-        <FreetextSuggestions
-          v-slot="{ item }"
-          heading="Författare:"
-          :items="suggestions.author"
-          @select="addAuthor"
-        >
-          {{ item.givenName }} {{ item.familyName }}
         </FreetextSuggestions>
       </div>
     </div>
