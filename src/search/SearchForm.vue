@@ -16,7 +16,10 @@
               block
               w-full
               text-lg text-black
-              border border-gray-500
+              bg-smoke-200
+              hover:bg-smoke-300
+              rounded
+              shadow-inner
               leading-snug
               py-1
               px-2

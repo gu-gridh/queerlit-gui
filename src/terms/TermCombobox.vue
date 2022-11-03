@@ -1,7 +1,7 @@
 <template>
   <div v-on-click-outside="blur">
     <div
-      class="bg-smoke-200 hover:bg-smoke-300 p-2 flex rounded-t"
+      class="bg-smoke-200 hover:bg-smoke-300 p-2 flex rounded-t shadow-inner"
       :class="{ 'rounded-b': !suggestions.length }"
     >
       <div class="flex-1 flex flex-wrap items-baseline gap-1">
