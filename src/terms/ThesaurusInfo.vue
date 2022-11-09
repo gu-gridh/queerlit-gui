@@ -9,7 +9,7 @@
         ämnesord skapas fler sökvägar än de breda ämnesord som idag finns i
         <a
           href="https://metadatabyran.kb.se/amnesord-och-genre-form/svenska-amnesord"
-          >Svenska Ämnesord (SAO)</a
+          >Svenska ämnesord (SAO)</a
         >, som är den ämnesordlista de flesta svenska bibliotek använder.
       </p>
 
@@ -23,7 +23,7 @@
         Utvecklingen av tesaurusen görs i samarbete med
         <a href="http://www2.ub.gu.se/kvinn/">KvinnSam</a> och
         <a href="https://www.kb.se/samverkan-och-utveckling/libris.html"
-          >LIBRIS</a
+          >Libris</a
         >
         och i så stor utsträckning som möjligt kommer den länkas till SAO och
         <a href="https://homosaurus.org/">Homosaurus</a> (utvecklad av IHLIA

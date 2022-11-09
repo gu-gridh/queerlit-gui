@@ -68,7 +68,7 @@ watch(
     >
       ◀
     </span>
-    <span v-else class="mx-2 opacity-20">◀</span>
+    <span v-else class="mr-2 opacity-20">◀</span>
 
     <span>
       Sida
@@ -93,6 +93,6 @@ watch(
     >
       ▶
     </span>
-    <span v-else class="mx-2 opacity-20">▶</span>
+    <span v-else class="ml-2 opacity-20">▶</span>
   </div>
 </template>

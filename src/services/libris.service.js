@@ -124,7 +124,7 @@ function processXlItem(item) {
     (i) =>
       (i["@type"] ? `${i["@type"]}: ` : "") +
       i.value +
-      (i.qualifier ? ` (${i.qualifier.join(", ")})` : "")
+      (i.qualifier ? ` (${unarray(i.qualifier)})` : "")
   );
 
   processed.classification = item.instanceOf?.classification

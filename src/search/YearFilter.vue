@@ -4,14 +4,32 @@
       <input
         v-model.number="range[0]"
         size="4"
-        class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
+        class="
+          text-sm text-black
+          p-1
+          px-2
+          bg-smoke-200
+          hover:bg-smoke-300
+          rounded
+          shadow-inner
+          leading-snug
+        "
         placeholder="Från"
         @change="startTextChange"
       />
       <input
         v-model.number="range[1]"
         size="4"
-        class="text-sm text-black p-1 px-2 border border-gray-500 leading-snug"
+        class="
+          text-sm text-black
+          p-1
+          px-2
+          bg-smoke-200
+          hover:bg-smoke-300
+          rounded
+          shadow-inner
+          leading-snug
+        "
         placeholder="Till"
         @change="endTextChange"
       />
