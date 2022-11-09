@@ -1,7 +1,8 @@
 <template>
   <div
     class="
-      relative
+      sticky
+      top-0
       z-10
       bg-gray-700
       shadow-lg
