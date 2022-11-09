@@ -35,7 +35,7 @@ export async function getRoots() {
   return qlitList("roots");
 }
 
-// TODO: Re-use LIBRIS Concept search instead.
+// TODO: Re-use Libris Concept search instead.
 export async function searchTerms(s) {
   return qlitList("autocomplete", { s });
 }

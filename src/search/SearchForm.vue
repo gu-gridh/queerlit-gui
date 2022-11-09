@@ -60,10 +60,10 @@
   <div class="text-center mt-4">
     <a
       href="https://libris.kb.se/form_extended.jsp?q=bib%3aqlit&f=ext"
-      title="LIBRIS är en nationell söktjänst med information om titlar på svenska bibliotek."
+      title="Libris är en nationell söktjänst med information om titlar på svenska bibliotek."
       class="underline text-blue-900"
     >
-      Sök i LIBRIS
+      Sök i Libris
     </a>
   </div>
 </template>

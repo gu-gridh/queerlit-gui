@@ -96,7 +96,7 @@
     </Labeled>
     <div v-if="work.librisUrl" class="my-4">
       <a :href="work.librisUrl" class="text-blue-700 underline">
-        Se posten i LIBRIS
+        Se posten i Libris
       </a>
     </div>
   </div>
