@@ -101,10 +101,16 @@ function processXlItem(item) {
       .filter((term) => term._label) || [];
 
   // Normalize some values.
-  const hasTitle =
-    item.hasTitle && item.hasTitle.find((hasTitle) => hasTitle.mainTitle);
+  const hasTitle = item.hasTitle?.find((hasTitle) => hasTitle.mainTitle);
   if (hasTitle) {
     processed.title = hasTitle.mainTitle;
+    const part = hasTitle.hasPart?.[0];
+    if (part?.partName) {
+      processed.title = part.partName;
+      processed.title += part?.partNumber
+        ? ` (${hasTitle.mainTitle} #${part.partNumber})`
+        : ` (${hasTitle.mainTitle})`;
+    }
   }
   processed.creators = item.instanceOf?.contribution
     ?.map((c) => getPersonName(unarray(c.agent)))
