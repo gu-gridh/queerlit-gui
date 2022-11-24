@@ -9,7 +9,15 @@
     <h2 class="text-3xl">{{ work.title }}</h2>
     <div class="flex flex-wrap my-4 gap-y-2">
       <Labeled label="Författare" class="w-full sm:w-1/2 pr-4">
-        {{ work.creators?.join(", ") }}
+        <div v-for="creator in work.creators" :key="creator" class="mr-4">
+          <template v-if="creator.roles">
+            {{ creator.roles.join(", ") }}:
+          </template>
+          {{ creator.name }}
+          <template v-if="creator.lifeSpan">
+            ({{ creator.lifeSpan }})
+          </template>
+        </div>
       </Labeled>
       <Labeled label="Utgivningsår" class="w-full sm:w-1/2 pr-4">
         {{ work.date }}
@@ -57,11 +65,26 @@
     </Labeled>
 
     <div class="flex flex-wrap my-4 gap-y-2">
+      <Labeled label="Omfång" class="w-full sm:w-1/2 pr-4">
+        {{ work.extent || "–" }}
+      </Labeled>
+
+      <Labeled label="Språk" class="w-full sm:w-1/2 pr-4">
+        <div v-for="(language, i) in work.languages" :key="i">
+          {{ language }}
+        </div>
+        <div v-if="!work.languages.length">—</div>
+      </Labeled>
+
       <Labeled label="Genre/form" class="w-full sm:w-1/2 pr-4">
         <div v-for="(term, i) in work.genreform" :key="i">
           {{ term._label }}
         </div>
         <div v-if="!work.genreform.length">—</div>
+      </Labeled>
+
+      <Labeled label="Anmärkning" class="w-full sm:w-1/2 pr-4">
+        {{ work.note || "–" }}
       </Labeled>
 
       <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
@@ -70,6 +93,12 @@
           {{ code }}
         </div>
         <div v-if="!work.classification">—</div>
+      </Labeled>
+
+      <Labeled label="Identifierare" class="w-full sm:w-1/2 pr-4">
+        <div v-for="identifiedBy in work.identifiedBy" :key="identifiedBy">
+          {{ identifiedBy }}
+        </div>
       </Labeled>
 
       <Labeled label="Publicering" class="w-full sm:w-1/2 pr-4">
@@ -87,13 +116,6 @@
       </Labeled>
     </div>
 
-    <Labeled label="Övrigt" class="my-4">
-      <div v-if="work.extent">{{ work.extent }}</div>
-      <div v-if="work.note">{{ work.note }}</div>
-      <div v-for="identifiedBy in work.identifiedBy" :key="identifiedBy">
-        {{ identifiedBy }}
-      </div>
-    </Labeled>
     <div v-if="work.librisUrl" class="my-4">
       <a :href="work.librisUrl" class="text-blue-700 underline">
         Se posten i Libris

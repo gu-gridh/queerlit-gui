@@ -1,4 +1,4 @@
-import { compareEmptyLast, unarray } from "@/util";
+import { compareEmptyLast, enarray, unarray } from "@/util";
 import axios from "axios";
 
 export async function search(
@@ -113,15 +113,20 @@ function processXlItem(item) {
     }
   }
   processed.creators = item.instanceOf?.contribution
-    ?.map((c) => getPersonName(unarray(c.agent)))
-    .filter(Boolean);
+    ?.map((c) => ({
+      name: getPersonName(unarray(c.agent)),
+      lifeSpan: unarray(c.agent).lifeSpan,
+      roles: enarray(c.role)?.map(getLabel),
+    }))
+    .filter((c) => c.name);
   const publication = item.publication?.find((publication) => publication.year);
   processed.date = publication?.year;
   processed.id = item["@id"].split("/").pop().split("#").shift();
   // The summary can be in the Instance or the Text record, and it can be one or multiple values.
   processed.summary = (item.summary || item.instanceOf?.summary)?.[0].label;
   processed.summary = unarray(processed.summary);
-
+  processed.languages = item.instanceOf?.language.map(getLabel);
+  processed.contentType = item.instanceOf?.contentType?.map(getLabel);
   processed.libraries = item["@reverse"]?.itemOf?.map((l) => l.heldBy["@id"]);
 
   processed.extent = item.extent?.map((e) => e.label).join(", ");
@@ -147,15 +152,14 @@ function processXlItem(item) {
     [
       getPersonName(p.agent),
       p.year,
-      getSubjectLabel(unarray(p.country)),
+      getLabel(unarray(p.country)),
       getPersonName(unarray(p.place)),
     ]
       .filter(Boolean)
       .join(", ")
   );
 
-  processed.intendedAudience =
-    item.instanceOf?.intendedAudience?.map(getSubjectLabel);
+  processed.intendedAudience = item.instanceOf?.intendedAudience?.map(getLabel);
 
   return processed;
 }
@@ -216,23 +220,20 @@ export async function searchGenreform(query) {
 
 function processXlTerm(term) {
   const processed = { ...term };
-  processed._label = getSubjectLabel(term);
+  processed._label = getLabel(term);
   return processed;
 }
 
-/** Build a string of the label of a subject label. */
-export function getSubjectLabel(subject) {
-  if (!subject) return undefined;
-  if (subject["@type"] == "ComplexSubject")
-    return subject.termComponentList
-      .map(getSubjectLabel)
-      .filter(Boolean)
-      .join("–");
-  if (["Person", "Organization"].includes(subject["@type"]))
-    return getPersonName(subject);
-  if (subject.prefLabelByLang) return subject.prefLabelByLang.sv;
-  if (subject.prefLabel) return subject.prefLabel;
-  console.log("Term has no label", subject);
+/** Build a string of the label of an object. */
+export function getLabel(object) {
+  if (!object) return undefined;
+  if (object["@type"] == "ComplexSubject")
+    return object.termComponentList.map(getLabel).filter(Boolean).join("–");
+  if (["Person", "Organization"].includes(object["@type"]))
+    return getPersonName(object);
+  if (object.prefLabelByLang) return object.prefLabelByLang.sv;
+  if (object.prefLabel) return object.prefLabel;
+  console.log("No label found", object);
 }
 
 /** Build a string of a person's name. */

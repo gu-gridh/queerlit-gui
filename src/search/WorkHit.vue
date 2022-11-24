@@ -25,7 +25,7 @@
           <div class="w-48 flex-grow">
             <div class="flex flex-wrap">
               <div v-for="creator in work.creators" :key="creator" class="mr-4">
-                {{ creator }}
+                {{ creator.name }}
               </div>
             </div>
             {{ work.date }}

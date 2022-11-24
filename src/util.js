@@ -4,4 +4,5 @@ export function compareEmptyLast(a, b) {
 
 export const urlBasename = (url) => decodeURIComponent(url.split("/").pop());
 
+export const enarray = (x) => (Array.isArray(x) ? x : [x]);
 export const unarray = (x) => (Array.isArray(x) ? x[0] : x);
