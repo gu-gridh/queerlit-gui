@@ -21,7 +21,7 @@ export default function useTerms() {
 
   function add(term) {
     if (!terms.value.find((term2) => term2["@id"] == term["@id"]))
-      setQuery({ terms: [...terms.value, term] });
+      setQuery({ terms: [term] });
   }
 
   function remove(term) {
