@@ -138,32 +138,17 @@ useTitle(computed(() => term.value && term.value.prefLabel));
 watchEffect(async () => {
   if (route.name != "Term") return;
   term.value = await getTerm(route.params.id).catch(flag404);
+  console.log(term.value);
   parents.value = [];
   children.value = [];
   related.value = [];
   if (term.value.broader.length)
-    getParents(term.value.name).then(
-      (terms) => (parents.value = terms.map(fakeXlTerm))
-    );
+    getParents(term.value.name).then((terms) => (parents.value = terms));
   if (term.value.narrower.length)
-    getChildren(term.value.name).then(
-      (terms) => (children.value = terms.map(fakeXlTerm))
-    );
+    getChildren(term.value.name).then((terms) => (children.value = terms));
   if (term.value.related.length)
-    getRelated(term.value.name).then(
-      (terms) => (related.value = terms.map(fakeXlTerm))
-    );
+    getRelated(term.value.name).then((terms) => (related.value = terms));
 });
-
-/** Reshape a queerlit-terms object like an XL object */
-function fakeXlTerm(term) {
-  return {
-    "@id": term.uri,
-    _label: term.prefLabel,
-    inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
-    ...term,
-  };
-}
 
 function createOptions(term) {
   return [
