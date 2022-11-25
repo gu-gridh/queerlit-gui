@@ -8,19 +8,7 @@
   >
     <div class="flex flex-wrap justify-between items-baseline gap-4">
       <router-link :to="`/subjects/${parent.name}`" class="text-lg font-bold">
-        <Term
-          :data="parent"
-          :options="[
-            {
-              label: `Om ämnesordet <em>${parent._label}</em>`,
-              action: () => gotoTerm(parent),
-            },
-            {
-              label: `Sök på <em>${parent._label}</em>`,
-              action: () => searchByTerm(parent),
-            },
-          ]"
-        />
+        <Term :data="parent" :options="['search']" />
       </router-link>
       <span v-if="parent.altLabels && parent.altLabels.length">
         Varianter: {{ parent.altLabels.join(", ") }}
@@ -65,7 +53,7 @@ import Term from "@/terms/Term.vue";
 
 const props = defineProps(["parent", "level", "expanded"]);
 const { state, commit } = useStore();
-const { getChildren, searchByTerm, gotoTerm } = useTerms();
+const { getChildren } = useTerms();
 const children = ref(null);
 const expanded = ref(
   props.expanded || state.termsExpanded.includes(props.parent.name)

@@ -48,7 +48,7 @@
                 <Term
                   class="mr-1 mb-1 cursor-pointer"
                   :data="term"
-                  :options="createOptions(term)"
+                  :options="['search']"
                   @click="navigate"
                 />
               </router-link>
@@ -68,7 +68,7 @@
                 <Term
                   class="mr-1 mb-1 cursor-pointer"
                   :data="term"
-                  :options="createOptions(term)"
+                  :options="['search']"
                   @click="navigate"
                 />
               </router-link>
@@ -90,7 +90,7 @@
               <Term
                 class="mr-1 my-1 cursor-pointer"
                 :data="term"
-                :options="createOptions(term)"
+                :options="['search']"
                 @click="navigate"
               />
             </router-link>
@@ -124,7 +124,7 @@ import { useRoute } from "vue-router";
 import ExternalTermList from "@/terms/ExternalTermList.vue";
 
 const route = useRoute();
-const { getParents, getChildren, getRelated, getTerm, searchByTerm, gotoTerm } =
+const { getParents, getChildren, getRelated, getTerm } =
   useTerms();
 const { flag404 } = use404();
 
@@ -149,19 +149,6 @@ watchEffect(async () => {
   if (term.value.related.length)
     getRelated(term.value.name).then((terms) => (related.value = terms));
 });
-
-function createOptions(term) {
-  return [
-    {
-      label: `Om ämnesordet <em>${term._label}</em>`,
-      action: () => gotoTerm(term),
-    },
-    {
-      label: `Sök på <em>${term._label}</em>`,
-      action: () => searchByTerm(term),
-    },
-  ];
-}
 </script>
 
 <style lang="scss" scoped>

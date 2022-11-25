@@ -101,7 +101,7 @@ function blur() {
           :items="suggestions.qlit"
           @select="addTerm"
         >
-          <Term class="cursor-pointer">
+          <Term :data="item" class="cursor-pointer">
             {{ item._label }}
             <icon icon="plus" size="xs" />
           </Term>

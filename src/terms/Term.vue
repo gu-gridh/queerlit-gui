@@ -1,16 +1,41 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
 import { vOnClickOutside } from "@vueuse/components";
+import useTerms from "./terms.composable";
 
-const props = defineProps(["data", "options"]);
+const props = defineProps({
+  data: Object,
+  options: {
+    type: Array,
+    default: () => [],
+    validate: (options) =>
+      options.every((option) => ["search", "goto"].includes(option)),
+  },
+});
+const { gotoTerm, searchByTerm } = useTerms();
+
+const OPTION_DEFS = props.data && {
+  goto: {
+    label: `Om ämnesordet <em>${props.data._label}</em>`,
+    action: () => gotoTerm(props.data),
+  },
+  search: {
+    label: `Sök på <em>${props.data._label}</em>`,
+    action: () => searchByTerm(props.data),
+  },
+};
 
 const isQlit = computed(
-  () =>
-    !props.data ||
-    props.data.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1"
+  () => props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1"
 );
 const isMenuVisible = ref(false);
 const isToggleable = ref(false);
+
+const optionItems = computed(() => {
+  return (
+    props.data && props.options.map((key) => OPTION_DEFS[key]).filter(Boolean)
+  );
+});
 
 function showMenu() {
   isMenuVisible.value = true;
@@ -21,9 +46,11 @@ function showMenu() {
   isToggleable.value = false;
   setTimeout(() => (isToggleable.value = true), 500);
 }
+
 function hideMenu() {
   isMenuVisible.value = false;
 }
+
 function toggleMenu() {
   if (isToggleable.value) isMenuVisible.value = !isMenuVisible.value;
 }
@@ -57,13 +84,13 @@ function toggleMenu() {
     </span>
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <div
-        v-if="options && options.length"
+        v-if="optionItems && optionItems.length"
         v-show="isMenuVisible"
         class="absolute z-10 h-0 bottom-0 left-0 duration-200"
       >
         <ul class="bg-gray-50 bg-opacity-95 rounded shadow mt-0.5 text-sm w-40">
           <li
-            v-for="(option, i) in options"
+            v-for="(option, i) in optionItems"
             :key="i"
             class="
               overflow-hidden overflow-ellipsis
@@ -72,7 +99,7 @@ function toggleMenu() {
               hover:bg-gray-100
               cursor-pointer
             "
-            @click.prevent="option.action"
+            @click.prevent.stop="option.action"
             v-html="option.label"
           />
         </ul>

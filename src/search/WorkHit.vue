@@ -38,16 +38,7 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-            :options="[
-              {
-                label: `Sök på <em>${term._label}</em>`,
-                action: () => searchByTerm(term),
-              },
-              {
-                label: `Om ämnesordet <em>${term._label}</em>`,
-                action: () => gotoTerm(term),
-              },
-            ]"
+            :options="['search', 'goto']"
           />
         </div>
 
@@ -57,14 +48,7 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-            :options="
-              term['@id'] && [
-                {
-                  label: `Sök på <em>${term._label}</em>`,
-                  action: () => searchByTerm(term),
-                },
-              ]
-            "
+            :options="term['@id'] && ['search']"
           />
         </div>
 
@@ -86,7 +70,7 @@ const props = defineProps({
   i: { type: Number, required: true },
 });
 
-const { sortTerms, searchByTerm, gotoTerm } = useTerms();
+const { sortTerms } = useTerms();
 
 function ellipsis(text, limit) {
   if (text.length < limit) return text;

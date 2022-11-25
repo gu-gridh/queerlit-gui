@@ -30,18 +30,8 @@
           :key="term"
           :data="term"
           class="mr-1 mb-1"
-          :options="[
-            {
-              label: `Sök på <em>${term._label}</em>`,
-              action: () => searchByTerm(term),
-            },
-            {
-              label: `Om ämnesordet <em>${term._label}</em>`,
-              action: () => gotoTerm(term),
-            },
-          ]"
-        >
-        </Term>
+          :options="['search', 'goto']"
+        />
       </div>
       <div class="text-base my-1">
         <Term
@@ -49,14 +39,7 @@
           :key="term"
           :data="term"
           class="mr-1 mb-2"
-          :options="
-            term['@id'] && [
-              {
-                label: `Sök på <em>${term._label}</em>`,
-                action: () => searchByTerm(term),
-              },
-            ]
-          "
+          :options="term['@id'] && ['search']"
         />
       </div>
     </Labeled>
@@ -136,7 +119,7 @@ import useTitle from "./title.composable";
 import use404 from "./404.composable";
 
 const route = useRoute();
-const { sortTerms, searchByTerm, gotoTerm } = useTerms();
+const { sortTerms } = useTerms();
 const { flag404 } = use404();
 
 const work = ref();

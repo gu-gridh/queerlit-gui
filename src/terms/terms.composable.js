@@ -11,6 +11,7 @@ import {
 import negate from "lodash/negate";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { urlBasename } from "@/util";
 
 export default function useTerms() {
   const router = useRouter();
@@ -56,7 +57,8 @@ export default function useTerms() {
   }
 
   function gotoTerm(term) {
-    router.push(`/subjects/${term.name}`);
+    const name = term.name || urlBasename(term.uri || term["@id"]);
+    router.push(`/subjects/${name}`);
   }
 
   return {

@@ -10,6 +10,7 @@
           :key="term.id"
           class="term-added text-md cursor-pointer"
           :data="term"
+          :options="['goto']"
           @click="remove(term)"
         >
           {{ term.prefLabel }}
@@ -45,7 +46,12 @@
           :key="term.id"
           class="px-2 pb-2 flex items-baseline"
         >
-          <Term :data="term" class="cursor-pointer" @click="add(term)">
+          <Term
+            :data="term"
+            :options="['goto']"
+            class="cursor-pointer"
+            @click="add(term)"
+          >
             {{ term._label }}
             <icon icon="plus" size="xs" />
           </Term>
