@@ -9,8 +9,12 @@ import {
   searchTerms,
 } from "@/services/terms.service";
 import negate from "lodash/negate";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default function useTerms() {
+  const router = useRouter();
+  const store = useStore();
   const { terms, setQuery } = useQuery();
   const suggestions = ref([]);
 
@@ -45,6 +49,16 @@ export default function useTerms() {
     );
   }
 
+  function searchByTerm(term) {
+    add(term);
+    store.dispatch("search");
+    router.push("/");
+  }
+
+  function gotoTerm(term) {
+    router.push(`/subjects/${term.name}`);
+  }
+
   return {
     getTerm,
     getParents,
@@ -58,5 +72,7 @@ export default function useTerms() {
     add,
     remove,
     sortTerms,
+    searchByTerm,
+    gotoTerm,
   };
 }

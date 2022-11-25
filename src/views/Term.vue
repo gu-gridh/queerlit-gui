@@ -45,9 +45,12 @@
                 :to="`/subjects/${term.name}`"
                 custom
               >
-                <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-                  {{ term.prefLabel }}
-                </Term>
+                <Term
+                  class="mr-1 mb-1 cursor-pointer"
+                  :data="term"
+                  :options="createOptions(term)"
+                  @click="navigate"
+                />
               </router-link>
             </li>
           </ul>
@@ -62,9 +65,12 @@
                 :to="`/subjects/${term.name}`"
                 custom
               >
-                <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-                  {{ term.prefLabel }}
-                </Term>
+                <Term
+                  class="mr-1 mb-1 cursor-pointer"
+                  :data="term"
+                  :options="createOptions(term)"
+                  @click="navigate"
+                />
               </router-link>
             </li>
           </ul>
@@ -81,9 +87,12 @@
               :to="`/subjects/${term.name}`"
               custom
             >
-              <Term class="mr-1 my-1 cursor-pointer" @click="navigate">
-                {{ term.prefLabel }}
-              </Term>
+              <Term
+                class="mr-1 my-1 cursor-pointer"
+                :data="term"
+                :options="createOptions(term)"
+                @click="navigate"
+              />
             </router-link>
           </div>
         </Labeled>
@@ -115,7 +124,8 @@ import { useRoute } from "vue-router";
 import ExternalTermList from "@/terms/ExternalTermList.vue";
 
 const route = useRoute();
-const { getParents, getChildren, getRelated, getTerm } = useTerms();
+const { getParents, getChildren, getRelated, getTerm, searchByTerm, gotoTerm } =
+  useTerms();
 const { flag404 } = use404();
 
 const term = ref(null);
@@ -132,12 +142,41 @@ watchEffect(async () => {
   children.value = [];
   related.value = [];
   if (term.value.broader.length)
-    getParents(term.value.name).then((terms) => (parents.value = terms));
+    getParents(term.value.name).then(
+      (terms) => (parents.value = terms.map(fakeXlTerm))
+    );
   if (term.value.narrower.length)
-    getChildren(term.value.name).then((terms) => (children.value = terms));
+    getChildren(term.value.name).then(
+      (terms) => (children.value = terms.map(fakeXlTerm))
+    );
   if (term.value.related.length)
-    getRelated(term.value.name).then((terms) => (related.value = terms));
+    getRelated(term.value.name).then(
+      (terms) => (related.value = terms.map(fakeXlTerm))
+    );
 });
+
+/** Reshape a queerlit-terms object like an XL object */
+function fakeXlTerm(term) {
+  return {
+    "@id": term.uri,
+    _label: term.prefLabel,
+    inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
+    ...term,
+  };
+}
+
+function createOptions(term) {
+  return [
+    {
+      label: `Om ämnesordet <em>${term._label}</em>`,
+      action: () => gotoTerm(term),
+    },
+    {
+      label: `Sök på <em>${term._label}</em>`,
+      action: () => searchByTerm(term),
+    },
+  ];
+}
 </script>
 
 <style lang="scss" scoped>

@@ -41,7 +41,7 @@
             :options="[
               {
                 label: `Sök på <em>${term._label}</em>`,
-                action: () => filterTerm(term),
+                action: () => searchByTerm(term),
               },
               {
                 label: `Om ämnesordet <em>${term._label}</em>`,
@@ -61,7 +61,7 @@
               term['@id'] && [
                 {
                   label: `Sök på <em>${term._label}</em>`,
-                  action: () => filterTerm(term),
+                  action: () => searchByTerm(term),
                 },
               ]
             "
@@ -78,19 +78,15 @@
 
 <script setup>
 import { computed } from "@vue/reactivity";
-import { useStore } from "vuex";
 import Term from "@/terms/Term.vue";
 import useTerms from "@/terms/terms.composable";
-import { useRouter } from "vue-router";
 
 const props = defineProps({
   work: { type: Object, required: true },
   i: { type: Number, required: true },
 });
 
-const { add, sortTerms } = useTerms();
-const store = useStore();
-const router = useRouter();
+const { sortTerms, searchByTerm, gotoTerm } = useTerms();
 
 function ellipsis(text, limit) {
   if (text.length < limit) return text;
@@ -102,15 +98,6 @@ function ellipsis(text, limit) {
 }
 
 const terms = computed(() => sortTerms(props.work.terms));
-
-function filterTerm(term) {
-  add(term);
-  store.dispatch("search");
-}
-
-function gotoTerm(term) {
-  router.push(`/subjects/${term.name}`);
-}
 </script>
 
 <style></style>

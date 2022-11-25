@@ -33,7 +33,7 @@
           :options="[
             {
               label: `Sök på <em>${term._label}</em>`,
-              action: () => filterTerm(term),
+              action: () => searchByTerm(term),
             },
             {
               label: `Om ämnesordet <em>${term._label}</em>`,
@@ -53,7 +53,7 @@
             term['@id'] && [
               {
                 label: `Sök på <em>${term._label}</em>`,
-                action: () => filterTerm(term),
+                action: () => searchByTerm(term),
               },
             ]
           "
@@ -126,9 +126,8 @@
 
 <script setup>
 import { computed, ref } from "@vue/reactivity";
-import { useStore } from "vuex";
 import { get } from "@/services/libris.service";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { watch } from "@vue/runtime-core";
 import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
@@ -136,10 +135,8 @@ import Term from "@/terms/Term.vue";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 
-const store = useStore();
-const router = useRouter();
 const route = useRoute();
-const { add, sortTerms } = useTerms();
+const { sortTerms, searchByTerm, gotoTerm } = useTerms();
 const { flag404 } = use404();
 
 const work = ref();
@@ -155,15 +152,5 @@ if (import.meta.env.DEV) {
   watch(work, () => {
     window.work = work.value;
   });
-}
-
-function filterTerm(term) {
-  add(term);
-  store.dispatch("search");
-  router.push("/");
-}
-
-function gotoTerm(term) {
-  router.push(`/subjects/${term.name}`);
 }
 </script>
