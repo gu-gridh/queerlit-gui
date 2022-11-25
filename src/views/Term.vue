@@ -5,6 +5,7 @@
       Tillbaka till ämnen
     </router-link>
   </div>
+
   <article v-if="term" class="container">
     <div class="bg-yellow-50 border border-yellow-200 p-4 mb-4">
       <h2 class="text-2xl">{{ term.prefLabel }}</h2>
@@ -35,8 +36,15 @@
         </tr>
       </table>
     </div>
-    <div class="flex flex-wrap -m-4">
-      <div class="w-1/2 p-4">
+
+    <div class="my-2">
+      <QButton @click="searchByTerm(term)">
+        Sök på <em>{{ term.prefLabel }}</em> i Queerlit
+      </QButton>
+    </div>
+
+    <div class="flex flex-wrap my-4 gap-4">
+      <div class="flex-1">
         <Labeled label="Bredare">
           <ul class="py-1">
             <li v-for="term in parents" :key="term.name" class="my-1">
@@ -45,15 +53,19 @@
                 :to="`/subjects/${term.name}`"
                 custom
               >
-                <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-                  {{ term.prefLabel }}
-                </Term>
+                <Term
+                  class="mr-1 mb-1 cursor-pointer"
+                  :data="term"
+                  :options="['search']"
+                  @click="navigate"
+                />
               </router-link>
             </li>
           </ul>
         </Labeled>
       </div>
-      <div class="w-1/2 p-4">
+
+      <div class="flex-1">
         <Labeled label="Underordnade">
           <ul>
             <li v-for="term in children" :key="term.name" class="my-1">
@@ -62,16 +74,19 @@
                 :to="`/subjects/${term.name}`"
                 custom
               >
-                <Term class="mr-1 mb-1 cursor-pointer" @click="navigate">
-                  {{ term.prefLabel }}
-                </Term>
+                <Term
+                  class="mr-1 mb-1 cursor-pointer"
+                  :data="term"
+                  :options="['search']"
+                  @click="navigate"
+                />
               </router-link>
             </li>
           </ul>
         </Labeled>
       </div>
 
-      <div class="w-full p-4">
+      <div class="w-full">
         <Labeled label="Relaterade">
           <div class="py-1">
             <router-link
@@ -81,21 +96,24 @@
               :to="`/subjects/${term.name}`"
               custom
             >
-              <Term class="mr-1 my-1 cursor-pointer" @click="navigate">
-                {{ term.prefLabel }}
-              </Term>
+              <Term
+                class="mr-1 my-1 cursor-pointer"
+                :data="term"
+                :options="['search']"
+                @click="navigate"
+              />
             </router-link>
           </div>
         </Labeled>
       </div>
 
-      <div class="p-4 flex-1">
+      <div class="flex-1">
         <Labeled label="Motsvarar">
           <ExternalTermList :terms="term.exactMatch" />
         </Labeled>
       </div>
 
-      <div class="p-4 flex-1">
+      <div class="flex-1">
         <Labeled label="Motsvarar ungefär">
           <ExternalTermList :terms="term.closeMatch" />
         </Labeled>
@@ -113,9 +131,11 @@ import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
 import { useRoute } from "vue-router";
 import ExternalTermList from "@/terms/ExternalTermList.vue";
+import QButton from "@/components/QButton.vue";
 
 const route = useRoute();
-const { getParents, getChildren, getRelated, getTerm } = useTerms();
+const { getParents, getChildren, getRelated, getTerm, searchByTerm } =
+  useTerms();
 const { flag404 } = use404();
 
 const term = ref(null);
@@ -128,6 +148,7 @@ useTitle(computed(() => term.value && term.value.prefLabel));
 watchEffect(async () => {
   if (route.name != "Term") return;
   term.value = await getTerm(route.params.id).catch(flag404);
+  console.log(term.value);
   parents.value = [];
   children.value = [];
   related.value = [];

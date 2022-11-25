@@ -30,18 +30,8 @@
           :key="term"
           :data="term"
           class="mr-1 mb-1"
-          :options="[
-            {
-              label: `Sök på <em>${term._label}</em>`,
-              action: () => filterTerm(term),
-            },
-            {
-              label: `Om ämnesordet <em>${term._label}</em>`,
-              action: () => gotoTerm(term),
-            },
-          ]"
-        >
-        </Term>
+          :options="['search', 'goto']"
+        />
       </div>
       <div class="text-base my-1">
         <Term
@@ -49,14 +39,7 @@
           :key="term"
           :data="term"
           class="mr-1 mb-2"
-          :options="
-            term['@id'] && [
-              {
-                label: `Sök på <em>${term._label}</em>`,
-                action: () => filterTerm(term),
-              },
-            ]
-          "
+          :options="term['@id'] && ['search']"
         />
       </div>
     </Labeled>
@@ -126,9 +109,8 @@
 
 <script setup>
 import { computed, ref } from "@vue/reactivity";
-import { useStore } from "vuex";
 import { get } from "@/services/libris.service";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { watch } from "@vue/runtime-core";
 import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
@@ -136,10 +118,8 @@ import Term from "@/terms/Term.vue";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 
-const store = useStore();
-const router = useRouter();
 const route = useRoute();
-const { add, sortTerms } = useTerms();
+const { sortTerms } = useTerms();
 const { flag404 } = use404();
 
 const work = ref();
@@ -155,15 +135,5 @@ if (import.meta.env.DEV) {
   watch(work, () => {
     window.work = work.value;
   });
-}
-
-function filterTerm(term) {
-  add(term);
-  store.dispatch("search");
-  router.push("/");
-}
-
-function gotoTerm(term) {
-  router.push(`/subjects/${term.name}`);
 }
 </script>

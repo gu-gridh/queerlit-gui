@@ -38,16 +38,7 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-            :options="[
-              {
-                label: `Sök på <em>${term._label}</em>`,
-                action: () => filterTerm(term),
-              },
-              {
-                label: `Om ämnesordet <em>${term._label}</em>`,
-                action: () => gotoTerm(term),
-              },
-            ]"
+            :options="['search', 'goto']"
           />
         </div>
 
@@ -57,14 +48,7 @@
             :key="term"
             :data="term"
             class="mr-1 mb-2"
-            :options="
-              term['@id'] && [
-                {
-                  label: `Sök på <em>${term._label}</em>`,
-                  action: () => filterTerm(term),
-                },
-              ]
-            "
+            :options="term['@id'] && ['search']"
           />
         </div>
 
@@ -78,19 +62,15 @@
 
 <script setup>
 import { computed } from "@vue/reactivity";
-import { useStore } from "vuex";
 import Term from "@/terms/Term.vue";
 import useTerms from "@/terms/terms.composable";
-import { useRouter } from "vue-router";
 
 const props = defineProps({
   work: { type: Object, required: true },
   i: { type: Number, required: true },
 });
 
-const { add, sortTerms } = useTerms();
-const store = useStore();
-const router = useRouter();
+const { sortTerms } = useTerms();
 
 function ellipsis(text, limit) {
   if (text.length < limit) return text;
@@ -102,15 +82,6 @@ function ellipsis(text, limit) {
 }
 
 const terms = computed(() => sortTerms(props.work.terms));
-
-function filterTerm(term) {
-  add(term);
-  store.dispatch("search");
-}
-
-function gotoTerm(term) {
-  router.push(`/subjects/${term.name}`);
-}
 </script>
 
 <style></style>
