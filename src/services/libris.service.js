@@ -116,7 +116,7 @@ function processXlItem(item) {
     ?.map((c) => ({
       name: getPersonName(unarray(c.agent)),
       lifeSpan: unarray(c.agent).lifeSpan,
-      roles: enarray(c.role)?.map(getLabel),
+      roles: c.role && enarray(c.role).map(getLabel),
     }))
     .filter((c) => c.name);
   const publication = item.publication?.find((publication) => publication.year);
