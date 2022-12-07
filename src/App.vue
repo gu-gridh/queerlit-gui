@@ -56,6 +56,7 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
+import * as util from "@/util";
 import "@fontsource/barlow-condensed/latin-300.css";
 import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
@@ -72,6 +73,7 @@ if (import.meta.env.DEV) {
   window.state = state;
   window.libris = libris;
   window.terms = terms;
+  window.util = util;
 }
 </script>
 

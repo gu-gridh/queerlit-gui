@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-2">
+  <div>
     <div class="flex justify-between mb-1">
       <input
         v-model.number="range[0]"
@@ -35,22 +35,28 @@
       />
     </div>
 
-    <VueSlider
-      v-model="range"
-      :min="MIN"
-      :max="MAX"
-      tooltip="none"
-      :processStyle="{ backgroundColor: 'currentColor' }"
-      class="text-text"
-      @change="emitChange"
-    />
+    <div class="mx-1">
+      <Histogram :min="MIN" :max="MAX" class="-mb-2" />
+
+      <VueSlider
+        v-model="range"
+        :min="MIN"
+        :max="MAX"
+        tooltip="none"
+        :process-style="{ backgroundColor: 'currentColor' }"
+        class="text-text"
+        @change="emitChange"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "@vue/reactivity";
 import debounce from "lodash/debounce";
+// Docs: https://vue-3-slider-component.netlify.app/?path=/docs/
 import VueSlider from "vue-3-slider-component";
+import Histogram from "./Histogram.vue";
 
 const MIN = 1800;
 const MAX = new Date().getFullYear();
