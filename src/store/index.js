@@ -17,6 +17,7 @@ export default createStore({
     // Remember which nodes in the term tree are expanded,
     // but forget it if the term search query changes.
     termsExpanded: [],
+    histogram: {},
   },
   mutations: {
     setSearching(state, query) {
@@ -43,6 +44,10 @@ export default createStore({
         ? union(state.termsExpanded, [name])
         : without(state.termsExpanded, name);
     },
+    setHistogram(state, histogram) {
+      state.histogram = histogram;
+      console.log("setHistogram", histogram);
+    },
   },
   getters: {
     isSearching: (state) => state.currentSearch != null,
@@ -54,7 +59,7 @@ export default createStore({
         commit("setOffset", 0);
       }
       const query = state.query;
-      const { items, total } = await search(
+      const { items, total, histogram } = await search(
         query.text,
         query.terms,
         query.title,
@@ -66,6 +71,7 @@ export default createStore({
         state.offset
       );
       commit("setResults", items);
+      commit("setHistogram", histogram);
       commit("setTotal", total);
       commit("setSearching", false);
     },

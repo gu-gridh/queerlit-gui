@@ -1,4 +1,4 @@
-import { compareEmptyLast, enarray, unarray } from "@/util";
+import { enarray, unarray, urlBasename } from "@/util";
 import axios from "axios";
 
 export async function search(
@@ -53,6 +53,7 @@ export async function search(
   return {
     total: response.totalItems,
     items: response.items,
+    histogram: getHistogram(response.stats),
   };
 }
 
@@ -67,9 +68,10 @@ export async function get(id) {
 }
 
 export async function xlFindBooks(params) {
-  return xlFind(params).then(({ items, totalItems }) => ({
+  return xlFind(params).then(({ items, totalItems, stats }) => ({
     items: items.map(processXlItem),
     totalItems,
+    stats,
   }));
 }
 
@@ -234,6 +236,22 @@ export function getLabel(object) {
   if (object.prefLabelByLang) return object.prefLabelByLang.sv;
   if (object.prefLabel) return object.prefLabel;
   console.log("No label found", object);
+}
+
+function getHistogram(stats) {
+  /** @type {Array} */
+  const obs = stats?.sliceByDimension?.["publication.year"]?.observation;
+  if (!obs) {
+    console.error("No publication year stats", { stats });
+    return;
+  }
+  return obs.reduce((acc, ob) => {
+    const year = urlBasename(ob?.object?.label);
+    if (/^\d{4}$/.test(year)) {
+      acc[year] = ob.totalItems;
+    }
+    return acc;
+  }, {});
 }
 
 /** Build a string of a person's name. */
