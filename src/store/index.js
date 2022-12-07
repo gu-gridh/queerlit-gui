@@ -17,6 +17,7 @@ export default createStore({
     // Remember which nodes in the term tree are expanded,
     // but forget it if the term search query changes.
     termsExpanded: [],
+    error: null,
   },
   mutations: {
     setSearching(state, query) {
@@ -43,6 +44,12 @@ export default createStore({
         ? union(state.termsExpanded, [name])
         : without(state.termsExpanded, name);
     },
+    setError(state, message) {
+      state.error = message;
+      setTimeout(function () {
+        state.error = null;
+      }, 5000);
+    },
   },
   getters: {
     isSearching: (state) => state.currentSearch != null,
@@ -54,19 +61,25 @@ export default createStore({
         commit("setOffset", 0);
       }
       const query = state.query;
-      const { items, total } = await search(
-        query.text,
-        query.terms,
-        query.title,
-        query.author,
-        query.yearStart,
-        query.yearEnd,
-        query.genreform,
-        state.sort,
-        state.offset
-      );
-      commit("setResults", items);
-      commit("setTotal", total);
+      try {
+        const { items, total } = await search(
+          query.text,
+          query.terms,
+          query.title,
+          query.author,
+          query.yearStart,
+          query.yearEnd,
+          query.genreform,
+          state.sort,
+          state.offset
+        );
+        commit("setResults", items);
+        commit("setTotal", total);
+      } catch (error) {
+        if (!error.response) {
+          commit("setError", "Det går inte att nå Libris webbtjänst just nu");
+        }
+      }
       commit("setSearching", false);
     },
   },
