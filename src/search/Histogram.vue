@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import range from "lodash/range";
 import floor from "lodash/floor";
@@ -10,6 +10,8 @@ const props = defineProps({
 });
 
 const store = useStore();
+
+const focus = ref(null);
 
 const histogram = computed(() => store.state.histogram);
 const bars = computed(() =>
@@ -32,14 +34,21 @@ const maxHeight = computed(() =>
 </script>
 
 <template>
-  <div class="flex items-end h-12">
-    <div
-      v-for="bar in bars"
-      :key="bar.year"
-      class="bg-current flex-1"
-      :style="{ height: (bar.n / maxHeight) * 100 + '%' }"
-      :title="bar.year"
-    />
+  <div>
+    <div class="text-center text-xs h-4 whitespace-nowrap">
+      <span v-if="focus"> {{ focus.year }}-talet: {{ focus.n }} st </span>
+    </div>
+    <div class="flex items-end h-12">
+      <div
+        v-for="bar in bars"
+        :key="bar.year"
+        class="bg-current flex-1"
+        :style="{ height: (bar.n / maxHeight) * 100 + '%' }"
+        :title="bar.year"
+        @mouseover="focus = bar"
+        @mouseout="focus = null"
+      />
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-2">
+  <div>
     <div class="flex justify-between mb-1">
       <input
         v-model.number="range[0]"
@@ -35,17 +35,19 @@
       />
     </div>
 
-    <Histogram :min="MIN" :max="MAX" class="-mb-2" />
+    <div class="mx-1">
+      <Histogram :min="MIN" :max="MAX" class="-mb-2" />
 
-    <VueSlider
-      v-model="range"
-      :min="MIN"
-      :max="MAX"
-      tooltip="none"
-      :process-style="{ backgroundColor: 'currentColor' }"
-      class="text-text"
-      @change="emitChange"
-    />
+      <VueSlider
+        v-model="range"
+        :min="MIN"
+        :max="MAX"
+        tooltip="none"
+        :process-style="{ backgroundColor: 'currentColor' }"
+        class="text-text"
+        @change="emitChange"
+      />
+    </div>
   </div>
 </template>
 
