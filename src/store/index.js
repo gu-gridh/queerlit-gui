@@ -47,7 +47,6 @@ export default createStore({
     },
     setHistogram(state, histogram) {
       state.histogram = histogram;
-      console.log("setHistogram", histogram);
     },
     setError(state, message) {
       state.error = message;

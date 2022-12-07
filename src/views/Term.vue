@@ -148,7 +148,6 @@ useTitle(computed(() => term.value && term.value.prefLabel));
 watchEffect(async () => {
   if (route.name != "Term") return;
   term.value = await getTerm(route.params.id).catch(flag404);
-  console.log(term.value);
   parents.value = [];
   children.value = [];
   related.value = [];
