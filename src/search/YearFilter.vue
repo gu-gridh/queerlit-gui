@@ -35,12 +35,14 @@
       />
     </div>
 
+    <Histogram :min="MIN" :max="MAX" class="-mb-2" />
+
     <VueSlider
       v-model="range"
       :min="MIN"
       :max="MAX"
       tooltip="none"
-      :processStyle="{ backgroundColor: 'currentColor' }"
+      :process-style="{ backgroundColor: 'currentColor' }"
       class="text-text"
       @change="emitChange"
     />
@@ -50,7 +52,9 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 import debounce from "lodash/debounce";
+// Docs: https://vue-3-slider-component.netlify.app/?path=/docs/
 import VueSlider from "vue-3-slider-component";
+import Histogram from "./Histogram.vue";
 
 const MIN = 1800;
 const MAX = new Date().getFullYear();
