@@ -71,7 +71,7 @@ export async function get(id) {
   const item = await xlFind({ "@id": itemShort["@id"] }).then(
     (data) => data.items[0]
   );
-  instance.motivation = unarray(item.summary).label;
+  instance.motivation = unarray(item.summary)?.label;
   return instance;
 }
 
