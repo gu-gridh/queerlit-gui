@@ -64,7 +64,15 @@ export async function get(id) {
     console.error("get(id) result length should be 1", result);
     throw RangeError("get(id) result length should be 1");
   }
-  return result.items[0];
+  const instance = result.items[0];
+  const itemShort = instance._item["@reverse"].itemOf.find(
+    (i) => i.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
+  );
+  const item = await xlFind({ "@id": itemShort["@id"] }).then(
+    (data) => data.items[0]
+  );
+  instance.motivation = unarray(item.summary).label;
+  return instance;
 }
 
 export async function xlFindBooks(params) {

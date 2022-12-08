@@ -47,6 +47,10 @@
       {{ work.summary }}
     </Labeled>
 
+    <Labeled v-if="work.motivation" label="HBTQI-motiv" class="my-4">
+      {{ work.motivation }}
+    </Labeled>
+
     <div class="flex flex-wrap my-4 gap-y-2">
       <Labeled label="Omfång" class="w-full sm:w-1/2 pr-4">
         {{ work.extent || "–" }}
