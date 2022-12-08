@@ -36,7 +36,12 @@
     </div>
 
     <div class="mx-1">
-      <Histogram :min="MIN" :max="MAX" class="-mb-2" />
+      <Histogram
+        :min="MIN"
+        :max="MAX"
+        class="-mb-2 relative"
+        style="z-index: 3; /* The slider handle has z-index 5 */"
+      />
 
       <VueSlider
         v-model="range"
