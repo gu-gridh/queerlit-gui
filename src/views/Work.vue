@@ -57,17 +57,11 @@
       </Labeled>
 
       <Labeled label="Språk" class="w-full sm:w-1/2 pr-4">
-        <div v-for="(language, i) in work.languages" :key="i">
-          {{ language }}
-        </div>
-        <div v-if="!work.languages.length">—</div>
+        <ValueList :values="work.languages" />
       </Labeled>
 
       <Labeled label="Genre/form" class="w-full sm:w-1/2 pr-4">
-        <div v-for="(term, i) in work.genreform" :key="i">
-          {{ term._label }}
-        </div>
-        <div v-if="!work.genreform.length">—</div>
+        <ValueList :values="work.genreform.map((gf) => gf._label)" />
       </Labeled>
 
       <Labeled label="Anmärkning" class="w-full sm:w-1/2 pr-4">
@@ -75,31 +69,25 @@
       </Labeled>
 
       <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
-        <div v-for="{ type, code } in work.classification" :key="type + code">
-          <template v-if="type">{{ type }}: </template>
-          {{ code }}
-        </div>
-        <div v-if="!work.classification">—</div>
+        <ValueList
+          :values="
+            work.classification.map((c) =>
+              c.type ? `${c.type}: ${c.code}` : c.code
+            )
+          "
+        />
       </Labeled>
 
       <Labeled label="Identifierare" class="w-full sm:w-1/2 pr-4">
-        <div v-for="identifiedBy in work.identifiedBy" :key="identifiedBy">
-          {{ identifiedBy }}
-        </div>
+        <ValueList :values="work.identifiedBy" />
       </Labeled>
 
       <Labeled label="Publicering" class="w-full sm:w-1/2 pr-4">
-        <div v-for="publication in work.publication" :key="publication">
-          {{ publication }}
-        </div>
-        <div v-if="!work.publication">—</div>
+        <ValueList :values="work.publication" />
       </Labeled>
 
       <Labeled label="Målgrupp" class="w-full sm:w-1/2 pr-4">
-        <div v-for="audience in work.intendedAudience" :key="audience">
-          {{ audience }}
-        </div>
-        <div v-if="!work.intendedAudience">—</div>
+        <ValueList :values="work.intendedAudience" />
       </Labeled>
     </div>
 
@@ -121,6 +109,7 @@ import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
+import ValueList from "@/components/ValueList.vue";
 
 const route = useRoute();
 const { sortTerms } = useTerms();

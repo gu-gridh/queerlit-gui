@@ -5,14 +5,16 @@
     <p>Prova gärna att:</p>
     <ul class="list-disc pl-4">
       <li>
-        <router-link to="/">Söka efter verk Queerlit-bibliografin</router-link>
+        <router-link to="/"
+          >Söka efter verk i Queerlit-bibliografin</router-link
+        >
       </li>
       <li>
         <router-link to="/subjects"
           >Bläddra bland Queerlits ämnesord</router-link
         >
       </li>
-      <li><a href="https://queerlit.dh.gu.se/om/">Läs mer om projektet</a></li>
+      <li><a href="https://queerlit.dh.gu.se/om/">Läsa mer om projektet</a></li>
     </ul>
     <p>
       Om du har frågor eller tror att något är fel, hör gärna av dig till
