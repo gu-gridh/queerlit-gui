@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/verk/${work.id}`" class="block">
+  <router-link :to="`/work/${work.id}`" class="block">
     <article
       class="
         border-b border-dashed border-black

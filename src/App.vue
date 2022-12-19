@@ -66,7 +66,7 @@ const { is404 } = use404();
 const { state } = useStore();
 const route = useRoute();
 
-const isTitlesRoute = computed(() => route.fullPath.indexOf("/verk") === 0);
+const isTitlesRoute = computed(() => route.fullPath.indexOf("/work") === 0);
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {

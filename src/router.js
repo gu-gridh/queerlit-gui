@@ -14,7 +14,7 @@ const routes = [
     },
   },
   {
-    path: "/verk/:id",
+    path: "/work/:id",
     name: "Work",
     components: {
       side: SearchForm,
