@@ -43,7 +43,7 @@ const maxHeight = computed(() =>
         v-for="bar in bars"
         :key="bar.year"
         class="bg-current flex-1"
-        :style="{ height: (bar.n / maxHeight) * 100 + '%' }"
+        :style="{ height: maxHeight ? (bar.n / maxHeight) * 100 + '%' : 0 }"
         :title="bar.year"
         @mouseover="focus = bar"
         @mouseout="focus = null"

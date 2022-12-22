@@ -247,6 +247,7 @@ export function getLabel(object) {
 }
 
 function getHistogram(stats) {
+  if (!stats) return {};
   /** @type {Array} */
   const obs = stats?.sliceByDimension?.["publication.year"]?.observation;
   if (!obs) {
