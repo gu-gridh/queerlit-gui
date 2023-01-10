@@ -25,3 +25,9 @@ Search interface for the [Queerlit](https://queerlit.dh.gu.se/) database and the
   }
 }
 ```
+
+### Issue queue
+
+Issues are on GitHub: https://github.com/CDH-DevTeam/queerlit-gui/issues
+
+To get a sorted overview, run [`docs/issues.sh`](docs/issues.sh). It requires [jq](https://stedolan.github.io/jq/) and outputs CSV data, which you can save to a file and open in LibreOffice Calc or similar.
