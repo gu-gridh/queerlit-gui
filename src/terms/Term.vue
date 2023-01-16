@@ -5,6 +5,7 @@ import useTerms from "./terms.composable";
 
 const props = defineProps({
   data: Object,
+  secondary: Boolean,
   options: {
     type: Array,
     default: () => [],
@@ -76,7 +77,13 @@ function toggleMenu() {
         rounded-md
         shadow
       "
-      :class="[isQlit ? 'bg-tagyellow' : 'bg-gray-200']"
+      :class="[
+        isQlit
+          ? secondary
+            ? 'bg-tagyellow-bright'
+            : 'bg-tagyellow'
+          : 'bg-gray-200',
+      ]"
     >
       <slot>
         {{ data._label }}

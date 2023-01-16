@@ -65,6 +65,8 @@ export async function get(id) {
     throw RangeError("get(id) result length should be 1");
   }
   const instance = result.items[0];
+
+  // Get the Item record (QLIT's "copy" of the book)
   const itemShort = instance._item["@reverse"].itemOf.find(
     (i) => i.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
   );
@@ -72,6 +74,8 @@ export async function get(id) {
     (data) => data.items[0]
   );
   instance.motivation = unarray(item.summary)?.label;
+  instance.termsSecondary =
+    item.subject?.map(processXlTerm).filter((term) => term._label) || [];
   return instance;
 }
 

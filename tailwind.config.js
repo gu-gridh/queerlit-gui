@@ -21,7 +21,8 @@ module.exports = {
         "smoke-300": "#dfe5e2",
         "smoke-500": "#b5c0bd",
         qblue: "rgb(70, 150, 200)",
-        tagyellow: "rgb(255, 180, 0)",
+        tagyellow: "#FFB400",
+        "tagyellow-bright": "#FFD87A",
       },
       screens: {
         low: { raw: "(max-height: 1000px)" },

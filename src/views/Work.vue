@@ -29,17 +29,28 @@
           v-for="term in terms.qlit"
           :key="term"
           :data="term"
-          class="mr-1 mb-1"
           :options="['search', 'goto']"
+          class="mr-1 mb-1"
         />
       </div>
+      <div class="text-base my-1">
+        <Term
+          v-for="term in work.termsSecondary"
+          :key="term"
+          :data="term"
+          secondary
+          :options="['search', 'goto']"
+          class="mr-1 mb-1"
+        />
+      </div>
+
       <div class="text-base my-1">
         <Term
           v-for="term in terms.other"
           :key="term"
           :data="term"
-          class="mr-1 mb-2"
           :options="term['@id'] && ['search']"
+          class="mr-1 mb-2"
         />
       </div>
     </Labeled>
