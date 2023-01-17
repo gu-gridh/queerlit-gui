@@ -45,8 +45,25 @@
         :i="offset + i + 1"
       />
 
-      <div v-if="!results.length" class="my-8 text-center text-xl">
-        Inga träffar!
+      <div v-if="!results.length" class="q-body">
+        <h1 class="text-6xl my-10">Inga träffar</h1>
+        <p>Sökningen gav inga träffar i databasen.</p>
+        <p>
+          Se gärna våra
+          <a
+            href="https://queerlit.dh.gu.se/om/inklusionskriterier/"
+            title="Inklusionskriterier"
+            >inklusionskriterier</a
+          >
+          som handlar om vilka sorters titlar vi tar med och vilka vi behöver
+          utelämna.
+        </p>
+        <p>
+          Notera även att databasen är under uppbyggnad, och vi arbetar
+          fortfarande med att föra in all information. Om du saknar något verk,
+          eller har tips på ämnesord till något av verken, så vill vi gärna höra
+          av dig! Du når oss enklast på mejl: queerlit@lir.gu.se
+        </p>
       </div>
 
       <div class="p-6">
