@@ -1,6 +1,20 @@
 <template>
   <div class="bg-white rounded-xl shadow-lg">
-    <div class="py-8 px-6">
+    <div class="py-6 px-6">
+      <div class="mb-4">
+        <p class="mb-2">
+          Queerlit är en databas för svensk skönlitteratur som skildrar samkönat
+          begär och överskridanden av binära könsnormer. Det innefattar bland
+          annat – men inte enbart – skildringar av HBTQI-personer.
+        </p>
+        <p class="mb-2">
+          Databasen är under uppbyggnad, och vi arbetar fortfarande med att föra
+          in all information. Om du saknar något verk, eller har tips på
+          ämnesord till något av verken, så vill vi gärna höra av dig! Du når
+          oss enklast på mejl: queerlit@lir.gu.se
+        </p>
+      </div>
+
       <Freetext @search="search" />
     </div>
 
