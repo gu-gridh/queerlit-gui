@@ -1,6 +1,7 @@
 <script setup>
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
+import { useToggle } from "@vueuse/shared";
 import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
 import {
@@ -11,10 +12,14 @@ import {
 import useMulticomplete from "./multicomplete.composable";
 import Term from "@/terms/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
+import FreetextInstructions from "./FreetextInstructions.vue";
+import ToggleIcon from "@/components/ToggleIcon.vue";
 
 const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
 const terms = useTerms();
+
+const [showHelp, toggleHelp] = useToggle();
 
 const Multicomplete = useMulticomplete({
   qlit: searchConceptQlit,
@@ -62,25 +67,33 @@ function blur() {
 
 <template>
   <div v-on-click-outside="blur">
-    <input
-      type="search"
-      :value="text"
-      placeholder="Sök här..."
+    <div
       class="
         w-full
-        p-4
-        pb-3
+        flex
+        items-center
+        p-1
         bg-smoke-200
         hover:bg-smoke-300
         rounded-t
-        text-black text-xl
+        text-text text-xl
         shadow-inner
       "
       :class="{ 'rounded-b': !hasSuggestions }"
-      @input="textChange"
-      @keyup.enter="emit('search')"
-      @focus="textChange"
-    />
+    >
+      <input
+        type="search"
+        :value="text"
+        placeholder="Sök här..."
+        class="flex-1 bg-transparent p-3 pb-2"
+        @input="textChange"
+        @keyup.enter="emit('search')"
+        @focus="textChange"
+      />
+
+      <ToggleIcon icon="question" :value="showHelp" :toggle="toggleHelp" />
+    </div>
+
     <div class="relative h-0">
       <div
         v-if="hasSuggestions"
@@ -132,6 +145,8 @@ function blur() {
         </FreetextSuggestions>
       </div>
     </div>
+
+    <FreetextInstructions v-show="showHelp" />
   </div>
 </template>
 
