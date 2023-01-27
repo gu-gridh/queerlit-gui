@@ -41,7 +41,9 @@
           secondary
           :options="['search', 'goto']"
           class="mr-1 mb-1"
-        />
+        >
+        {{ term._label }} – perifert
+        </Term>
       </div>
 
       <div class="text-base my-1">
