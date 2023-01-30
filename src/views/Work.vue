@@ -56,12 +56,13 @@
         />
       </div>
     </Labeled>
-    <Labeled v-if="work.summary" label="Beskrivning" class="my-4">
-      {{ work.summary }}
+
+    <Labeled v-if="work.motivation" label="Queerlits beskrivning" class="my-4">
+      {{ work.motivation }}
     </Labeled>
 
-    <Labeled v-if="work.motivation" label="HBTQI-motiv" class="my-4">
-      {{ work.motivation }}
+    <Labeled v-if="work.summary" label="Förlagets beskrivning" class="my-4">
+      {{ work.summary }}
     </Labeled>
 
     <div class="flex flex-wrap my-4 gap-y-2">
