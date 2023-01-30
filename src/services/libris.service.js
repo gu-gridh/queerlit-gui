@@ -109,10 +109,10 @@ function processXlItem(item) {
       ?.map(processXlTerm)
       .filter((term) => term._label) || [];
 
-  processed.genreform =
-    item.instanceOf?.genreForm
-      ?.map(processXlTerm)
-      .filter((term) => term._label) || [];
+  processed.genreform = (item.instanceOf?.genreForm || [])
+    .map(processXlTerm)
+    .filter((term) => term._label)
+    .filter((term) => term.inScheme?.["@id"] !== "https://id.kb.se/marc");
 
   // Normalize some values.
   const hasTitle = item.hasTitle?.find((hasTitle) => hasTitle.mainTitle);
