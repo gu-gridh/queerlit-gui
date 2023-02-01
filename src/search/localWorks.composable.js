@@ -1,7 +1,9 @@
 import { useStore } from "vuex";
-import works from "@/assets/local-works.yaml";
-import useQuery from "./query.composable";
 import cloneDeep from "lodash/cloneDeep";
+import remove from "lodash/remove";
+import { enarray } from "@/util";
+import useQuery from "./query.composable";
+import works from "@/assets/local-works.yaml";
 
 Object.keys(works).forEach((id) => {
   const work = works[id];
@@ -18,8 +20,19 @@ export default function useLocalWorks() {
   const { commit } = useStore();
 
   function searchLocal() {
+    const results = cloneDeep(Object.values(works));
+
+    function filterResults(props, f) {
+      remove(results, (work) => !enarray(props).some((prop) => f(work[prop])));
+    }
+
     // TODO Apply query
-    commit("setLocalResults", cloneDeep(works));
+    if (text.value) {
+      filterResults(["title", "motivation"], (v) =>
+        v.toLowerCase().includes(text.value.toLowerCase())
+      );
+    }
+    commit("setLocalResults", results);
   }
 
   return {

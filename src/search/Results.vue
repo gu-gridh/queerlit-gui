@@ -82,8 +82,8 @@
         <h2 class="text-lg">Specialposter</h2>
       </header>
       <LocalWorkResultItem
-        v-for="(work, id, i) in localResults"
-        :key="id"
+        v-for="(work, i) in localResults"
+        :key="work.id"
         :work="work"
         :i="`S${i + 1}`"
       />
