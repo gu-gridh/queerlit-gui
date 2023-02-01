@@ -92,9 +92,11 @@ import YearFilter from "@/search/YearFilter.vue";
 import TermCombobox from "@/terms/TermCombobox.vue";
 import Autocomplete from "@/search/Autocomplete.vue";
 import QButton from "@/components/QButton.vue";
+import useSearch from "./search.composable";
 
 const store = useStore();
 const router = useRouter();
+const {doSearch} = useSearch()
 
 const {
   title,
@@ -130,7 +132,7 @@ async function search(focus = true) {
   if (focus) router.push("/");
   if (!store.getters.isSearching) {
     store.commit("setSearching", serializedQuery.value);
-    store.dispatch("search");
+    doSearch();
   }
 }
 

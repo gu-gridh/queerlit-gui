@@ -85,23 +85,26 @@ import { useStore } from "vuex";
 import useTitle from "@/views/title.composable";
 import WorkHit from "@/search/WorkHit.vue";
 import Pagination from "@/search/Pagination.vue";
+import useSearch from "./search.composable";
 
 const store = useStore();
+const { doSearch } = useSearch();
+useTitle();
+
 const sort = computed(() => store.state.sort);
 const results = computed(() => store.state.results);
 const total = computed(() => store.state.total);
 const offset = computed(() => store.state.offset);
 const isSearching = computed(() => store.getters.isSearching);
-useTitle();
 
 function setPage(page) {
   store.commit("setOffset", (page - 1) * 20);
-  store.dispatch("search", { retain: true });
+  doSearch({ retain: true });
 }
 
 function setSort(event) {
   store.commit("setSort", event.target.value);
-  store.dispatch("search");
+  doSearch();
 }
 </script>
 
