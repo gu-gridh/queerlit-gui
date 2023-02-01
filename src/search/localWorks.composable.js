@@ -17,7 +17,7 @@ Object.keys(works).forEach((id) => {
 });
 
 export default function useLocalWorks() {
-  const { text, terms } = useQuery();
+  const { text, terms, title } = useQuery();
   const { commit } = useStore();
 
   function searchLocal() {
@@ -38,6 +38,12 @@ export default function useLocalWorks() {
       filterResults(
         "terms",
         (workTerms) => intersectionBy(terms.value, workTerms, "@id").length
+      );
+    }
+
+    if (title.value) {
+      filterResults("title", (v) =>
+        v.toLowerCase().includes(title.value.trim().toLowerCase())
       );
     }
 
