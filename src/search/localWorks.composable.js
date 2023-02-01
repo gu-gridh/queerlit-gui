@@ -1,6 +1,7 @@
 import { useStore } from "vuex";
 import cloneDeep from "lodash/cloneDeep";
 import remove from "lodash/remove";
+import intersectionBy from "lodash/intersectionBy";
 import { enarray } from "@/util";
 import useQuery from "./query.composable";
 import works from "@/assets/local-works.yaml";
@@ -16,7 +17,7 @@ Object.keys(works).forEach((id) => {
 });
 
 export default function useLocalWorks() {
-  const { text } = useQuery();
+  const { text, terms } = useQuery();
   const { commit } = useStore();
 
   function searchLocal() {
@@ -29,9 +30,17 @@ export default function useLocalWorks() {
     // TODO Apply query
     if (text.value) {
       filterResults(["title", "motivation"], (v) =>
-        v.toLowerCase().includes(text.value.toLowerCase())
+        v.toLowerCase().includes(text.value.trim().toLowerCase())
       );
     }
+
+    if (terms.value.length) {
+      filterResults(
+        "terms",
+        (workTerms) => intersectionBy(terms.value, workTerms, "@id").length
+      );
+    }
+
     commit("setLocalResults", results);
   }
 
