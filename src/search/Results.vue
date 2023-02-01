@@ -79,7 +79,11 @@
 
     <div v-if="Object.values(localResults).length" class="bg-blue-50">
       <header class="p-1 px-2">
-        <h2 class="text-lg">Specialposter</h2>
+        <h2 class="text-lg">Specialtitlar</h2>
+        <p class="mt-1 text-sm">
+          Titlarna nedan kan inte katalogiseras i Libris på samma sätt som
+          övriga titlar. Av tekniska skäl visas de därför något annorlunda.
+        </p>
       </header>
       <LocalWorkResultItem
         v-for="(work, i) in localResults"
