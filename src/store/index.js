@@ -81,6 +81,7 @@ export default createStore({
         commit("setHistogram", histogram);
         commit("setTotal", total);
       } catch (error) {
+        console.error(error);
         if (!error.response) {
           commit("setError", "Det går inte att nå Libris webbtjänst just nu");
         }
