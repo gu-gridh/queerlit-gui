@@ -23,28 +23,31 @@ export default function useLocalWorks() {
   function searchLocal() {
     const results = cloneDeep(Object.values(works));
 
-    function filterResults(props, f) {
-      remove(results, (work) => !enarray(props).some((prop) => f(work[prop])));
-    }
+    const matchText = (v, s) =>
+      v.toLowerCase().includes(s.trim().toLowerCase());
 
-    // TODO Apply query
     if (text.value) {
-      filterResults(["title", "motivation"], (v) =>
-        v.toLowerCase().includes(text.value.trim().toLowerCase())
-      );
+      remove(results, (work) => {
+        const workText = [
+          work.title,
+          work.motivation,
+          ...work.creators.map((c) => `${c.name} ${c.lifeSpan}`),
+          ...work.terms.map((term) => term.prefLabel),
+          ...enarray(work.date),
+        ].join(" ");
+        return !matchText(workText, text.value);
+      });
     }
 
     if (terms.value.length) {
-      filterResults(
-        "terms",
-        (workTerms) => intersectionBy(terms.value, workTerms, "@id").length
+      remove(
+        results,
+        (work) => !intersectionBy(work.terms, terms.value, "@id").length
       );
     }
 
     if (title.value) {
-      filterResults("title", (v) =>
-        v.toLowerCase().includes(title.value.trim().toLowerCase())
-      );
+      remove(results, (work) => !matchText(work.title, title.value));
     }
 
     commit("setLocalResults", results);
