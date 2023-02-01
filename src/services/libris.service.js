@@ -257,8 +257,7 @@ function getHistogram(stats) {
   /** @type {Array} */
   const obs = stats?.sliceByDimension?.["publication.year"]?.observation;
   if (!obs) {
-    console.error("No publication year stats", { stats });
-    return;
+    return {};
   }
   return obs.reduce((acc, ob) => {
     const year = urlBasename(ob?.object?.label);
