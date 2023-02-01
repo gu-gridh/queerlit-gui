@@ -1,0 +1,18 @@
+charlotta:
+  #id: "https://libris.kb.se/1jb74b1c4qq44xp"
+  title: Hedvig Elisabeth Charlotta, dagbok
+  creators:
+    - name: Hedvig Elisabeth Charlotta
+      lifeSpan: 1759–1818
+  date: [1775, 1817]
+  motivation: Hedvig Elisabeth Charlotta, senare drottning av Sverige och Norge, beklagade sig i sin dagbok över den sexuella lössläppthet och de "italienska seder" – det vill säga sex mellan män – som dåvarande kung Gustaf III ska ha ägnat sig åt. Se främst dagboksnoterineringarna från september 1784, september 1787 och november 1791. Dagboken skrevs på franska under decennierna kring sekelskiftet 1700/1800. I Queerlit finns den svenska översättningen, som gavs ut i början av 1900-talet.
+  terms:
+    - "@id": "https://queerlit.dh.gu.se/qlit/v1/mw94xh06"
+      prefLabel: Ryktesspridning (HBTQI)
+      inScheme:
+        "@id": "https://queerlit.dh.gu.se/qlit/v1"
+    - "@id": "https://queerlit.dh.gu.se/qlit/v1/vg32jf51"
+      prefLabel: Män som har sex med män
+      inScheme:
+        "@id": "https://queerlit.dh.gu.se/qlit/v1"
+  librisUrl: https://libris.kb.se/bib/8207711

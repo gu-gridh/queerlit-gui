@@ -20,7 +20,7 @@
         </div>
       </Labeled>
       <Labeled label="Utgivningsår" class="w-full sm:w-1/2 pr-4">
-        {{ work.date }}
+        {{ Array.isArray(work.date) ? work.date.join("–") : work.date }}
       </Labeled>
     </div>
     <Labeled label="Ämnesord" class="my-4 text-lg">
@@ -42,7 +42,7 @@
           :options="['search', 'goto']"
           class="mr-1 mb-1"
         >
-        {{ term._label }} – perifert
+          {{ term._label }} – perifert
         </Term>
       </div>
 
@@ -114,8 +114,7 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { computed, watchEffect } from "vue";
 import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
@@ -125,8 +124,8 @@ const props = defineProps({
   work: {
     type: Object,
     required: true,
-  }
-})
+  },
+});
 
 const { sortTerms } = useTerms();
 
@@ -134,7 +133,7 @@ const terms = computed(() => sortTerms(props.work.terms));
 
 // Expose full data to developer console.
 if (import.meta.env.DEV) {
-  watch(props.work, () => {
+  watchEffect(() => {
     window.work = props.work;
   });
 }
