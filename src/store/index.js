@@ -9,6 +9,7 @@ export default createStore({
   },
   state: {
     results: null,
+    localResults: null,
     total: 0,
     sort: "-meta.modified",
     offset: 0,
@@ -26,6 +27,9 @@ export default createStore({
     },
     setResults(state, results) {
       state.results = results;
+    },
+    setLocalResults(state, results) {
+      state.localResults = results;
     },
     setTotal(state, total) {
       state.total = total;

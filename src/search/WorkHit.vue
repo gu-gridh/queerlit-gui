@@ -28,7 +28,7 @@
                 {{ creator.name }}
               </div>
             </div>
-            {{ work.date }}
+            {{ Array.isArray(work.date) ? work.date.join("–") : work.date }}
           </div>
         </div>
 
@@ -67,7 +67,7 @@ import useTerms from "@/terms/terms.composable";
 
 const props = defineProps({
   work: { type: Object, required: true },
-  i: { type: Number, required: true },
+  i: { type: [Number, String], required: true },
 });
 
 const { sortTerms } = useTerms();

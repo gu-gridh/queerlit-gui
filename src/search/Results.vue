@@ -76,6 +76,18 @@
         />
       </div>
     </div>
+
+    <div v-if="Object.values(localResults).length" class="bg-blue-50">
+      <header class="p-1 px-2">
+        <h2 class="text-lg">Specialposter</h2>
+      </header>
+      <WorkHit
+        v-for="(work, id, i) in localResults"
+        :key="id"
+        :work="work"
+        :i="`S${i + 1}`"
+      />
+    </div>
   </div>
 </template>
 
@@ -96,6 +108,7 @@ const results = computed(() => store.state.results);
 const total = computed(() => store.state.total);
 const offset = computed(() => store.state.offset);
 const isSearching = computed(() => store.getters.isSearching);
+const localResults = computed(() => store.state.localResults);
 
 function setPage(page) {
   store.commit("setOffset", (page - 1) * 20);

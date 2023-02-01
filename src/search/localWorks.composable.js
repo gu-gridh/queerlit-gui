@@ -1,4 +1,7 @@
+import { useStore } from "vuex";
 import works from "@/assets/local-works.yaml";
+import useQuery from "./query.composable";
+import cloneDeep from "lodash/cloneDeep";
 
 Object.values(works).forEach((work) => {
   work.genreform = [];
@@ -9,7 +12,16 @@ Object.values(works).forEach((work) => {
 });
 
 export default function useLocalWorks() {
+  const { query } = useQuery();
+  const { commit } = useStore();
+
+  function searchLocal() {
+    // TODO Apply query
+    commit("setLocalResults", cloneDeep(works));
+  }
+
   return {
+    searchLocal,
     works,
   };
 }
