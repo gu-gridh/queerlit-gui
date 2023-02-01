@@ -13,6 +13,7 @@ Object.keys(works).forEach((id) => {
   work.classification = [];
   work.terms.forEach((term) => {
     term._label = term.prefLabel;
+    term.inScheme = { "@id": "https://queerlit.dh.gu.se/qlit/v1" };
   });
 });
 

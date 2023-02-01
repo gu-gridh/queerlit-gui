@@ -1,5 +1,4 @@
 charlotta:
-  #id: "https://libris.kb.se/1jb74b1c4qq44xp"
   title: Hedvig Elisabeth Charlotta, dagbok
   creators:
     - name: Hedvig Elisabeth Charlotta
@@ -7,12 +6,30 @@ charlotta:
   date: [1775, 1817]
   motivation: Hedvig Elisabeth Charlotta, senare drottning av Sverige och Norge, beklagade sig i sin dagbok över den sexuella lössläppthet och de "italienska seder" – det vill säga sex mellan män – som dåvarande kung Gustaf III ska ha ägnat sig åt. Se främst dagboksnoterineringarna från september 1784, september 1787 och november 1791. Dagboken skrevs på franska under decennierna kring sekelskiftet 1700/1800. I Queerlit finns den svenska översättningen, som gavs ut i början av 1900-talet.
   terms:
-    - "@id": "https://queerlit.dh.gu.se/qlit/v1/mw94xh06"
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
       prefLabel: Ryktesspridning (HBTQI)
-      inScheme:
-        "@id": "https://queerlit.dh.gu.se/qlit/v1"
-    - "@id": "https://queerlit.dh.gu.se/qlit/v1/vg32jf51"
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/vg32jf51
       prefLabel: Män som har sex med män
-      inScheme:
-        "@id": "https://queerlit.dh.gu.se/qlit/v1"
   librisUrl: https://libris.kb.se/bib/8207711
+
+birgitta:
+  title: Heliga Birgitta, Uppenbarelser
+  creators:
+    - name: Birgitta
+      lifeSpan: 1303–1373
+  date: [1300, 1399]
+  motivation: I helgonet Heliga Birgittas "Uppenbarelser" finns flera antydningar om kung Magnus Erikssons påstådda sodomi. Bland annat berättar Djävulen att han uppmanat kungen att begå "vissa synder, som han inte vågade utföra öppet" (Lib VIII, cab. 56) och på ett annat ställe sägs kungens och hans hustrus kyskhetslöfte bero på att kungen börjat känna ett "nytt begär" (Lib. VIII, cap. II, s. 99). Heliga Birgittas "Uppenbarelser" dikterades av henne själv på svenska under 1300-talet, men nedteckades på latin. De har därefter översatts till svenska flera gånger. I Queerlit finns en vetenskaplig utgåva från 2000-talet.
+  terms: []
+  librisUrl: https://libris.kb.se/bib/8859120
+
+kristina-historia:
+  title: Drottning Kristinas historia, skriven av henne själv
+  creators:
+    - name: Kristina
+      lifeSpan: 1626–1689
+  date: [1670, 1689]
+  motivation: Många har spekulerat i drottning Kristinas kön och sexualitet, och i sin självbiografi skriver Kristina bland annat om sin tacksamhet över att ha fått en själ "helt manlig, liksom resten av min kropp". Självbiografin skrevs på franska, troligen under 1670- och 1680-talet, men fullbordades aldrig. Den utgåva som finns med i Queerlit är en långt senare, svensk översättning.
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/he13pb69
+      prefLabel: Könsöverskridanden
+  librisUrl: https://libris.kb.se/bib/10254005

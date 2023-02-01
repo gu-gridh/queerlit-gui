@@ -71,7 +71,7 @@
       />
     </div>
 
-    <div v-if="!total" class="q-body">
+    <div v-if="!isSearching && !total" class="q-body">
       <h1 class="text-6xl my-10">Inga träffar</h1>
       <p>Sökningen gav inga träffar i databasen.</p>
       <p>
