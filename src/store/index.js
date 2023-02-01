@@ -8,7 +8,7 @@ export default createStore({
   },
   state: {
     results: null,
-    localResults: {},
+    localResults: [],
     total: 0,
     sort: "-meta.modified",
     offset: 0,
