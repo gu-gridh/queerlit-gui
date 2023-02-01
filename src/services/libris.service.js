@@ -34,11 +34,13 @@ export async function search(
   }
 
   if (yearStart) {
-    params.set("min-publication.year", yearStart);
+    // Libris cannot handle a date value under 1000.
+    // There are no such old titles in Libris anyway, so coercing to 1000 doesn't affect result.
+    params.set("min-publication.year", Math.max(yearStart, 1000));
   }
 
   if (yearEnd) {
-    params.set("max-publication.year", yearEnd);
+    params.set("max-publication.year", Math.max(yearEnd, 1000));
   }
 
   params.set("@reverse.itemOf.heldBy.@id", "https://libris.kb.se/library/QLIT");

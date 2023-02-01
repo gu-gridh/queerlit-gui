@@ -2,7 +2,6 @@ import { useStore } from "vuex";
 import cloneDeep from "lodash/cloneDeep";
 import remove from "lodash/remove";
 import intersectionBy from "lodash/intersectionBy";
-import { enarray } from "@/util";
 import useQuery from "./query.composable";
 import works from "@/assets/local-works.yaml";
 
@@ -17,7 +16,7 @@ Object.keys(works).forEach((id) => {
 });
 
 export default function useLocalWorks() {
-  const { text, terms, title } = useQuery();
+  const { text, terms, title, yearStart, yearEnd } = useQuery();
   const { commit } = useStore();
 
   function searchLocal() {
@@ -33,7 +32,7 @@ export default function useLocalWorks() {
           work.motivation,
           ...work.creators.map((c) => `${c.name} ${c.lifeSpan}`),
           ...work.terms.map((term) => term.prefLabel),
-          ...enarray(work.date),
+          ...work.date,
         ].join(" ");
         return !matchText(workText, text.value);
       });
@@ -48,6 +47,14 @@ export default function useLocalWorks() {
 
     if (title.value) {
       remove(results, (work) => !matchText(work.title, title.value));
+    }
+
+    if (yearStart.value) {
+      remove(results, (work) => work.date[1] < yearStart.value);
+    }
+
+    if (yearEnd.value) {
+      remove(results, (work) => work.date[0] > yearEnd.value);
     }
 
     commit("setLocalResults", results);
