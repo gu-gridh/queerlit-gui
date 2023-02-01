@@ -9,15 +9,15 @@ import {
   searchTerms,
 } from "@/services/terms.service";
 import negate from "lodash/negate";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { urlBasename } from "@/util";
+import useSearch from "@/search/search.composable";
 
 export default function useTerms() {
   const router = useRouter();
-  const store = useStore();
   const { terms, setQuery } = useQuery();
   const suggestions = ref([]);
+  const { doSearch } = useSearch();
 
   function add(term) {
     if (!terms.value.find((term2) => term2["@id"] == term["@id"]))
@@ -52,7 +52,7 @@ export default function useTerms() {
 
   function searchByTerm(term) {
     add(term);
-    store.dispatch("search");
+    doSearch();
     router.push("/");
   }
 

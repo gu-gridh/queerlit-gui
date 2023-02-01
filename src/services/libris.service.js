@@ -157,7 +157,7 @@ function processXlItem(item) {
       c["@type"] == "ClassificationDdc"
         ? { type: "DDC", code: c.code }
         : c.inScheme
-        ? { type: c.inScheme.code.replace("kssb", "SAB"), code: c.code }
+        ? { type: c.inScheme.code?.replace("kssb", "SAB"), code: c.code }
         : null
     )
     .filter(Boolean);
