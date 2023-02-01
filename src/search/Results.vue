@@ -38,7 +38,7 @@
           </select>
         </div>
       </div>
-      <WorkHit
+      <WorkResultItem
         v-for="(work, i) in results"
         :key="work['@id']"
         :work="work"
@@ -81,7 +81,7 @@
       <header class="p-1 px-2">
         <h2 class="text-lg">Specialposter</h2>
       </header>
-      <WorkHit
+      <LocalWorkResultItem
         v-for="(work, id, i) in localResults"
         :key="id"
         :work="work"
@@ -95,7 +95,8 @@
 import { computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useTitle from "@/views/title.composable";
-import WorkHit from "@/search/WorkHit.vue";
+import WorkResultItem from "./WorkResultItem.vue";
+import LocalWorkResultItem from "./LocalWorkResultItem.vue";
 import Pagination from "@/search/Pagination.vue";
 import useSearch from "./search.composable";
 

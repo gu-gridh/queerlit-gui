@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/work/${work.id}`" class="block">
+  <router-link :to="to" class="block">
     <article
       class="
         border-b border-dashed border-black
@@ -19,16 +19,16 @@
       <div class="flex-1">
         <div class="flex flex-wrap items-baseline gap-x-6 mb-2">
           <h3 class="w-64 flex-grow mb-1 text-xl group-hover:underline">
-            {{ work.title }}
+            {{ title }}
           </h3>
 
           <div class="w-48 flex-grow">
             <div class="flex flex-wrap">
-              <div v-for="creator in work.creators" :key="creator" class="mr-4">
+              <div v-for="(creator, i) in creators" :key="i" class="mr-4">
                 {{ creator.name }}
               </div>
             </div>
-            {{ Array.isArray(work.date) ? work.date.join("–") : work.date }}
+            {{ date }}
           </div>
         </div>
 
@@ -52,8 +52,8 @@
           />
         </div>
 
-        <div v-if="work.summary" class="my-2 text-sm">
-          {{ ellipsis(work.summary, 80) }}
+        <div v-if="summary" class="my-2 text-sm">
+          {{ ellipsis(summary, 80) }}
         </div>
       </div>
     </article>
@@ -61,27 +61,23 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity";
-import Term from "@/terms/Term.vue";
+import { computed } from "vue";
+import { ellipsis } from "@/util";
 import useTerms from "@/terms/terms.composable";
+import Term from "@/terms/Term.vue";
 
 const props = defineProps({
-  work: { type: Object, required: true },
   i: { type: [Number, String], required: true },
+  title: { type: String, required: true },
+  to: { type: [String, Object], required: true },
+  creators: { type: Array, default: () => [] },
+  date: { type: String, default: () => null },
+  terms: { type: Array, default: () => [] },
+  summary: { type: String, default: () => null },
 });
 
 const { sortTerms } = useTerms();
-
-function ellipsis(text, limit) {
-  if (text.length < limit) return text;
-  // 1. Truncate; 2. Strip possibly incomplete trailing word; 3. Add ellipsis
-  return text
-    .substring(0, 200)
-    .replace(/\p{L}+$/u, "")
-    .replace(/\P{L}$/u, "…");
-}
-
-const terms = computed(() => sortTerms(props.work.terms));
+const terms = computed(() => sortTerms(props.terms));
 </script>
 
 <style></style>
