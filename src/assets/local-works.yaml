@@ -41,6 +41,106 @@ kristina-historia:
       prefLabel: Könsöverskridanden
   librisUrl: https://libris.kb.se/bib/10254005
 
+ebbasparre:
+  title: Drottning Kristinas brev till Ebba Sparre
+  creators:
+    - name: Kristina
+      lifeSpan: 1626–1689
+  date:
+    label: 1600-tal
+    min: 1600
+    max: 1699
+  motivation: I detta urval av drottning Kristinas brev ingår bland annat brev från Kristina till hovdamen Ebba Sparre, som beskrivits som Kristinas älskarinna. Eva Haettner Aurelius har konstaterat, i artikeln "Drottning Kristinas brev till Ebba Sparre – galanta brev eller kärleksbrev?" (2014), har konstaterat att de till övervägande del är utformade som kärleksbrev riktade till en kvinna från en man. Breven skrevs på franska i slutet av 1600-talet. Queerlit innehåller den långt senare, svenska översättningen.
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/px69nf52
+      prefLabel: Kärlek mellan kvinnor
+  librisUrl: https://libris.kb.se/bib/8074345
+
+johannesmagnus:
+  title: Johannes Magnus, Goternas och svearnas historia
+  creators:
+    - name: Johannes Magnus
+      lifeSpan: 1488–1544
+  date: 1544
+  motivation: En av de kungar som nämns i den fantasifulla regentlängden är Gostag, som i kapitel 40 av den åttonde boken inte bara sägs ägna sig åt "de mest smutsiga samlag" utan också om nätterna klär sig i kvinnodräkt och uppträder "som en förvekligad gycklare". Verket gavs först ut 1554, då på latin. I Queerlit finns den svenska översättningen.
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/ty33ci85
+      prefLabel: Feminiserande crossdressing
+  librisUrl: https://libris.kb.se/bib/jsj8kxbmgg21rnk3
+
+grifte:
+  title: Grifte Runor
+  date: 1792
+  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften anklagas han (bland mycket annat) för att vara sodomit. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Texten skrevs 1792 och finns bevarad i flera versioner. I tryckt form finns den bara publicerad i Mattsons avhandling.
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
+      prefLabel: Ryktesspridning (HBTQI)
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/mo71rb07
+      prefLabel: Sodomi
+
+jungfrun:
+  title: Jungfrun hämtar sin fästman
+  date:
+    label: 1200-1500-tal
+    min: 1200
+    max: 1599
+  motivation: Medeltida ballad om en kvinna som vinner sin älskade tillbaka genom att klä ut sig till hans systerson. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades på 1830- eller 1840-talet. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1990, band 3).
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/ny05rj22
+      prefLabel: Maskuliniserande crossdressing
+  librisUrl: https://libris.kb.se/bib/382080
+
+kerstin:
+  title: Kerstin Stalldräng
+  date:
+    label: 1200-1500-tal
+    min: 1200
+    max: 1599
+  motivation: Medeltida ballad om en ung kvinna som skär av sig håret och får tjänst som stalldräng, men blir gravid med kungens son och avslöjas av sin växande mage. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades 1811. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1996, band 4:2).
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/ny05rj22
+      prefLabel: Maskuliniserande crossdressing
+  librisUrl: https://libris.kb.se/bib/8205813
+
+revolution:
+  title: Kort Berättelse om 1789 Års Revolution och dess orsaker
+  date:
+    label: 1790-tal
+    min: 1790
+    max: 1799
+  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften kallas baron Armfeldt för kungens "maitresse", det vill säga älskarinna. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Texten skrevs troligen på 1790-talet och har publicerats i Mattsons avhandling.
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
+      prefLabel: Ryktesspridning (HBTQI)
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/vg32jf51
+      prefLabel: Män som har sex med män
+
+lanterna:
+  title: Lanterna Magica
+  date:
+    label: 1780-tal
+    min: 1780
+    max: 1789
+  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften finns flera anspelningar på kungens sexuella intresse för män. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Den här texten skrevs på 1780-talet och gavs ursprungligen ut tillsammans med bilder. Den finns bevarad i flera versioner som handskrift, men den enda nutida publiceringen är i Mattsons avhandling.
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
+      prefLabel: Ryktesspridning (HBTQI)
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/vg32jf51
+      prefLabel: Män som har sex med män
+  librisUrl: https://libris.kb.se/bib/11929579
+
+malkolm:
+  title: Riddar Malkolm fängslas för häststöld
+  date:
+    label: 1200-1500-tal
+    min: 1200
+    max: 1599
+  motivation: Medeltida ballad om en riddare som fängslas av kungen men räddas av sin "jungfru", som fritar honom klädd i riddardräkt. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades i början av 1800-talet. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1996, band 4:1).
+  terms:
+    - "@id": https://queerlit.dh.gu.se/qlit/v1/ny05rj22
+      prefLabel: Maskuliniserande crossdressing
+  librisUrl: https://libris.kb.se/bib/8205812
+
 magnusson:
   title: Magnusson, Transvestiten
   date: 1930

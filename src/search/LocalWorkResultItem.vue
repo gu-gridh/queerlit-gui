@@ -6,7 +6,7 @@
     :creators="work.creators"
     :date="work.date.label"
     :terms="work.terms"
-    :summary="work.summary"
+    :summary="work.motivation"
   />
 </template>
 

@@ -9,6 +9,7 @@ import works from "@/assets/local-works.yaml";
 Object.keys(works).forEach((id) => {
   const work = works[id];
   work.id = id;
+  work.creators = work.creators || [];
   work.date = Number.isInteger(work.date)
     ? { label: String(work.date), min: work.date, max: work.date }
     : work.date;
