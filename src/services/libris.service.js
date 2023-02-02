@@ -152,8 +152,8 @@ function processXlItem(item) {
       (i.qualifier ? ` (${unarray(i.qualifier)})` : "")
   );
 
-  processed.classification = item.instanceOf?.classification
-    ?.map((c) =>
+  processed.classification = (item.instanceOf?.classification || [])
+    .map((c) =>
       c["@type"] == "ClassificationDdc"
         ? { type: "DDC", code: c.code }
         : c.inScheme
