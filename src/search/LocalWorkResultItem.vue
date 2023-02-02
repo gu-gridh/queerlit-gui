@@ -4,14 +4,13 @@
     :to="`/special/${work.id}`"
     :title="work.title"
     :creators="work.creators"
-    :date="enarray(work.date).join('–')"
+    :date="work.date.label"
     :terms="work.terms"
     :summary="work.summary"
   />
 </template>
 
 <script setup>
-import { enarray } from "@/util";
 import ResultItem from "./ResultItem.vue";
 
 defineProps({

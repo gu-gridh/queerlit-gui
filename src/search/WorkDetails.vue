@@ -20,7 +20,7 @@
         </div>
       </Labeled>
       <Labeled label="Utgivningsår" class="w-full sm:w-1/2 pr-4">
-        {{ Array.isArray(work.date) ? work.date.join("–") : work.date }}
+        {{ work.date }}
       </Labeled>
     </div>
     <Labeled label="Ämnesord" class="my-4 text-lg">

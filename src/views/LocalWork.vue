@@ -15,6 +15,7 @@ const { flag404 } = use404();
 const { works } = useLocalWorks();
 
 const work = works[route.params.id];
+work.date = work.date.label;
 if (!work) flag404();
 useTitle(computed(() => work?.title));
 </script>

@@ -3,7 +3,9 @@ charlotta:
   creators:
     - name: Hedvig Elisabeth Charlotta
       lifeSpan: 1759–1818
-  date: [1775, 1817]
+  date:
+    min: 1775
+    max: 1817
   motivation: Hedvig Elisabeth Charlotta, senare drottning av Sverige och Norge, beklagade sig i sin dagbok över den sexuella lössläppthet och de "italienska seder" – det vill säga sex mellan män – som dåvarande kung Gustaf III ska ha ägnat sig åt. Se främst dagboksnoterineringarna från september 1784, september 1787 och november 1791. Dagboken skrevs på franska under decennierna kring sekelskiftet 1700/1800. I Queerlit finns den svenska översättningen, som gavs ut i början av 1900-talet.
   terms:
     - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
@@ -17,9 +19,11 @@ birgitta:
   creators:
     - name: Birgitta
       lifeSpan: 1303–1373
-  date: [1300, 1399]
+  date:
+    label: 1300-tal
+    min: 1300
+    max: 1399
   motivation: I helgonet Heliga Birgittas "Uppenbarelser" finns flera antydningar om kung Magnus Erikssons påstådda sodomi. Bland annat berättar Djävulen att han uppmanat kungen att begå "vissa synder, som han inte vågade utföra öppet" (Lib VIII, cab. 56) och på ett annat ställe sägs kungens och hans hustrus kyskhetslöfte bero på att kungen börjat känna ett "nytt begär" (Lib. VIII, cap. II, s. 99). Heliga Birgittas "Uppenbarelser" dikterades av henne själv på svenska under 1300-talet, men nedteckades på latin. De har därefter översatts till svenska flera gånger. I Queerlit finns en vetenskaplig utgåva från 2000-talet.
-  terms: []
   librisUrl: https://libris.kb.se/bib/8859120
 
 kristina-historia:
@@ -27,9 +31,48 @@ kristina-historia:
   creators:
     - name: Kristina
       lifeSpan: 1626–1689
-  date: [1670, 1689]
+  date:
+    label: 1670–1680-tal
+    min: 1670
+    max: 1689
   motivation: Många har spekulerat i drottning Kristinas kön och sexualitet, och i sin självbiografi skriver Kristina bland annat om sin tacksamhet över att ha fått en själ "helt manlig, liksom resten av min kropp". Självbiografin skrevs på franska, troligen under 1670- och 1680-talet, men fullbordades aldrig. Den utgåva som finns med i Queerlit är en långt senare, svensk översättning.
   terms:
     - "@id": https://queerlit.dh.gu.se/qlit/v1/he13pb69
       prefLabel: Könsöverskridanden
   librisUrl: https://libris.kb.se/bib/10254005
+
+magnusson:
+  title: Magnusson, Transvestiten
+  date: 1930
+  motivation: Jagberättaren har en arbetskamrat som alltid bär damkängor och korsett. De två blir vänner, och så småningom berättar arbetskamraten om sin transvestism. Novellen skrevs 1930 men publicerades aldrig under författarens livstid. Den upptäcktes av Magnus Ottelid, och publicerades i dennes Magnusson-biografi "Skriftställaren" (2020).
+
+bruce:
+  title: Bruce, En sannfärdig historia
+  date:
+    label: 1870-tal
+    min: 1870
+    max: 1879
+  motivation: Andreas Bruce är en av mycket få män som innan 1900-talet berättat om att ha tilldelats kvinnligt kön. Memoarerna innehåller i vissa delar detaljerad redogörelse för hans liv, och han skildrar bland annat – troligen som den första mannen i världen – sin graviditet och hur han föder ett barn. Som 16-åring besökte han en läkare för att få ett intyg om sin maskulinitet, och förklarades då "“i hög grade Hermaphrodite eller tvåkönad”. Därefter tycks han i det stora hela ha accepterats som man av omgivningen. Litteraturhistorikern Sam Holmqvist har i artikeln "A man and a perpetuum mobile?" (Gender & history, 2021) beskrivit det som att Bruce tilldelades könet "hermafrodit". Själv beskriver han dock, enligt Holmqvist, snarare sig själv som entydigt man, men som en rörlig sådan. Det begrepp han själv använde om transitionen är "omklädnad". Memoarerna skrevs på 1870-talet, men gavs aldrig ut under hans livstid. Det bevarades som handskrift av hans släktingar, och gavs ut av litteraturvetaren Inger Littberger Caisou-Rousseau i boken "Therese Andreas Bruce" (2014) tillsammans med Bruces brev till sin dotter.
+
+bjorketorp:
+  title: Björketorpsstenen, DR 360
+  date:
+    label: 600-tal
+    min: 600
+    max: 699
+  motivation: Inskriften på denna runsten liknar den på "Stentoftenstenen". Den hotar, i likhet med även "Salebystenen", med att den som förstör stenen kommer att drabbas av “arghet” (de fornnordiska begreppen argr, ragr eller i substantivform ergi). Begreppets betydelse är inte helt och hållet klarlagd, men det kan bland annat översättas med omanlighet eller perversitet. Runstenen är från yngre järnåldern, och har daterats till senare hälften av 600-talet.
+
+stentoften:
+  title: Stentoftenstenen, DR 357
+  date:
+    label: 600-tal
+    min: 600
+    max: 699
+  motivation: Inskriften på denna runsten liknar den på "Björketorpsstenen". Den hotar, i likhet med även "Salebystenen", med att den som förstör stenen kommer att drabbas av “arghet” (de fornnordiska begreppen argr, ragr eller i substantivform ergi). Begreppets betydelse är inte helt och hållet klarlagd, men det kan bland annat översättas med omanlighet eller perversitet. Runstenen är från yngre järnåldern, och har daterats till mitten av 600-talet.
+
+saleby:
+  title: Salebystenen, VG 67
+  date:
+    min: 980
+    max: 1015
+  motivation: Inskriften på denna runsten hotar, i likhet med "Björkebystenen" och "Stentoftenstenen", med att den som förstör stenen kommer att drabbas av “arghet” (de fornnordiska begreppen argr, ragr eller i substantivform ergi). Begreppets betydelse är inte helt och hållet klarlagd, men det kan bland annat översättas med omanlighet eller perversitet. Runstenen är från vikingatiden, och har daterats till sent 900-tal till tidigt 1000-tal.

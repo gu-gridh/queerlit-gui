@@ -9,12 +9,17 @@ import works from "@/assets/local-works.yaml";
 Object.keys(works).forEach((id) => {
   const work = works[id];
   work.id = id;
+  work.date = Number.isInteger(work.date)
+    ? { label: String(work.date), min: work.date, max: work.date }
+    : work.date;
+  work.date.label = work.date.label || `${work.date.min}–${work.date.max}`;
   work.genreform = [];
   work.classification = [];
-  work.terms.forEach((term) => {
-    term._label = term.prefLabel;
-    term.inScheme = { "@id": "https://queerlit.dh.gu.se/qlit/v1" };
-  });
+  work.terms = (work.terms || []).map((term) => ({
+    _label: term.prefLabel,
+    inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
+    ...term,
+  }));
 });
 
 /** Simple algorithm matching a search string against a text value. */
@@ -27,7 +32,7 @@ const getWorkText = (work) =>
     work.motivation,
     ...work.creators.map((c) => `${c.name} ${c.lifeSpan}`),
     ...work.terms.map((term) => term.prefLabel),
-    ...work.date,
+    ...Object.values(work.date),
   ].join(" ");
 
 export default function useLocalWorks() {
@@ -56,12 +61,12 @@ export default function useLocalWorks() {
 
     // Work end year cannot be less than the filter start year.
     if (yearStart.value) {
-      filter((work) => work.date[1] >= yearStart.value);
+      filter((work) => work.date.max >= yearStart.value);
     }
 
     // Work start year cannot be more than the filter end year.
     if (yearEnd.value) {
-      filter((work) => work.date[0] <= yearEnd.value);
+      filter((work) => work.date.min <= yearEnd.value);
     }
 
     // We cannot really handle these filters, so return no results.
