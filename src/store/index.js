@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import { search } from "@/services/libris.service";
 import query from "@/search/query.store";
 import { union, without } from "lodash";
 
@@ -9,6 +8,7 @@ export default createStore({
   },
   state: {
     results: null,
+    localResults: [],
     total: 0,
     sort: "-meta.modified",
     offset: 0,
@@ -26,6 +26,9 @@ export default createStore({
     },
     setResults(state, results) {
       state.results = results;
+    },
+    setLocalResults(state, results) {
+      state.localResults = results;
     },
     setTotal(state, total) {
       state.total = total;

@@ -1,8 +1,10 @@
 import { useStore } from "vuex";
 import { search } from "@/services/libris.service";
+import useLocalWorks from "./localWorks.composable";
 
 export default function useSearch() {
   const { commit, state } = useStore();
+  const { searchLocal } = useLocalWorks();
 
   /** Search Libris using the query, then set results. */
   async function doSearch({ retain } = {}) {
@@ -25,6 +27,7 @@ export default function useSearch() {
       commit("setResults", items);
       commit("setHistogram", histogram);
       commit("setTotal", total);
+      searchLocal();
     } catch (error) {
       console.error(error);
       if (!error.response) {

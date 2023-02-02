@@ -22,6 +22,15 @@ const routes = [
     },
   },
   {
+    path: "/special/:id",
+    name: "LocalWork",
+    components: {
+      side: SearchForm,
+      default: () =>
+        import(/* webpackChunkName: "work" */ "@/views/LocalWork.vue"),
+    },
+  },
+  {
     path: "/subjects",
     name: "Thesaurus",
     components: {

@@ -14,7 +14,7 @@
             @change="setPage"
           />
         </div>
-        <div class="flex-1 text-right">
+        <div v-if="total" class="flex-1 text-right">
           <label for="sort-input">Sortering: </label>
           <select
             id="sort-input"
@@ -38,43 +38,58 @@
           </select>
         </div>
       </div>
-      <WorkHit
+      <WorkResultItem
         v-for="(work, i) in results"
         :key="work['@id']"
         :work="work"
         :i="offset + i + 1"
       />
 
-      <div v-if="!results.length" class="q-body">
-        <h1 class="text-6xl my-10">Inga träffar</h1>
-        <p>Sökningen gav inga träffar i databasen.</p>
-        <p>
-          Se gärna våra
-          <a
-            href="https://queerlit.dh.gu.se/om/inklusionskriterier/"
-            title="Inklusionskriterier"
-            >inklusionskriterier</a
-          >
-          som handlar om vilka sorters titlar vi tar med och vilka vi behöver
-          utelämna.
-        </p>
-        <p>
-          Notera även att databasen är under uppbyggnad, och vi arbetar
-          fortfarande med att föra in all information. Om du saknar något verk,
-          eller har tips på ämnesord till något av verken, så vill vi gärna höra
-          av dig! Du når oss enklast på mejl: queerlit@lir.gu.se
-        </p>
-      </div>
-
-      <div class="p-6">
+      <div v-if="total > localResults.length" class="p-6">
         <Pagination
-          v-if="total"
           :current="offset / 20 + 1"
           :last="total / 20"
           class="mx-auto"
           @change="setPage"
         />
       </div>
+    </div>
+
+    <div v-if="localResults.length" class="bg-blue-50">
+      <header class="p-1 px-2">
+        <h2 class="text-lg">Specialtitlar</h2>
+        <p class="mt-1 text-sm">
+          Titlarna nedan kan inte katalogiseras i Libris på samma sätt som
+          övriga titlar. Av tekniska skäl visas de därför något annorlunda.
+        </p>
+      </header>
+      <LocalWorkResultItem
+        v-for="(work, i) in localResults"
+        :key="work.id"
+        :work="work"
+        :i="i + 1"
+      />
+    </div>
+
+    <div v-if="!isSearching && !total" class="q-body">
+      <h1 class="text-6xl my-10">Inga träffar</h1>
+      <p>Sökningen gav inga träffar i databasen.</p>
+      <p>
+        Se gärna våra
+        <a
+          href="https://queerlit.dh.gu.se/om/inklusionskriterier/"
+          title="Inklusionskriterier"
+          >inklusionskriterier</a
+        >
+        som handlar om vilka sorters titlar vi tar med och vilka vi behöver
+        utelämna.
+      </p>
+      <p>
+        Notera även att databasen är under uppbyggnad, och vi arbetar
+        fortfarande med att föra in all information. Om du saknar något verk,
+        eller har tips på ämnesord till något av verken, så vill vi gärna höra
+        av dig! Du når oss enklast på mejl: queerlit@lir.gu.se
+      </p>
     </div>
   </div>
 </template>
@@ -83,7 +98,8 @@
 import { computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 import useTitle from "@/views/title.composable";
-import WorkHit from "@/search/WorkHit.vue";
+import WorkResultItem from "./WorkResultItem.vue";
+import LocalWorkResultItem from "./LocalWorkResultItem.vue";
 import Pagination from "@/search/Pagination.vue";
 import useSearch from "./search.composable";
 
@@ -93,9 +109,12 @@ useTitle();
 
 const sort = computed(() => store.state.sort);
 const results = computed(() => store.state.results);
-const total = computed(() => store.state.total);
+const total = computed(
+  () => store.state.total + store.state.localResults.length
+);
 const offset = computed(() => store.state.offset);
 const isSearching = computed(() => store.getters.isSearching);
+const localResults = computed(() => store.state.localResults);
 
 function setPage(page) {
   store.commit("setOffset", (page - 1) * 20);

@@ -15,6 +15,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "@modyfi/vite-plugin-yaml": "^1.0.4",
     "@vueuse/components": "^9.1.0",
     "@vueuse/core": "^9.1.0",
     "axios": "^0.23.0",

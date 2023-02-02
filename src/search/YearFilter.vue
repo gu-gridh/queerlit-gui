@@ -37,7 +37,7 @@
 
     <div class="mx-1">
       <Histogram
-        :min="MIN"
+        :min="min"
         :max="MAX"
         class="-mb-2 relative"
         style="z-index: 3; /* The slider handle has z-index 5 */"
@@ -45,7 +45,7 @@
 
       <VueSlider
         v-model="range"
-        :min="MIN"
+        :min="min"
         :max="MAX"
         tooltip="none"
         :process-style="{ backgroundColor: 'currentColor' }"
@@ -53,11 +53,21 @@
         @change="emitChange"
       />
     </div>
+
+    <div class="text-sm">
+      <input
+        id="enableOld"
+        v-model="enableOld"
+        type="checkbox"
+        @change="enableOldChange"
+      />
+      <label for="enableOld" class="pl-1">Äldre material</label>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "vue";
 import debounce from "lodash/debounce";
 // Docs: https://vue-3-slider-component.netlify.app/?path=/docs/
 import VueSlider from "vue-3-slider-component";
@@ -69,9 +79,14 @@ const MAX = new Date().getFullYear();
 const emit = defineEmits(["change"]);
 const props = defineProps(["start", "end"]);
 const range = ref([props.start || MIN, props.end || MAX]);
+const enableOld = ref(false);
+const min = computed(() => (enableOld.value ? 0 : MIN));
 
 function startTextChange() {
-  if (!range.value[0]) range.value[0] = MIN;
+  if (!range.value[0] && range.value[0] !== 0) range.value[0] = min.value;
+  if (range.value[0] < MIN) {
+    enableOld.value = true;
+  }
   emitChange();
 }
 
@@ -80,11 +95,17 @@ function endTextChange() {
   emitChange();
 }
 
+function enableOldChange() {
+  if (range.value[0] < min.value) range.value[0] = min.value;
+  if (range.value[1] < min.value) range.value[1] = min.value;
+  emitChange();
+}
+
 const emitChange = debounce(() => {
   // When range extends to min or max, report as empty, thus letting the API determine filtering.
   emit(
     "change",
-    range.value[0] != MIN && range.value[0],
+    range.value[0] != min.value && range.value[0],
     range.value[1] != MAX && range.value[1]
   );
 }, 400);

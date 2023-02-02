@@ -3,20 +3,19 @@
 </template>
 
 <script setup>
-import { computed, ref } from "@vue/reactivity";
-import { get } from "@/services/libris.service";
+import { computed } from "@vue/reactivity";
 import { useRoute } from "vue-router";
+import useLocalWorks from "@/search/localWorks.composable";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import WorkDetails from "@/search/WorkDetails.vue";
 
 const route = useRoute();
 const { flag404 } = use404();
+const { works } = useLocalWorks();
 
-const work = ref();
-useTitle(computed(() => work.value && work.value.title));
-
-get(route.params.id)
-  .then((work_) => (work.value = work_))
-  .catch(flag404);
+const work = works[route.params.id];
+work.date = work.date.label;
+if (!work) flag404();
+useTitle(computed(() => work?.title));
 </script>
