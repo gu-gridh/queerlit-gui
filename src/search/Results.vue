@@ -67,7 +67,7 @@
         v-for="(work, i) in localResults"
         :key="work.id"
         :work="work"
-        :i="`S${i + 1}`"
+        :i="i + 1"
       />
     </div>
 

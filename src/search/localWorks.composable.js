@@ -39,7 +39,7 @@ const getWorkText = (work) =>
 export default function useLocalWorks() {
   const { text, terms, title, yearStart, yearEnd, author, genreform } =
     useQuery();
-  const { commit } = useStore();
+  const { commit, state } = useStore();
 
   function searchLocal() {
     const results = cloneDeep(Object.values(works));
@@ -73,6 +73,18 @@ export default function useLocalWorks() {
     // We cannot really handle these filters, so return no results.
     if (author.value || genreform.value) {
       filter(() => false);
+    }
+
+    // Sort by title if specified, otherwise date.
+    if (state.sort.includes("sortKeyByLang.sv")) {
+      results.sort((a, b) => a.title.localeCompare(b.title, "sv"));
+    } else {
+      results.sort((a, b) => a.date.min - b.date.min);
+    }
+
+    // Ascending/descending
+    if (!state.sort || state.sort.indexOf("-") === 0) {
+      results.reverse();
     }
 
     commit("setLocalResults", results);
