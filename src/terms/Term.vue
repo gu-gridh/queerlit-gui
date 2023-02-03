@@ -102,12 +102,22 @@ function toggleMenu() {
         v-show="isMenuVisible"
         class="absolute z-10 h-0 bottom-0 left-0 duration-200"
       >
-        <ul class="bg-gray-50 bg-opacity-95 rounded shadow mt-0.5 text-sm w-40">
+        <ul
+          class="
+            bg-gray-50 bg-opacity-95
+            rounded
+            shadow
+            mt-0.5
+            text-sm
+            w-40
+            overflow-hidden
+          "
+        >
           <li
             v-for="(option, i) in optionItems"
             :key="i"
             class="
-              overflow-hidden overflow-ellipsis
+              overflow-ellipsis
               whitespace-nowrap
               px-1
               hover:bg-gray-100
