@@ -67,7 +67,7 @@
 
     <div class="flex flex-wrap my-4 gap-y-2">
       <Labeled label="Omfång" class="w-full sm:w-1/2 pr-4">
-        {{ work.extent || "–" }}
+        {{ work.extent || "—" }}
       </Labeled>
 
       <Labeled label="Språk" class="w-full sm:w-1/2 pr-4">
@@ -79,7 +79,7 @@
       </Labeled>
 
       <Labeled label="Anmärkning" class="w-full sm:w-1/2 pr-4">
-        {{ work.note || "–" }}
+        {{ work.note || "—" }}
       </Labeled>
 
       <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
