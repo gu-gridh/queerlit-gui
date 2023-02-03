@@ -271,7 +271,7 @@ function getHistogram(stats) {
 /** Build a string of a person's name. */
 export function getPersonName(person) {
   // Sometimes the name is split in two, sometimes not.
-  return ["givenName", "familyName", "name", "label"]
+  return ["givenName", "familyName", "name", "label", "marc:numeration"]
     .map((prop) => unarray(person?.[prop])?.trim())
     .filter(Boolean)
     .join(" ");
