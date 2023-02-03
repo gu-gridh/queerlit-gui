@@ -102,15 +102,7 @@ const store = useStore();
 const router = useRouter();
 const { doSearch } = useSearch();
 
-const {
-  title,
-  author,
-  genreform,
-  yearStart,
-  yearEnd,
-  setQuery,
-  serializedQuery,
-} = useQuery();
+const { title, author, genreform, yearStart, yearEnd, setQuery } = useQuery();
 
 function setTitle(event) {
   setQuery({ title: event.target.value });
@@ -135,7 +127,6 @@ function setGenreform(genreform) {
 async function search(focus = true) {
   if (focus) router.push("/");
   if (!store.getters.isSearching) {
-    store.commit("setSearching", serializedQuery.value);
     doSearch();
   }
 }

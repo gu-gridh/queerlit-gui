@@ -1,13 +1,17 @@
 import { useStore } from "vuex";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
+import useQuery from "./query.composable";
 
 export default function useSearch() {
   const { commit, state } = useStore();
+  const { serializedQuery } = useQuery();
   const { searchLocal } = useLocalWorks();
 
   /** Search Libris using the query, then set results. */
   async function doSearch({ retain } = {}) {
+    commit("setSearching", serializedQuery.value);
+
     if (!retain) {
       commit("setOffset", 0);
     }
@@ -33,8 +37,9 @@ export default function useSearch() {
       if (!error.response) {
         commit("setError", "Det går inte att nå Libris webbtjänst just nu");
       }
+    } finally {
+      commit("setSearching", false);
     }
-    commit("setSearching", false);
   }
 
   return {
