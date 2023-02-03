@@ -8,6 +8,7 @@ import {
   searchConceptQlit,
   searchConceptSao,
   searchConceptBarn,
+  searchGenreform,
 } from "@/services/libris.service";
 import useMulticomplete from "./multicomplete.composable";
 import Term from "@/terms/Term.vue";
@@ -25,6 +26,7 @@ const Multicomplete = useMulticomplete({
   qlit: searchConceptQlit,
   sao: searchConceptSao,
   barn: searchConceptBarn,
+  gf: searchGenreform,
 });
 // The component needs a direct reference to these reactives.
 const suggestions = Multicomplete.suggestions;
@@ -38,6 +40,12 @@ function textChange(event) {
 
 function addTerm(term) {
   terms.add(term);
+  removeLastWord();
+  emit("search");
+}
+
+function setGenreform(genreform) {
+  setQuery({ genreform });
   removeLastWord();
   emit("search");
 }
@@ -140,6 +148,18 @@ function blur() {
         >
           <Term :data="item" class="cursor-pointer">
             {{ item._label }}
+            <icon icon="plus" size="xs" />
+          </Term>
+        </FreetextSuggestions>
+
+        <FreetextSuggestions
+          v-slot="{ item }"
+          heading="Genre/form:"
+          :items="suggestions.gf"
+          @select="setGenreform"
+        >
+          <Term :data="item" class="cursor-pointer">
+            {{ item.label }} ({{ item.scheme }})
             <icon icon="plus" size="xs" />
           </Term>
         </FreetextSuggestions>
