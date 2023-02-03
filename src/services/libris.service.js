@@ -244,12 +244,12 @@ function processXlTerm(term) {
 export function getLabel(object) {
   if (!object) return undefined;
   if (object["@type"] == "ComplexSubject")
-    return object.termComponentList.map(getLabel).filter(Boolean).join("–");
+    return object.termComponentList.map(getLabel).filter(Boolean).join(" – ");
   if (["Person", "Organization"].includes(object["@type"]))
     return getPersonName(object);
   if (object.prefLabelByLang) return object.prefLabelByLang.sv;
   if (object.prefLabel) return object.prefLabel;
-  console.log("No label found", object);
+  console.warn("No label found", object);
 }
 
 function getHistogram(stats) {
