@@ -13,6 +13,8 @@ charlotta:
     https://id.kb.se/term/sao/Hovliv: Hovliv
     https://libris.kb.se/sq46699b2q31717#it: Gustav III
     https://libris.kb.se/fcrtwb7z43t3wk5#it: Karl XIII
+  genreform:
+    https://id.kb.se/term/saogf/Dagb%C3%B6cker: Dagböcker
   librisUrl: https://libris.kb.se/bib/8207711
 
 birgitta:
@@ -46,6 +48,10 @@ kristina-historia:
   terms:
     https://queerlit.dh.gu.se/qlit/v1/he13pb69: Könsöverskridanden
     https://libris.kb.se/97mpqfft4ws1w0d#it: Drottning Kristina
+  genreform:
+    https://id.kb.se/term/saogf/Dagb%C3%B6cker: Dagböcker
+    https://id.kb.se/term/saogf/Brev: Brev
+    https://id.kb.se/term/saogf/Sj%C3%A4lvbiografier: Självbiografier
   librisUrl: https://libris.kb.se/bib/10254005
 
 ebbasparre:
@@ -61,6 +67,8 @@ ebbasparre:
   terms:
     https://queerlit.dh.gu.se/qlit/v1/px69nf52: Kärlek mellan kvinnor
     https://libris.kb.se/97mpqfft4ws1w0d#it: Drottning Kristina
+  genreform:
+    https://id.kb.se/term/saogf/Brev: Brev
   librisUrl: https://libris.kb.se/bib/8074345
 
 johannesmagnus:
@@ -84,6 +92,8 @@ grifte:
     https://queerlit.dh.gu.se/qlit/v1/mw94xh06: Ryktesspridning (HBTQI)
     https://queerlit.dh.gu.se/qlit/v1/mo71rb07: Sodomi
     https://libris.kb.se/sq46699b2q31717#it: Gustav III
+  genreform:
+    https://id.kb.se/term/saogf/Pamfletter: Pamfletter
 
 jungfrun:
   title: Jungfrun hämtar sin fästman
@@ -94,6 +104,8 @@ jungfrun:
   motivation: Medeltida ballad om en kvinna som vinner sin älskade tillbaka genom att klä ut sig till hans systerson. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades på 1830- eller 1840-talet. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1990, band 3).
   terms:
     https://queerlit.dh.gu.se/qlit/v1/ny05rj22: Maskuliniserande crossdressing
+  genreform:
+    https://id.kb.se/term/saogf/Medeltida%20ballader: Medeltida ballader
   librisUrl: https://libris.kb.se/bib/382080
 
 kerstin:
@@ -105,6 +117,8 @@ kerstin:
   motivation: Medeltida ballad om en ung kvinna som skär av sig håret och får tjänst som stalldräng, men blir gravid med kungens son och avslöjas av sin växande mage. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades 1811. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1996, band 4:2).
   terms:
     https://queerlit.dh.gu.se/qlit/v1/ny05rj22: Maskuliniserande crossdressing
+  genreform:
+    https://id.kb.se/term/saogf/Medeltida%20ballader: Medeltida ballader
   librisUrl: https://libris.kb.se/bib/8205813
 
 revolution:
@@ -118,6 +132,8 @@ revolution:
     https://queerlit.dh.gu.se/qlit/v1/mw94xh06: Ryktesspridning (HBTQI)
     https://queerlit.dh.gu.se/qlit/v1/vg32jf51: Män som har sex med män
     https://libris.kb.se/sq46699b2q31717#it: Gustav III
+  genreform:
+    https://id.kb.se/term/saogf/Pamfletter: Pamfletter
 
 lanterna:
   title: Lanterna Magica
@@ -130,6 +146,8 @@ lanterna:
     https://queerlit.dh.gu.se/qlit/v1/mw94xh06: Ryktesspridning (HBTQI)
     https://queerlit.dh.gu.se/qlit/v1/vg32jf51: Män som har sex med män
     https://libris.kb.se/sq46699b2q31717#it: Gustav III
+  genreform:
+    https://id.kb.se/term/saogf/Pamfletter: Pamfletter
   librisUrl: https://libris.kb.se/bib/11929579
 
 malkolm:
@@ -142,6 +160,8 @@ malkolm:
   terms:
     https://queerlit.dh.gu.se/qlit/v1/ny05rj22: Maskuliniserande crossdressing
     https://id.kb.se/term/sao/Riddare: Riddare
+  genreform:
+    https://id.kb.se/term/saogf/Medeltida%20ballader: Medeltida ballader
   librisUrl: https://libris.kb.se/bib/8205812
 
 magnusson:
@@ -150,6 +170,8 @@ magnusson:
   motivation: Jagberättaren har en arbetskamrat som alltid bär damkängor och korsett. De två blir vänner, och så småningom berättar arbetskamraten om sin transvestism. Novellen skrevs 1930 men publicerades aldrig under författarens livstid. Den upptäcktes av Magnus Ottelid, och publicerades i dennes Magnusson-biografi "Skriftställaren" (2020).
   terms:
     https://queerlit.dh.gu.se/qlit/v1/ds64zm22: Transvestism
+  genreform:
+    https://id.kb.se/term/saogf/Noveller: Noveller
 
 bruce:
   title: Bruce, En sannfärdig historia
@@ -162,6 +184,8 @@ bruce:
     https://queerlit.dh.gu.se/qlit/v1/ch36fv43: Transmän
     https://queerlit.dh.gu.se/qlit/v1/jt69hs39: Transföräldrar
     https://queerlit.dh.gu.se/qlit/v1/xs83yq66: Hermafroditer
+  genreform:
+    https://id.kb.se/term/saogf/Biografier: Biografier
 
 bjorketorp:
   title: Björketorpsstenen, DR 360

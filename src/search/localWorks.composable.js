@@ -14,7 +14,6 @@ Object.keys(works).forEach((id) => {
     ? { label: String(work.date), min: work.date, max: work.date }
     : work.date;
   work.date.label = work.date.label || `${work.date.min}–${work.date.max}`;
-  work.genreform = [];
   work.classification = [];
 
   const terms = Object.entries(work.terms || {}).map(([uri, prefLabel]) => ({
@@ -25,7 +24,14 @@ Object.keys(works).forEach((id) => {
     inScheme: { "@id": uri.replace(/\/[^/]*$/, "") },
   }));
   work.terms = terms;
-  console.log(work.terms);
+
+  const genreform = Object.entries(work.genreform || {}).map(
+    ([uri, prefLabel]) => ({
+      "@id": uri,
+      _label: prefLabel,
+    })
+  );
+  work.genreform = genreform;
 });
 
 /** Simple algorithm matching a search string against a text value. */
