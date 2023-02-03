@@ -16,11 +16,16 @@ Object.keys(works).forEach((id) => {
   work.date.label = work.date.label || `${work.date.min}–${work.date.max}`;
   work.genreform = [];
   work.classification = [];
-  work.terms = (work.terms || []).map((term) => ({
-    _label: term.prefLabel,
-    inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
-    ...term,
+
+  const terms = Object.entries(work.terms || {}).map(([uri, prefLabel]) => ({
+    "@id": uri,
+    prefLabel,
+    _label: prefLabel,
+    // Works as long as term uri = scheme uri + a name
+    inScheme: { "@id": uri.replace(/\/[^/]*$/, "") },
   }));
+  work.terms = terms;
+  console.log(work.terms);
 });
 
 /** Simple algorithm matching a search string against a text value. */

@@ -8,10 +8,11 @@ charlotta:
     max: 1817
   motivation: Hedvig Elisabeth Charlotta, senare drottning av Sverige och Norge, beklagade sig i sin dagbok över den sexuella lössläppthet och de "italienska seder" – det vill säga sex mellan män – som dåvarande kung Gustaf III ska ha ägnat sig åt. Se främst dagboksnoterineringarna från september 1784, september 1787 och november 1791. Dagboken skrevs på franska under decennierna kring sekelskiftet 1700/1800. I Queerlit finns den svenska översättningen, som gavs ut i början av 1900-talet.
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
-      prefLabel: Ryktesspridning (HBTQI)
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/vg32jf51
-      prefLabel: Män som har sex med män
+    https://queerlit.dh.gu.se/qlit/v1/mw94xh06: Ryktesspridning (HBTQI)
+    https://queerlit.dh.gu.se/qlit/v1/vg32jf51: Män som har sex med män
+    https://id.kb.se/term/sao/Hovliv: Hovliv
+    https://libris.kb.se/sq46699b2q31717#it: Gustav III
+    https://libris.kb.se/fcrtwb7z43t3wk5#it: Karl XIII
   librisUrl: https://libris.kb.se/bib/8207711
 
 birgitta:
@@ -24,6 +25,12 @@ birgitta:
     min: 1300
     max: 1399
   motivation: I helgonet Heliga Birgittas "Uppenbarelser" finns flera antydningar om kung Magnus Erikssons påstådda sodomi. Bland annat berättar Djävulen att han uppmanat kungen att begå "vissa synder, som han inte vågade utföra öppet" (Lib VIII, cab. 56) och på ett annat ställe sägs kungens och hans hustrus kyskhetslöfte bero på att kungen börjat känna ett "nytt begär" (Lib. VIII, cap. II, s. 99). Heliga Birgittas "Uppenbarelser" dikterades av henne själv på svenska under 1300-talet, men nedteckades på latin. De har därefter översatts till svenska flera gånger. I Queerlit finns en vetenskaplig utgåva från 2000-talet.
+  terms:
+    https://queerlit.dh.gu.se/qlit/v1/mo71rb07: Sodomi
+    https://id.kb.se/term/sao/Uppenbarelser: Uppenbarelser
+    https://id.kb.se/term/sao/Kristendom: Kristendom
+    https://id.kb.se/term/sao/1300-talet: 1300-talet
+    https://libris.kb.se/1zcfgs2k43zxf9k#it: Kung Magnus Eriksson
   librisUrl: https://libris.kb.se/bib/8859120
 
 kristina-historia:
@@ -35,10 +42,10 @@ kristina-historia:
     label: 1670–1680-tal
     min: 1670
     max: 1689
-  motivation: Många har spekulerat i drottning Kristinas kön och sexualitet, och i sin självbiografi skriver Kristina bland annat om sin tacksamhet över att ha fått en själ "helt manlig, liksom resten av min kropp". Självbiografin skrevs på franska, troligen under 1670- och 1680-talet, men fullbordades aldrig. Den utgåva som finns med i Queerlit är en långt senare, svensk översättning.
+  motivation: Många har spekulerat i drottning Kristinas kön och sexualitet, och drottningen har även kallats kung Kristina. I sin självbiografi skriver Kristina bland annat om sin tacksamhet över att ha fått en själ "helt manlig, liksom resten av min kropp". Självbiografin skrevs på franska under senare hälften av 1600-talet, troligen 1670–1680, men fullbordades aldrig. Den utgåva som finns med i Queerlit är en långt senare, svensk översättning.
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/he13pb69
-      prefLabel: Könsöverskridanden
+    https://queerlit.dh.gu.se/qlit/v1/he13pb69: Könsöverskridanden
+    https://libris.kb.se/97mpqfft4ws1w0d#it: Drottning Kristina
   librisUrl: https://libris.kb.se/bib/10254005
 
 ebbasparre:
@@ -50,10 +57,10 @@ ebbasparre:
     label: 1600-tal
     min: 1600
     max: 1699
-  motivation: I detta urval av drottning Kristinas brev ingår bland annat brev från Kristina till hovdamen Ebba Sparre, som beskrivits som Kristinas älskarinna. Eva Haettner Aurelius har konstaterat, i artikeln "Drottning Kristinas brev till Ebba Sparre – galanta brev eller kärleksbrev?" (2014), har konstaterat att de till övervägande del är utformade som kärleksbrev riktade till en kvinna från en man. Breven skrevs på franska i slutet av 1600-talet. Queerlit innehåller den långt senare, svenska översättningen.
+  motivation: Många har spekulerat i drottning Kristinas kön och sexualitet, och drottningen har även kallats kung Kristina. I detta urval av drottning Kristinas brev ingår bland annat brev från Kristina till hovdamen Ebba Sparre, som beskrivits som Kristinas älskarinna. Eva Haettner Aurelius har konstaterat, i artikeln "Drottning Kristinas brev till Ebba Sparre – galanta brev eller kärleksbrev?" (2014), har konstaterat att de till övervägande del är utformade som kärleksbrev riktade till en kvinna från en man. Breven skrevs på franska i slutet av 1600-talet. Queerlit innehåller den långt senare, svenska översättningen.
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/px69nf52
-      prefLabel: Kärlek mellan kvinnor
+    https://queerlit.dh.gu.se/qlit/v1/px69nf52: Kärlek mellan kvinnor
+    https://libris.kb.se/97mpqfft4ws1w0d#it: Drottning Kristina
   librisUrl: https://libris.kb.se/bib/8074345
 
 johannesmagnus:
@@ -62,21 +69,21 @@ johannesmagnus:
     - name: Johannes Magnus
       lifeSpan: 1488–1544
   date: 1544
-  motivation: En av de kungar som nämns i den fantasifulla regentlängden är Gostag, som i kapitel 40 av den åttonde boken inte bara sägs ägna sig åt "de mest smutsiga samlag" utan också om nätterna klär sig i kvinnodräkt och uppträder "som en förvekligad gycklare". Verket gavs först ut 1554, då på latin. I Queerlit finns den svenska översättningen.
+  motivation: En av de kungar som nämns i den fantasifulla regentlängden är Gostag (nummer 90 i regentlängden, även Gostagus, Oftanus eller Östen III), som i kapitel 40 av den åttonde boken inte bara sägs ägna sig åt "de mest smutsiga samlag" utan också om nätterna klär sig i kvinnodräkt och uppträder "som en förvekligad gycklare". Verket skrevs och gavs ut på 1500-talet, då på latin och med titeln "Historia de omnibus Gothorum Sveonumque regibus" ("Historia om alla göternas och svearnas konungar"). I Queerlit finns den svenska, betydligt senare, översättningen.
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/ty33ci85
-      prefLabel: Feminiserande crossdressing
+    https://queerlit.dh.gu.se/qlit/v1/mo71rb07: Sodomi
+    https://queerlit.dh.gu.se/qlit/v1/ty33ci85: Feminiserande crossdressing
+    https://id.kb.se/term/sao/Kungal%C3%A4ngder: Kungalängder
   librisUrl: https://libris.kb.se/bib/jsj8kxbmgg21rnk3
 
 grifte:
   title: Grifte Runor
   date: 1792
-  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften anklagas han (bland mycket annat) för att vara sodomit. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Texten skrevs 1792 och finns bevarad i flera versioner. I tryckt form finns den bara publicerad i Mattsons avhandling.
+  motivation: Smädesskrift om kung Gustav III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften anklagas han (bland mycket annat) för att vara sodomit. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustav III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Texten skrevs 1792 och finns bevarad i flera versioner. I tryckt form finns den bara publicerad i Mattsons avhandling.
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
-      prefLabel: Ryktesspridning (HBTQI)
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/mo71rb07
-      prefLabel: Sodomi
+    https://queerlit.dh.gu.se/qlit/v1/mw94xh06: Ryktesspridning (HBTQI)
+    https://queerlit.dh.gu.se/qlit/v1/mo71rb07: Sodomi
+    https://libris.kb.se/sq46699b2q31717#it: Gustav III
 
 jungfrun:
   title: Jungfrun hämtar sin fästman
@@ -86,8 +93,7 @@ jungfrun:
     max: 1599
   motivation: Medeltida ballad om en kvinna som vinner sin älskade tillbaka genom att klä ut sig till hans systerson. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades på 1830- eller 1840-talet. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1990, band 3).
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/ny05rj22
-      prefLabel: Maskuliniserande crossdressing
+    https://queerlit.dh.gu.se/qlit/v1/ny05rj22: Maskuliniserande crossdressing
   librisUrl: https://libris.kb.se/bib/382080
 
 kerstin:
@@ -98,8 +104,7 @@ kerstin:
     max: 1599
   motivation: Medeltida ballad om en ung kvinna som skär av sig håret och får tjänst som stalldräng, men blir gravid med kungens son och avslöjas av sin växande mage. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades 1811. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1996, band 4:2).
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/ny05rj22
-      prefLabel: Maskuliniserande crossdressing
+    https://queerlit.dh.gu.se/qlit/v1/ny05rj22: Maskuliniserande crossdressing
   librisUrl: https://libris.kb.se/bib/8205813
 
 revolution:
@@ -108,12 +113,11 @@ revolution:
     label: 1790-tal
     min: 1790
     max: 1799
-  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften kallas baron Armfeldt för kungens "maitresse", det vill säga älskarinna. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Texten skrevs troligen på 1790-talet och har publicerats i Mattsons avhandling.
+  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften kallas baron Armfeldt för kungens "maitresse", det vill säga älskarinna. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Texten skrevs i slutet av 1800-talet, troligen kring 1790, och har publicerats i Mattsons avhandling.
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
-      prefLabel: Ryktesspridning (HBTQI)
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/vg32jf51
-      prefLabel: Män som har sex med män
+    https://queerlit.dh.gu.se/qlit/v1/mw94xh06: Ryktesspridning (HBTQI)
+    https://queerlit.dh.gu.se/qlit/v1/vg32jf51: Män som har sex med män
+    https://libris.kb.se/sq46699b2q31717#it: Gustav III
 
 lanterna:
   title: Lanterna Magica
@@ -121,12 +125,11 @@ lanterna:
     label: 1780-tal
     min: 1780
     max: 1789
-  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften finns flera anspelningar på kungens sexuella intresse för män. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Den här texten skrevs på 1780-talet och gavs ursprungligen ut tillsammans med bilder. Den finns bevarad i flera versioner som handskrift, men den enda nutida publiceringen är i Mattsons avhandling.
+  motivation: Smädesskrift om kung Gustaf III, som redan under sin livstid ryktades ha sexuella relationer med män. I den här handskriften finns flera anspelningar på kungens sexuella intresse för män. Litteraturvetaren Annie Mattsson har i avhandlingen "Komediant och riksföräddare" (2010) undersökt de handskrivna smädesskrifterna om Gustaf III och konstaterat att anklagelser om sodomi inte är framträdande i materialet, men förekommer. Den här texten skrevs i slutet av 1700-talet, troligen kring 1780, och gavs ursprungligen ut tillsammans med bilder. Den finns bevarad i flera versioner som handskrift, men den enda nutida publiceringen är i Mattsons avhandling.
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/mw94xh06
-      prefLabel: Ryktesspridning (HBTQI)
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/vg32jf51
-      prefLabel: Män som har sex med män
+    https://queerlit.dh.gu.se/qlit/v1/mw94xh06: Ryktesspridning (HBTQI)
+    https://queerlit.dh.gu.se/qlit/v1/vg32jf51: Män som har sex med män
+    https://libris.kb.se/sq46699b2q31717#it: Gustav III
   librisUrl: https://libris.kb.se/bib/11929579
 
 malkolm:
@@ -137,14 +140,16 @@ malkolm:
     max: 1599
   motivation: Medeltida ballad om en riddare som fängslas av kungen men räddas av sin "jungfru", som fritar honom klädd i riddardräkt. Könsväxlingsmotivet har uppmärksammats av Jonas Liliequist, i antologin "Makalösa kvinnor" (2002). Visan är från medeltiden, men upptecknades i början av 1800-talet. Queerlit har inkluderat texten i "Sveriges medeltida ballader" (1996, band 4:1).
   terms:
-    - "@id": https://queerlit.dh.gu.se/qlit/v1/ny05rj22
-      prefLabel: Maskuliniserande crossdressing
+    https://queerlit.dh.gu.se/qlit/v1/ny05rj22: Maskuliniserande crossdressing
+    https://id.kb.se/term/sao/Riddare: Riddare
   librisUrl: https://libris.kb.se/bib/8205812
 
 magnusson:
   title: Magnusson, Transvestiten
   date: 1930
   motivation: Jagberättaren har en arbetskamrat som alltid bär damkängor och korsett. De två blir vänner, och så småningom berättar arbetskamraten om sin transvestism. Novellen skrevs 1930 men publicerades aldrig under författarens livstid. Den upptäcktes av Magnus Ottelid, och publicerades i dennes Magnusson-biografi "Skriftställaren" (2020).
+  terms:
+    https://queerlit.dh.gu.se/qlit/v1/ds64zm22: Transvestism
 
 bruce:
   title: Bruce, En sannfärdig historia
@@ -153,6 +158,10 @@ bruce:
     min: 1870
     max: 1879
   motivation: Andreas Bruce är en av mycket få män som innan 1900-talet berättat om att ha tilldelats kvinnligt kön. Memoarerna innehåller i vissa delar detaljerad redogörelse för hans liv, och han skildrar bland annat – troligen som den första mannen i världen – sin graviditet och hur han föder ett barn. Som 16-åring besökte han en läkare för att få ett intyg om sin maskulinitet, och förklarades då "“i hög grade Hermaphrodite eller tvåkönad”. Därefter tycks han i det stora hela ha accepterats som man av omgivningen. Litteraturhistorikern Sam Holmqvist har i artikeln "A man and a perpetuum mobile?" (Gender & history, 2021) beskrivit det som att Bruce tilldelades könet "hermafrodit". Själv beskriver han dock, enligt Holmqvist, snarare sig själv som entydigt man, men som en rörlig sådan. Det begrepp han själv använde om transitionen är "omklädnad". Memoarerna skrevs på 1870-talet, men gavs aldrig ut under hans livstid. Det bevarades som handskrift av hans släktingar, och gavs ut av litteraturvetaren Inger Littberger Caisou-Rousseau i boken "Therese Andreas Bruce" (2014) tillsammans med Bruces brev till sin dotter.
+  terms:
+    https://queerlit.dh.gu.se/qlit/v1/ch36fv43: Transmän
+    https://queerlit.dh.gu.se/qlit/v1/jt69hs39: Transföräldrar
+    https://queerlit.dh.gu.se/qlit/v1/xs83yq66: Hermafroditer
 
 bjorketorp:
   title: Björketorpsstenen, DR 360
