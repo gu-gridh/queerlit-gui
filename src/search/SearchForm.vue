@@ -47,7 +47,11 @@
             placeholder="Författare"
             :value="author"
             :suggest="searchPerson"
-            :get-label="(item) => `${item.givenName} ${item.familyName}`"
+            :get-label="
+              (item) =>
+                `${item.givenName} ${item.familyName}` +
+                (item.lifeSpan ? ` (${item.lifeSpan})` : '')
+            "
             :get-id="(item) => item['@id']"
             @change="setAuthor"
           />
@@ -96,7 +100,7 @@ import useSearch from "./search.composable";
 
 const store = useStore();
 const router = useRouter();
-const {doSearch} = useSearch()
+const { doSearch } = useSearch();
 
 const {
   title,
