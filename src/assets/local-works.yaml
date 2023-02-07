@@ -194,6 +194,8 @@ bjorketorp:
     min: 600
     max: 699
   motivation: Inskriften på denna runsten liknar den på "Stentoftenstenen". Den hotar, i likhet med även "Salebystenen", med att den som förstör stenen kommer att drabbas av “arghet” (de fornnordiska begreppen argr, ragr eller i substantivform ergi). Begreppets betydelse är inte helt och hållet klarlagd, men det kan bland annat översättas med omanlighet eller perversitet. Runstenen är från yngre järnåldern, och har daterats till senare hälften av 600-talet.
+  terms:
+    https://queerlit.dh.gu.se/qlit/v1/iy88so72: Ergi
 
 stentoften:
   title: Stentoftenstenen, DR 357
@@ -202,6 +204,8 @@ stentoften:
     min: 600
     max: 699
   motivation: Inskriften på denna runsten liknar den på "Björketorpsstenen". Den hotar, i likhet med även "Salebystenen", med att den som förstör stenen kommer att drabbas av “arghet” (de fornnordiska begreppen argr, ragr eller i substantivform ergi). Begreppets betydelse är inte helt och hållet klarlagd, men det kan bland annat översättas med omanlighet eller perversitet. Runstenen är från yngre järnåldern, och har daterats till mitten av 600-talet.
+  terms:
+    https://queerlit.dh.gu.se/qlit/v1/iy88so72: Ergi
 
 saleby:
   title: Salebystenen, VG 67
@@ -209,3 +213,5 @@ saleby:
     min: 980
     max: 1015
   motivation: Inskriften på denna runsten hotar, i likhet med "Björkebystenen" och "Stentoftenstenen", med att den som förstör stenen kommer att drabbas av “arghet” (de fornnordiska begreppen argr, ragr eller i substantivform ergi). Begreppets betydelse är inte helt och hållet klarlagd, men det kan bland annat översättas med omanlighet eller perversitet. Runstenen är från vikingatiden, och har daterats till sent 900-tal till tidigt 1000-tal.
+  terms:
+    https://queerlit.dh.gu.se/qlit/v1/iy88so72: Ergi
