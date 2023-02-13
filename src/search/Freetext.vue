@@ -20,6 +20,7 @@ const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
 const terms = useTerms();
 
+const [showSuggestions, toggleSuggestions] = useToggle();
 const [showHelp, toggleHelp] = useToggle();
 
 const Multicomplete = useMulticomplete({
@@ -36,6 +37,7 @@ function textChange(event) {
   setQuery({ text: event.target.value });
   // Trigger autocomplete in next tick to make it use new input value.
   setTimeout(() => autocomplete());
+  toggleSuggestions(true);
 }
 
 function addTerm(term) {
@@ -69,7 +71,7 @@ const autocomplete = debounce(async () => {
 }, 400);
 
 function blur() {
-  Multicomplete.clear();
+  toggleSuggestions(false);
 }
 </script>
 
@@ -87,7 +89,7 @@ function blur() {
         text-text text-xl
         shadow-inner
       "
-      :class="{ 'rounded-b': !hasSuggestions }"
+      :class="{ 'rounded-b': !(hasSuggestions && showSuggestions) }"
     >
       <input
         type="search"
@@ -104,7 +106,7 @@ function blur() {
 
     <div class="relative h-0">
       <div
-        v-if="hasSuggestions"
+        v-if="hasSuggestions && showSuggestions"
         class="
           absolute
           top-0

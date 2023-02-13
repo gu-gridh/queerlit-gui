@@ -239,10 +239,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web-bluetooth@npm:^0.0.15":
-  version: 0.0.15
-  resolution: "@types/web-bluetooth@npm:0.0.15"
-  checksum: 4e3b3b1c0baf6735690ce0c5ffaac53de3dbd16362316cbc5e32970bcb1e1baf16dae0a9f30fe86256ad0ee22a4533423f443835273efc54b15235086ebda85b
+"@types/web-bluetooth@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@types/web-bluetooth@npm:0.0.16"
+  checksum: f68a630d062202a25c46d48686ebae1cf429dc70b4578fcf13b8357b2db63e4aedfb6f6d752bd388366be46ebd19c1c9de45f8a15c2631bb79e904fdfc454f94
   languageName: node
   linkType: hard
 
@@ -374,42 +374,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/components@npm:^9.1.0":
-  version: 9.1.0
-  resolution: "@vueuse/components@npm:9.1.0"
+"@vueuse/components@npm:^9.12.0":
+  version: 9.12.0
+  resolution: "@vueuse/components@npm:9.12.0"
   dependencies:
-    "@vueuse/core": 9.1.0
-    "@vueuse/shared": 9.1.0
+    "@vueuse/core": 9.12.0
+    "@vueuse/shared": 9.12.0
     vue-demi: "*"
-  checksum: 67267007952903ff49220141b391dbc97ce17a2a8d589bf64564125c1f5f199e87441602a8d6f49fdec4e6c894b177d6f12dcc0632dfbb68aa4622246d64f248
+  checksum: 23ded6a35a42e6a6d3d6b2127edf3cf85513bbe9afcb46741d9c3ddf1fd9ee17b255fb1d2377cae4a458a131717d1b96da97428d3638a5173aea9d1c8cd442d3
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:9.1.0, @vueuse/core@npm:^9.1.0":
-  version: 9.1.0
-  resolution: "@vueuse/core@npm:9.1.0"
+"@vueuse/core@npm:9.12.0, @vueuse/core@npm:^9.12.0":
+  version: 9.12.0
+  resolution: "@vueuse/core@npm:9.12.0"
   dependencies:
-    "@types/web-bluetooth": ^0.0.15
-    "@vueuse/metadata": 9.1.0
-    "@vueuse/shared": 9.1.0
+    "@types/web-bluetooth": ^0.0.16
+    "@vueuse/metadata": 9.12.0
+    "@vueuse/shared": 9.12.0
     vue-demi: "*"
-  checksum: 41a7d3a247ef007908028804923767c20bef7417491a762420a2f4a3da8f7a14da80f5126afaf545fddfa5c77e75cd96c966c884fd4627d8c8a082caecc21386
+  checksum: bbbbd0a60f3cbda8e116c721f67319af42247af607d997e58d1f860660148ecbf58f90b8b3f38c6ecf87bc37a1a330b280050d883d79579ed72abf3b286b88cb
   languageName: node
   linkType: hard
 
-"@vueuse/metadata@npm:9.1.0":
-  version: 9.1.0
-  resolution: "@vueuse/metadata@npm:9.1.0"
-  checksum: 128657916aaed7b2a011ed60a1213254ef49ed9b486e61925afdc16da887091e3c55803ee1a2a3beff0180a4acca8fba80bb862fc17b14b3ae5f9c61fed246d3
+"@vueuse/metadata@npm:9.12.0":
+  version: 9.12.0
+  resolution: "@vueuse/metadata@npm:9.12.0"
+  checksum: ce732fbf313e3a3ed4ebddcace4cca05907c297103a20bc7e3e25cfb58dbce4b8e6b5d6a68a41922a821e07fa627321534068f9d494190d0bc5b95f1c29e8dcf
   languageName: node
   linkType: hard
 
-"@vueuse/shared@npm:9.1.0":
-  version: 9.1.0
-  resolution: "@vueuse/shared@npm:9.1.0"
+"@vueuse/shared@npm:9.12.0":
+  version: 9.12.0
+  resolution: "@vueuse/shared@npm:9.12.0"
   dependencies:
     vue-demi: "*"
-  checksum: 18aae2c37b1cfabc97f53c16300d5daf072a7a9d8a0ae98a77d14022ead47e33053307838d3d43100ec234b4cf8d5430a7e8be011869fd5eecac2a6dca7a1453
+  checksum: b359e78dddef960c7456c0bad7427ad255239740ae02485ac64ed5df3f58387253647cf243a0839f9eb014e91f315db850745ab5930e22a0c52434d1619bc04e
   languageName: node
   linkType: hard
 
@@ -2616,8 +2616,8 @@ __metadata:
     "@modyfi/vite-plugin-yaml": ^1.0.4
     "@vitejs/plugin-vue": ^1.6.1
     "@vue/compiler-sfc": ^3.2.6
-    "@vueuse/components": ^9.1.0
-    "@vueuse/core": ^9.1.0
+    "@vueuse/components": ^9.12.0
+    "@vueuse/core": ^9.12.0
     autoprefixer: ^10.3.7
     axios: ^0.23.0
     eslint: ^8.0.0
