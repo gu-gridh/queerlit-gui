@@ -249,6 +249,10 @@ export function getLabel(object) {
     return getPersonName(object);
   if (object.prefLabelByLang) return object.prefLabelByLang.sv;
   if (object.prefLabel) return object.prefLabel;
+  if (object.name) return object.name;
+  // E.g. Légion étrangère https://libris.kb.se/hftx3pt10h7p7c3#it
+  if (object["marc:subordinateUnit"])
+    return enarray(object["marc:subordinateUnit"]).join(" ");
   console.warn("No label found", object);
 }
 
