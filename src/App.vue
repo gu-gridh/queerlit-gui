@@ -45,7 +45,9 @@
     <div class="flex-1">
       <router-view v-if="!is404" />
       <NotFound v-else />
+
       <ErrorMessage />
+      <SiteFooter />
     </div>
   </div>
 </template>
@@ -61,6 +63,7 @@ import "@fontsource/barlow-condensed/latin-300.css";
 import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
+import SiteFooter from "./SiteFooter.vue";
 
 const { is404 } = use404();
 const { state } = useStore();
