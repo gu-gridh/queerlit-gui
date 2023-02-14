@@ -1,8 +1,6 @@
 <template>
   <div class="p-6">
-    <div v-if="isSearching" class="spinner p-6 py-10 text-center">
-      <icon icon="spinner" size="6x" spin />
-    </div>
+    <LoadingSpinner v-if="isSearching" />
     <div v-else-if="results">
       <div class="flex pb-6">
         <div class="flex-1 flex flex-wrap">
@@ -102,6 +100,7 @@ import WorkResultItem from "./WorkResultItem.vue";
 import LocalWorkResultItem from "./LocalWorkResultItem.vue";
 import Pagination from "@/search/Pagination.vue";
 import useSearch from "./search.composable";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 const store = useStore();
 const { doSearch } = useSearch();
@@ -128,10 +127,6 @@ function setSort(event) {
 </script>
 
 <style>
-.spinner {
-  margin-top: calc(50vh - 150px);
-}
-
 select {
   background: url(@/assets/dropdown.svg) no-repeat 95% 50%;
 }

@@ -1,5 +1,6 @@
 <template>
   <WorkDetails v-if="work" :work="work" />
+  <LoadingSpinner v-else />
 </template>
 
 <script setup>
@@ -9,6 +10,7 @@ import { useRoute } from "vue-router";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import WorkDetails from "@/search/WorkDetails.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 const route = useRoute();
 const { flag404 } = use404();
