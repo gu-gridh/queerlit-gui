@@ -6,6 +6,7 @@
       Queerlitprojektet bedrivs på
       <a href="https://gu.se">Göteborgs universitet</a>, genom samarbeten med
       bland annat <a href="http://www2.ub.gu.se/kvinn/">KvinnSam</a>,
+      <a href="https://gu.se/digital-humaniora">GRIDH</a>,
       <a href="https://www.sh.se/">Södertörns högskola</a> och
       <a href="https://lnu.se/">Linnéuniversitet</a>.
     </div>
