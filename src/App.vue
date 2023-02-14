@@ -42,9 +42,9 @@
         </aside>
       </div>
     </div>
-    <div class="flex-1">
-      <router-view v-if="!is404" />
-      <NotFound v-else />
+    <div class="flex-1 flex flex-col">
+      <router-view v-if="!is404" class="flex-1" />
+      <NotFound v-else class="flex-1" />
 
       <ErrorMessage />
       <SiteFooter />
