@@ -1,14 +1,8 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /dev
-  RewriteRule ^dev/index\.html$ - [L]
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /dev/index.html [L]
+  RewriteRule . /index.html [L]
 </IfModule>
-
-# Require password during experimental development.
-AuthType Basic
-AuthName "Queerlit demo"
-AuthUserFile "/var/www/htpasswd"
-Require valid-user
