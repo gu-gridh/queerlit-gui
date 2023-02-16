@@ -1,17 +1,19 @@
 <template>
   <div class="bg-white rounded-xl shadow-lg">
     <div class="py-6 px-6">
-      <div class="mb-4">
-        <p class="mb-2">
+      <div class="mb-4 q-body">
+        <p>
           Queerlit är en databas för svensk skönlitteratur som skildrar samkönat
           begär och överskridanden av binära könsnormer. Det innefattar bland
           annat – men inte enbart – skildringar av HBTQI-personer.
         </p>
-        <p class="mb-2">
+        <p>
           Databasen är under uppbyggnad, och vi arbetar fortfarande med att föra
           in all information. Om du saknar något verk, eller har tips på
-          ämnesord till något av verken, så vill vi gärna höra av dig! Du når
-          oss enklast på mejl: queerlit@lir.gu.se
+          ämnesord till något av verken, så vill vi gärna
+          <a href="https://queerlit.dh.gu.se/om/kontakt" title="Kontakt"
+            >höra av dig</a
+          >!
         </p>
       </div>
 

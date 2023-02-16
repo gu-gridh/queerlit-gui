@@ -2,7 +2,7 @@
 
 <template>
   <div class="container mt-8 py-8 border-t flex gap-4 justify-between text-sm">
-    <div class="flex-1">
+    <div class="flex-1 q-body">
       Queerlitprojektet bedrivs på
       <a href="https://gu.se">Göteborgs universitet</a>, genom samarbeten med
       bland annat <a href="http://www2.ub.gu.se/kvinn/">KvinnSam</a>,
