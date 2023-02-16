@@ -71,7 +71,9 @@ const { is404 } = use404();
 const { state } = useStore();
 const route = useRoute();
 
-const isTitlesRoute = computed(() => route.fullPath.indexOf("/work") === 0);
+const isTitlesRoute = computed(() =>
+  /^\/(work|special)\//.test(route.fullPath)
+);
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {
