@@ -17,6 +17,7 @@ const qlitLabelsPromise = loadQlitLabels();
 export async function search(
   text,
   terms = [],
+  termsSecondary = [],
   title,
   author,
   yearStart,
@@ -32,6 +33,10 @@ export async function search(
 
   (terms || []).forEach((term) =>
     params.append("and-instanceOf.subject.@id", term["@id"])
+  );
+
+  (termsSecondary || []).forEach((term) =>
+    params.append("matches-@reverse.itemOf.subject.@id", term["@id"])
   );
 
   if (author) {

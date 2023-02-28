@@ -24,7 +24,7 @@
         <input
           v-model="input"
           type="search"
-          :placeholder="terms.length ? 'Sök fler ämnesord...' : 'Ämnesord...'"
+          :placeholder="placeholder"
           class="
             bg-transparent
             border border-transparent
@@ -71,7 +71,7 @@ import Term from "@/terms/Term.vue";
 import { searchConceptQlit } from "@/services/libris.service";
 import CloseButton from "@/components/CloseButton.vue";
 
-const props = defineProps(["terms"]);
+const props = defineProps(["terms", "placeholder"]);
 const emit = defineEmits(["add", "remove"]);
 const input = ref("");
 const suggestions = ref([]);

@@ -20,6 +20,7 @@ export default function useSearch() {
       const { items, total, histogram } = await search(
         query.text,
         query.terms,
+        query.termsSecondary,
         query.title,
         query.author,
         query.yearStart,
