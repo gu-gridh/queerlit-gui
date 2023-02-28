@@ -22,7 +22,12 @@
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <h3 class="text-lg mb-2">Avancerat</h3>
-      <TermCombobox class="mb-4" @change="search" />
+      <TermCombobox
+        class="mb-4"
+        :terms="terms"
+        @add="addTerm"
+        @remove="removeTerm"
+      />
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
           <input
@@ -100,12 +105,25 @@ import TermCombobox from "@/terms/TermCombobox.vue";
 import Autocomplete from "@/search/Autocomplete.vue";
 import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
+import useTerms from "@/terms/terms.composable";
 
 const store = useStore();
 const router = useRouter();
 const { doSearch } = useSearch();
 
-const { title, author, genreform, yearStart, yearEnd, setQuery } = useQuery();
+const { terms, title, author, genreform, yearStart, yearEnd, setQuery } =
+  useQuery();
+const { add, remove } = useTerms();
+
+function addTerm(term) {
+  add(term);
+  search();
+}
+
+function removeTerm(term) {
+  remove(term);
+  search();
+}
 
 function setTitle(event) {
   setQuery({ title: event.target.value });
