@@ -4,33 +4,22 @@
       <input
         v-model.number="range[0]"
         size="4"
-        class="
-          text-sm text-black
-          p-1
-          px-2
-          bg-smoke-200
-          hover:bg-smoke-300
-          rounded
-          shadow-inner
-          leading-snug
-        "
         placeholder="Från"
+        class="text-sm text-black p-1 px-2 rounded shadow-inner leading-snug"
+        :class="[
+          range[0] != min ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+        ]"
         @change="startTextChange"
       />
       <input
         v-model.number="range[1]"
         size="4"
-        class="
-          text-sm text-black
-          p-1
-          px-2
-          bg-smoke-200
-          hover:bg-smoke-300
-          rounded
-          shadow-inner
-          leading-snug
-        "
         placeholder="Till"
+        class="text-sm text-black p-1 px-2 rounded shadow-inner leading-snug"
+        :class="{
+          'bg-smoke-200 hover:bg-smoke-300': range[1] == MAX,
+          'bg-yellow-100': range[1] != MAX,
+        }"
         @change="endTextChange"
       />
     </div>
@@ -80,6 +69,7 @@ const emit = defineEmits(["change"]);
 const props = defineProps(["start", "end"]);
 const range = ref([props.start || MIN, props.end || MAX]);
 const enableOld = ref(false);
+// While the max value is constant, the min value depends on the enableOld checkbox.
 const min = computed(() => (enableOld.value ? 0 : MIN));
 
 function startTextChange() {

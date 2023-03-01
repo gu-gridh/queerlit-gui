@@ -83,13 +83,14 @@ function blur() {
         flex
         items-center
         p-1
-        bg-smoke-200
-        hover:bg-smoke-300
         rounded-t
         text-text text-xl
         shadow-inner
       "
-      :class="{ 'rounded-b': !(hasSuggestions && showSuggestions) }"
+      :class="[
+        !(hasSuggestions && showSuggestions) ? 'rounded-b' : null,
+        text ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+      ]"
     >
       <input
         type="search"
