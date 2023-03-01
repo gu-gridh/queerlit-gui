@@ -15,6 +15,7 @@ import Term from "@/terms/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 import FreetextInstructions from "./FreetextInstructions.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
+import { watch } from "vue";
 
 const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
@@ -73,6 +74,12 @@ const autocomplete = debounce(async () => {
 function blur() {
   toggleSuggestions(false);
 }
+
+watch(showHelp, () => {
+  if (showHelp) {
+    toggleSuggestions(false);
+  }
+});
 </script>
 
 <template>
