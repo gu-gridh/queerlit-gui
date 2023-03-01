@@ -2,7 +2,7 @@
   <div v-on-click-outside="blur">
     <div
       class="bg-smoke-200 hover:bg-smoke-300 p-2 flex rounded-t shadow-inner"
-      :class="{ 'rounded-b': !suggestions.length }"
+      :class="{ 'rounded-b': !suggestions.length, incomplete: input }"
     >
       <div class="flex-1 flex flex-wrap items-baseline gap-1">
         <Term
@@ -29,7 +29,6 @@
             text-xl
             leading-none
           "
-          :class="{ incomplete: input }"
           @input="suggest"
           @keydown.backspace="removeLast"
           @focus="suggest"
@@ -120,8 +119,8 @@ function blur() {
   font-size: 20px;
 }
 
-.incomplete:not(:focus) {
-  @apply text-red-800;
+.incomplete:not(:focus-within) {
+  @apply bg-red-100;
 }
 
 .term-added:last-of-type {

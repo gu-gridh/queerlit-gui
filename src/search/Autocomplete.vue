@@ -110,6 +110,6 @@ function blur() {
   font-size: 16px;
 }
 .incomplete:not(:focus) {
-  @apply text-red-800;
+  @apply bg-red-100;
 }
 </style>
