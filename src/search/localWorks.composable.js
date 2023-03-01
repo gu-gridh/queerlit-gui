@@ -59,7 +59,11 @@ export default function useLocalWorks() {
 
     // Match free-text filter against any field.
     if (text.value) {
-      filter((work) => matchText(getWorkText(work), text.value));
+      // We don't handle special characters.
+      // Since we don't match whole words anyway, stripping wildcards solves some of the cases.
+      const textValue = text.value.replaceAll(/[*?]/g, "");
+      console.log(textValue);
+      filter((work) => matchText(getWorkText(work), textValue));
     }
 
     // At least one term must match.
