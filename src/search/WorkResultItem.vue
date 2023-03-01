@@ -5,6 +5,7 @@
     :title="work.title"
     :creators="work.creators"
     :date="work.date"
+    :genreform="work.genreform.map((gf) => gf._label)"
     :terms="work.terms"
     :summary="work.summary"
   />
