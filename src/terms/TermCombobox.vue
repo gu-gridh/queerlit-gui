@@ -75,7 +75,10 @@ const suggestions = ref([]);
 
 async function suggest() {
   if (input.value) {
-    setSuggestions(await searchConceptQlit(input.value));
+    const inputFixed = input.value;
+    const suggestions = await searchConceptQlit(inputFixed);
+    // Update suggestion list only if the input hasn't already been changed again.
+    if (inputFixed == input.value) setSuggestions(suggestions);
   } else {
     setSuggestions([]);
   }
