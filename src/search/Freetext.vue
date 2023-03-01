@@ -1,4 +1,5 @@
 <script setup>
+import { watch } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import { useToggle } from "@vueuse/shared";
@@ -15,7 +16,7 @@ import Term from "@/terms/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 import FreetextInstructions from "./FreetextInstructions.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
-import { watch } from "vue";
+import CloseButton from "@/components/CloseButton.vue";
 
 const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
@@ -126,6 +127,8 @@ watch(showHelp, () => {
           z-20
         "
       >
+        <CloseButton @click="toggleSuggestions(false)" />
+
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Ämnesord (QLIT):"
@@ -176,7 +179,7 @@ watch(showHelp, () => {
       </div>
     </div>
 
-    <FreetextInstructions v-show="showHelp" />
+    <FreetextInstructions v-show="showHelp" @dismiss="toggleHelp(false)" />
   </div>
 </template>
 

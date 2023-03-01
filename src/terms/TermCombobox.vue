@@ -41,6 +41,7 @@
       </div>
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
+      <CloseButton @click="setSuggestions([])" />
       <div class="bg-smoke-200 rounded-b pt-2">
         <div
           v-for="term in suggestions"
@@ -70,6 +71,7 @@ import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
 import { searchConceptQlit } from "@/services/libris.service";
+import CloseButton from "@/components/CloseButton.vue";
 
 const { terms } = useQuery();
 const { add: termsAdd, remove: termsRemove } = useTerms();

@@ -1,8 +1,13 @@
-<script setup></script>
+<script setup>
+import CloseButton from "@/components/CloseButton.vue";
+
+defineEmits(["dismiss"]);
+</script>
 
 <template>
-  <div class="my-2 bg-yellow-50 border border-yellow-200 p-2 text-sm">
+  <div class="relative my-2 bg-yellow-50 border border-yellow-200 p-2 text-sm">
     <h4 class="text-base font-bold">Sökhjälp</h4>
+    <CloseButton @click="$emit('dismiss')" />
     <p>
       I huvudsökrutan kan du söka i fritext, men du får också förslag på
       ämnesord och andra söktermer. Genom att välja en föreslagen sökterm får du
