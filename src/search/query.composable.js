@@ -16,6 +16,10 @@ export default function useQuery() {
     store.commit("setQuery", obj);
   }
 
+  function resetQuery() {
+    store.commit("resetQuery");
+  }
+
   const serializedQuery = computed(() =>
     JSON.stringify([
       text.value,
@@ -37,6 +41,7 @@ export default function useQuery() {
     yearEnd,
     genreform,
     setQuery,
+    resetQuery,
     serializedQuery,
   };
 }
