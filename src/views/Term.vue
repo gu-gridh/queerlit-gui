@@ -7,7 +7,7 @@
   </div>
 
   <article v-if="term" class="container">
-    <div class="bg-yellow-50 border border-yellow-200 p-4 mb-4">
+    <div class="bg-yellow-50 border border-yellow-200 p-4 mb-2">
       <h2 class="text-2xl">{{ term.prefLabel }}</h2>
       <table class="mt-4">
         <tr v-if="term.scopeNote">
@@ -35,12 +35,13 @@
           </td>
         </tr>
       </table>
-    </div>
 
-    <div class="my-2">
-      <QButton @click="searchByTerm(term)">
-        Sök på <em>{{ term.prefLabel }}</em> i Queerlit
-      </QButton>
+      <div class="mt-2 text-center">
+        <QButton @click="searchByTerm(term)">
+          <icon icon="search" size="xs" class="mr-1" />
+          Sök i Queerlit på <em>{{ term.prefLabel }}</em>
+        </QButton>
+      </div>
     </div>
 
     <div class="flex flex-wrap my-4 gap-4">

@@ -3,18 +3,16 @@ import cloneDeep from "lodash/cloneDeep";
 import remove from "lodash/remove";
 import intersectionBy from "lodash/intersectionBy";
 import useQuery from "./query.composable";
-import works from "@/assets/local-works.yaml";
+import worksRaw from "@/assets/local-works.yaml";
 
 // Harmonize local entries.
-Object.keys(works).forEach((id) => {
-  const work = works[id];
-  work.id = id;
-  work.creators = work.creators || [];
-  work.date = Number.isInteger(work.date)
+const works = Object.keys(worksRaw).map((id) => {
+  const work = worksRaw[id];
+
+  const date = Number.isInteger(work.date)
     ? { label: String(work.date), min: work.date, max: work.date }
     : work.date;
-  work.date.label = work.date.label || `${work.date.min}–${work.date.max}`;
-  work.classification = [];
+  date.label = date.label || `${date.min}–${date.max}`;
 
   const terms = Object.entries(work.terms || {}).map(([uri, prefLabel]) => ({
     "@id": uri,
@@ -23,7 +21,6 @@ Object.keys(works).forEach((id) => {
     // Works as long as term uri = scheme uri + a name
     inScheme: { "@id": uri.replace(/\/[^/]*$/, "") },
   }));
-  work.terms = terms;
 
   const genreform = Object.entries(work.genreform || {}).map(
     ([uri, prefLabel]) => ({
@@ -31,7 +28,15 @@ Object.keys(works).forEach((id) => {
       _label: prefLabel,
     })
   );
-  work.genreform = genreform;
+
+  return {
+    ...work,
+    creators: work.creators || [],
+    date,
+    classification: [],
+    terms,
+    genreform,
+  };
 });
 
 /** Simple algorithm matching a search string against a text value. */
@@ -59,7 +64,11 @@ export default function useLocalWorks() {
 
     // Match free-text filter against any field.
     if (text.value) {
-      filter((work) => matchText(getWorkText(work), text.value));
+      // We don't handle special characters.
+      // Since we don't match whole words anyway, stripping wildcards solves some of the cases.
+      const textValue = text.value.replaceAll(/[*?]/g, "");
+      console.log(textValue);
+      filter((work) => matchText(getWorkText(work), textValue));
     }
 
     // At least one term must match.

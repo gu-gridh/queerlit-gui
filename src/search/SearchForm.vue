@@ -32,8 +32,6 @@
               block
               w-full
               text-lg text-black
-              bg-smoke-200
-              hover:bg-smoke-300
               rounded
               shadow-inner
               leading-snug
@@ -41,6 +39,9 @@
               px-2
               transition-colors
             "
+            :class="[
+              title ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+            ]"
             @change="setTitle"
           />
         </div>

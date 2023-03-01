@@ -1,13 +1,15 @@
+const getInitialState = () => ({
+  text: "",
+  terms: [],
+  title: "",
+  author: null,
+  yearStart: null,
+  yearEnd: null,
+  genreform: null,
+});
+
 export default {
-  state: {
-    text: "",
-    terms: [],
-    title: "",
-    author: null,
-    yearStart: null,
-    yearEnd: null,
-    genreform: null,
-  },
+  state: getInitialState(),
   mutations: {
     setQuery(
       state,
@@ -22,18 +24,8 @@ export default {
       if (yearEnd !== undefined) state.yearEnd = parseInt(yearEnd);
       if (genreform !== undefined) state.genreform = genreform;
     },
-  },
-  getters: {
-    isQueryEmpty(state) {
-      return (
-        !state.text &&
-        !state.title &&
-        !state.author &&
-        !state.yearStart &&
-        !state.yearEnd &&
-        !state.genreform &&
-        !state.terms.length
-      );
+    resetQuery(state) {
+      Object.assign(state, getInitialState());
     },
   },
 };

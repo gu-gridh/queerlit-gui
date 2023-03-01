@@ -38,7 +38,20 @@
           v-model="termTextQuery"
           type="search"
           placeholder="Sök bland ämnesord..."
-          class="w-full p-4 pb-3 bg-smoke-300 rounded text-black text-xl"
+          class="
+            w-full
+            p-4
+            pb-3
+            rounded
+            text-black
+            shadow-inner
+            leading-snug
+            transition-colors
+            text-xl
+          "
+          :class="[
+            termTextQuery ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+          ]"
           @change="gotoThesaurus"
         />
       </div>
@@ -47,7 +60,6 @@
 </template>
 
 <script setup>
-import debounce from "lodash/debounce";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -55,14 +67,9 @@ import { useStore } from "vuex";
 const { state, commit } = useStore();
 const router = useRouter();
 
-const setTermTextQueryDebounced = debounce(
-  (value) => commit("setTermTextQuery", value),
-  400
-);
-
 const termTextQuery = computed({
   get: () => state.termTextQuery,
-  set: setTermTextQueryDebounced,
+  set: (value) => commit("setTermTextQuery", value),
 });
 
 function gotoThesaurus() {

@@ -9,8 +9,6 @@
         block
         w-full
         text-lg text-black
-        bg-smoke-200
-        hover:bg-smoke-300
         rounded
         shadow-inner
         leading-snug
@@ -18,7 +16,10 @@
         px-2
         transition-colors
       "
-      :class="{ incomplete }"
+      :class="[
+        incomplete ? 'incomplete' : null,
+        value ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+      ]"
       @input="change"
       @keyup.escape="blur"
       @focus="change"
@@ -110,6 +111,6 @@ function blur() {
   font-size: 16px;
 }
 .incomplete:not(:focus) {
-  @apply text-red-800;
+  @apply bg-red-100;
 }
 </style>

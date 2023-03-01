@@ -24,11 +24,16 @@
 
           <div class="w-48 flex-grow">
             <div class="flex flex-wrap">
-              <div v-for="(creator, i) in creators" :key="i" class="mr-4">
+              <div v-for="(creator, j) in creators" :key="j" class="mr-4">
                 {{ creator.name }}
               </div>
             </div>
-            {{ date }}
+            <div>{{ date }}</div>
+            <div class="flex flex-wrap">
+              <div v-for="(item, j) in genreform" :key="j" class="mr-4">
+                {{ item }}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -72,6 +77,7 @@ const props = defineProps({
   to: { type: [String, Object], required: true },
   creators: { type: Array, default: () => [] },
   date: { type: String, default: () => null },
+  genreform: { type: Array, default: () => [] },
   terms: { type: Array, default: () => [] },
   summary: { type: String, default: () => null },
 });

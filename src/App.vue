@@ -10,7 +10,7 @@
     >
       <div class="container py-12">
         <header class="max-w-screen-md pb-8">
-          <router-link to="/" class="flex-1">
+          <router-link to="/" class="flex-1" @click="reset">
             <img
               src="@/assets/qlogo.svg"
               class="
@@ -66,14 +66,23 @@ import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
 import SiteFooter from "./SiteFooter.vue";
+import useQuery from "./search/query.composable";
+import useSearch from "./search/search.composable";
 
 const { is404 } = use404();
 const { state } = useStore();
 const route = useRoute();
+const { resetQuery } = useQuery();
+const { doSearch } = useSearch();
 
 const isTitlesRoute = computed(() =>
   /^\/(work|special)\//.test(route.fullPath)
 );
+
+function reset() {
+  resetQuery();
+  doSearch();
+}
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {

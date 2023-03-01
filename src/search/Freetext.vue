@@ -1,4 +1,5 @@
 <script setup>
+import { watch } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import { useToggle } from "@vueuse/shared";
@@ -15,6 +16,7 @@ import Term from "@/terms/Term.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 import FreetextInstructions from "./FreetextInstructions.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
+import CloseButton from "@/components/CloseButton.vue";
 
 const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
@@ -73,6 +75,12 @@ const autocomplete = debounce(async () => {
 function blur() {
   toggleSuggestions(false);
 }
+
+watch(showHelp, () => {
+  if (showHelp) {
+    toggleSuggestions(false);
+  }
+});
 </script>
 
 <template>
@@ -83,13 +91,14 @@ function blur() {
         flex
         items-center
         p-1
-        bg-smoke-200
-        hover:bg-smoke-300
         rounded-t
         text-text text-xl
         shadow-inner
       "
-      :class="{ 'rounded-b': !(hasSuggestions && showSuggestions) }"
+      :class="[
+        !(hasSuggestions && showSuggestions) ? 'rounded-b' : null,
+        text ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+      ]"
     >
       <input
         type="search"
@@ -118,6 +127,8 @@ function blur() {
           z-20
         "
       >
+        <CloseButton @click="toggleSuggestions(false)" />
+
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Ämnesord (QLIT):"
@@ -168,7 +179,7 @@ function blur() {
       </div>
     </div>
 
-    <FreetextInstructions v-show="showHelp" />
+    <FreetextInstructions v-show="showHelp" @dismiss="toggleHelp(false)" />
   </div>
 </template>
 

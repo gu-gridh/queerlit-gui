@@ -1,8 +1,13 @@
 <template>
   <div v-on-click-outside="blur">
     <div
-      class="bg-smoke-200 hover:bg-smoke-300 p-2 flex rounded-t shadow-inner"
-      :class="{ 'rounded-b': !suggestions.length }"
+      class="p-2 flex rounded-t shadow-inner"
+      :class="{
+        'rounded-b': !suggestions.length,
+        incomplete: input,
+        'bg-smoke-200 hover:bg-smoke-300': !terms.length,
+        'bg-yellow-100': terms.length,
+      }"
     >
       <div class="flex-1 flex flex-wrap items-baseline gap-1">
         <Term
@@ -29,7 +34,6 @@
             text-xl
             leading-none
           "
-          :class="{ incomplete: input }"
           @input="suggest"
           @keydown.backspace="removeLast"
           @focus="suggest"
@@ -37,6 +41,7 @@
       </div>
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
+      <CloseButton @click="setSuggestions([])" />
       <div class="bg-smoke-200 rounded-b pt-2">
         <div
           v-for="term in suggestions"
@@ -66,6 +71,7 @@ import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
 import { searchConceptQlit } from "@/services/libris.service";
+import CloseButton from "@/components/CloseButton.vue";
 
 const { terms } = useQuery();
 const { add: termsAdd, remove: termsRemove } = useTerms();
@@ -75,7 +81,10 @@ const suggestions = ref([]);
 
 async function suggest() {
   if (input.value) {
-    setSuggestions(await searchConceptQlit(input.value));
+    const inputFixed = input.value;
+    const suggestions = await searchConceptQlit(inputFixed);
+    // Update suggestion list only if the input hasn't already been changed again.
+    if (inputFixed == input.value) setSuggestions(suggestions);
   } else {
     setSuggestions([]);
   }
@@ -117,8 +126,8 @@ function blur() {
   font-size: 20px;
 }
 
-.incomplete:not(:focus) {
-  @apply text-red-800;
+.incomplete:not(:focus-within) {
+  @apply bg-red-100;
 }
 
 .term-added:last-of-type {
