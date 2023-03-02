@@ -253,12 +253,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^1.6.1":
-  version: 1.9.3
-  resolution: "@vitejs/plugin-vue@npm:1.9.3"
+"@vitejs/plugin-vue@npm:1.10":
+  version: 1.10.2
+  resolution: "@vitejs/plugin-vue@npm:1.10.2"
   peerDependencies:
     vite: ^2.5.10
-  checksum: b987535135b6ae82ba1bab3001ef1dfb39934402c733b56262740f4a0ee21dcb8b960218e641776d0f05d0271c89bc1cad44b7286ad8564c3179618673781dec
+  checksum: 7cffcf10f865ba30e380a64eff5aeb69e828905833ae85a1621523d76b7de38a66549deeefecd05788919e0e31aba155d734f67fd97542a6d77046f89ae86c8c
   languageName: node
   linkType: hard
 
@@ -2684,7 +2684,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": ^5.15.4
     "@fortawesome/vue-fontawesome": ^3.0.0-5
     "@modyfi/vite-plugin-yaml": ^1.0.4
-    "@vitejs/plugin-vue": ^1.6.1
+    "@vitejs/plugin-vue": 1.10
     "@vue/compiler-sfc": ^3.2.6
     "@vueuse/components": ^9.12.0
     "@vueuse/core": ^9.12.0
