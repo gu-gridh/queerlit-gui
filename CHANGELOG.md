@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Term autocomplete suggestions ordered by relevance
+
 ## [1.1.1] - 2023-03-02
 
 ### Fixed
