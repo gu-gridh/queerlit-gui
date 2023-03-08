@@ -8,6 +8,7 @@
     :genreform="work.genreform.map((gf) => gf._label)"
     :terms="work.terms"
     :summary="work.summary"
+    :motivation="work.motivation"
   />
 </template>
 

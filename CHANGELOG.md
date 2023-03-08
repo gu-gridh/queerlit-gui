@@ -16,6 +16,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Added
 
 - It is now possible to add multiple terms to the query, and they are combined with AND
+- Show Queerlit motivation text in search result
 
 ### Changed
 

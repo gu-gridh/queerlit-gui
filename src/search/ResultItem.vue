@@ -60,6 +60,10 @@
         <div v-if="summary" class="my-2 text-sm">
           {{ ellipsis(summary, 80) }}
         </div>
+
+        <div v-if="motivation" class="my-2 text-sm italic">
+          {{ ellipsis(motivation, 80) }}
+        </div>
       </div>
     </article>
   </router-link>
@@ -80,6 +84,7 @@ const props = defineProps({
   genreform: { type: Array, default: () => [] },
   terms: { type: Array, default: () => [] },
   summary: { type: String, default: () => null },
+  motivation: { type: String, default: () => null },
 });
 
 const { sortTerms } = useTerms();

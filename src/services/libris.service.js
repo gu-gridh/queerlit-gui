@@ -177,6 +177,12 @@ function processXlItem(item) {
 
   processed.intendedAudience = item.instanceOf?.intendedAudience?.map(getLabel);
 
+  // Get the Queerlit item post
+  const queerlitItem = item["@reverse"]?.itemOf?.find(
+    (l) => l.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
+  );
+  processed.motivation = unarray(unarray(queerlitItem.summary)?.label);
+
   return processed;
 }
 
