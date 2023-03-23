@@ -31,7 +31,8 @@ const Multicomplete = useMulticomplete({
   barn: searchConceptBarn,
   gf: searchGenreform,
 });
-// The component needs a direct reference to these reactives.
+// Ref unwrapping in the template only works for top-level properties.
+// See https://vuejs.org/guide/essentials/reactivity-fundamentals.html#ref-unwrapping-in-templates
 const suggestions = Multicomplete.suggestions;
 const hasSuggestions = Multicomplete.hasSuggestions;
 
