@@ -67,7 +67,6 @@ export default function useLocalWorks() {
       // We don't handle special characters.
       // Since we don't match whole words anyway, stripping wildcards solves some of the cases.
       const textValue = text.value.replaceAll(/[*?]/g, "");
-      console.log(textValue);
       filter((work) => matchText(getWorkText(work), textValue));
     }
 
