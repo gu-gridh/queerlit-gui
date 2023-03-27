@@ -95,12 +95,12 @@ export async function get(id) {
 }
 
 export async function xlFindBooks(params) {
-  await qlitLabelsPromise;
-  return xlFind(params).then(({ items, totalItems, stats }) => ({
-    items: items.map(processXlItem),
-    totalItems,
-    stats,
-  }));
+  // The QLIT labels will be needed in processXlItem, so await them while sending the Libris request.
+  const [findResponse] = await Promise.all([xlFind(params), qlitLabelsPromise]);
+
+  const { items, totalItems, stats } = findResponse;
+  const processedItems = items.map(processXlItem);
+  return { items: processedItems, totalItems, stats };
 }
 
 /**
