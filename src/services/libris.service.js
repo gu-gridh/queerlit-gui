@@ -182,6 +182,12 @@ function processXlItem(item) {
     (l) => l.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
   );
   processed.motivation = unarray(unarray(queerlitItem.summary)?.label);
+  processed.termsSecondary =
+    queerlitItem.subject
+      // Set placeholder label because API doesn't contain this (yet)
+      ?.map((term) => ({ ...term, prefLabel: "Foobar" }))
+      .map(processXlTerm)
+      .filter((term) => term._label) || [];
 
   return processed;
 }

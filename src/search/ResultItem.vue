@@ -47,6 +47,17 @@
           />
         </div>
 
+        <div v-if="secondaryTerms.length" class="text-sm">
+          <Term
+            v-for="term in secondaryTerms"
+            :key="term"
+            :data="term"
+            secondary
+            :options="['search', 'goto']"
+            class="mr-1 mb-2"
+          />
+        </div>
+
         <div v-if="terms.other.length" class="mb-2 text-sm">
           <Term
             v-for="term in terms.other"
@@ -83,6 +94,7 @@ const props = defineProps({
   date: { type: String, default: () => null },
   genreform: { type: Array, default: () => [] },
   terms: { type: Array, default: () => [] },
+  secondaryTerms: { type: Array, default: () => [] },
   summary: { type: String, default: () => null },
   motivation: { type: String, default: () => null },
 });
