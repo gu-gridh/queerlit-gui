@@ -55,7 +55,9 @@
             secondary
             :options="['search', 'goto']"
             class="mr-1 mb-2"
-          />
+          >
+            {{ term._label }} – perifert
+          </Term>
         </div>
 
         <div v-if="terms.other.length" class="mb-2 text-sm">
