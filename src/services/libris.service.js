@@ -1,5 +1,18 @@
 import { enarray, unarray, urlBasename } from "@/util";
 import axios from "axios";
+import { getLabels } from "./terms.service";
+
+// Labels are sometimes missing in the Libris response, so keep a local copy of all labels as fetched from the QLIT backend.
+const qlitLabels = {
+  // [name]: label
+};
+/** Load QLIT term labels and cache them locally. */
+async function loadQlitLabels() {
+  if (Object.keys(qlitLabels).length == 0) {
+    Object.assign(qlitLabels, await getLabels());
+  }
+}
+const qlitLabelsPromise = loadQlitLabels();
 
 export async function search(
   text,
@@ -82,11 +95,12 @@ export async function get(id) {
 }
 
 export async function xlFindBooks(params) {
-  return xlFind(params).then(({ items, totalItems, stats }) => ({
-    items: items.map(processXlItem),
-    totalItems,
-    stats,
-  }));
+  // The QLIT labels will be needed in processXlItem, so await them while sending the Libris request.
+  const [findResponse] = await Promise.all([xlFind(params), qlitLabelsPromise]);
+
+  const { items, totalItems, stats } = findResponse;
+  const processedItems = items.map(processXlItem);
+  return { items: processedItems, totalItems, stats };
 }
 
 /**
@@ -183,6 +197,14 @@ function processXlItem(item) {
   );
   processed.motivation = unarray(unarray(queerlitItem.summary)?.label);
 
+  // For the subject terms nested here, Libris only gives the @id.
+  // The QLIT terms are important enough that we will load labels from the QLIT backend.
+  // However, other terms are filtered away here because we cannot show a suitable label.
+  // TODO If any labels are filtered away here, we could indicate that with something like "More...".
+  processed.termsSecondary =
+    queerlitItem.subject?.map(processXlTerm).filter((term) => term._label) ||
+    [];
+
   return processed;
 }
 
@@ -242,7 +264,11 @@ export async function searchGenreform(query) {
 
 function processXlTerm(term) {
   const processed = { ...term };
-  processed._label = getLabel(term);
+  // Deeply nested subjects are referenced only by id. The QLIT ones are important enough to fetch and show their labels separately.
+  if (!term.prefLabel && term["@id"]?.indexOf("https://queerlit") === 0) {
+    processed.prefLabel = qlitLabels[urlBasename(term["@id"])];
+  }
+  processed._label = getLabel(processed);
   return processed;
 }
 

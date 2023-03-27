@@ -42,6 +42,10 @@ export async function searchTerms(s) {
   return qlitList("autocomplete", { s });
 }
 
+export async function getLabels() {
+  return await qlitGet("labels");
+}
+
 /** Reshape a queerlit-terms object like an XL object */
 function fakeXlTerm(term) {
   return {
