@@ -21,6 +21,10 @@ As this project is a user-facing application, the places in the semantic version
 
 - Term autocomplete suggestions ordered by relevance
 
+### Fixed
+
+- Removed `[]` from motivation text
+
 ## [1.1.1] - 2023-03-02
 
 ### Fixed
