@@ -16,7 +16,9 @@ As this project is a user-facing application, the places in the semantic version
 ### Added
 
 - It is now possible to add multiple terms to the query, and they are combined with AND
+- It is also possible to search by peripheral terms
 - Show Queerlit motivation text and peripheral terms in search result
+  - Caveat: Peripheral non-QLIT terms are not shown, because loading their labels can be slow
 
 ### Changed
 
