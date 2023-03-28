@@ -32,7 +32,7 @@ export default function useTerms() {
 
   function addSecondary(term) {
     if (!termsSecondary.value.find((term2) => term2["@id"] == term["@id"]))
-      setQuery({ termsSecondary: [term] });
+      setQuery({ termsSecondary: [...termsSecondary.value, term] });
   }
 
   function removeSecondary(term) {
