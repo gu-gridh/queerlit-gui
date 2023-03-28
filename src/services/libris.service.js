@@ -206,9 +206,7 @@ function processXlItem(item) {
   // The QLIT terms are important enough that we will load labels from the QLIT backend.
   // However, other terms are filtered away here because we cannot show a suitable label.
   // TODO If any labels are filtered away here, we could indicate that with something like "More...".
-  processed.termsSecondary =
-    queerlitItem.subject?.map(processXlTerm).filter((term) => term._label) ||
-    [];
+  processed.termsSecondary = queerlitItem.subject?.map(processXlTerm) || [];
 
   return processed;
 }

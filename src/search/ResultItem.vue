@@ -47,7 +47,7 @@
           />
         </div>
 
-        <div v-if="termsSecondary.length" class="text-sm">
+        <div v-if="termsSecondary.length || termsSecondaryMore" class="text-sm">
           <Term
             v-for="term in termsSecondary"
             :key="term"
@@ -58,6 +58,7 @@
           >
             {{ term._label }} – perifert
           </Term>
+          <span v-if="termsSecondaryMore" class="opacity-70">...</span>
         </div>
 
         <div v-if="terms.other.length" class="mb-2 text-sm">
@@ -97,6 +98,7 @@ const props = defineProps({
   genreform: { type: Array, default: () => [] },
   terms: { type: Array, default: () => [] },
   termsSecondary: { type: Array, default: () => [] },
+  termsSecondaryMore: { type: Boolean },
   summary: { type: String, default: () => null },
   motivation: { type: String, default: () => null },
 });
