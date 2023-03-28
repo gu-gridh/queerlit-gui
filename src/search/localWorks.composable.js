@@ -53,8 +53,16 @@ const getWorkText = (work) =>
   ].join(" ");
 
 export default function useLocalWorks() {
-  const { text, terms, title, yearStart, yearEnd, author, genreform } =
-    useQuery();
+  const {
+    text,
+    terms,
+    termsSecondary,
+    title,
+    yearStart,
+    yearEnd,
+    author,
+    genreform,
+  } = useQuery();
   const { commit, state } = useStore();
 
   function searchLocal() {
@@ -73,6 +81,9 @@ export default function useLocalWorks() {
     // At least one term must match.
     if (terms.value.length) {
       filter((work) => intersectionBy(work.terms, terms.value, "@id").length);
+    }
+    if (termsSecondary.value.length) {
+      filter(() => false);
     }
 
     if (title.value) {
