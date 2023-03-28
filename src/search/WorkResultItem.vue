@@ -23,7 +23,6 @@ const props = defineProps({
 });
 
 const termsSecondary = props.work.termsSecondary.filter((term) => term._label);
-console.log(termsSecondary, props.work.termsSecondary);
 const termsSecondaryMore =
   termsSecondary.length < props.work.termsSecondary.length;
 </script>
