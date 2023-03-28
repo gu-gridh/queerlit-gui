@@ -15,6 +15,7 @@ As this project is a user-facing application, the places in the semantic version
 
 ### Added
 
+- Support for logging basic navigation to Matomo
 - Freetext autocomplete also uses the QLIT backend now
 
 ## [1.2.0] - 2023-03-29
