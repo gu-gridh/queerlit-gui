@@ -78,9 +78,13 @@ export default function useLocalWorks() {
       filter((work) => matchText(getWorkText(work), textValue));
     }
 
-    // At least one term must match.
+    // All terms must match.
     if (terms.value.length) {
-      filter((work) => intersectionBy(work.terms, terms.value, "@id").length);
+      filter(
+        (work) =>
+          intersectionBy(work.terms, terms.value, "@id").length ==
+          terms.value.length
+      );
     }
     if (termsSecondary.value.length) {
       filter(() => false);
