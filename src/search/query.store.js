@@ -1,6 +1,7 @@
 const getInitialState = () => ({
   text: "",
   terms: [],
+  termsSecondary: [],
   title: "",
   author: null,
   yearStart: null,
@@ -13,11 +14,21 @@ export default {
   mutations: {
     setQuery(
       state,
-      { text, terms, title, author, yearStart, yearEnd, genreform }
+      {
+        text,
+        terms,
+        termsSecondary,
+        title,
+        author,
+        yearStart,
+        yearEnd,
+        genreform,
+      }
     ) {
       // Modify each value only if it is given.
       if (text !== undefined) state.text = text;
       if (terms !== undefined) state.terms = terms;
+      if (termsSecondary !== undefined) state.termsSecondary = termsSecondary;
       if (title !== undefined) state.title = title;
       if (author !== undefined) state.author = author;
       if (yearStart !== undefined) state.yearStart = parseInt(yearStart);

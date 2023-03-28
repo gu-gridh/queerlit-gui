@@ -40,7 +40,7 @@
           :data="term"
           secondary
           :options="['search', 'goto']"
-          class="mr-1 mb-1"
+          class="mr-1 mb-2"
         >
           {{ term._label }} – perifert
         </Term>

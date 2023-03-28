@@ -15,7 +15,7 @@ import useSearch from "@/search/search.composable";
 
 export default function useTerms() {
   const router = useRouter();
-  const { terms, setQuery } = useQuery();
+  const { terms, termsSecondary, setQuery } = useQuery();
   const suggestions = ref([]);
   const { doSearch } = useSearch();
 
@@ -27,6 +27,19 @@ export default function useTerms() {
   function remove(term) {
     setQuery({
       terms: terms.value.filter((term2) => term2["@id"] != term["@id"]),
+    });
+  }
+
+  function addSecondary(term) {
+    if (!termsSecondary.value.find((term2) => term2["@id"] == term["@id"]))
+      setQuery({ termsSecondary: [...termsSecondary.value, term] });
+  }
+
+  function removeSecondary(term) {
+    setQuery({
+      termsSecondary: termsSecondary.value.filter(
+        (term2) => term2["@id"] != term["@id"]
+      ),
     });
   }
 
@@ -71,8 +84,11 @@ export default function useTerms() {
     searchTerms,
     suggestions,
     terms,
+    termsSecondary,
     add,
     remove,
+    addSecondary,
+    removeSecondary,
     sortTerms,
     searchByTerm,
     gotoTerm,

@@ -24,7 +24,7 @@
         <input
           v-model="input"
           type="search"
-          :placeholder="terms.length ? 'Sök fler ämnesord...' : 'Ämnesord...'"
+          :placeholder="placeholder"
           class="
             bg-transparent
             border border-transparent
@@ -67,15 +67,12 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 import { vOnClickOutside } from "@vueuse/components";
-import useQuery from "@/search/query.composable";
-import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
 import { searchConceptQlit } from "@/services/libris.service";
 import CloseButton from "@/components/CloseButton.vue";
 
-const { terms } = useQuery();
-const { add: termsAdd, remove: termsRemove } = useTerms();
-const emit = defineEmits(["change"]);
+const props = defineProps(["terms", "placeholder"]);
+const emit = defineEmits(["add", "remove"]);
 const input = ref("");
 const suggestions = ref([]);
 
@@ -91,29 +88,23 @@ async function suggest() {
 }
 
 function add(term) {
-  termsAdd(term);
+  emit("add", term);
   input.value = "";
   setSuggestions([]);
-  emitChange();
 }
 
 function remove(term) {
-  termsRemove(term);
-  emitChange();
+  emit("remove", term);
 }
 
 function removeLast() {
   if (input.value) return;
-  const lastTerm = terms.value[terms.value.length - 1];
+  const lastTerm = props.terms[props.terms.length - 1];
   if (lastTerm) remove(lastTerm);
 }
 
 function setSuggestions(matches) {
   suggestions.value = matches || [];
-}
-
-function emitChange() {
-  emit("change", terms.value);
 }
 
 function blur() {
