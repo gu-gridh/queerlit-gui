@@ -22,7 +22,8 @@ As this project is a user-facing application, the places in the semantic version
 
 ### Changed
 
-- Term autocomplete suggestions ordered by relevance
+- Term autocomplete now gets suggestions from QLIT backend, not from Libris
+  - Suggested terms are ordered by relevance
 
 ### Fixed
 

@@ -42,7 +42,7 @@
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
       <CloseButton @click="setSuggestions([])" />
-      <div class="bg-smoke-200 rounded-b pt-2">
+      <div class="bg-smoke-200 rounded-b pt-2 shadow">
         <div
           v-for="term in suggestions"
           :key="term.id"
@@ -68,20 +68,26 @@
 import { ref } from "@vue/reactivity";
 import { vOnClickOutside } from "@vueuse/components";
 import Term from "@/terms/Term.vue";
-import { searchConceptQlit } from "@/services/libris.service";
 import CloseButton from "@/components/CloseButton.vue";
+import { searchTerms } from "@/services/terms.service";
+import debounce from "lodash/debounce";
 
 const props = defineProps(["terms", "placeholder"]);
 const emit = defineEmits(["add", "remove"]);
 const input = ref("");
 const suggestions = ref([]);
 
+// No need to load suggestions until user slows down typing.
+const getSuggestions = debounce(async () => {
+  const inputFixed = input.value;
+  const items = await searchTerms(inputFixed);
+  // Update suggestion list only if the input hasn't already been changed again.
+  if (inputFixed == input.value) setSuggestions(items);
+}, 400);
+
 async function suggest() {
   if (input.value) {
-    const inputFixed = input.value;
-    const suggestions = await searchConceptQlit(inputFixed);
-    // Update suggestion list only if the input hasn't already been changed again.
-    if (inputFixed == input.value) setSuggestions(suggestions);
+    getSuggestions();
   } else {
     setSuggestions([]);
   }
