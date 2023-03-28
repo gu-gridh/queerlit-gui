@@ -7,7 +7,7 @@
     :date="work.date"
     :genreform="work.genreform.map((gf) => gf._label)"
     :terms="work.terms"
-    :secondary-terms="work.termsSecondary"
+    :terms-secondary="work.termsSecondary"
     :summary="work.summary"
     :motivation="work.motivation"
   />
