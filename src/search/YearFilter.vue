@@ -50,7 +50,7 @@
         type="checkbox"
         @change="enableOldChange"
       />
-      <label for="enableOld" class="pl-1">Äldre material</label>
+      <label for="enableOld" class="pl-1">Material innan 1800</label>
     </div>
   </div>
 </template>
