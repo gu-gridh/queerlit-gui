@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Freetext autocomplete also uses the QLIT backend now
+
 ## [1.2.0] - 2023-03-29
 
 ### Added

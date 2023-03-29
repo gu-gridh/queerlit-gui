@@ -6,7 +6,6 @@ import { useToggle } from "@vueuse/shared";
 import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
 import {
-  searchConceptQlit,
   searchConceptSao,
   searchConceptBarn,
   searchGenreform,
@@ -17,6 +16,7 @@ import FreetextSuggestions from "./FreetextSuggestions.vue";
 import FreetextInstructions from "./FreetextInstructions.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
 import CloseButton from "@/components/CloseButton.vue";
+import { searchTerms } from "@/services/terms.service";
 
 const emit = defineEmits(["search"]);
 const { text, setQuery } = useQuery();
@@ -26,7 +26,7 @@ const [showSuggestions, toggleSuggestions] = useToggle();
 const [showHelp, toggleHelp] = useToggle();
 
 const Multicomplete = useMulticomplete({
-  qlit: searchConceptQlit,
+  qlit: searchTerms,
   sao: searchConceptSao,
   barn: searchConceptBarn,
   gf: searchGenreform,
