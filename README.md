@@ -31,3 +31,12 @@ Search interface for the [Queerlit](https://queerlit.dh.gu.se/) database and the
 Issues are on GitHub: https://github.com/CDH-DevTeam/queerlit-gui/issues
 
 To get a sorted overview, run [`docs/issues.sh`](docs/issues.sh). It requires [jq](https://stedolan.github.io/jq/) and outputs CSV data, which you can save to a file and open in LibreOffice Calc or similar.
+
+### Releases
+
+Notable changes are logged in [CHANGELOG.md](CHANGELOG.md). Releasing a new version means:
+
+1. Making sure changes are logged under a new version number (bump the major, minor or patch number) in `CHANGELOG.md` in the `dev` branch
+2. Merging `dev` into `main` without fast-forwarding
+3. Tagging the merge commit with the version number in the form `vX.X.X`
+4. Pushing the branches and the tag: `git push; git push --tags`
