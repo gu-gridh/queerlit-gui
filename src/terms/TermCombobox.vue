@@ -12,7 +12,7 @@
       <div class="flex-1 flex flex-wrap items-baseline gap-1">
         <Term
           v-for="term in terms"
-          :key="term.id"
+          :key="term.name"
           class="term-added text-md cursor-pointer"
           :data="term"
           :options="['goto']"
@@ -45,9 +45,10 @@
       <div class="bg-smoke-200 rounded-b pt-2 shadow">
         <div
           v-for="term in suggestions"
-          :key="term.id"
+          :key="term.name"
           class="px-2 pb-2 flex items-baseline"
         >
+          {{ term.id }}
           <Term
             :data="term"
             :options="['goto']"
