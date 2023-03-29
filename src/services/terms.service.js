@@ -12,9 +12,8 @@ async function qlitGet(endpoint, params) {
 /** Get multiple terms and sort alphabetically. */
 async function qlitList(endpoint, params) {
   const data = await qlitGet(endpoint, params);
-  return data
-    .map(fakeXlTerm)
-    .sort((a, b) => a.prefLabel.localeCompare(b.prefLabel, "sv"));
+  const terms = data.map(fakeXlTerm);
+  return terms;
 }
 
 export async function getTerm(name) {
@@ -41,6 +40,10 @@ export async function getRoots() {
 // TODO: Re-use Libris Concept search instead.
 export async function searchTerms(s) {
   return qlitList("autocomplete", { s });
+}
+
+export async function getLabels() {
+  return await qlitGet("labels");
 }
 
 /** Reshape a queerlit-terms object like an XL object */

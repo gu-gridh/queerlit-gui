@@ -22,7 +22,24 @@
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <h3 class="text-lg mb-2">Avancerat</h3>
-      <TermCombobox class="mb-4" @change="search" />
+      <TermCombobox
+        :placeholder="terms.length ? 'Sök fler ämnesord...' : 'Ämnesord...'"
+        :terms="terms"
+        class="mb-4"
+        @add="addTerm"
+        @remove="removeTerm"
+      />
+      <TermCombobox
+        :placeholder="
+          termsSecondary.length
+            ? 'Sök fler ämnesord...'
+            : 'Perifera ämnesord...'
+        "
+        :terms="termsSecondary"
+        class="mb-4"
+        @add="addTermSecondary"
+        @remove="removeTermSecondary"
+      />
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
           <input
@@ -100,12 +117,35 @@ import TermCombobox from "@/terms/TermCombobox.vue";
 import Autocomplete from "@/search/Autocomplete.vue";
 import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
+import useTerms from "@/terms/terms.composable";
 
 const store = useStore();
 const router = useRouter();
 const { doSearch } = useSearch();
 
 const { title, author, genreform, yearStart, yearEnd, setQuery } = useQuery();
+const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
+  useTerms();
+
+function addTerm(term) {
+  add(term);
+  search();
+}
+
+function removeTerm(term) {
+  remove(term);
+  search();
+}
+
+function addTermSecondary(term) {
+  addSecondary(term);
+  search();
+}
+
+function removeTermSecondary(term) {
+  removeSecondary(term);
+  search();
+}
 
 function setTitle(event) {
   setQuery({ title: event.target.value });

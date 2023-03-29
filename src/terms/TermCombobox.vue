@@ -12,7 +12,7 @@
       <div class="flex-1 flex flex-wrap items-baseline gap-1">
         <Term
           v-for="term in terms"
-          :key="term.id"
+          :key="term.name"
           class="term-added text-md cursor-pointer"
           :data="term"
           :options="['goto']"
@@ -24,7 +24,7 @@
         <input
           v-model="input"
           type="search"
-          :placeholder="terms.length ? 'Sök fler ämnesord...' : 'Ämnesord...'"
+          :placeholder="placeholder"
           class="
             bg-transparent
             border border-transparent
@@ -42,12 +42,13 @@
     </div>
     <div v-show="suggestions.length" class="h-0 relative z-20">
       <CloseButton @click="setSuggestions([])" />
-      <div class="bg-smoke-200 rounded-b pt-2">
+      <div class="bg-smoke-200 rounded-b pt-2 shadow">
         <div
           v-for="term in suggestions"
-          :key="term.id"
+          :key="term.name"
           class="px-2 pb-2 flex items-baseline"
         >
+          {{ term.id }}
           <Term
             :data="term"
             :options="['goto']"
@@ -67,53 +68,50 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 import { vOnClickOutside } from "@vueuse/components";
-import useQuery from "@/search/query.composable";
-import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
-import { searchConceptQlit } from "@/services/libris.service";
 import CloseButton from "@/components/CloseButton.vue";
+import { searchTerms } from "@/services/terms.service";
+import debounce from "lodash/debounce";
 
-const { terms } = useQuery();
-const { add: termsAdd, remove: termsRemove } = useTerms();
-const emit = defineEmits(["change"]);
+const props = defineProps(["terms", "placeholder"]);
+const emit = defineEmits(["add", "remove"]);
 const input = ref("");
 const suggestions = ref([]);
 
+// No need to load suggestions until user slows down typing.
+const getSuggestions = debounce(async () => {
+  const inputFixed = input.value;
+  const items = await searchTerms(inputFixed);
+  // Update suggestion list only if the input hasn't already been changed again.
+  if (inputFixed == input.value) setSuggestions(items);
+}, 400);
+
 async function suggest() {
   if (input.value) {
-    const inputFixed = input.value;
-    const suggestions = await searchConceptQlit(inputFixed);
-    // Update suggestion list only if the input hasn't already been changed again.
-    if (inputFixed == input.value) setSuggestions(suggestions);
+    getSuggestions();
   } else {
     setSuggestions([]);
   }
 }
 
 function add(term) {
-  termsAdd(term);
+  emit("add", term);
   input.value = "";
   setSuggestions([]);
-  emitChange();
 }
 
 function remove(term) {
-  termsRemove(term);
-  emitChange();
+  emit("remove", term);
 }
 
 function removeLast() {
   if (input.value) return;
-  const lastTerm = terms.value[terms.value.length - 1];
+  const lastTerm = props.terms[props.terms.length - 1];
   if (lastTerm) remove(lastTerm);
 }
 
 function setSuggestions(matches) {
   suggestions.value = matches || [];
-}
-
-function emitChange() {
-  emit("change", terms.value);
 }
 
 function blur() {

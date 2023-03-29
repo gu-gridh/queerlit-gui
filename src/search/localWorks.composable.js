@@ -53,8 +53,16 @@ const getWorkText = (work) =>
   ].join(" ");
 
 export default function useLocalWorks() {
-  const { text, terms, title, yearStart, yearEnd, author, genreform } =
-    useQuery();
+  const {
+    text,
+    terms,
+    termsSecondary,
+    title,
+    yearStart,
+    yearEnd,
+    author,
+    genreform,
+  } = useQuery();
   const { commit, state } = useStore();
 
   function searchLocal() {
@@ -67,13 +75,19 @@ export default function useLocalWorks() {
       // We don't handle special characters.
       // Since we don't match whole words anyway, stripping wildcards solves some of the cases.
       const textValue = text.value.replaceAll(/[*?]/g, "");
-      console.log(textValue);
       filter((work) => matchText(getWorkText(work), textValue));
     }
 
-    // At least one term must match.
+    // All terms must match.
     if (terms.value.length) {
-      filter((work) => intersectionBy(work.terms, terms.value, "@id").length);
+      filter(
+        (work) =>
+          intersectionBy(work.terms, terms.value, "@id").length ==
+          terms.value.length
+      );
+    }
+    if (termsSecondary.value.length) {
+      filter(() => false);
     }
 
     if (title.value) {

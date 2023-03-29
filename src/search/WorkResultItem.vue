@@ -7,17 +7,24 @@
     :date="work.date"
     :genreform="work.genreform.map((gf) => gf._label)"
     :terms="work.terms"
+    :terms-secondary="termsSecondary"
+    :terms-secondary-more="termsSecondaryMore"
     :summary="work.summary"
+    :motivation="work.motivation"
   />
 </template>
 
 <script setup>
 import ResultItem from "./ResultItem.vue";
 
-defineProps({
+const props = defineProps({
   work: { type: Object, required: true },
   i: { type: [Number, String], required: true },
 });
+
+const termsSecondary = props.work.termsSecondary.filter((term) => term._label);
+const termsSecondaryMore =
+  termsSecondary.length < props.work.termsSecondary.length;
 </script>
 
 <style></style>

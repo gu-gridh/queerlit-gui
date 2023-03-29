@@ -47,6 +47,20 @@
           />
         </div>
 
+        <div v-if="termsSecondary.length || termsSecondaryMore" class="text-sm">
+          <Term
+            v-for="term in termsSecondary"
+            :key="term"
+            :data="term"
+            secondary
+            :options="['search', 'goto']"
+            class="mr-1 mb-2"
+          >
+            {{ term._label }} – perifert
+          </Term>
+          <span v-if="termsSecondaryMore" class="opacity-70">...</span>
+        </div>
+
         <div v-if="terms.other.length" class="mb-2 text-sm">
           <Term
             v-for="term in terms.other"
@@ -59,6 +73,10 @@
 
         <div v-if="summary" class="my-2 text-sm">
           {{ ellipsis(summary, 80) }}
+        </div>
+
+        <div v-if="motivation" class="my-2 text-sm italic">
+          {{ ellipsis(motivation, 80) }}
         </div>
       </div>
     </article>
@@ -79,7 +97,10 @@ const props = defineProps({
   date: { type: String, default: () => null },
   genreform: { type: Array, default: () => [] },
   terms: { type: Array, default: () => [] },
+  termsSecondary: { type: Array, default: () => [] },
+  termsSecondaryMore: { type: Boolean },
   summary: { type: String, default: () => null },
+  motivation: { type: String, default: () => null },
 });
 
 const { sortTerms } = useTerms();

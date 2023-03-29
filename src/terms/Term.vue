@@ -27,7 +27,9 @@ const OPTION_DEFS = props.data && {
 };
 
 const isQlit = computed(
-  () => props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1"
+  () =>
+    props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
+    props.data?.["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
 );
 const isHovering = ref(false);
 const isMenuVisible = ref(false);

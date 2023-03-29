@@ -6,6 +6,7 @@ export default function useQuery() {
 
   const text = computed(() => store.state.query.text);
   const terms = computed(() => store.state.query.terms);
+  const termsSecondary = computed(() => store.state.query.termsSecondary);
   const title = computed(() => store.state.query.title);
   const author = computed(() => store.state.query.author);
   const yearStart = computed(() => store.state.query.yearStart);
@@ -24,6 +25,7 @@ export default function useQuery() {
     JSON.stringify([
       text.value,
       terms.value.map((term) => term.label),
+      termsSecondary.value.map((term) => term.label),
       title.value,
       author.value,
       yearStart.value,
@@ -35,6 +37,7 @@ export default function useQuery() {
   return {
     text,
     terms,
+    termsSecondary,
     title,
     author,
     yearStart,
