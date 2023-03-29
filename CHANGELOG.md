@@ -13,6 +13,8 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [1.2.0] - 2023-03-29
+
 ### Added
 
 - It is now possible to add multiple terms to the query, and they are combined with AND
@@ -68,3 +70,9 @@ As this project is a user-facing application, the places in the semantic version
 ### Public release!
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
+
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/gu-gridh/queerlit-gui/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/gu-gridh/queerlit-gui/releases/tag/v1.0.0
