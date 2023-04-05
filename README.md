@@ -37,6 +37,7 @@ To get a sorted overview, run [`docs/issues.sh`](docs/issues.sh). It requires [j
 Notable changes are logged in [CHANGELOG.md](CHANGELOG.md). Releasing a new version means:
 
 1. Making sure changes are logged under a new version number (bump the major, minor or patch number) in `CHANGELOG.md` in the `dev` branch
-2. Merging `dev` into `main` without fast-forwarding
-3. Tagging the merge commit with the version number in the form `vX.X.X`
-4. Pushing the branches and the tag: `git push; git push --tags`
+2. Update version number in `package.json`
+3. Merging `dev` into `main` without fast-forwarding
+4. Tagging the merge commit with the version number in the form `vX.X.X`
+5. Pushing the branches and the tag: `git push; git push --tags`
