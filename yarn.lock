@@ -2702,6 +2702,7 @@ __metadata:
     vue: ^3.2.6
     vue-3-slider-component: ^0.1.0
     vue-dragscroll: ^3.0.1
+    vue-matomo: ^4.2.0
     vue-router: 4
     vuex: ^4.0.2
   languageName: unknown
@@ -3328,6 +3329,13 @@ __metadata:
   peerDependencies:
     eslint: ">=6.0.0"
   checksum: 8cc751e9fc2bfba93664ad8945732ab1c97791f9123e703de8669b65670d1e01906d80436bf4932d7ee6fa6174ed4545e8abb059206c88f4bd71957ca6cf7ba8
+  languageName: node
+  linkType: hard
+
+"vue-matomo@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "vue-matomo@npm:4.2.0"
+  checksum: 78707b15ecdbc2c9163be7979e5a38499902091c5c2f7f3fe8b11ffff20ca52464b313341563d3005f9f134c479d1667119912083952a0f4ab93a6bef3062ecf
   languageName: node
   linkType: hard
 
