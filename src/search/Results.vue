@@ -1,8 +1,8 @@
 <template>
-  <div class="p-6">
+  <div class="p-4">
     <LoadingSpinner v-if="isSearching" />
     <div v-else-if="results">
-      <div class="flex pb-6">
+      <div class="flex pb-2">
         <div class="flex-1 flex flex-wrap">
           <span class="mr-2">{{ total }} träffar</span>
           <Pagination
@@ -36,6 +36,9 @@
           </select>
         </div>
       </div>
+
+      <FiltersBar class="py-2 pb-6" />
+
       <WorkResultItem
         v-for="(work, i) in results"
         :key="work['@id']"
@@ -101,6 +104,7 @@ import LocalWorkResultItem from "./LocalWorkResultItem.vue";
 import Pagination from "@/search/Pagination.vue";
 import useSearch from "./search.composable";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import FiltersBar from "./FiltersBar.vue";
 
 const store = useStore();
 const { doSearch } = useSearch();

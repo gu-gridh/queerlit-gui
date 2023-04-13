@@ -67,11 +67,7 @@
             placeholder="Författare"
             :value="author"
             :suggest="searchPerson"
-            :get-label="
-              (item) =>
-                `${item.givenName} ${item.familyName}` +
-                (item.lifeSpan ? ` (${item.lifeSpan})` : '')
-            "
+            :get-label="getPersonLabel"
             :get-id="(item) => item['@id']"
             @change="setAuthor"
           />
@@ -84,7 +80,7 @@
             placeholder="Genre/form"
             :value="genreform"
             :suggest="searchGenreform"
-            :get-label="(item) => `${item.label} (${item.scheme})`"
+            :get-label="getGenreformLabel"
             :get-id="(item) => item.id"
             @change="setGenreform"
           />
@@ -123,7 +119,16 @@ const store = useStore();
 const router = useRouter();
 const { doSearch } = useSearch();
 
-const { title, author, genreform, yearStart, yearEnd, setQuery } = useQuery();
+const {
+  title,
+  author,
+  genreform,
+  yearStart,
+  yearEnd,
+  setQuery,
+  getPersonLabel,
+  getGenreformLabel,
+} = useQuery();
 const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
   useTerms();
 

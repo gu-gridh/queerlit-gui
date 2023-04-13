@@ -34,6 +34,24 @@ export default function useQuery() {
     ])
   );
 
+  const isQueryEmpty = computed(
+    () =>
+      !text.value &&
+      !terms.value.length &&
+      !termsSecondary.value.length &&
+      !title.value &&
+      !author.value &&
+      !yearStart.value &&
+      !yearEnd.value &&
+      !genreform.value
+  );
+
+  const getPersonLabel = (item) =>
+    `${item.givenName} ${item.familyName}` +
+    (item.lifeSpan ? ` (${item.lifeSpan})` : "");
+
+  const getGenreformLabel = (item) => `${item.label} (${item.scheme})`;
+
   return {
     text,
     terms,
@@ -46,5 +64,8 @@ export default function useQuery() {
     setQuery,
     resetQuery,
     serializedQuery,
+    isQueryEmpty,
+    getPersonLabel,
+    getGenreformLabel,
   };
 }
