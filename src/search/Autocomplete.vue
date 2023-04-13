@@ -18,7 +18,7 @@
       "
       :class="[
         incomplete ? 'incomplete' : null,
-        value ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+        value ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
       ]"
       @input="change"
       @keyup.escape="blur"

@@ -56,9 +56,7 @@
               px-2
               transition-colors
             "
-            :class="[
-              title ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
-            ]"
+            :class="[title ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300']"
             @change="setTitle"
           />
         </div>

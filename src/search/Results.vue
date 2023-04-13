@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <div v-if="!isSearching && localResults.length" class="bg-blue-50">
+    <div v-if="!isSearching && localResults.length" class="bg-pink-50">
       <header class="p-1 px-2">
         <h2 class="text-lg">Specialtitlar</h2>
         <p class="mt-1 text-sm">

@@ -105,7 +105,7 @@ watch(showHelp, () => {
       "
       :class="[
         !(hasSuggestions && showSuggestions) ? 'rounded-b' : null,
-        textLocal ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+        text ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
       ]"
     >
       <input

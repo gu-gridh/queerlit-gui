@@ -11,13 +11,7 @@ defineEmits(["clear"]);
 
 <template>
   <span
-    class="
-      inline-block
-      border-2 border-yellow-300
-      bg-yellow-100
-      rounded-2xl
-      px-2
-    "
+    class="inline-block border-2 border-blue-300 bg-blue-100 rounded-2xl px-2"
   >
     <span class="flex items-baseline gap-1">
       <span class="font-label uppercase font-medium text-xs opacity-80">
