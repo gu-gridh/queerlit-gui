@@ -1,19 +1,30 @@
 import { useStore } from "vuex";
+import { debounce } from "lodash";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
 import useQuery from "./query.composable";
+import { useRouter } from "vue-router";
 
 export default function useSearch() {
   const { commit, state } = useStore();
-  const { serializedQuery } = useQuery();
+  const { setQuery: setQueryReal, serializedQuery } = useQuery();
   const { searchLocal } = useLocalWorks();
+  const router = useRouter();
 
   /** Search Libris using the query, then set results. */
   async function doSearch({ retain } = {}) {
+    console.log("doSearch");
+
+    if (state.currentSearch) {
+      console.log("not searching again");
+      return;
+    }
+
     commit("setSearching", serializedQuery.value);
 
     if (!retain) {
       commit("setOffset", 0);
+      router.push("/");
     }
     const query = state.query;
     try {
@@ -43,7 +54,19 @@ export default function useSearch() {
     }
   }
 
+  const doSearchDebounced = debounce(doSearch, 50);
+
+  function setQuery(params) {
+    const queryBefore = serializedQuery.value;
+    setQueryReal(params);
+    if (serializedQuery.value != queryBefore) {
+      console.log(serializedQuery.value, queryBefore);
+      doSearchDebounced();
+    }
+  }
+
   return {
     doSearch,
+    setQuery,
   };
 }

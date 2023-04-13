@@ -15,9 +15,9 @@ import useSearch from "@/search/search.composable";
 
 export default function useTerms() {
   const router = useRouter();
-  const { terms, termsSecondary, setQuery } = useQuery();
+  const { terms, termsSecondary } = useQuery();
   const suggestions = ref([]);
-  const { doSearch } = useSearch();
+  const { doSearch, setQuery } = useSearch();
 
   function add(term) {
     if (!terms.value.find((term2) => term2["@id"] == term["@id"]))

@@ -2,6 +2,7 @@
 import useQuery from "./query.composable";
 import FilterButton from "./FilterButton.vue";
 import useTerms from "@/terms/terms.composable";
+import useSearch from "./search.composable";
 
 const {
   text,
@@ -12,12 +13,12 @@ const {
   yearStart,
   yearEnd,
   genreform,
-  setQuery,
   isQueryEmpty,
   getPersonLabel,
   getGenreformLabel,
 } = useQuery();
 const { remove, removeSecondary } = useTerms();
+const { setQuery } = useSearch();
 </script>
 
 <template>
