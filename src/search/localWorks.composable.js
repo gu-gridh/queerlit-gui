@@ -30,6 +30,7 @@ const works = Object.keys(worksRaw).map((id) => {
   );
 
   return {
+    id,
     ...work,
     creators: work.creators || [],
     date,
@@ -124,8 +125,11 @@ export default function useLocalWorks() {
     commit("setLocalResults", results);
   }
 
+  const getLocal = (id) => works.find((work) => work.id == id);
+
   return {
     searchLocal,
     works,
+    getLocal,
   };
 }

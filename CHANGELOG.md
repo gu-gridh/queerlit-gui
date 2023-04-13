@@ -15,6 +15,7 @@ As this project is a user-facing application, the places in the semantic version
 
 ### Fixed
 
+- Local works can now be opened again
 - Typo in the footer
 
 ## [1.3.0] - 2023-04-05
