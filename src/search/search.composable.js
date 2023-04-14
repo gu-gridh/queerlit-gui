@@ -13,10 +13,8 @@ export default function useSearch() {
 
   /** Search Libris using the query, then set results. */
   async function doSearch({ retain } = {}) {
-    console.log("doSearch");
-
+    // Avoid sending duplicate search requests.
     if (state.currentSearch) {
-      console.log("not searching again");
       return;
     }
 
@@ -60,7 +58,6 @@ export default function useSearch() {
     const queryBefore = serializedQuery.value;
     setQueryReal(params);
     if (serializedQuery.value != queryBefore) {
-      console.log(serializedQuery.value, queryBefore);
       doSearchDebounced();
     }
   }
