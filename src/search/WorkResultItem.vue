@@ -11,6 +11,7 @@
     :terms-secondary-more="termsSecondaryMore"
     :summary="work.summary"
     :motivation="work.motivation"
+    class="hover:bg-smoke-100"
   />
 </template>
 

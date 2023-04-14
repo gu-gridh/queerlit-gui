@@ -50,7 +50,7 @@
             text-xl
           "
           :class="[
-            termTextQuery ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+            termTextQuery ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
           ]"
           @change="gotoThesaurus"
         />

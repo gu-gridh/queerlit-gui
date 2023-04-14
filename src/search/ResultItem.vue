@@ -7,7 +7,6 @@
         transition-color
         flex
         items-baseline
-        hover:bg-smoke-100
       "
     >
       <div

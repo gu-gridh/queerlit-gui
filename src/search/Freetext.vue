@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from "vue";
+import { ref, watch } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import { useToggle } from "@vueuse/shared";
@@ -17,9 +17,10 @@ import FreetextInstructions from "./FreetextInstructions.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import { searchTerms } from "@/services/terms.service";
+import useSearch from "./search.composable";
 
-const emit = defineEmits(["search"]);
-const { text, setQuery } = useQuery();
+const { text } = useQuery();
+const { setQuery } = useSearch();
 const terms = useTerms();
 
 const [showSuggestions, toggleSuggestions] = useToggle();
@@ -36,8 +37,16 @@ const Multicomplete = useMulticomplete({
 const suggestions = Multicomplete.suggestions;
 const hasSuggestions = Multicomplete.hasSuggestions;
 
-function textChange(event) {
-  setQuery({ text: event.target.value });
+const textLocal = ref(text.value);
+
+watch(text, () => (textLocal.value = text.value));
+watch(textLocal, onInput);
+
+function commitText() {
+  setQuery({ text: textLocal.value });
+}
+
+function onInput() {
   // Trigger autocomplete in next tick to make it use new input value.
   setTimeout(() => autocomplete());
   toggleSuggestions(true);
@@ -46,13 +55,11 @@ function textChange(event) {
 function addTerm(term) {
   terms.add(term);
   removeLastWord();
-  emit("search");
 }
 
 function setGenreform(genreform) {
   setQuery({ genreform });
   removeLastWord();
-  emit("search");
 }
 
 function removeLastWord() {
@@ -64,7 +71,7 @@ function removeLastWord() {
 }
 
 const autocomplete = debounce(async () => {
-  const lastWord = text.value.split(" ").pop();
+  const lastWord = textLocal.value.split(" ").pop();
 
   if (lastWord) {
     Multicomplete.autocomplete(lastWord);
@@ -98,17 +105,17 @@ watch(showHelp, () => {
       "
       :class="[
         !(hasSuggestions && showSuggestions) ? 'rounded-b' : null,
-        text ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+        text ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
       ]"
     >
       <input
+        v-model="textLocal"
         type="search"
-        :value="text"
         placeholder="Sök här..."
         class="flex-1 bg-transparent p-3 pb-2"
-        @input="textChange"
-        @keyup.enter="emit('search')"
-        @focus="textChange"
+        @focus="onInput"
+        @keyup.enter="commitText()"
+        @blur="commitText()"
       />
 
       <ToggleIcon icon="question" :value="showHelp" :toggle="toggleHelp" />

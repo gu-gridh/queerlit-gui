@@ -6,7 +6,7 @@
         'rounded-b': !suggestions.length,
         incomplete: input,
         'bg-smoke-200 hover:bg-smoke-300': !terms.length,
-        'bg-yellow-100': terms.length,
+        'bg-blue-100': terms.length,
       }"
     >
       <div class="flex-1 flex flex-wrap items-baseline gap-1">

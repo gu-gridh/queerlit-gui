@@ -12,9 +12,9 @@ import WorkDetails from "@/search/WorkDetails.vue";
 
 const route = useRoute();
 const { flag404 } = use404();
-const { works } = useLocalWorks();
+const { getLocal } = useLocalWorks();
 
-const work = works[route.params.id];
+const work = getLocal(route.params.id);
 work.date = work.date.label;
 if (!work) flag404();
 useTitle(computed(() => work?.title));

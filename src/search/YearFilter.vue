@@ -7,7 +7,7 @@
         placeholder="Från"
         class="text-sm text-black p-1 px-2 rounded shadow-inner leading-snug"
         :class="[
-          range[0] != min ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
+          range[0] != min ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
         ]"
         @change="startTextChange"
       />
@@ -18,7 +18,7 @@
         class="text-sm text-black p-1 px-2 rounded shadow-inner leading-snug"
         :class="{
           'bg-smoke-200 hover:bg-smoke-300': range[1] == MAX,
-          'bg-yellow-100': range[1] != MAX,
+          'bg-blue-100': range[1] != MAX,
         }"
         @change="endTextChange"
       />

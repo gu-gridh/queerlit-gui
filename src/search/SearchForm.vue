@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl shadow-lg">
+  <div class="bg-white rounded-xl shadow-lg" @keyup.enter="doSearch">
     <div class="py-6 px-6">
       <div class="mb-4 q-body">
         <p>
@@ -17,7 +17,7 @@
         </p>
       </div>
 
-      <Freetext @search="search" />
+      <Freetext />
     </div>
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
@@ -56,9 +56,7 @@
               px-2
               transition-colors
             "
-            :class="[
-              title ? 'bg-yellow-100' : 'bg-smoke-200 hover:bg-smoke-300',
-            ]"
+            :class="[title ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300']"
             @change="setTitle"
           />
         </div>
@@ -67,11 +65,7 @@
             placeholder="Författare"
             :value="author"
             :suggest="searchPerson"
-            :get-label="
-              (item) =>
-                `${item.givenName} ${item.familyName}` +
-                (item.lifeSpan ? ` (${item.lifeSpan})` : '')
-            "
+            :get-label="getPersonLabel"
             :get-id="(item) => item['@id']"
             @change="setAuthor"
           />
@@ -84,14 +78,14 @@
             placeholder="Genre/form"
             :value="genreform"
             :suggest="searchGenreform"
-            :get-label="(item) => `${item.label} (${item.scheme})`"
+            :get-label="getGenreformLabel"
             :get-id="(item) => item.id"
             @change="setGenreform"
           />
         </div>
       </div>
       <div class="text-center mt-4">
-        <QButton class="text-xl" @click="search">Sök</QButton>
+        <QButton class="text-xl" @click="doSearch">Sök</QButton>
       </div>
     </div>
   </div>
@@ -109,8 +103,6 @@
 <script setup>
 import useQuery from "@/search/query.composable";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
 import Freetext from "./Freetext.vue";
 import YearFilter from "@/search/YearFilter.vue";
 import TermCombobox from "@/terms/TermCombobox.vue";
@@ -119,63 +111,53 @@ import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
 import useTerms from "@/terms/terms.composable";
 
-const store = useStore();
-const router = useRouter();
-const { doSearch } = useSearch();
-
-const { title, author, genreform, yearStart, yearEnd, setQuery } = useQuery();
+const { doSearch, setQuery } = useSearch();
+const {
+  title,
+  author,
+  genreform,
+  yearStart,
+  yearEnd,
+  getPersonLabel,
+  getGenreformLabel,
+} = useQuery();
 const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
   useTerms();
 
 function addTerm(term) {
   add(term);
-  search();
 }
 
 function removeTerm(term) {
   remove(term);
-  search();
 }
 
 function addTermSecondary(term) {
   addSecondary(term);
-  search();
 }
 
 function removeTermSecondary(term) {
   removeSecondary(term);
-  search();
 }
 
 function setTitle(event) {
   setQuery({ title: event.target.value });
-  search();
 }
 
 function setAuthor(author) {
   setQuery({ author });
-  search();
 }
 
 function yearChange(yearStart, yearEnd) {
   setQuery({ yearStart, yearEnd });
-  search();
 }
 
 function setGenreform(genreform) {
   setQuery({ genreform });
-  search();
-}
-
-async function search(focus = true) {
-  if (focus) router.push("/");
-  if (!store.getters.isSearching) {
-    doSearch();
-  }
 }
 
 // Make an initial search as soon as the search form is visible, but don't switch pages.
-search(false);
+doSearch({ retain: true });
 </script>
 
 <style scoped>
