@@ -37,7 +37,7 @@ const Multicomplete = useMulticomplete({
 const suggestions = Multicomplete.suggestions;
 const hasSuggestions = Multicomplete.hasSuggestions;
 
-const textLocal = ref("");
+const textLocal = ref(text.value);
 
 watch(text, () => (textLocal.value = text.value));
 watch(textLocal, onInput);
