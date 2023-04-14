@@ -7,6 +7,7 @@
     :date="work.date.label"
     :terms="work.terms"
     :summary="work.motivation"
+    class="hover:bg-pink-100"
   />
 </template>
 
