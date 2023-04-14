@@ -14,20 +14,16 @@ const works = Object.keys(worksRaw).map((id) => {
     : work.date;
   date.label = date.label || `${date.min}–${date.max}`;
 
-  const terms = Object.entries(work.terms || {}).map(([uri, prefLabel]) => ({
+  const inflateTerm = ([uri, prefLabel]) => ({
     "@id": uri,
     prefLabel,
     _label: prefLabel,
     // Works as long as term uri = scheme uri + a name
     inScheme: { "@id": uri.replace(/\/[^/]*$/, "") },
-  }));
+  });
 
-  const genreform = Object.entries(work.genreform || {}).map(
-    ([uri, prefLabel]) => ({
-      "@id": uri,
-      _label: prefLabel,
-    })
-  );
+  const terms = Object.entries(work.terms || {}).map(inflateTerm);
+  const genreform = Object.entries(work.genreform || {}).map(inflateTerm);
 
   return {
     id,
@@ -50,6 +46,7 @@ const getWorkText = (work) =>
     work.motivation,
     ...work.creators.map((c) => `${c.name} ${c.lifeSpan}`),
     ...work.terms.map((term) => term.prefLabel),
+    ...work.genreform.map((genreform) => genreform.prefLabel),
     ...Object.values(work.date),
   ].join(" ");
 
