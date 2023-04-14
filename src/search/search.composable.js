@@ -43,7 +43,6 @@ export default function useSearch() {
       commit("setResults", items);
       commit("setHistogram", histogram);
       commit("setTotal", total);
-      searchLocal();
     } catch (error) {
       console.error(error);
       if (!error.response) {
@@ -52,6 +51,7 @@ export default function useSearch() {
     } finally {
       commit("setSearching", false);
     }
+    searchLocal();
   }
 
   const doSearchDebounced = debounce(doSearch, 50);
