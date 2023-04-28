@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Support for logging page titles to Matomo
+
 ## [1.4.0] - 2023-04-14
 
 ### Added
