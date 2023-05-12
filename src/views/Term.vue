@@ -57,7 +57,6 @@
                 <Term
                   class="mr-1 mb-1 cursor-pointer"
                   :data="term"
-                  :options="['search']"
                   @click="navigate"
                 />
               </router-link>
@@ -78,7 +77,6 @@
                 <Term
                   class="mr-1 mb-1 cursor-pointer"
                   :data="term"
-                  :options="['search']"
                   @click="navigate"
                 />
               </router-link>
@@ -100,7 +98,6 @@
               <Term
                 class="mr-1 my-1 cursor-pointer"
                 :data="term"
-                :options="['search']"
                 @click="navigate"
               />
             </router-link>

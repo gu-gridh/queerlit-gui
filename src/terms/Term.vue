@@ -39,8 +39,11 @@ const optionItems = computed(() => {
   );
 });
 
-function toggleMenu() {
-  isMenuVisible.value = !isMenuVisible.value;
+function toggleMenu(event) {
+  if (optionItems.value?.length) {
+    event.preventDefault();
+    isMenuVisible.value = !isMenuVisible.value;
+  }
 }
 </script>
 
@@ -48,7 +51,7 @@ function toggleMenu() {
   <span
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
-    @click.prevent="toggleMenu()"
+    @click="toggleMenu"
   >
     <span
       class="
