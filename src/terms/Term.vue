@@ -48,7 +48,7 @@ function toggleMenu() {
   <span
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
-    @click.stop="toggleMenu()"
+    @click.prevent="toggleMenu()"
   >
     <span
       class="
@@ -73,6 +73,10 @@ function toggleMenu() {
       <slot>
         {{ data._label }}
       </slot>
+
+      <div v-if="optionItems?.length" class="inline-block cursor-pointer">
+        <icon icon="ellipsis-v" size="xs" class="ml-2 flex opacity-50" />
+      </div>
     </span>
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <div
