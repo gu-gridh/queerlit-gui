@@ -31,9 +31,7 @@ const isQlit = computed(
     props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
     props.data?.["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
 );
-const isHovering = ref(false);
 const isMenuVisible = ref(false);
-const isToggleable = ref(false);
 
 const optionItems = computed(() => {
   return (
@@ -41,28 +39,8 @@ const optionItems = computed(() => {
   );
 });
 
-function showMenu() {
-  // Require a short hovering before showing the menu.
-  isHovering.value = true;
-  setTimeout(() => {
-    if (isHovering.value) isMenuVisible.value = true;
-  }, 150);
-
-  // The user can dismiss the menu by clicking the term, but only after a short while.
-  // Partly because the user might click before seeing that the menu is already shown on hover.
-  // But also because on a touchscreen, the click event directly follows a mouseenter event;
-  // then the click event should not undo what the mouseenter event did.
-  isToggleable.value = false;
-  setTimeout(() => (isToggleable.value = true), 500);
-}
-
-function hideMenu() {
-  isMenuVisible.value = false;
-  isHovering.value = false;
-}
-
 function toggleMenu() {
-  if (isToggleable.value) isMenuVisible.value = !isMenuVisible.value;
+  isMenuVisible.value = !isMenuVisible.value;
 }
 </script>
 
@@ -70,9 +48,7 @@ function toggleMenu() {
   <span
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
-    @click="toggleMenu()"
-    @mouseenter="showMenu()"
-    @mouseleave="hideMenu()"
+    @click.stop="toggleMenu()"
   >
     <span
       class="
