@@ -18,12 +18,12 @@
           :options="['goto']"
         >
           {{ term.prefLabel }}
-          <div
-            class="inline-block cursor-pointer"
+          <icon
+            icon="times"
+            size="xs"
+            class="ml-1 cursor-pointer"
             @click.prevent="remove(term)"
-          >
-            <icon icon="times" size="xs" class="flex ml-1" />
-          </div>
+          />
         </Term>
         <input
           v-model="input"

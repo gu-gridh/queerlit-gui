@@ -55,11 +55,12 @@ function toggleMenu(event) {
   >
     <span
       class="
+        flex
+        items-center
         transform
-        hover:scale-105
         transition-all
         px-2
-        py-1
+        py-0.5
         text-black
         font-thin
         rounded-md
@@ -77,9 +78,12 @@ function toggleMenu(event) {
         {{ data._label }}
       </slot>
 
-      <div v-if="optionItems?.length" class="inline-block cursor-pointer">
-        <icon icon="ellipsis-v" size="xs" class="ml-2 flex opacity-50" />
-      </div>
+      <icon
+        v-if="optionItems?.length"
+        icon="ellipsis-v"
+        size="xs"
+        class="ml-2 opacity-50"
+      />
     </span>
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <div
