@@ -53,14 +53,9 @@
           class="px-2 pb-2 flex items-baseline"
         >
           {{ term.id }}
-          <Term
-            :data="term"
-            :options="['goto']"
-            class="cursor-pointer"
-            @click="add(term)"
-          >
+          <Term :data="term" class="cursor-pointer" @click="add(term)">
             {{ term._label }}
-            <icon icon="plus" size="xs" />
+            <icon icon="plus" size="xs" class="ml-1" />
           </Term>
           <div class="flex-1"></div>
         </div>

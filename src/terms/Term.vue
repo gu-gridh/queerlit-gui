@@ -19,6 +19,8 @@ const OPTION_DEFS = props.data && {
   goto: {
     label: `Om ämnesordet <em>${props.data._label}</em>`,
     action: () => gotoTerm(props.data),
+    // The Term view only works with QLIT terms.
+    isApplicable: () => isQlit.value,
   },
   search: {
     label: `Sök på <em>${props.data._label}</em>`,
@@ -35,7 +37,12 @@ const isMenuVisible = ref(false);
 
 const optionItems = computed(() => {
   return (
-    props.data && props.options.map((key) => OPTION_DEFS[key]).filter(Boolean)
+    props.data &&
+    props.options
+      .map((key) => OPTION_DEFS[key])
+      .filter((option) =>
+        option?.isApplicable ? option.isApplicable() : option
+      )
   );
 });
 
