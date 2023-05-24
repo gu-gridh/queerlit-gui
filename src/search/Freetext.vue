@@ -145,7 +145,9 @@ watch(showHelp, () => {
         >
           <Term :data="item" class="cursor-pointer">
             {{ item._label }}
-            <icon icon="plus" size="xs" />
+            <div class="inline-block">
+              <icon icon="plus" size="xs" class="ml-1 flex" />
+            </div>
           </Term>
         </FreetextSuggestions>
 
@@ -157,7 +159,9 @@ watch(showHelp, () => {
         >
           <Term :data="item" class="cursor-pointer">
             {{ item._label }}
-            <icon icon="plus" size="xs" />
+            <div class="inline-block">
+              <icon icon="plus" size="xs" class="ml-1 flex" />
+            </div>
           </Term>
         </FreetextSuggestions>
 
@@ -169,7 +173,9 @@ watch(showHelp, () => {
         >
           <Term :data="item" class="cursor-pointer">
             {{ item._label }}
-            <icon icon="plus" size="xs" />
+            <div class="inline-block">
+              <icon icon="plus" size="xs" class="ml-1 flex" />
+            </div>
           </Term>
         </FreetextSuggestions>
 
@@ -181,7 +187,9 @@ watch(showHelp, () => {
         >
           <Term :data="item" class="cursor-pointer">
             {{ item.label }} ({{ item.scheme }})
-            <icon icon="plus" size="xs" />
+            <div class="inline-block">
+              <icon icon="plus" size="xs" class="ml-1 flex" />
+            </div>
           </Term>
         </FreetextSuggestions>
       </div>

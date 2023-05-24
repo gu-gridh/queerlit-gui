@@ -8,7 +8,7 @@
   >
     <div class="flex flex-wrap justify-between items-baseline gap-4">
       <router-link :to="`/subjects/${parent.name}`" class="text-lg font-bold">
-        <Term :data="parent" :options="['search']" />
+        <Term :data="parent" />
       </router-link>
       <span v-if="parent.altLabels && parent.altLabels.length">
         Varianter: {{ parent.altLabels.join(", ") }}

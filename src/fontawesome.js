@@ -1,7 +1,7 @@
 /**
  * @see https://github.com/FortAwesome/vue-fontawesome#usage
  *
- * Find icons at https://fontawesome.com/search?q=search&m=free&s=solid%2Cbrands
+ * Find icons at https://fontawesome.com/search?q=search&m=free&s=solid
  */
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -9,6 +9,7 @@ import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faArrowLeft,
+  faEllipsisV,
   faInfoCircle,
   faMinus,
   faPlus,
@@ -24,6 +25,7 @@ library.add(
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faArrowLeft,
+  faEllipsisV,
   faInfoCircle,
   faMinus,
   faPlus,

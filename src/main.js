@@ -19,7 +19,6 @@ if (import.meta.env.VITE_MATOMO_URL && import.meta.env.VITE_MATOMO_ID) {
   app.use(matomo, {
     host: import.meta.env.VITE_MATOMO_URL,
     siteId: import.meta.env.VITE_MATOMO_ID,
-    router,
   });
 }
 

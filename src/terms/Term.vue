@@ -19,6 +19,8 @@ const OPTION_DEFS = props.data && {
   goto: {
     label: `Om ämnesordet <em>${props.data._label}</em>`,
     action: () => gotoTerm(props.data),
+    // The Term view only works with QLIT terms.
+    isApplicable: () => isQlit.value,
   },
   search: {
     label: `Sök på <em>${props.data._label}</em>`,
@@ -31,38 +33,24 @@ const isQlit = computed(
     props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
     props.data?.["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
 );
-const isHovering = ref(false);
 const isMenuVisible = ref(false);
-const isToggleable = ref(false);
 
 const optionItems = computed(() => {
   return (
-    props.data && props.options.map((key) => OPTION_DEFS[key]).filter(Boolean)
+    props.data &&
+    props.options
+      .map((key) => OPTION_DEFS[key])
+      .filter((option) =>
+        option?.isApplicable ? option.isApplicable() : option
+      )
   );
 });
 
-function showMenu() {
-  // Require a short hovering before showing the menu.
-  isHovering.value = true;
-  setTimeout(() => {
-    if (isHovering.value) isMenuVisible.value = true;
-  }, 150);
-
-  // The user can dismiss the menu by clicking the term, but only after a short while.
-  // Partly because the user might click before seeing that the menu is already shown on hover.
-  // But also because on a touchscreen, the click event directly follows a mouseenter event;
-  // then the click event should not undo what the mouseenter event did.
-  isToggleable.value = false;
-  setTimeout(() => (isToggleable.value = true), 500);
-}
-
-function hideMenu() {
-  isMenuVisible.value = false;
-  isHovering.value = false;
-}
-
-function toggleMenu() {
-  if (isToggleable.value) isMenuVisible.value = !isMenuVisible.value;
+function toggleMenu(event) {
+  if (optionItems.value?.length) {
+    event.preventDefault();
+    isMenuVisible.value = !isMenuVisible.value;
+  }
 }
 </script>
 
@@ -70,17 +58,16 @@ function toggleMenu() {
   <span
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
-    @click="toggleMenu()"
-    @mouseenter="showMenu()"
-    @mouseleave="hideMenu()"
+    @click="toggleMenu"
   >
     <span
       class="
+        flex
+        items-center
         transform
-        hover:scale-105
         transition-all
         px-2
-        py-1
+        py-0.5
         text-black
         font-thin
         rounded-md
@@ -97,6 +84,13 @@ function toggleMenu() {
       <slot>
         {{ data._label }}
       </slot>
+
+      <icon
+        v-if="optionItems?.length"
+        icon="ellipsis-v"
+        size="xs"
+        class="ml-2 opacity-50"
+      />
     </span>
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <div
