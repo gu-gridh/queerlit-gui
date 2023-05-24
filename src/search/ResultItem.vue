@@ -36,36 +36,39 @@
           </div>
         </div>
 
-        <div v-if="terms.qlit.length" class="mt-2">
+        <div v-if="terms.qlit.length" class="flex flex-wrap gap-1 my-2">
           <Term
             v-for="term in terms.qlit"
             :key="term"
             :data="term"
-            class="mr-1 mb-2"
             :options="['search', 'goto']"
           />
         </div>
 
-        <div v-if="termsSecondary.length || termsSecondaryMore" class="text-sm">
+        <div
+          v-if="termsSecondary.length || termsSecondaryMore"
+          class="flex flex-wrap gap-1 my-2 text-sm"
+        >
           <Term
             v-for="term in termsSecondary"
             :key="term"
             :data="term"
             secondary
             :options="['search', 'goto']"
-            class="mr-1 mb-2"
           >
             {{ term._label }} – perifert
           </Term>
           <span v-if="termsSecondaryMore" class="opacity-70">...</span>
         </div>
 
-        <div v-if="terms.other.length" class="mb-2 text-sm">
+        <div
+          v-if="terms.other.length"
+          class="flex flex-wrap gap-1 my-2 text-sm"
+        >
           <Term
             v-for="term in terms.other"
             :key="term"
             :data="term"
-            class="mr-1 mb-2"
             :options="term['@id'] && ['search']"
           />
         </div>

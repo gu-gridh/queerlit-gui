@@ -13,13 +13,17 @@
         <Term
           v-for="term in terms"
           :key="term.name"
-          class="term-added text-md cursor-pointer"
+          class="term-added text-md"
           :data="term"
           :options="['goto']"
-          @click="remove(term)"
         >
           {{ term.prefLabel }}
-          <icon icon="times" size="xs" />
+          <icon
+            icon="times"
+            size="xs"
+            class="ml-1 cursor-pointer"
+            @click.prevent="remove(term)"
+          />
         </Term>
         <input
           v-model="input"
@@ -49,14 +53,9 @@
           class="px-2 pb-2 flex items-baseline"
         >
           {{ term.id }}
-          <Term
-            :data="term"
-            :options="['goto']"
-            class="cursor-pointer"
-            @click="add(term)"
-          >
+          <Term :data="term" class="cursor-pointer" @click="add(term)">
             {{ term._label }}
-            <icon icon="plus" size="xs" />
+            <icon icon="plus" size="xs" class="ml-1" />
           </Term>
           <div class="flex-1"></div>
         </div>
