@@ -13,9 +13,15 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [1.5.0] (2023-05-24)
+
 ### Added
 
 - Support for logging page titles to Matomo
+
+### Changed
+
+- Interaction with terms has changed. Hovering no longer has effect. Instead, click to show the options menu (if there are options).
 
 ## [1.4.0] - 2023-04-14
 
@@ -98,7 +104,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.4.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.1.1...v1.2.0
