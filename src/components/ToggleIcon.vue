@@ -15,7 +15,6 @@ defineProps({
 <template>
   <div
     class="
-      w-6
       flex
       justify-center
       cursor-pointer
@@ -24,11 +23,11 @@ defineProps({
       transition-transform
       text-xs
     "
-    :class="{ 'scale-125': value }"
+    :class="{ 'scale-110': value }"
     @click="toggle()"
   >
     <slot>
-      <icon :icon="icon" />
+      <icon :icon="icon" fixed-width />
     </slot>
   </div>
 </template>

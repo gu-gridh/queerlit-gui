@@ -41,6 +41,7 @@ const [showHelp, toggleHelp] = useToggle();
         :value="modelValue"
         :type="search ? 'search' : undefined"
         autocomplete="off"
+        size="10"
         class="flex-1 bg-transparent"
         @input="$emit('update:modelValue', $event.target.value)"
         @focus="$emit('focus', $event.target.value)"
