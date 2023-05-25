@@ -76,7 +76,7 @@
               :get-label="getPersonLabel"
               :get-id="(item) => item['@id']"
               input-id="author"
-              help="Sök efter författare, alla författare som listas finns inte representerade i Queerlit"
+              help="Alla författare som listas finns inte representerade i Queerlit"
               @change="setAuthor"
             />
           </Labeled>
@@ -94,16 +94,14 @@
         </div>
 
         <div class="w-full sm:w-1/2 p-2">
-          <Labeled label="Genre/form" for-id="genreform" help-below>
-            <template v-slot:help>
-              Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi
-            </template>
+          <Labeled label="Genre/form" for-id="genreform">
             <Autocomplete
               :value="genreform"
               :suggest="searchGenreform"
               :get-label="getGenreformLabel"
               :get-id="(item) => item.id"
               input-id="genreform"
+              help="Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi"
               @change="setGenreform"
             />
           </Labeled>
