@@ -93,7 +93,10 @@
         </div>
 
         <div class="w-full sm:w-1/2 p-2">
-          <Labeled label="Genre/form" for-id="genreform">
+          <Labeled label="Genre/form" for-id="genreform" help-below>
+            <template v-slot:help>
+              Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi
+            </template>
             <Autocomplete
               :value="genreform"
               :suggest="searchGenreform"
