@@ -76,6 +76,7 @@
               :get-label="getPersonLabel"
               :get-id="(item) => item['@id']"
               input-id="author"
+              help="Sök efter författare, alla författare som listas finns inte representerade i Queerlit"
               @change="setAuthor"
             />
           </Labeled>

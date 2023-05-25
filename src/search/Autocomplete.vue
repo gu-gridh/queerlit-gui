@@ -6,6 +6,7 @@
       search="search"
       :is-incomplete="incomplete"
       :has-value="value"
+      :help="help"
       @input="change"
       @focus="change"
       @keyup.escape="blur"
@@ -48,7 +49,14 @@ import QInput from "@/components/QInput.vue";
 // If the `value` prop changes, reflect that in `input`.
 // If user types into `input`, populate `suggestions`.
 // If a suggestion is chosen, emit change event.
-const props = defineProps(["value", "suggest", "getLabel", "getId", "inputId"]);
+const props = defineProps([
+  "value",
+  "suggest",
+  "getLabel",
+  "getId",
+  "inputId",
+  "help",
+]);
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);
