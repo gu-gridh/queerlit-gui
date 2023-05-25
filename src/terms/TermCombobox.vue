@@ -26,9 +26,9 @@
           />
         </Term>
         <input
+          :id="inputId"
           v-model="input"
           type="search"
-          :placeholder="placeholder"
           class="
             bg-transparent
             border border-transparent
@@ -72,7 +72,7 @@ import CloseButton from "@/components/CloseButton.vue";
 import { searchTerms } from "@/services/terms.service";
 import debounce from "lodash/debounce";
 
-const props = defineProps(["terms", "placeholder"]);
+const props = defineProps(["terms", "input-id"]);
 const emit = defineEmits(["add", "remove"]);
 const input = ref("");
 const suggestions = ref([]);

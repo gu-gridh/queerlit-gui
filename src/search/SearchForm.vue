@@ -22,66 +22,87 @@
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <h3 class="text-lg mb-2">Avancerat</h3>
-      <TermCombobox
-        :placeholder="terms.length ? 'Sök fler ämnesord...' : 'Ämnesord...'"
-        :terms="terms"
-        class="mb-4"
-        @add="addTerm"
-        @remove="removeTerm"
-      />
-      <TermCombobox
-        :placeholder="
-          termsSecondary.length
-            ? 'Sök fler ämnesord...'
-            : 'Perifera ämnesord...'
-        "
-        :terms="termsSecondary"
-        class="mb-4"
-        @add="addTermSecondary"
-        @remove="removeTermSecondary"
-      />
+
+      <Labeled label="Ämnesord" for-id="terms">
+        <TermCombobox
+          :terms="terms"
+          input-id="terms"
+          class="mb-4"
+          @add="addTerm"
+          @remove="removeTerm"
+        />
+      </Labeled>
+
+      <Labeled label="Perifera ämnesord" for-id="terms-secondary">
+        <TermCombobox
+          :terms="termsSecondary"
+          input-id="terms-secondary"
+          class="mb-4"
+          @add="addTermSecondary"
+          @remove="removeTermSecondary"
+        />
+      </Labeled>
+
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
-          <input
-            placeholder="Titel"
-            :value="title"
-            class="
-              block
-              w-full
-              text-lg text-black
-              rounded
-              shadow-inner
-              leading-snug
-              py-1
-              px-2
-              transition-colors
-            "
-            :class="[title ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300']"
-            @change="setTitle"
-          />
+          <Labeled label="Titel" for-id="title">
+            <input
+              id="title"
+              :value="title"
+              class="
+                block
+                w-full
+                text-lg text-black
+                rounded
+                shadow-inner
+                leading-snug
+                py-1
+                px-2
+                transition-colors
+              "
+              :class="[
+                title ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
+              ]"
+              @change="setTitle"
+            />
+          </Labeled>
         </div>
+
         <div class="w-full sm:w-1/2 p-2">
-          <Autocomplete
-            placeholder="Författare"
-            :value="author"
-            :suggest="searchPerson"
-            :get-label="getPersonLabel"
-            :get-id="(item) => item['@id']"
-            @change="setAuthor"
-          />
+          <Labeled label="Författare" for-id="author">
+            <Autocomplete
+              :value="author"
+              :suggest="searchPerson"
+              :get-label="getPersonLabel"
+              :get-id="(item) => item['@id']"
+              input-id="author"
+              @change="setAuthor"
+            />
+          </Labeled>
         </div>
+
         <div class="w-full sm:w-1/2 p-2">
-          <YearFilter :start="yearStart" :end="yearEnd" @change="yearChange" />
+          <Labeled label="Utgivningsår" for-id="year">
+            <YearFilter
+              :start="yearStart"
+              :end="yearEnd"
+              input-id="year"
+              @change="yearChange"
+            />
+          </Labeled>
         </div>
+
         <div class="w-full sm:w-1/2 p-2">
-          <Autocomplete
-            placeholder="Genre/form"
-            :value="genreform"
-            :suggest="searchGenreform"
-            :get-label="getGenreformLabel"
-            :get-id="(item) => item.id"
-            @change="setGenreform"
-          />
+          <Labeled label="Genre/form" for-id="genreform">
+            <Autocomplete
+              :value="genreform"
+              :suggest="searchGenreform"
+              :get-label="getGenreformLabel"
+              :get-id="(item) => item.id"
+              input-id="genreform"
+              @change="setGenreform"
+            />
+          </Labeled>
         </div>
       </div>
       <div class="text-center mt-4">
@@ -110,6 +131,7 @@ import Autocomplete from "@/search/Autocomplete.vue";
 import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
 import useTerms from "@/terms/terms.composable";
+import Labeled from "@/components/Labeled.vue";
 
 const { doSearch, setQuery } = useSearch();
 const {

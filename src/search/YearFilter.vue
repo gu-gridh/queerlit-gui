@@ -2,6 +2,7 @@
   <div>
     <div class="flex justify-between mb-1">
       <input
+        :id="inputId"
         v-model.number="range[0]"
         size="4"
         placeholder="Från"
@@ -66,7 +67,7 @@ const MIN = 1800;
 const MAX = new Date().getFullYear();
 
 const emit = defineEmits(["change"]);
-const props = defineProps(["start", "end"]);
+const props = defineProps(["start", "end", "input-id"]);
 const range = ref([props.start || MIN, props.end || MAX]);
 const enableOld = ref(false);
 // While the max value is constant, the min value depends on the enableOld checkbox.

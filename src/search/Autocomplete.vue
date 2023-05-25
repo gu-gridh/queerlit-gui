@@ -1,8 +1,8 @@
 <template>
   <div v-on-click-outside="blur">
     <input
+      :id="inputId"
       v-model="input"
-      :placeholder="placeholder"
       type="search"
       autocomplete="off"
       class="
@@ -61,13 +61,7 @@ import debounce from "lodash/debounce";
 // If the `value` prop changes, reflect that in `input`.
 // If user types into `input`, populate `suggestions`.
 // If a suggestion is chosen, emit change event.
-const props = defineProps([
-  "placeholder",
-  "value",
-  "suggest",
-  "getLabel",
-  "getId",
-]);
+const props = defineProps(["value", "suggest", "getLabel", "getId", "inputId"]);
 const emit = defineEmits(["change"]);
 const input = ref("");
 const suggestions = ref([]);

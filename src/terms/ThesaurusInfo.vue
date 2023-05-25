@@ -33,11 +33,10 @@
     </div>
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
-      <div>
+      <Labeled label="Sök ämnesord">
         <input
           v-model="termTextQuery"
           type="search"
-          placeholder="Sök bland ämnesord..."
           class="
             w-full
             p-4
@@ -54,12 +53,13 @@
           ]"
           @change="gotoThesaurus"
         />
-      </div>
+      </Labeled>
     </div>
   </div>
 </template>
 
 <script setup>
+import Labeled from "@/components/Labeled.vue";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";

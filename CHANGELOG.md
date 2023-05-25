@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Most inputs in the search form now has labels instead of placeholders
+
 ## [1.5.0] (2023-05-24)
 
 ### Added
