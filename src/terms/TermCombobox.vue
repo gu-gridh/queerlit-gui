@@ -25,6 +25,7 @@
             @click.prevent="remove(term)"
           />
         </Term>
+
         <input
           :id="inputId"
           v-model="input"
@@ -42,8 +43,16 @@
           @keydown.backspace="removeLast"
           @focus="suggest"
         />
+
+        <ToggleIcon
+          v-if="help"
+          icon="question"
+          :value="showHelp"
+          :toggle="toggleHelp"
+        />
       </div>
     </div>
+
     <div v-show="suggestions.length" class="h-0 relative z-20">
       <CloseButton @click="setSuggestions([])" />
       <div class="bg-smoke-200 rounded-b pt-2 shadow">
@@ -61,19 +70,27 @@
         </div>
       </div>
     </div>
+
+    <InputHelp v-if="showHelp" @dismiss="toggleHelp(false)">
+      {{ help }}
+    </InputHelp>
   </div>
 </template>
 
 <script setup>
 import { ref } from "@vue/reactivity";
+import { useToggle } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
 import Term from "@/terms/Term.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import { searchTerms } from "@/services/terms.service";
 import debounce from "lodash/debounce";
+import ToggleIcon from "@/components/ToggleIcon.vue";
+import InputHelp from "@/components/InputHelp.vue";
 
-const props = defineProps(["terms", "input-id"]);
+const props = defineProps(["terms", "input-id", "help"]);
 const emit = defineEmits(["add", "remove"]);
+const [showHelp, toggleHelp] = useToggle();
 const input = ref("");
 const suggestions = ref([]);
 

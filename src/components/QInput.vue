@@ -1,6 +1,7 @@
 <script setup>
 import { useToggle } from "@vueuse/core";
 import ToggleIcon from "./ToggleIcon.vue";
+import InputHelp from "./InputHelp.vue";
 
 defineProps([
   "modelValue",
@@ -55,19 +56,9 @@ const [showHelp, toggleHelp] = useToggle();
       />
     </div>
 
-    <div
-      v-if="showHelp"
-      class="relative my-1 bg-yellow-50 border border-yellow-200 px-1 text-sm"
-    >
-      <div
-        class="float-right z-10 m-1.5 mr-0.5 opacity-70 cursor-pointer"
-        @click="toggleHelp(false)"
-      >
-        <icon icon="times" size="sm" class="block" />
-      </div>
-
+    <InputHelp v-if="showHelp" @dismiss="toggleHelp(false)">
       {{ help }}
-    </div>
+    </InputHelp>
   </div>
 </template>
 

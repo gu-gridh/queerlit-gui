@@ -27,6 +27,7 @@
         <TermCombobox
           :terms="terms"
           input-id="terms"
+          help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är centrala i verket"
           class="mb-4"
           @add="addTerm"
           @remove="removeTerm"
@@ -37,6 +38,7 @@
         <TermCombobox
           :terms="termsSecondary"
           input-id="terms-secondary"
+          help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är perifera i verket"
           class="mb-4"
           @add="addTermSecondary"
           @remove="removeTermSecondary"
@@ -46,23 +48,11 @@
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
           <Labeled label="Titel" for-id="title">
-            <input
-              id="title"
+            <QInput
+              input-id="title"
               :value="title"
-              class="
-                block
-                w-full
-                text-lg text-black
-                rounded
-                shadow-inner
-                leading-snug
-                py-1
-                px-2
-                transition-colors
-              "
-              :class="[
-                title ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
-              ]"
+              :has-value="title"
+              help="Titeln måste innehålla dessa ord"
               @change="setTitle"
             />
           </Labeled>
@@ -134,6 +124,7 @@ import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
 import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
+import QInput from "@/components/QInput.vue";
 
 const { doSearch, setQuery } = useSearch();
 const {

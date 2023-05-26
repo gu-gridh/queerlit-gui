@@ -22,6 +22,7 @@ defineProps({
       hover:scale-125
       transition-transform
       text-xs
+      opacity-70
     "
     :class="{ 'scale-110': value }"
     @click="toggle()"

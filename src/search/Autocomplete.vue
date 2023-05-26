@@ -1,6 +1,6 @@
 <template>
   <div v-on-click-outside="blur">
-    <q-input
+    <QInput
       v-model="input"
       :input-id="inputId"
       search="search"
