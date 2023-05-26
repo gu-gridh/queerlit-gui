@@ -1,7 +1,7 @@
 <template>
   <div v-on-click-outside="blur">
     <div
-      class="p-2 flex rounded-t shadow-inner"
+      class="p-2 flex rounded-t shadow-inner items-center"
       :class="{
         'rounded-b': !suggestions.length,
         incomplete: input,
@@ -30,6 +30,7 @@
           :id="inputId"
           v-model="input"
           type="search"
+          :size="Math.max(3, input.length + 1)"
           class="
             bg-transparent
             border border-transparent
@@ -43,14 +44,14 @@
           @keydown.backspace="removeLast"
           @focus="suggest"
         />
-
-        <ToggleIcon
-          v-if="help"
-          icon="question"
-          :value="showHelp"
-          :toggle="toggleHelp"
-        />
       </div>
+
+      <ToggleIcon
+        v-if="help"
+        icon="question"
+        :value="showHelp"
+        :toggle="toggleHelp"
+      />
     </div>
 
     <div v-show="suggestions.length" class="h-0 relative z-20">

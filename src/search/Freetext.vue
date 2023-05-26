@@ -98,7 +98,7 @@ watch(showHelp, () => {
         w-full
         flex
         items-center
-        p-1
+        px-2
         rounded-t
         text-text text-xl
         shadow-inner
@@ -112,7 +112,7 @@ watch(showHelp, () => {
         v-model="textLocal"
         type="search"
         placeholder="Sök här..."
-        class="flex-1 bg-transparent p-3 pb-2"
+        class="flex-1 bg-transparent p-1 py-3"
         @focus="onInput"
         @keyup.enter="commitText()"
         @blur="commitText()"
