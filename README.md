@@ -2,6 +2,10 @@
 
 Search interface for the [Queerlit](https://queerlit.dh.gu.se/) database and the QLIT thesaurus.
 
+## Version history
+
+See the [changelog](CHANGELOG.md).
+
 ## Development
 
 1. Install Node.js and [Yarn 3](https://yarnpkg.com/getting-started/install).

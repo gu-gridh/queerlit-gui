@@ -13,6 +13,21 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [1.6.0] (2023-05-31)
+
+### Added
+
+- Inputs in the search form have toggleable help texts ([#142](https://github.com/gu-gridh/queerlit-gui/issues/142))
+
+### Changed
+
+- Most inputs in the search form now has labels instead of placeholders ([#116](https://github.com/gu-gridh/queerlit-gui/issues/116]))
+
+### Fixed
+
+- [#146](https://github.com/gu-gridh/queerlit-gui/issues/146) Sometimes when selecting suggested term from Freetext input, actual search uses freetext, not term
+- [#143](https://github.com/gu-gridh/queerlit-gui/issues/143) Fix compound term labels in term combobox
+
 ## [1.5.0] (2023-05-24)
 
 ### Added
@@ -104,7 +119,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.5.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.2.0...v1.3.0

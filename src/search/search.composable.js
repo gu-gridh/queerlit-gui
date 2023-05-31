@@ -5,6 +5,10 @@ import useLocalWorks from "./localWorks.composable";
 import useQuery from "./query.composable";
 import { useRouter } from "vue-router";
 
+// Keep the debounced function in module scope, because it needs to be identical across all usages of this composable.
+// But the function can only be actually defined inside useSearch, as it depends on other composables.
+let doSearchDebounced;
+
 export default function useSearch() {
   const { commit, state } = useStore();
   const { setQuery: setQueryReal, serializedQuery } = useQuery();
@@ -13,12 +17,9 @@ export default function useSearch() {
 
   /** Search Libris using the query, then set results. */
   async function doSearch({ retain } = {}) {
-    // Avoid sending duplicate search requests.
-    if (state.currentSearch) {
-      return;
-    }
-
-    commit("setSearching", serializedQuery.value);
+    // The query might change while waiting for response. Remember current query.
+    const currentSerializedQuery = serializedQuery.value;
+    commit("setSearching", currentSerializedQuery);
 
     if (!retain) {
       commit("setOffset", 0);
@@ -38,6 +39,15 @@ export default function useSearch() {
         state.sort,
         state.offset
       );
+
+      // In case of concurrent requests, only use the last.
+      if (serializedQuery.value != currentSerializedQuery) {
+        console.log(
+          "Query has changed since search request; dropping results."
+        );
+        return;
+      }
+
       commit("setResults", items);
       commit("setHistogram", histogram);
       commit("setTotal", total);
@@ -52,7 +62,8 @@ export default function useSearch() {
     searchLocal();
   }
 
-  const doSearchDebounced = debounce(doSearch, 50);
+  // For each usage of this composable, the function is debounced anew and assigned to the module-scope variable.
+  doSearchDebounced = debounce(doSearch, 50);
 
   function setQuery(params) {
     const queryBefore = serializedQuery.value;

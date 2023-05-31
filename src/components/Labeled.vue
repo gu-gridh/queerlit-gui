@@ -1,19 +1,26 @@
+<script setup>
+defineProps({
+  label: String,
+  labelClass: [Object, String],
+  forId: String,
+});
+</script>
+
 <template>
   <section>
-    <header
-      class="font-label uppercase font-medium text-xs"
+    <component
+      :is="forId ? 'label' : 'header'"
+      :for="forId || undefined"
+      class="block font-label uppercase font-medium text-xs"
       :class="labelClass"
     >
       {{ label }}
-    </header>
+    </component>
+
     <div>
       <slot />
     </div>
   </section>
 </template>
-
-<script setup>
-defineProps({ label: String, labelClass: [Object, String] });
-</script>
 
 <style></style>

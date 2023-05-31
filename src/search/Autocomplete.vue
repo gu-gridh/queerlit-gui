@@ -1,28 +1,15 @@
 <template>
   <div v-on-click-outside="blur">
-    <input
+    <QInput
       v-model="input"
-      :placeholder="placeholder"
-      type="search"
-      autocomplete="off"
-      class="
-        block
-        w-full
-        text-lg text-black
-        rounded
-        shadow-inner
-        leading-snug
-        py-1
-        px-2
-        transition-colors
-      "
-      :class="[
-        incomplete ? 'incomplete' : null,
-        value ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
-      ]"
+      :input-id="inputId"
+      search="search"
+      :is-incomplete="incomplete"
+      :has-value="value"
+      :help="help"
       @input="change"
-      @keyup.escape="blur"
       @focus="change"
+      @keyup.escape="blur"
     />
     <div v-show="suggestions.length" class="relative h-0 z-20">
       <div
@@ -55,6 +42,7 @@ import { computed, ref } from "@vue/reactivity";
 import { watchEffect } from "@vue/runtime-core";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
+import QInput from "@/components/QInput.vue";
 
 // Data flow: parent -> `value` -> `input` -> `suggestions` -> `parent`
 // Parent should pass current value to the `value` prop.
@@ -62,11 +50,12 @@ import debounce from "lodash/debounce";
 // If user types into `input`, populate `suggestions`.
 // If a suggestion is chosen, emit change event.
 const props = defineProps([
-  "placeholder",
   "value",
   "suggest",
   "getLabel",
   "getId",
+  "inputId",
+  "help",
 ]);
 const emit = defineEmits(["change"]);
 const input = ref("");
@@ -106,11 +95,4 @@ function blur() {
 }
 </script>
 
-<style scoped>
-::placeholder {
-  font-size: 16px;
-}
-.incomplete:not(:focus) {
-  @apply bg-red-100;
-}
-</style>
+<style scoped></style>
