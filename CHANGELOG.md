@@ -15,11 +15,16 @@ As this project is a user-facing application, the places in the semantic version
 
 ### Added
 
-- Inputs in the search form have toggleable help texts
+- Inputs in the search form have toggleable help texts ([#142](https://github.com/gu-gridh/queerlit-gui/issues/142))
 
 ### Changed
 
-- Most inputs in the search form now has labels instead of placeholders
+- Most inputs in the search form now has labels instead of placeholders ([#116](https://github.com/gu-gridh/queerlit-gui/issues/116]))
+
+### Fixed
+
+- [#146](https://github.com/gu-gridh/queerlit-gui/issues/146) Sometimes when selecting suggested term from Freetext input, actual search uses freetext, not term
+- [#143](https://github.com/gu-gridh/queerlit-gui/issues/143) Fix compound term labels in term combobox
 
 ## [1.5.0] (2023-05-24)
 
