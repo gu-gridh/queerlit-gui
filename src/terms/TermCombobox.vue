@@ -17,7 +17,7 @@
           :data="term"
           :options="['goto']"
         >
-          {{ term.prefLabel }}
+          {{ term._label }}
           <icon
             icon="times"
             size="xs"
