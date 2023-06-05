@@ -43,37 +43,12 @@ export async function searchTerms(s) {
 }
 
 export function getCollections() {
-  return [
-    {
-      label: "Identiteter och praktiker",
-      terms: [
-        "Asexuella",
-        "Barn",
-        "HBTQI-personer",
-        "HBTQI+",
-        "Heterosexuella",
-        "Historiska termer (HBTQI)",
-        "Könsöverskridanden",
-        "Latent homosexualitet",
-        "Okönade personer",
-        "Personer som lever med hiv",
-        "Rollbeteende",
-        "Sexuell identitet",
-        "Sexuell läggning",
-        "Situationsbetingat sexuellt beteende",
-        "Ungdomar",
-        "Äldre",
-      ],
-    },
-    { label: "Sex, intimitet och kroppslighet" },
-    { label: "Medicin" },
-    { label: "Rörelser och rättigheter" },
-    { label: "Relationer" },
-    { label: "Diskriminering, hat och våld" },
-    { label: "Kultur" },
-    { label: "Livsåskådning och tro" },
-    { label: "Övrigt" },
-  ];
+  return qlitList("collections").then((terms) =>
+    terms.map((term) => ({
+      ...term,
+      _label: term._label.replace("Tema: ", "").replace(" (HBTQI)", ""),
+    }))
+  );
 }
 
 export async function getLabels() {

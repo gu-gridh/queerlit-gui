@@ -126,7 +126,7 @@ import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
 import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
-import CollectionsSmall from "@/terms/CollectionsSmall.vue  ";
+import CollectionsSmall from "@/terms/CollectionsSmall.vue";
 import QInput from "@/components/QInput.vue";
 
 const { doSearch, setQuery } = useSearch();

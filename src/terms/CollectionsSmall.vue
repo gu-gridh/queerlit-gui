@@ -1,10 +1,12 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { getCollections } from "@/services/terms.service";
 import Term from "./Term.vue";
 
-const collections = getCollections();
+const collections = ref();
 const selected = ref(null);
+
+watchEffect(async () => (collections.value = await getCollections()));
 </script>
 
 <template>
@@ -12,7 +14,11 @@ const selected = ref(null);
     v-if="!selected"
     class="my-2 flex flex-wrap justify-center -mx-1 text-center"
   >
-    <div v-for="collection in collections" class="w-1/2 sm:w-1/3 p-1">
+    <div
+      v-for="collection in collections"
+      :key="collection['@id']"
+      class="w-1/2 sm:w-1/3 p-1"
+    >
       <div
         class="
           p-2
@@ -28,7 +34,7 @@ const selected = ref(null);
         "
         @click="selected = collection"
       >
-        {{ collection.label }}
+        {{ collection._label }}
       </div>
     </div>
   </div>
