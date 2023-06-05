@@ -1,12 +1,20 @@
 <script setup>
 import { ref, watchEffect } from "vue";
-import { getCollections } from "@/services/terms.service";
+import { getCollection, getCollections } from "@/services/terms.service";
 import Term from "./Term.vue";
 
 const collections = ref();
 const selected = ref(null);
+const terms = ref();
 
 watchEffect(async () => (collections.value = await getCollections()));
+
+watchEffect(async () => {
+  terms.value = null;
+  if (selected.value) {
+    terms.value = await getCollection(selected.value.name);
+  }
+});
 </script>
 
 <template>
@@ -55,13 +63,13 @@ watchEffect(async () => (collections.value = await getCollections()));
           items-center
         "
       >
-        <span>{{ selected.label }}</span>
+        <span>{{ selected._label }}</span>
         <icon icon="times" />
       </div>
     </div>
     <div class="bg-smoke-100 shadow-inner rounded h-52 overflow-auto pt-6">
-      <div v-for="term in selected.terms" class="block p-1">
-        <Term>{{ term }}</Term>
+      <div v-for="term in terms" class="block p-1">
+        <Term :data="term" :options="['search', 'goto']" />
       </div>
     </div>
   </div>

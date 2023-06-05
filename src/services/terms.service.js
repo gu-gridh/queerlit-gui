@@ -51,6 +51,10 @@ export function getCollections() {
   );
 }
 
+export function getCollection(name) {
+  return qlitList("collections/" + name);
+}
+
 export async function getLabels() {
   return await qlitGet("labels");
 }
