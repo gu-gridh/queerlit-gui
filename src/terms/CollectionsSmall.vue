@@ -46,29 +46,16 @@ watchEffect(async () => {
       </div>
     </div>
   </div>
-  <div v-else class="my-2 mt-6 relative">
-    <div
-      class="absolute z-10 left-10 right-10 -top-4 cursor-pointer"
-      @click="selected = null"
-    >
+  <div v-else class="my-2 py-1 relative">
+    <div class="bg-yellow-200 shadow rounded-lg h-52 overflow-auto">
       <div
-        class="
-          p-1
-          px-2
-          bg-yellow-300
-          shadow
-          rounded-md
-          flex
-          justify-between
-          items-center
-        "
+        class="p-1 px-2 flex gap-2 items-center cursor-pointer"
+        @click="selected = null"
       >
+        <icon icon="arrow-left" size="xs" />
         <span>{{ selected._label }}</span>
-        <icon icon="times" />
       </div>
-    </div>
-    <div class="bg-smoke-100 shadow-inner rounded h-52 overflow-auto pt-6">
-      <div v-for="term in terms" class="block p-1">
+      <div v-for="term in terms" class="block px-2 pb-1">
         <Term :data="term" :options="['search', 'goto']" />
       </div>
     </div>
