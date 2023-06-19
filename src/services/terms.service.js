@@ -12,13 +12,13 @@ async function qlitGet(endpoint, params) {
 /** Get multiple terms and sort alphabetically. */
 async function qlitList(endpoint, params) {
   const data = await qlitGet(endpoint, params);
-  const terms = data.map(fakeXlTerm);
+  const terms = data.map(recurseFakeXlTerm);
   return terms;
 }
 
 export async function getTerm(name) {
   const data = await qlitGet("term/" + name);
-  return fakeXlTerm(data);
+  return recurseFakeXlTerm(data);
 }
 
 export async function getParents(child) {
@@ -52,7 +52,7 @@ export function getCollections() {
 }
 
 export function getCollection(name) {
-  return qlitList("collections/" + name);
+  return qlitList("collections/" + name, { tree: true });
 }
 
 export async function getLabels() {
@@ -67,4 +67,12 @@ function fakeXlTerm(term) {
     inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
     ...term,
   };
+}
+
+function recurseFakeXlTerm(term) {
+  term = fakeXlTerm(term);
+  term.narrower = term.narrower?.map((t) =>
+    typeof t == "string" ? t : recurseFakeXlTerm(t)
+  );
+  return term;
 }

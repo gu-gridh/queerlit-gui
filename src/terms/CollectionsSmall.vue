@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import { getCollection, getCollections } from "@/services/terms.service";
-import Term from "./Term.vue";
+import TermTreeSmall from "./TermTreeSmall.vue";
 
 const collections = ref();
 const selected = ref(null);
@@ -55,9 +55,7 @@ watchEffect(async () => {
           <icon icon="arrow-left" size="xs" />
           <span>{{ selected._label }}</span>
         </div>
-        <div v-for="term in terms" class="block px-2 pb-1">
-          <Term :data="term" :options="['search', 'goto']" />
-        </div>
+        <TermTreeSmall v-for="term in terms" :key="term.name" :parent="term" />
       </div>
     </div>
   </div>
