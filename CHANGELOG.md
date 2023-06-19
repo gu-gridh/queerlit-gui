@@ -13,6 +13,18 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Find terms by collections
+- A term option to remove it from search field
+
+### Changed
+
+- The title, author and genre/form search fields are collapsed by default
+- The introductory text is collapsed when a search query is active
+- The year filter is wider
+- Terms in the secondary terms field are displayed similar to in search results: brighter background and with "– perifert" appended
+
 ## [1.6.0] (2023-05-31)
 
 ### Added
