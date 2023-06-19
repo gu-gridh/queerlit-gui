@@ -35,7 +35,7 @@ const maxHeight = computed(() =>
 
 <template>
   <div>
-    <div class="text-center text-xs h-4 whitespace-nowrap">
+    <div class="text-center text-xs h-4 -mt-4 whitespace-nowrap">
       <span v-if="focus"> {{ focus.year }}-talet: {{ focus.n }} st </span>
     </div>
     <div class="flex items-end h-12">
