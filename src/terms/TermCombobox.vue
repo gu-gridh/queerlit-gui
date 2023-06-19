@@ -15,7 +15,7 @@
           :key="term.name"
           class="term-added text-md"
           :data="term"
-          :options="[goto]"
+          :options="[removeOption, goto]"
         >
           {{ term._label }}
           <icon
@@ -136,6 +136,11 @@ function setSuggestions(matches) {
 function blur() {
   setSuggestions([]);
 }
+
+const removeOption = (term) => ({
+  label: `Rensa <em>${term._label}</em>`,
+  action: () => remove(term),
+});
 </script>
 
 <style scoped>
