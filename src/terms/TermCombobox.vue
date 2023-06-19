@@ -16,8 +16,10 @@
           class="term-added text-md"
           :data="term"
           :options="[removeOption, goto]"
+          :secondary="secondary"
         >
           {{ term._label }}
+          <template v-if="secondary">– perifert</template>
           <icon
             icon="times"
             size="xs"
@@ -90,7 +92,7 @@ import ToggleIcon from "@/components/ToggleIcon.vue";
 import InputHelp from "@/components/InputHelp.vue";
 import useTermOptions from "./termOptions.composable";
 
-const props = defineProps(["terms", "input-id", "help"]);
+const props = defineProps(["terms", "input-id", "help", "secondary"]);
 const emit = defineEmits(["add", "remove"]);
 const [showHelp, toggleHelp] = useToggle();
 const { goto } = useTermOptions();

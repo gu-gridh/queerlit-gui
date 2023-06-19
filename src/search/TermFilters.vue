@@ -26,6 +26,7 @@ const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
     <Labeled label="Perifera ämnesord" for-id="terms-secondary">
       <TermCombobox
         :terms="termsSecondary"
+        :secondary="true"
         input-id="terms-secondary"
         help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är perifera i verket"
         class="mb-4"
