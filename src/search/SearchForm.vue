@@ -23,27 +23,7 @@
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <h3 class="text-lg mb-2">Avancerat</h3>
 
-      <Labeled label="Ämnesord" for-id="terms">
-        <TermCombobox
-          :terms="terms"
-          input-id="terms"
-          help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är centrala i verket"
-          class="mb-4"
-          @add="addTerm"
-          @remove="removeTerm"
-        />
-      </Labeled>
-
-      <Labeled label="Perifera ämnesord" for-id="terms-secondary">
-        <TermCombobox
-          :terms="termsSecondary"
-          input-id="terms-secondary"
-          help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är perifera i verket"
-          class="mb-4"
-          @add="addTermSecondary"
-          @remove="removeTermSecondary"
-        />
-      </Labeled>
+      <TermFilters />
 
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
@@ -118,13 +98,12 @@ import useQuery from "@/search/query.composable";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
 import Freetext from "./Freetext.vue";
 import YearFilter from "@/search/YearFilter.vue";
-import TermCombobox from "@/terms/TermCombobox.vue";
 import Autocomplete from "@/search/Autocomplete.vue";
 import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
-import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
 import QInput from "@/components/QInput.vue";
+import TermFilters from "./TermFilters.vue";
 
 const { doSearch, setQuery } = useSearch();
 const {
@@ -136,24 +115,6 @@ const {
   getPersonLabel,
   getGenreformLabel,
 } = useQuery();
-const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
-  useTerms();
-
-function addTerm(term) {
-  add(term);
-}
-
-function removeTerm(term) {
-  remove(term);
-}
-
-function addTermSecondary(term) {
-  addSecondary(term);
-}
-
-function removeTermSecondary(term) {
-  removeSecondary(term);
-}
 
 function setTitle(event) {
   setQuery({ title: event.target.value });
