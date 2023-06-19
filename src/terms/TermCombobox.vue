@@ -15,7 +15,7 @@
           :key="term.name"
           class="term-added text-md"
           :data="term"
-          :options="['goto']"
+          :options="[goto]"
         >
           {{ term._label }}
           <icon
@@ -79,19 +79,21 @@
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import { useToggle } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
+import debounce from "lodash/debounce";
+import { searchTerms } from "@/services/terms.service";
 import Term from "@/terms/Term.vue";
 import CloseButton from "@/components/CloseButton.vue";
-import { searchTerms } from "@/services/terms.service";
-import debounce from "lodash/debounce";
 import ToggleIcon from "@/components/ToggleIcon.vue";
 import InputHelp from "@/components/InputHelp.vue";
+import useTermOptions from "./termOptions.composable";
 
 const props = defineProps(["terms", "input-id", "help"]);
 const emit = defineEmits(["add", "remove"]);
 const [showHelp, toggleHelp] = useToggle();
+const { goto } = useTermOptions();
 const input = ref("");
 const suggestions = ref([]);
 

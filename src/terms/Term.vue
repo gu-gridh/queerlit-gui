@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity";
 import { vOnClickOutside } from "@vueuse/components";
-import useTerms from "./terms.composable";
 
 const props = defineProps({
   data: Object,
@@ -9,24 +8,8 @@ const props = defineProps({
   options: {
     type: Array,
     default: () => [],
-    validate: (options) =>
-      options.every((option) => ["search", "goto"].includes(option)),
   },
 });
-const { gotoTerm, searchByTerm } = useTerms();
-
-const OPTION_DEFS = props.data && {
-  goto: {
-    label: `Om ämnesordet <em>${props.data._label}</em>`,
-    action: () => gotoTerm(props.data),
-    // The Term view only works with QLIT terms.
-    isApplicable: () => isQlit.value,
-  },
-  search: {
-    label: `Sök på <em>${props.data._label}</em>`,
-    action: () => searchByTerm(props.data),
-  },
-};
 
 const isQlit = computed(
   () =>
@@ -35,16 +18,11 @@ const isQlit = computed(
 );
 const isMenuVisible = ref(false);
 
-const optionItems = computed(() => {
-  return (
-    props.data &&
-    props.options
-      .map((key) => OPTION_DEFS[key])
-      .filter((option) =>
-        option?.isApplicable ? option.isApplicable() : option
-      )
-  );
-});
+const optionItems = computed(() =>
+  props.options
+    .map((op) => op(props.data))
+    .filter((op) => op.isApplicable !== false)
+);
 
 function toggleMenu(event) {
   if (optionItems.value?.length) {
@@ -72,6 +50,7 @@ function toggleMenu(event) {
         font-thin
         rounded-md
         shadow
+        cursor-default
       "
       :class="[
         isQlit
