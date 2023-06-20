@@ -26,6 +26,7 @@
     "vue-dragscroll": "^3.0.1",
     "vue-matomo": "^4.2.0",
     "vue-router": "4",
+    "vue3-drag-drop": "^1.0.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

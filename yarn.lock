@@ -2810,6 +2810,7 @@ __metadata:
     vue-dragscroll: ^3.0.1
     vue-matomo: ^4.2.0
     vue-router: 4
+    vue3-drag-drop: ^1.0.0
     vuex: ^4.0.2
   languageName: unknown
   linkType: soft
@@ -3431,7 +3432,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:3.3.4":
+"vue3-drag-drop@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "vue3-drag-drop@npm:1.0.0"
+  dependencies:
+    vue: ^3.2.45
+  checksum: 450f6d9bfedc6e8ca69f839c3e76c6e0b7409c342377b8d23a5f554636318c90695f2ea2c4a07e4fbac2f133c2a29b1750d980c3609cb92d9cebdf11430a4cc3
+  languageName: node
+  linkType: hard
+
+"vue@npm:3.3.4, vue@npm:^3.2.45":
   version: 3.3.4
   resolution: "vue@npm:3.3.4"
   dependencies:

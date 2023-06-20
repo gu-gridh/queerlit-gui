@@ -42,6 +42,7 @@
             :key="term"
             :data="term"
             :options="[search, goto]"
+            :draggable="true"
           />
         </div>
 
@@ -55,6 +56,7 @@
             :data="term"
             secondary
             :options="[search, goto]"
+            :draggable="true"
           >
             {{ term._label }} – perifert
           </Term>
@@ -70,6 +72,7 @@
             :key="term"
             :data="term"
             :options="[search]"
+            :draggable="true"
           />
         </div>
 

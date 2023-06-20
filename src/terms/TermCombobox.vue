@@ -1,6 +1,6 @@
 <template>
   <div v-on-click-outside="blur">
-    <div
+    <drop
       class="p-2 flex rounded-t shadow-inner items-center"
       :class="{
         'rounded-b': !suggestions.length,
@@ -8,6 +8,7 @@
         'bg-smoke-200 hover:bg-smoke-300': !terms.length,
         'bg-blue-100': terms.length,
       }"
+      @drop="dropTerm"
     >
       <div class="flex-1 flex flex-wrap items-baseline gap-1">
         <Term
@@ -17,6 +18,7 @@
           :data="term"
           :options="[removeOption, goto]"
           :secondary="secondary"
+          :draggable="true"
         >
           {{ term._label }}
           <template v-if="secondary">– perifert</template>
@@ -54,7 +56,7 @@
         :value="showHelp"
         :toggle="toggleHelp"
       />
-    </div>
+    </drop>
 
     <div v-show="suggestions.length" class="h-0 relative z-20">
       <CloseButton @click="setSuggestions([])" />
@@ -90,11 +92,13 @@ import Term from "@/terms/Term.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
 import InputHelp from "@/components/InputHelp.vue";
+import useTerms from "./terms.composable";
 import useTermOptions from "./termOptions.composable";
 
 const props = defineProps(["terms", "input-id", "help", "secondary"]);
 const emit = defineEmits(["add", "remove"]);
 const [showHelp, toggleHelp] = useToggle();
+const { remove: removeTerm, removeSecondary } = useTerms();
 const { goto } = useTermOptions();
 const input = ref("");
 const suggestions = ref([]);
@@ -143,6 +147,17 @@ const removeOption = (term) => ({
   label: `Rensa <em>${term._label}</em>`,
   action: () => remove(term),
 });
+
+function dropTerm(term, event) {
+  if (!term?.["@id"]) {
+    console.log("Only terms can be dropped in the term combobox");
+  }
+  // Remove from both fields.
+  removeTerm(term);
+  removeSecondary(term);
+  // Add to the current field.
+  add(term);
+}
 </script>
 
 <style scoped>

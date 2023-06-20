@@ -9,6 +9,7 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  draggable: Boolean,
 });
 
 const isQlit = computed(
@@ -33,9 +34,11 @@ function toggleMenu(event) {
 </script>
 
 <template>
-  <span
+  <drag
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
+    :draggable="draggable && !!data"
+    :transfer-data="data"
     @click="toggleMenu"
   >
     <span
@@ -104,7 +107,7 @@ function toggleMenu(event) {
         </ul>
       </div>
     </Transition>
-  </span>
+  </drag>
 </template>
 
 <style scoped></style>

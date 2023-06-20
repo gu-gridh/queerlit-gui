@@ -17,6 +17,7 @@ As this project is a user-facing application, the places in the semantic version
 
 - Find terms by collections
 - A term option to remove it from search field
+- Terms can be dragged and dropped into the central/peripheral search fields
 
 ### Changed
 
