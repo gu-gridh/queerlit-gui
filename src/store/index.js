@@ -13,6 +13,7 @@ export default createStore({
     sort: "-meta.modified",
     offset: 0,
     currentSearch: null,
+    dragged: null,
     termTextQuery: "",
     // Remember which nodes in the term tree are expanded,
     // but forget it if the term search query changes.
@@ -38,6 +39,9 @@ export default createStore({
     },
     setOffset(state, offset) {
       state.offset = offset;
+    },
+    setDragged(state, item) {
+      state.dragged = item;
     },
     setTermTextQuery(state, termTextQuery) {
       state.termTextQuery = termTextQuery;

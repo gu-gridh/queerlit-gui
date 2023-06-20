@@ -27,6 +27,15 @@ module.exports = {
       screens: {
         low: { raw: "(max-height: 1000px)" },
       },
+      keyframes: {
+        throb: {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.05)" },
+        },
+      },
+      animation: {
+        throb: "throb .4s infinite alternate both",
+      },
     },
     container: {
       center: true,

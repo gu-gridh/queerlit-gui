@@ -1,5 +1,6 @@
 <script setup>
-import { computed, ref } from "@vue/reactivity";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import { vOnClickOutside } from "@vueuse/components";
 
 const props = defineProps({
@@ -12,6 +13,7 @@ const props = defineProps({
   draggable: Boolean,
 });
 
+const { commit } = useStore();
 const isQlit = computed(
   () =>
     props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
@@ -31,6 +33,15 @@ function toggleMenu(event) {
     isMenuVisible.value = !isMenuVisible.value;
   }
 }
+
+function dragStart() {
+  isMenuVisible.value = false;
+  commit("setDragged", { type: "term", data: props.data });
+}
+
+function dragEnd() {
+  commit("setDragged", null);
+}
 </script>
 
 <template>
@@ -38,7 +49,8 @@ function toggleMenu(event) {
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
     :draggable="draggable && !!data"
-    :transfer-data="data"
+    @dragstart="dragStart"
+    @dragend="dragEnd"
     @click="toggleMenu"
   >
     <span
@@ -101,7 +113,12 @@ function toggleMenu(event) {
               hover:bg-gray-100
               cursor-pointer
             "
-            @click.prevent.stop="option.action"
+            @click.prevent.stop="
+              () => {
+                option.action();
+                isMenuVisible = false;
+              }
+            "
             v-html="option.label"
           />
         </ul>

@@ -7,6 +7,7 @@
         incomplete: input,
         'bg-smoke-200 hover:bg-smoke-300': !terms.length,
         'bg-blue-100': terms.length,
+        'animate-throb': isDraggingTerm,
       }"
       @drop="dropTerm"
     >
@@ -83,7 +84,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import { useToggle } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
@@ -97,11 +99,13 @@ import useTermOptions from "./termOptions.composable";
 
 const props = defineProps(["terms", "input-id", "help", "secondary"]);
 const emit = defineEmits(["add", "remove"]);
+const { commit, state } = useStore();
 const [showHelp, toggleHelp] = useToggle();
 const { remove: removeTerm, removeSecondary } = useTerms();
 const { goto } = useTermOptions();
 const input = ref("");
 const suggestions = ref([]);
+const isDraggingTerm = computed(() => state.dragged?.type == "term");
 
 // No need to load suggestions until user slows down typing.
 const getSuggestions = debounce(async () => {
@@ -148,15 +152,17 @@ const removeOption = (term) => ({
   action: () => remove(term),
 });
 
-function dropTerm(term, event) {
-  if (!term?.["@id"]) {
-    console.log("Only terms can be dropped in the term combobox");
+function dropTerm() {
+  if (isDraggingTerm.value) {
+    const term = state.dragged.data;
+    // Remove from both fields.
+    removeTerm(term);
+    removeSecondary(term);
+    // Add to the current field.
+    add(term);
+
+    commit("setDragged", null);
   }
-  // Remove from both fields.
-  removeTerm(term);
-  removeSecondary(term);
-  // Add to the current field.
-  add(term);
 }
 </script>
 
