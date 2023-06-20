@@ -63,11 +63,10 @@ function setGenreform(genreform) {
 }
 
 function removeLastWord() {
-  setQuery({
-    // Remove last word from text.
-    text: String(text.value).split(" ").slice(0, -1).join(" "),
-  });
-  setTimeout(() => autocomplete());
+  // Remove last word from text.
+  textLocal.value = String(textLocal.value).split(" ").slice(0, -1).join(" ");
+  commitText();
+  onInput();
 }
 
 const autocomplete = debounce(async () => {
@@ -81,6 +80,7 @@ const autocomplete = debounce(async () => {
 }, 400);
 
 function blur() {
+  commitText();
   toggleSuggestions(false);
 }
 
@@ -115,7 +115,6 @@ watch(showHelp, () => {
         class="flex-1 bg-transparent p-1 py-3"
         @focus="onInput"
         @keyup.enter="commitText()"
-        @blur="commitText()"
       />
 
       <ToggleIcon icon="question" :value="showHelp" :toggle="toggleHelp" />
