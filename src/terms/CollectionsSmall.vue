@@ -47,7 +47,7 @@ watchEffect(async () => {
       v-if="selected"
       class="absolute top-0 left-0 right-0 bottom-0 z-10 m-1 text-left"
     >
-      <div class="bg-yellow-200 shadow rounded-lg h-52 overflow-auto">
+      <div class="bg-yellow-200 shadow rounded-lg h-full overflow-auto">
         <div
           class="p-1 px-2 flex gap-2 items-center cursor-pointer"
           @click="selected = null"
