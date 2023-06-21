@@ -41,10 +41,11 @@
         <div class="w-full sm:w-1/2 p-2">
           <Labeled label="Titel" for-id="title">
             <QInput
+              v-model="titleLocal"
               input-id="title"
-              :value="title"
               :has-value="title"
               help="Titeln måste innehålla dessa ord"
+              :search="true"
               @change="setTitle"
             />
           </Labeled>
@@ -96,6 +97,7 @@
 </template>
 
 <script setup>
+import { computed, ref, watch } from "vue";
 import { useToggle } from "@vueuse/core";
 import useQuery from "@/search/query.composable";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
@@ -109,7 +111,6 @@ import QInput from "@/components/QInput.vue";
 import ReadMore from "@/components/ReadMore.vue";
 import TermFilters from "./TermFilters.vue";
 import QDetails from "@/components/QDetails.vue";
-import { computed } from "vue";
 
 const { doSearch, setQuery } = useSearch();
 const {
@@ -126,6 +127,7 @@ const [expandedAdvanced, toggleAdvanced] = useToggle();
 const usingAdvanced = computed(
   () => title.value || author.value || genreform.value
 );
+const titleLocal = ref(title.value);
 
 function setTitle(event) {
   setQuery({ title: event.target.value });
@@ -145,6 +147,8 @@ function setGenreform(genreform) {
 
 // Make an initial search as soon as the search form is visible, but don't switch pages.
 doSearch({ retain: true });
+
+watch(title, () => (titleLocal.value = title.value));
 </script>
 
 <style scoped>
