@@ -41,7 +41,8 @@
             v-for="term in terms.qlit"
             :key="term"
             :data="term"
-            :options="['search', 'goto']"
+            :options="[search, goto]"
+            :draggable="true"
           />
         </div>
 
@@ -54,7 +55,8 @@
             :key="term"
             :data="term"
             secondary
-            :options="['search', 'goto']"
+            :options="[search, goto]"
+            :draggable="true"
           >
             {{ term._label }} – perifert
           </Term>
@@ -69,7 +71,8 @@
             v-for="term in terms.other"
             :key="term"
             :data="term"
-            :options="term['@id'] && ['search']"
+            :options="[search]"
+            :draggable="true"
           />
         </div>
 
@@ -90,6 +93,7 @@ import { computed } from "vue";
 import { ellipsis } from "@/util";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
+import useTermOptions from "@/terms/termOptions.composable";
 
 const props = defineProps({
   i: { type: [Number, String], required: true },
@@ -106,6 +110,7 @@ const props = defineProps({
 });
 
 const { sortTerms } = useTerms();
+const { goto, search } = useTermOptions();
 const terms = computed(() => sortTerms(props.terms));
 </script>
 

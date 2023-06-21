@@ -13,6 +13,21 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [1.7.0] (2023-06-21)
+
+### Added
+
+- Find terms by collections
+- A term option to remove it from search field
+- Terms can be dragged and dropped into the central/peripheral search fields
+
+### Changed
+
+- The title, author and genre/form search fields are collapsed by default
+- The introductory text is collapsed when a search query is active
+- The year filter is wider
+- Terms in the secondary terms field are displayed similar to in search results: brighter background and with "– perifert" appended
+
 ## [1.6.0] (2023-05-31)
 
 ### Added
@@ -119,7 +134,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.3.0...v1.4.0

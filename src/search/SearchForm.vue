@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white rounded-xl shadow-lg" @keyup.enter="doSearch">
-    <div class="py-6 px-6">
-      <div class="mb-4 q-body">
+  <div class="bg-white rounded-xl shadow-lg p-6" @keyup.enter="doSearch">
+    <div class="mb-4 q-body">
+      <ReadMore :expanded="isQueryEmpty">
         <p>
           Queerlit är en databas för svensk skönlitteratur som skildrar samkönat
           begär och överskridanden av binära könsnormer. Det innefattar bland
@@ -15,36 +15,28 @@
             >höra av dig</a
           >!
         </p>
-      </div>
-
-      <Freetext />
+      </ReadMore>
     </div>
 
-    <div class="py-4 px-6 border-t border-dashed border-gray-500">
-      <h3 class="text-lg mb-2">Avancerat</h3>
+    <Freetext class="mb-6" />
 
-      <Labeled label="Ämnesord" for-id="terms">
-        <TermCombobox
-          :terms="terms"
-          input-id="terms"
-          help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är centrala i verket"
-          class="mb-4"
-          @add="addTerm"
-          @remove="removeTerm"
-        />
-      </Labeled>
+    <TermFilters />
 
-      <Labeled label="Perifera ämnesord" for-id="terms-secondary">
-        <TermCombobox
-          :terms="termsSecondary"
-          input-id="terms-secondary"
-          help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är perifera i verket"
-          class="mb-4"
-          @add="addTermSecondary"
-          @remove="removeTermSecondary"
-        />
-      </Labeled>
+    <Labeled label="Utgivningsår" for-id="year">
+      <YearFilter
+        :start="yearStart"
+        :end="yearEnd"
+        input-id="year"
+        @change="yearChange"
+      />
+    </Labeled>
 
+    <QDetails
+      heading="Avancerade sökfilter"
+      class="my-6"
+      :expanded="expandedAdvanced || usingAdvanced"
+      @toggle="toggleAdvanced()"
+    >
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
           <Labeled label="Titel" for-id="title">
@@ -73,17 +65,6 @@
         </div>
 
         <div class="w-full sm:w-1/2 p-2">
-          <Labeled label="Utgivningsår" for-id="year">
-            <YearFilter
-              :start="yearStart"
-              :end="yearEnd"
-              input-id="year"
-              @change="yearChange"
-            />
-          </Labeled>
-        </div>
-
-        <div class="w-full sm:w-1/2 p-2">
           <Labeled label="Genre/form" for-id="genreform">
             <Autocomplete
               :value="genreform"
@@ -97,9 +78,10 @@
           </Labeled>
         </div>
       </div>
-      <div class="text-center mt-4">
-        <QButton class="text-xl" @click="doSearch">Sök</QButton>
-      </div>
+    </QDetails>
+
+    <div class="text-center mt-4">
+      <QButton class="text-xl" @click="doSearch">Sök</QButton>
     </div>
   </div>
   <div class="text-center mt-4">
@@ -114,17 +96,20 @@
 </template>
 
 <script setup>
+import { useToggle } from "@vueuse/core";
 import useQuery from "@/search/query.composable";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
 import Freetext from "./Freetext.vue";
 import YearFilter from "@/search/YearFilter.vue";
-import TermCombobox from "@/terms/TermCombobox.vue";
 import Autocomplete from "@/search/Autocomplete.vue";
 import QButton from "@/components/QButton.vue";
 import useSearch from "./search.composable";
-import useTerms from "@/terms/terms.composable";
 import Labeled from "@/components/Labeled.vue";
 import QInput from "@/components/QInput.vue";
+import ReadMore from "@/components/ReadMore.vue";
+import TermFilters from "./TermFilters.vue";
+import QDetails from "@/components/QDetails.vue";
+import { computed } from "vue";
 
 const { doSearch, setQuery } = useSearch();
 const {
@@ -135,25 +120,12 @@ const {
   yearEnd,
   getPersonLabel,
   getGenreformLabel,
+  isQueryEmpty,
 } = useQuery();
-const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
-  useTerms();
-
-function addTerm(term) {
-  add(term);
-}
-
-function removeTerm(term) {
-  remove(term);
-}
-
-function addTermSecondary(term) {
-  addSecondary(term);
-}
-
-function removeTermSecondary(term) {
-  removeSecondary(term);
-}
+const [expandedAdvanced, toggleAdvanced] = useToggle();
+const usingAdvanced = computed(
+  () => title.value || author.value || genreform.value
+);
 
 function setTitle(event) {
   setQuery({ title: event.target.value });

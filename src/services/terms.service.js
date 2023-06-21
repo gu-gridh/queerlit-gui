@@ -42,6 +42,19 @@ export async function searchTerms(s) {
   return qlitList("autocomplete", { s });
 }
 
+export function getCollections() {
+  return qlitList("collections").then((terms) =>
+    terms.map((term) => ({
+      ...term,
+      _label: term._label.replace("Tema: ", "").replace(" (HBTQI)", ""),
+    }))
+  );
+}
+
+export function getCollection(name) {
+  return qlitList("collections/" + name);
+}
+
 export async function getLabels() {
   return await qlitGet("labels");
 }

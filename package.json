@@ -21,15 +21,16 @@
     "axios": "^0.23.0",
     "lodash": "^4.17.21",
     "sass": "^1.49.7",
-    "vue": "^3.2.6",
+    "vue": "3.3.4",
     "vue-3-slider-component": "^0.1.0",
     "vue-dragscroll": "^3.0.1",
     "vue-matomo": "^4.2.0",
     "vue-router": "4",
+    "vue3-drag-drop": "^1.0.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "1.10",
+    "@vitejs/plugin-vue": "^4.2.0",
     "@vue/compiler-sfc": "^3.2.6",
     "autoprefixer": "^10.3.7",
     "eslint": "^8.0.0",
@@ -38,6 +39,6 @@
     "postcss": "^8.3.9",
     "prettier": "^2.4.1",
     "tailwindcss": "^2.2.16",
-    "vite": "^2.9.13"
+    "vite": "^4.3.5"
   }
 }

@@ -6,13 +6,15 @@ import "./index.scss";
 import "./fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { dragscrollNext } from "vue-dragscroll";
+import VueDragDrop from "vue3-drag-drop";
 import matomo from "vue-matomo";
 
 const app = createApp(App) //
   .use(router)
   .use(store)
   .component("Icon", FontAwesomeIcon)
-  .directive("dragscroll", dragscrollNext);
+  .directive("dragscroll", dragscrollNext)
+  .use(VueDragDrop);
 
 // Use the Matomo plugin only if configured in env.
 if (import.meta.env.VITE_MATOMO_URL && import.meta.env.VITE_MATOMO_ID) {

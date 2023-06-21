@@ -92,5 +92,6 @@ export default function useTerms() {
     sortTerms,
     searchByTerm,
     gotoTerm,
+    termIsQlit,
   };
 }

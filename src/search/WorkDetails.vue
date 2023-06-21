@@ -29,7 +29,7 @@
           v-for="term in terms.qlit"
           :key="term"
           :data="term"
-          :options="['search', 'goto']"
+          :options="[search, goto]"
           class="mr-1 mb-1"
         />
       </div>
@@ -39,7 +39,7 @@
           :key="term"
           :data="term"
           secondary
-          :options="['search', 'goto']"
+          :options="[search, goto]"
           class="mr-1 mb-2"
         >
           {{ term._label }} – perifert
@@ -51,7 +51,7 @@
           v-for="term in terms.other"
           :key="term"
           :data="term"
-          :options="term['@id'] && ['search']"
+          :options="[search]"
           class="mr-1 mb-2"
         />
       </div>
@@ -116,8 +116,9 @@
 <script setup>
 import { computed, watchEffect } from "vue";
 import useTerms from "@/terms/terms.composable";
-import Labeled from "@/components/Labeled.vue";
 import Term from "@/terms/Term.vue";
+import useTermOptions from "@/terms/termOptions.composable";
+import Labeled from "@/components/Labeled.vue";
 import ValueList from "@/components/ValueList.vue";
 
 const props = defineProps({
@@ -128,6 +129,7 @@ const props = defineProps({
 });
 
 const { sortTerms } = useTerms();
+const { goto, search } = useTermOptions();
 
 const terms = computed(() => sortTerms(props.work.terms));
 

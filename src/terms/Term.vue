@@ -1,7 +1,7 @@
 <script setup>
-import { computed, ref } from "@vue/reactivity";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import { vOnClickOutside } from "@vueuse/components";
-import useTerms from "./terms.composable";
 
 const props = defineProps({
   data: Object,
@@ -9,25 +9,11 @@ const props = defineProps({
   options: {
     type: Array,
     default: () => [],
-    validate: (options) =>
-      options.every((option) => ["search", "goto"].includes(option)),
   },
+  draggable: Boolean,
 });
-const { gotoTerm, searchByTerm } = useTerms();
 
-const OPTION_DEFS = props.data && {
-  goto: {
-    label: `Om ämnesordet <em>${props.data._label}</em>`,
-    action: () => gotoTerm(props.data),
-    // The Term view only works with QLIT terms.
-    isApplicable: () => isQlit.value,
-  },
-  search: {
-    label: `Sök på <em>${props.data._label}</em>`,
-    action: () => searchByTerm(props.data),
-  },
-};
-
+const { commit } = useStore();
 const isQlit = computed(
   () =>
     props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
@@ -35,16 +21,11 @@ const isQlit = computed(
 );
 const isMenuVisible = ref(false);
 
-const optionItems = computed(() => {
-  return (
-    props.data &&
-    props.options
-      .map((key) => OPTION_DEFS[key])
-      .filter((option) =>
-        option?.isApplicable ? option.isApplicable() : option
-      )
-  );
-});
+const optionItems = computed(() =>
+  props.options
+    .map((op) => op(props.data))
+    .filter((op) => op.isApplicable !== false)
+);
 
 function toggleMenu(event) {
   if (optionItems.value?.length) {
@@ -52,12 +33,24 @@ function toggleMenu(event) {
     isMenuVisible.value = !isMenuVisible.value;
   }
 }
+
+function dragStart() {
+  isMenuVisible.value = false;
+  commit("setDragged", { type: "term", data: props.data });
+}
+
+function dragEnd() {
+  commit("setDragged", null);
+}
 </script>
 
 <template>
-  <span
+  <drag
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
+    :draggable="draggable && !!data"
+    @dragstart="dragStart"
+    @dragend="dragEnd"
     @click="toggleMenu"
   >
     <span
@@ -72,6 +65,7 @@ function toggleMenu(event) {
         font-thin
         rounded-md
         shadow
+        cursor-default
       "
       :class="[
         isQlit
@@ -119,13 +113,18 @@ function toggleMenu(event) {
               hover:bg-gray-100
               cursor-pointer
             "
-            @click.prevent.stop="option.action"
+            @click.prevent.stop="
+              () => {
+                option.action();
+                isMenuVisible = false;
+              }
+            "
             v-html="option.label"
           />
         </ul>
       </div>
     </Transition>
-  </span>
+  </drag>
 </template>
 
 <style scoped></style>
