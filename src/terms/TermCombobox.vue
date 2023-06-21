@@ -111,6 +111,7 @@ const isDraggingTerm = computed(() => state.dragged?.type == "term");
 const getSuggestions = debounce(async () => {
   const inputFixed = input.value;
   const items = await searchTerms(inputFixed);
+  items.splice(10);
   // Update suggestion list only if the input hasn't already been changed again.
   if (inputFixed == input.value) setSuggestions(items);
 }, 400);
