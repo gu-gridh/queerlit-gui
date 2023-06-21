@@ -109,6 +109,7 @@ const isDraggingTerm = computed(() => state.dragged?.type == "term");
 
 // No need to load suggestions until user slows down typing.
 const getSuggestions = debounce(async () => {
+  if (!input.value) return;
   const inputFixed = input.value;
   const items = await searchTerms(inputFixed);
   items.splice(10);
