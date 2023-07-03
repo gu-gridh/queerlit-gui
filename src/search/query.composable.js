@@ -7,6 +7,7 @@ export default function useQuery() {
   const text = computed(() => store.state.query.text);
   const terms = computed(() => store.state.query.terms);
   const termsSecondary = computed(() => store.state.query.termsSecondary);
+  const hierarchical = computed(() => store.state.query.hierarchical);
   const title = computed(() => store.state.query.title);
   const author = computed(() => store.state.query.author);
   const yearStart = computed(() => store.state.query.yearStart);
@@ -26,6 +27,7 @@ export default function useQuery() {
       text.value,
       terms.value.map((term) => term.label),
       termsSecondary.value.map((term) => term.label),
+      hierarchical.value,
       title.value,
       author.value,
       yearStart.value,
@@ -56,6 +58,7 @@ export default function useQuery() {
     text,
     terms,
     termsSecondary,
+    hierarchical,
     title,
     author,
     yearStart,

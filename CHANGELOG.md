@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Checkbox to toggle hierarchical term search
+
 ### Changed
 
 - Term autocomplete suggestions is limited to 10 suggestions

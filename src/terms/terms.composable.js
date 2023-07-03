@@ -15,7 +15,7 @@ import useSearch from "@/search/search.composable";
 
 export default function useTerms() {
   const router = useRouter();
-  const { terms, termsSecondary } = useQuery();
+  const { terms, termsSecondary, hierarchical } = useQuery();
   const suggestions = ref([]);
   const { doSearch, setQuery } = useSearch();
 
@@ -41,6 +41,12 @@ export default function useTerms() {
         (term2) => term2["@id"] != term["@id"]
       ),
     });
+  }
+
+  function toggleHierarchical(value) {
+    // If no arg, toggle to opposite value.
+    if (value === undefined) value = !hierarchical.value;
+    setQuery({ hierarchical: value });
   }
 
   async function hasChildren(term) {
@@ -85,10 +91,12 @@ export default function useTerms() {
     suggestions,
     terms,
     termsSecondary,
+    hierarchical,
     add,
     remove,
     addSecondary,
     removeSecondary,
+    toggleHierarchical,
     sortTerms,
     searchByTerm,
     gotoTerm,

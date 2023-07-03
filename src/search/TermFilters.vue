@@ -1,11 +1,25 @@
 <script setup>
+import { computed } from "vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
 import CollectionsSmall from "@/terms/CollectionsSmall.vue";
 import TermCombobox from "@/terms/TermCombobox.vue";
 
-const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
-  useTerms();
+const {
+  terms,
+  add,
+  remove,
+  termsSecondary,
+  addSecondary,
+  removeSecondary,
+  hierarchical,
+  toggleHierarchical,
+} = useTerms();
+
+const hierarchicalModel = computed({
+  get: () => hierarchical.value,
+  set: (v) => toggleHierarchical(v),
+});
 </script>
 
 <template>
@@ -34,5 +48,10 @@ const { terms, add, remove, termsSecondary, addSecondary, removeSecondary } =
         @remove="removeSecondary"
       />
     </Labeled>
+
+    <div class="mb-4">
+      <input id="hierarchical" v-model="hierarchicalModel" type="checkbox" />
+      <label for="hierarchical"> Träffa även på smalare ämnesord</label>
+    </div>
   </Labeled>
 </template>

@@ -16,8 +16,11 @@ const qlitLabelsPromise = loadQlitLabels();
 
 export async function search(options) {
   const defaults = {
+    text: "",
     terms: [],
     termsSecondary: [],
+    hierarchical: true,
+    title: "",
     offset: 0,
     // the rest: undefined
   };
@@ -26,6 +29,7 @@ export async function search(options) {
     text,
     terms,
     termsSecondary,
+    hierarchical,
     title,
     author,
     yearStart,
@@ -40,12 +44,17 @@ export async function search(options) {
   const params = new URLSearchParams();
   params.set("q", q);
 
+  const subjectCondPrefix = hierarchical ? "and-matches-" : "and-";
+
   (terms || []).forEach((term) =>
-    params.append("and-matches-instanceOf.subject.@id", term["@id"])
+    params.append(subjectCondPrefix + "instanceOf.subject.@id", term["@id"])
   );
 
   (termsSecondary || []).forEach((term) =>
-    params.append("and-matches-@reverse.itemOf.subject.@id", term["@id"])
+    params.append(
+      subjectCondPrefix + "@reverse.itemOf.subject.@id",
+      term["@id"]
+    )
   );
 
   if (author) {

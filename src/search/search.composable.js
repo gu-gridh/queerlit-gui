@@ -31,6 +31,7 @@ export default function useSearch() {
         text: query.text,
         terms: query.terms,
         termsSecondary: query.termsSecondary,
+        hierarchical: query.hierarchical,
         title: query.title,
         author: query.author,
         yearStart: query.yearStart,
@@ -65,10 +66,13 @@ export default function useSearch() {
   // For each usage of this composable, the function is debounced anew and assigned to the module-scope variable.
   doSearchDebounced = debounce(doSearch, 50);
 
+  /** Modify query and trigger search */
   function setQuery(params) {
     const queryBefore = serializedQuery.value;
     setQueryReal(params);
+    // Search if there was a meaningful change.
     if (serializedQuery.value != queryBefore) {
+      // Use debounce, so multiple setQuery at the same time will trigger search only once.
       doSearchDebounced();
     }
   }
