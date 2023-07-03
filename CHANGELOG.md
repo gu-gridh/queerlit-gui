@@ -16,6 +16,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Added
 
 - Checkbox to toggle hierarchical term search
+- The term search fields can be collapsed
 
 ### Changed
 

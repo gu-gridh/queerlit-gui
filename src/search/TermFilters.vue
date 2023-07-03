@@ -23,7 +23,7 @@ const hierarchicalModel = computed({
 </script>
 
 <template>
-  <Labeled label="Ämnen">
+  <div>
     <CollectionsSmall />
 
     <Labeled label="Centrala ämnesord" for-id="terms">
@@ -53,5 +53,5 @@ const hierarchicalModel = computed({
       <input id="hierarchical" v-model="hierarchicalModel" type="checkbox" />
       <label for="hierarchical"> Träffa även på smalare ämnesord</label>
     </div>
-  </Labeled>
+  </div>
 </template>

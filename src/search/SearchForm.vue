@@ -20,7 +20,14 @@
 
     <Freetext class="mb-6" />
 
-    <TermFilters />
+    <QDetails
+      heading="Ämnen"
+      class="my-6"
+      :expanded="Boolean(expandedTerms || usingTerms)"
+      @toggle="toggleTerms()"
+    >
+      <TermFilters />
+    </QDetails>
 
     <Labeled label="Utgivningsår" for-id="year">
       <YearFilter
@@ -34,7 +41,7 @@
     <QDetails
       heading="Avancerade sökfilter"
       class="my-6"
-      :expanded="expandedAdvanced || usingAdvanced"
+      :expanded="Boolean(expandedAdvanced || usingAdvanced)"
       @toggle="toggleAdvanced()"
     >
       <div class="flex flex-wrap -mx-2">
@@ -114,6 +121,8 @@ import QDetails from "@/components/QDetails.vue";
 
 const { doSearch, setQuery } = useSearch();
 const {
+  terms,
+  termsSecondary,
   title,
   author,
   genreform,
@@ -124,8 +133,12 @@ const {
   isQueryEmpty,
 } = useQuery();
 const [expandedAdvanced, toggleAdvanced] = useToggle();
+const [expandedTerms, toggleTerms] = useToggle(true);
 const usingAdvanced = computed(
   () => title.value || author.value || genreform.value
+);
+const usingTerms = computed(
+  () => terms.value.length || termsSecondary.value.length
 );
 const titleLocal = ref(title.value);
 
