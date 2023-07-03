@@ -13,6 +13,15 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Term autocomplete suggestions is limited to 10 suggestions
+
+### Fixed
+
+- Title input is not being cleared when the value is changed
+- Autocomplete for terms is not triggered for empty string
+
 ## [1.7.0] (2023-06-21)
 
 ### Added
