@@ -26,30 +26,28 @@ const hierarchicalModel = computed({
   <div>
     <CollectionsSmall />
 
-    <Labeled label="Centrala ämnesord" for-id="terms">
+    <Labeled label="Centrala ämnesord" for-id="terms" class="my-2">
       <TermCombobox
         :terms="terms"
         input-id="terms"
         help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är centrala i verket"
-        class="mb-4"
         @add="add"
         @remove="remove"
       />
     </Labeled>
 
-    <Labeled label="Perifera ämnesord" for-id="terms-secondary">
+    <Labeled label="Perifera ämnesord" for-id="terms-secondary" class="my-2">
       <TermCombobox
         :terms="termsSecondary"
         :secondary="true"
         input-id="terms-secondary"
         help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är perifera i verket"
-        class="mb-4"
         @add="addSecondary"
         @remove="removeSecondary"
       />
     </Labeled>
 
-    <div class="mb-4">
+    <div>
       <input id="hierarchical" v-model="hierarchicalModel" type="checkbox" />
       <label for="hierarchical"> Träffa även på smalare ämnesord</label>
     </div>
