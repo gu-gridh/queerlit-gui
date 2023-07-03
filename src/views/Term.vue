@@ -7,7 +7,7 @@
   </div>
 
   <article v-if="term" class="container">
-    <div class="bg-yellow-50 border border-yellow-200 p-4 mb-2">
+    <div class="bg-amber-50 border border-amber-200 p-4 mb-2">
       <h2 class="text-2xl">{{ term.prefLabel }}</h2>
       <table class="mt-4">
         <tr v-if="term.scopeNote">

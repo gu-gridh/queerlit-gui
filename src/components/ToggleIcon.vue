@@ -18,7 +18,6 @@ defineProps({
       flex
       justify-center
       cursor-pointer
-      transform
       hover:scale-125
       transition-transform
       text-xs

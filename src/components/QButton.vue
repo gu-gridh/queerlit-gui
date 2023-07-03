@@ -6,7 +6,7 @@
       text-white
       rounded
       shadow
-      hover:bg-opacity-80
+      hover:bg-gray-400
       transition-all
       cursor-pointer
     "

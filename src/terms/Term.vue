@@ -57,7 +57,6 @@ function dragEnd() {
       class="
         flex
         items-center
-        transform
         transition-all
         px-2
         py-0.5
@@ -94,7 +93,7 @@ function dragEnd() {
       >
         <ul
           class="
-            bg-gray-50 bg-opacity-95
+            bg-gray-50/95
             rounded
             shadow
             mt-0.5

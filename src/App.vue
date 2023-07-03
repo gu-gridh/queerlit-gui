@@ -95,7 +95,7 @@ if (import.meta.env.DEV) {
 
 <style lang="scss" scoped>
 .main-nav-link {
-  @apply p-1 px-4 mr-1 hover:bg-opacity-25 hover:bg-white rounded-lg transition-all;
+  @apply p-1 px-4 mr-1 hover:bg-white/25 rounded-lg transition-all;
 }
 .main-nav-link.router-link-active {
   @apply bg-white rounded-lg text-gray-800 shadow-lg;
