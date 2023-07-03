@@ -25,9 +25,11 @@ export default function useQuery() {
   const serializedQuery = computed(() =>
     JSON.stringify([
       text.value,
-      terms.value.map((term) => term.label),
-      termsSecondary.value.map((term) => term.label),
-      hierarchical.value,
+      terms.value.map((term) => term._label),
+      termsSecondary.value.map((term) => term._label),
+      terms.value.length || termsSecondary.value.length
+        ? hierarchical.value
+        : null,
       title.value,
       author.value,
       yearStart.value,
