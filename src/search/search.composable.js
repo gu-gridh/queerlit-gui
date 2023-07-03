@@ -27,18 +27,18 @@ export default function useSearch() {
     }
     const query = state.query;
     try {
-      const { items, total, histogram } = await search(
-        query.text,
-        query.terms,
-        query.termsSecondary,
-        query.title,
-        query.author,
-        query.yearStart,
-        query.yearEnd,
-        query.genreform,
-        state.sort,
-        state.offset
-      );
+      const { items, total, histogram } = await search({
+        text: query.text,
+        terms: query.terms,
+        termsSecondary: query.termsSecondary,
+        title: query.title,
+        author: query.author,
+        yearStart: query.yearStart,
+        yearEnd: query.yearEnd,
+        genreform: query.genreform,
+        sort: state.sort,
+        offset: state.offset,
+      });
 
       // In case of concurrent requests, only use the last.
       if (serializedQuery.value != currentSerializedQuery) {

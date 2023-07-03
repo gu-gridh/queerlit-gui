@@ -14,18 +14,27 @@ async function loadQlitLabels() {
 }
 const qlitLabelsPromise = loadQlitLabels();
 
-export async function search(
-  text,
-  terms = [],
-  termsSecondary = [],
-  title,
-  author,
-  yearStart,
-  yearEnd,
-  genreform,
-  sort,
-  offset = 0
-) {
+export async function search(options) {
+  const defaults = {
+    terms: [],
+    termsSecondary: [],
+    offset: 0,
+    // the rest: undefined
+  };
+
+  const {
+    text,
+    terms,
+    termsSecondary,
+    title,
+    author,
+    yearStart,
+    yearEnd,
+    genreform,
+    sort,
+    offset,
+  } = { ...defaults, ...options };
+
   // "q" is the free text parameter
   const q = text || "*";
   const params = new URLSearchParams();
