@@ -2,6 +2,7 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { vOnClickOutside } from "@vueuse/components";
+import useTerms from "./terms.composable";
 
 const props = defineProps({
   data: Object,
@@ -14,13 +15,10 @@ const props = defineProps({
 });
 
 const { commit } = useStore();
-const isQlit = computed(
-  () =>
-    props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
-    props.data?.["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
-);
-const isMenuVisible = ref(false);
+const { termIsQlit } = useTerms();
 
+const isMenuVisible = ref(false);
+const isQlit = computed(() => props.data && termIsQlit(props.data));
 const optionItems = computed(() =>
   props.options
     .map((op) => op(props.data))

@@ -54,7 +54,10 @@ export default function useTerms() {
   }
 
   function termIsQlit(term) {
-    return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
+    return (
+      term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
+      term["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
+    );
   }
 
   function sortTerms(terms) {
