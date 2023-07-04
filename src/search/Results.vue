@@ -96,7 +96,7 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import useTitle from "@/views/title.composable";
 import WorkResultItem from "./WorkResultItem.vue";

@@ -1,4 +1,4 @@
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import useQuery from "@/search/query.composable";
 import {
   getTerm,

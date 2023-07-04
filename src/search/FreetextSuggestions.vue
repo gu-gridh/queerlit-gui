@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { ref, watch } from "vue";
 import Dragscroll from "./Dragscroll.vue";
 import Labeled from "@/components/Labeled.vue";
 

@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import useLocalWorks from "@/search/localWorks.composable";
 import useTitle from "./title.composable";
