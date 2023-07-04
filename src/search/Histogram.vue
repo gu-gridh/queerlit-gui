@@ -45,9 +45,7 @@ function getBarHeight(n) {
 <template>
   <div>
     <div class="text-center text-xs h-4 -mt-4 whitespace-nowrap">
-      <span v-if="focus">
-        {{ focus.year }}-talet: {{ focus.year < 1000 ? "?" : focus.n }} st
-      </span>
+      <span v-if="focus">{{ focus.year }}-talet: {{ focus.n }} st</span>
     </div>
     <div v-if="histogram" class="flex items-end h-12">
       <div

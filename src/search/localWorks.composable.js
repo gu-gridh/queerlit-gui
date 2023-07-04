@@ -120,6 +120,15 @@ export default function useLocalWorks() {
     }
 
     commit("setLocalResults", results);
+    commit("patchHistogram", createHistogram(results));
+  }
+
+  function createHistogram(results) {
+    const histogram = {};
+    for (const work of results) {
+      histogram[work.date.min] = (histogram[work.date.min] || 0) + 1;
+    }
+    return histogram;
   }
 
   const getLocal = (id) => works.find((work) => work.id == id);
