@@ -26,20 +26,17 @@
     </div>
 
     <div class="mx-1">
-      <Histogram
-        :min="min"
-        :max="MAX"
-        class="-mb-2 relative"
-        style="z-index: 3; /* The slider handle has z-index 5 */"
-      />
+      <Histogram :min="min" :max="MAX" />
 
-      <VueSlider
+      <Slider
         v-model="range"
         :min="min"
         :max="MAX"
-        tooltip="none"
-        :process-style="{ backgroundColor: 'currentColor' }"
-        class="text-text"
+        :tooltips="false"
+        :classes="{
+          horizontal: 'slider-horizontal h-1 mb-2',
+          connect: 'slider-connect bg-current',
+        }"
         @change="emitChange"
       />
     </div>
@@ -59,8 +56,9 @@
 <script setup>
 import { computed, ref } from "vue";
 import debounce from "lodash/debounce";
-// Docs: https://vue-3-slider-component.netlify.app/?path=/docs/
-import VueSlider from "vue-3-slider-component";
+// Docs: https://github.com/vueform/slider/blob/main/README.md
+import Slider from "@vueform/slider";
+import "@vueform/slider/themes/tailwind.scss";
 import Histogram from "./Histogram.vue";
 
 const MIN = 1800;
@@ -87,7 +85,7 @@ function endTextChange() {
 }
 
 function enableOldChange() {
-  if (range.value[0] < min.value) range.value[0] = min.value;
+  range.value[0] = 0;
   if (range.value[1] < min.value) range.value[1] = min.value;
   emitChange();
 }

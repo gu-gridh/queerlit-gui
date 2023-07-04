@@ -676,6 +676,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vueform/slider@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "@vueform/slider@npm:2.1.7"
+  checksum: 3b8f5ef01d2d3a4df250098da56da0bbf778729c431f0608a0ebf1d97d8cafd86bcfc44effc0b6a371566294030fcacfb3a73e4b38abb14f827f63905cbefd64
+  languageName: node
+  linkType: hard
+
 "@vueuse/components@npm:^9.12.0":
   version: 9.12.0
   resolution: "@vueuse/components@npm:9.12.0"
@@ -1078,13 +1085,6 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.6.5":
-  version: 3.25.3
-  resolution: "core-js@npm:3.25.3"
-  checksum: 26ca0a5e575e6da03dc30099f48bc00db50a1c0a3f81299165f111cb163869ae453de5e345f2cb7bc8be85a9adcee11fca94f0fbdbdf6d483c68e1c55a9efc5a
   languageName: node
   linkType: hard
 
@@ -2627,6 +2627,7 @@ __metadata:
     "@modyfi/vite-plugin-yaml": ^1.0.4
     "@vitejs/plugin-vue": ^4.2.0
     "@vue/compiler-sfc": ^3.2.6
+    "@vueform/slider": ^2.1.7
     "@vueuse/components": ^9.12.0
     "@vueuse/core": ^9.12.0
     autoprefixer: ^10.4.14
@@ -2641,7 +2642,6 @@ __metadata:
     tailwindcss: ^3.3.2
     vite: ^4.3.9
     vue: ^3.3.4
-    vue-3-slider-component: ^0.1.0
     vue-dragscroll: ^4.0.5
     vue-matomo: ^4.2.0
     vue-router: ^4.2.2
@@ -3171,15 +3171,6 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 8c45a516278d1e0425fac00c0877336790f71484a851a318346a70e0d2aef9f3b9651deb2f9f002c791ceb920eda7d6a3cda753bdefd657321c99f448b02dd25
-  languageName: node
-  linkType: hard
-
-"vue-3-slider-component@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "vue-3-slider-component@npm:0.1.0"
-  dependencies:
-    core-js: ^3.6.5
-  checksum: 7b34016f500c20f667bc012e915037c847429e36cf3458f2dda2fd99140bbed34cb43d89abe46db37bdea6c8a7ab880879820262f146337b86c1664c7cf31984
   languageName: node
   linkType: hard
 
