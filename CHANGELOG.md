@@ -21,6 +21,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Changed
 
 - Term autocomplete suggestions is limited to 10 suggestions
+- The two term inputs for major and minor terms are now visually presented as one input
 
 ### Fixed
 

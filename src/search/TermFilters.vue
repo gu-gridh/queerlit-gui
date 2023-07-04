@@ -26,26 +26,33 @@ const hierarchicalModel = computed({
   <div>
     <CollectionsSmall />
 
-    <Labeled label="Centrala ämnesord" for-id="terms" class="my-2">
+    <div class="bg-smoke-200 rounded flow-root relative">
       <TermCombobox
+        label="Centrala ämnesord"
         :terms="terms"
         input-id="terms"
-        help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är centrala i verket"
+        help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är centrala i verket.
+          Allmän praxis är att använda ämnesord enbart för centrala teman."
         @add="add"
         @remove="remove"
       />
-    </Labeled>
 
-    <Labeled label="Perifera ämnesord" for-id="terms-secondary" class="my-2">
       <TermCombobox
+        label="Perifera ämnesord"
         :terms="termsSecondary"
         :secondary="true"
         input-id="terms-secondary"
-        help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är perifera i verket"
+        help="Sök efter ord från QLIT, Queerlits ämnesordslista, som är perifera i verket.
+          Genom att använda ämnesord för perifera teman avviker Queerlit från allmän praxis.
+          Därför finns det vissa tekniska begränsningar som innebär att du måste välja om du vill söka på ett ämnesord som centralt eller perifert."
         @add="addSecondary"
         @remove="removeSecondary"
       />
-    </Labeled>
+
+      <div
+        class="shadow-inner absolute h-full w-full top-0 pointer-events-none"
+      />
+    </div>
 
     <div>
       <input id="hierarchical" v-model="hierarchicalModel" type="checkbox" />
