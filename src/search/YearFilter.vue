@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between mb-1">
+    <div class="flex justify-between mb-1 relative z-10">
       <input
         :id="inputId"
         v-model.number="range[0]"
