@@ -11,11 +11,11 @@
       </div>
       <div class="flex-1">
         <div class="flex flex-wrap items-baseline gap-x-6 mb-2">
-          <h3 class="w-64 grow mb-1 text-xl group-hover:underline">
+          <h3 class="w-48 grow mb-1 text-xl group-hover:underline">
             {{ title }}
           </h3>
 
-          <div class="w-48 grow">
+          <div class="w-32 grow">
             <div class="flex flex-wrap">
               <div v-for="(creator, j) in creators" :key="j" class="mr-4">
                 {{ creator.name }}
