@@ -50,7 +50,7 @@ import { useRoute } from "vue-router";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
-import "@fontsource/barlow-condensed/latin-300.css";
+import "@fontsource/barlow-condensed/300.css";
 import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";

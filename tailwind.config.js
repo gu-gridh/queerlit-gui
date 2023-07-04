@@ -3,7 +3,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Barlow Condensed", "Arial Narrow", "Arial", "sans-serif"],
+        sans: [
+          "Barlow Condensed",
+          "Roboto Condensed",
+          "Arial Narrow",
+          "Arial",
+          "sans-serif",
+        ],
         label: [
           "system-ui",
           "-apple-system",
