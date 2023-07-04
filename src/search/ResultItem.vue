@@ -35,7 +35,7 @@
             v-for="term in terms.qlit"
             :key="term"
             :data="term"
-            :options="[search, goto]"
+            :options="[search, searchSecondary, goto]"
             :draggable="true"
           />
         </div>
@@ -49,7 +49,7 @@
             :key="term"
             :data="term"
             secondary
-            :options="[search, goto]"
+            :options="[search, searchSecondary, goto]"
             :draggable="true"
           >
             {{ term._label }} – perifert
@@ -104,7 +104,7 @@ const props = defineProps({
 });
 
 const { sortTerms } = useTerms();
-const { goto, search } = useTermOptions();
+const { goto, search, searchSecondary } = useTermOptions();
 const terms = computed(() => sortTerms(props.terms));
 </script>
 

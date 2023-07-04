@@ -1,7 +1,11 @@
 <template>
   <div class="mx-2 mb-1" :class="{ 'ml-4': level > 0 }">
     <div class="mb-1 flex flex-wrap items-baseline gap-4">
-      <Term :data="parent" :options="[search, goto]" :draggable="true" />
+      <Term
+        :data="parent"
+        :options="[search, searchSecondary, goto]"
+        :draggable="true"
+      />
       <div
         v-if="parent.narrower.length"
         class="cursor-pointer"
@@ -31,10 +35,10 @@ import Term from "@/terms/Term.vue";
 import useTerms from "./terms.composable";
 import useTermOptions from "./termOptions.composable";
 
-const props = defineProps(["parent", "level", "expanded"]);
+const props = defineProps(["parent", "level"]);
 
 const { getChildren } = useTerms();
-const { goto, search } = useTermOptions();
+const { goto, search, searchSecondary } = useTermOptions();
 const [expanded, toggleExpanded] = useToggle();
 const children = ref(null);
 

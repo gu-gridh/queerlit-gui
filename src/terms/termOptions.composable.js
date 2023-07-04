@@ -1,7 +1,8 @@
 import useTerms from "./terms.composable";
 
 export default function useTermOptions() {
-  const { gotoTerm, searchByTerm, termIsQlit } = useTerms();
+  const { gotoTerm, searchByTerm, searchByTermSecondary, termIsQlit } =
+    useTerms();
 
   const goto = (term) => ({
     label: `Om ämnesordet <em>${term._label}</em>`,
@@ -16,8 +17,15 @@ export default function useTermOptions() {
     isApplicable: !!term["@id"],
   });
 
+  const searchSecondary = (term) => ({
+    label: `Sök perifert på <em>${term._label}</em>`,
+    action: () => searchByTermSecondary(term),
+    isApplicable: !!term["@id"],
+  });
+
   return {
     goto,
     search,
+    searchSecondary,
   };
 }

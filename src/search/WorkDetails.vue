@@ -29,7 +29,7 @@
           v-for="term in terms.qlit"
           :key="term"
           :data="term"
-          :options="[search, goto]"
+          :options="[search, searchSecondary, goto]"
           class="mr-1 mb-1"
         />
       </div>
@@ -39,7 +39,7 @@
           :key="term"
           :data="term"
           secondary
-          :options="[search, goto]"
+          :options="[search, searchSecondary, goto]"
           class="mr-1 mb-2"
         >
           {{ term._label }} – perifert
@@ -129,7 +129,7 @@ const props = defineProps({
 });
 
 const { sortTerms } = useTerms();
-const { goto, search } = useTermOptions();
+const { goto, search, searchSecondary } = useTermOptions();
 
 const terms = computed(() => sortTerms(props.work.terms));
 

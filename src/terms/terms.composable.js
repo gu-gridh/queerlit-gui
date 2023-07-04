@@ -17,7 +17,7 @@ export default function useTerms() {
   const router = useRouter();
   const { terms, termsSecondary, hierarchical } = useQuery();
   const suggestions = ref([]);
-  const { doSearch, setQuery } = useSearch();
+  const { setQuery } = useSearch();
 
   function add(term) {
     if (!terms.value.find((term2) => term2["@id"] == term["@id"]))
@@ -71,7 +71,11 @@ export default function useTerms() {
 
   function searchByTerm(term) {
     add(term);
-    doSearch();
+    router.push("/");
+  }
+
+  function searchByTermSecondary(term) {
+    addSecondary(term);
     router.push("/");
   }
 
@@ -99,6 +103,7 @@ export default function useTerms() {
     toggleHierarchical,
     sortTerms,
     searchByTerm,
+    searchByTermSecondary,
     gotoTerm,
     termIsQlit,
   };

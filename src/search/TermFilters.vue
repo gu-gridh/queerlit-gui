@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue";
-import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
 import CollectionsSmall from "@/terms/CollectionsSmall.vue";
 import TermCombobox from "@/terms/TermCombobox.vue";
