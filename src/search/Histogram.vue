@@ -31,6 +31,10 @@ const bars = computed(() =>
 const maxHeight = computed(() =>
   Math.max(...bars.value.map((bar) => bar.n || 0))
 );
+
+function getBarHeight(n) {
+  return 2 + (n / (maxHeight.value || n)) * 100;
+}
 </script>
 
 <template>
@@ -42,12 +46,19 @@ const maxHeight = computed(() =>
       <div
         v-for="bar in bars"
         :key="bar.year"
-        class="bg-current flex-1"
-        :style="{ height: maxHeight ? (bar.n / maxHeight) * 100 + '%' : 0 }"
+        class="flex-1 h-full relative"
         :title="bar.year"
         @mouseover="focus = bar"
         @mouseout="focus = null"
-      />
+      >
+        <div
+          class="bg-current absolute bottom-0 w-full border-white"
+          :style="{
+            height: getBarHeight(bar.n) + '%',
+            width: '95%',
+          }"
+        />
+      </div>
     </div>
   </div>
 </template>
