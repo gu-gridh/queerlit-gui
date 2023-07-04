@@ -23,6 +23,7 @@ As this project is a user-facing application, the places in the semantic version
 - Term autocomplete suggestions is limited to 10 suggestions
 - The two term inputs for major and minor terms are now visually presented as one input
 - Histogram bars are separated by small spaces, and the lowest are raised to a minimum height for visibility
+- When enabling older works, histogram bars are by 100 years, not 10 years
 
 ### Fixed
 
