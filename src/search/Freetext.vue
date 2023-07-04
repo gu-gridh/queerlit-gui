@@ -94,15 +94,7 @@ watch(showHelp, () => {
 <template>
   <div v-on-click-outside="blur">
     <div
-      class="
-        w-full
-        flex
-        items-center
-        px-2
-        rounded-t
-        text-text text-xl
-        shadow-inner
-      "
+      class="w-full flex items-center px-2 rounded-t text-text text-xl shadow-inner"
       :class="[
         !(hasSuggestions && showSuggestions) ? 'rounded-b' : null,
         text ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
@@ -123,16 +115,7 @@ watch(showHelp, () => {
     <div class="relative h-0">
       <div
         v-if="hasSuggestions && showSuggestions"
-        class="
-          absolute
-          top-0
-          bg-smoke-200
-          w-full
-          overflow-hidden
-          rounded-b
-          shadow
-          z-20
-        "
+        class="absolute top-0 bg-smoke-200 w-full overflow-hidden rounded-b shadow z-20"
       >
         <CloseButton @click="toggleSuggestions(false)" />
 

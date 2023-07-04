@@ -13,16 +13,7 @@
     />
     <div v-show="suggestions.length" class="relative h-0 z-20">
       <div
-        class="
-          suggestions
-          bg-white
-          py-1
-          shadow
-          rounded-b
-          text-sm
-          whitespace-nowrap
-          overflow-hidden
-        "
+        class="suggestions bg-white py-1 shadow rounded-b text-sm whitespace-nowrap overflow-hidden"
       >
         <div
           v-for="item in suggestions"

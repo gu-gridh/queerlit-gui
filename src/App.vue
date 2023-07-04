@@ -2,25 +2,14 @@
   <div class="flex-1 flex flex-col lg:flex-row text-text">
     <div class="lg:w-1/2 lg:max-w-screen-sm"></div>
     <div
-      class="
-        bg-smoke-500
-        lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full
-        overflow-y-auto
-      "
+      class="bg-smoke-500 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
     >
       <div class="container py-12">
         <header class="max-w-screen-md pb-8">
           <router-link to="/" class="flex-1" @click="reset">
             <img
               src="@/assets/qlogo.svg"
-              class="
-                ml-2
-                mt-6
-                h-24
-                transition-all
-                duration-500
-                low:mt-0 low:h-14
-              "
+              class="ml-2 mt-6 h-24 transition-all duration-500 low:mt-0 low:h-14"
             />
           </router-link>
         </header>

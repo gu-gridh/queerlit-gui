@@ -26,18 +26,7 @@ watchEffect(async () => {
       :class="{ invisible: selected }"
     >
       <div
-        class="
-          p-2
-          px-4
-          bg-amber-300
-          shadow
-          rounded-lg
-          h-full
-          flex
-          justify-center
-          items-center
-          cursor-pointer
-        "
+        class="p-2 px-4 bg-amber-300 shadow rounded-lg h-full flex justify-center items-center cursor-pointer"
         @click="selected = collection"
       >
         {{ collection._label }}

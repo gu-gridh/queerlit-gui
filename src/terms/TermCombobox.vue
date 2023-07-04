@@ -36,15 +36,7 @@
           v-model="input"
           type="search"
           :size="Math.max(3, input.length + 1)"
-          class="
-            bg-transparent
-            border border-transparent
-            w-36
-            flex-1
-            transition-colors
-            text-xl
-            leading-none
-          "
+          class="bg-transparent border border-transparent w-36 flex-1 transition-colors text-xl leading-none"
           @input="suggest"
           @keydown.backspace="removeLast"
           @focus="suggest"

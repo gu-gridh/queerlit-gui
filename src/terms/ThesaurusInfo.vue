@@ -37,17 +37,7 @@
         <input
           v-model="termTextQuery"
           type="search"
-          class="
-            w-full
-            p-4
-            pb-3
-            rounded
-            text-black
-            shadow-inner
-            leading-snug
-            transition-colors
-            text-xl
-          "
+          class="w-full p-4 pb-3 rounded text-black shadow-inner leading-snug transition-colors text-xl"
           :class="[
             termTextQuery ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
           ]"

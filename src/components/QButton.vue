@@ -1,15 +1,6 @@
 <template>
   <button
-    class="
-      q-button
-      bg-gray-500
-      text-white
-      rounded
-      shadow
-      hover:bg-gray-400
-      transition-all
-      cursor-pointer
-    "
+    class="q-button bg-gray-500 text-white rounded shadow hover:bg-gray-400 transition-all cursor-pointer"
   >
     <slot />
   </button>
