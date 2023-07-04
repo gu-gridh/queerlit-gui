@@ -283,13 +283,32 @@ export async function searchGenreform(query) {
 }
 
 function processXlTerm(term) {
-  const processed = { ...term };
-  // Deeply nested subjects are referenced only by id. The QLIT ones are important enough to fetch and show their labels separately.
-  if (!term.prefLabel && term["@id"]?.indexOf("https://queerlit") === 0) {
-    processed.prefLabel = qlitLabels[urlBasename(term["@id"])];
-  }
+  const guess = term["@id"] ? termDataFromId(term["@id"]) : {};
+  const processed = { ...guess, ...term };
   processed._label = getLabel(processed);
   return processed;
+}
+
+/** Guess scheme and label from the id uri. */
+function termDataFromId(id) {
+  const data = {};
+
+  const scheme = [
+    ConceptScheme.Qlit,
+    ConceptScheme.BarnGf,
+    ConceptScheme.Barn,
+    ConceptScheme.SaoGf,
+    ConceptScheme.Sao,
+  ].find((scheme) => id.indexOf(scheme) === 0);
+  if (scheme) data.inScheme = scheme;
+
+  if (scheme == ConceptScheme.Qlit) {
+    data.prefLabel = qlitLabels[urlBasename(id)];
+  } else if (scheme) {
+    data.prefLabel = decodeURIComponent(urlBasename(id));
+  }
+
+  return data;
 }
 
 /** Build a string of the label of an object. */

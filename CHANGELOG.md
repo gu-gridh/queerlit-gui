@@ -27,6 +27,7 @@ As this project is a user-facing application, the places in the semantic version
 
 - Title input is not being cleared when the value is changed
 - Autocomplete for terms is not triggered for empty string
+- Labels for minor SAO/Barn terms are guessed from their id uris and displayed
 
 ## [1.7.0] (2023-06-21)
 
