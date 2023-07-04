@@ -36,6 +36,7 @@
         :classes="{
           horizontal: 'slider-horizontal h-1 mb-2',
           connect: 'slider-connect bg-current',
+          handle: 'slider-handle border border-current',
         }"
         @change="emitChange"
       />
