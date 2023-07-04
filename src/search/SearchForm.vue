@@ -24,7 +24,7 @@
       heading="Ämnen"
       class="my-6"
       :expanded="Boolean(expandedTerms || usingTerms)"
-      @toggle="toggleTerms()"
+      @toggle="!usingTerms && toggleTerms()"
     >
       <TermFilters />
     </QDetails>
@@ -42,7 +42,7 @@
       heading="Avancerade sökfilter"
       class="my-6"
       :expanded="Boolean(expandedAdvanced || usingAdvanced)"
-      @toggle="toggleAdvanced()"
+      @toggle="!usingAdvanced && toggleAdvanced()"
     >
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
