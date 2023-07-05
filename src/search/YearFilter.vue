@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import debounce from "lodash/debounce";
 // Docs: https://github.com/vueform/slider/blob/main/README.md
 import Slider from "@vueform/slider";
@@ -72,6 +72,11 @@ const range = ref([props.start || MIN, props.end || MAX]);
 const enableOld = ref(false);
 // While the max value is constant, the min value depends on the enableOld checkbox.
 const min = computed(() => (enableOld.value ? 0 : MIN));
+
+watch(props, () => {
+  range.value[0] = props.start || min.value;
+  range.value[1] = props.end || MAX;
+});
 
 function startTextChange() {
   if (!range.value[0] && range.value[0] !== 0) range.value[0] = min.value;
