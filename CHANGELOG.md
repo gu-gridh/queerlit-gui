@@ -11,7 +11,7 @@ As this project is a user-facing application, the places in the semantic version
 - `MINOR` denotes changes that may affect the user experience _or_ the development workflow
 - `PATCH` denotes changes that are insignificant to the user experience or the develpment workflow
 
-## [Unreleased]
+## [1.8.0] (2023-07-05)
 
 ### Added
 
@@ -154,7 +154,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.4.0...v1.5.0
