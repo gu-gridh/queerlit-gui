@@ -31,6 +31,7 @@ As this project is a user-facing application, the places in the semantic version
 - Autocomplete for terms is not triggered for empty string
 - Labels for minor SAO/Barn terms are guessed from their id uris and displayed
 - Special works are included in the year histogram
+- Various fixes for year filter (slider, histogram, inputs)
 
 ## [1.7.0] (2023-06-21)
 
