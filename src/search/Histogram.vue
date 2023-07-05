@@ -38,7 +38,7 @@ const maxHeight = computed(() =>
 );
 
 function getBarHeight(n) {
-  return 2 + (n / (maxHeight.value || n)) * 100;
+  return Math.round((n / maxHeight.value) * 100);
 }
 </script>
 
@@ -57,7 +57,8 @@ function getBarHeight(n) {
         @mouseout="focus = null"
       >
         <div
-          class="bg-current absolute bottom-0 w-full border-white"
+          v-if="bar.n"
+          class="bg-current absolute bottom-0 w-full border-white pb-[.1rem]"
           :style="{
             height: getBarHeight(bar.n) + '%',
             width: '95%',
