@@ -4,17 +4,19 @@ import remove from "lodash/remove";
 import intersectionBy from "lodash/intersectionBy";
 import useQuery from "./query.composable";
 import worksRaw from "@/assets/local-works.yaml";
+import type { LocalTerm, LocalWork, LocalWorkRaw } from "./localWorks.types";
 
 // Harmonize local entries.
 const works = Object.keys(worksRaw).map((id) => {
-  const work = worksRaw[id];
+  const work: LocalWorkRaw = (worksRaw as Record<string, LocalWorkRaw>)[id];
 
-  const date = Number.isInteger(work.date)
-    ? { label: String(work.date), min: work.date, max: work.date }
-    : work.date;
+  const date =
+    typeof work.date == "object"
+      ? work.date
+      : { label: String(work.date), min: work.date, max: work.date };
   date.label = date.label || `${date.min}–${date.max}`;
 
-  const inflateTerm = ([uri, prefLabel]) => ({
+  const inflateTerm = ([uri, prefLabel]: [string, string]): LocalTerm => ({
     "@id": uri,
     prefLabel,
     _label: prefLabel,
@@ -33,14 +35,15 @@ const works = Object.keys(worksRaw).map((id) => {
     classification: [],
     terms,
     genreform,
-  };
+  } as LocalWork;
 });
 
 /** Simple algorithm matching a search string against a text value. */
-const matchText = (v, s) => v.toLowerCase().includes(s.trim().toLowerCase());
+const matchText = (v: string, s: string) =>
+  v.toLowerCase().includes(s.trim().toLowerCase());
 
 /** Extract text values from a local work entry into one string. */
-const getWorkText = (work) =>
+const getWorkText = (work: LocalWork) =>
   [
     work.title,
     work.motivation,
@@ -66,7 +69,8 @@ export default function useLocalWorks() {
   function searchLocal() {
     const results = cloneDeep(Object.values(works));
 
-    const filter = (isMatch) => remove(results, (work) => !isMatch(work));
+    const filter = (isMatch: (work: LocalWork) => Boolean) =>
+      remove(results, (work) => !isMatch(work));
 
     // Match free-text filter against any field.
     if (text.value) {
@@ -123,15 +127,15 @@ export default function useLocalWorks() {
     commit("patchHistogram", createHistogram(results));
   }
 
-  function createHistogram(results) {
-    const histogram = {};
+  function createHistogram(results: LocalWork[]) {
+    const histogram: Record<number, number> = {};
     for (const work of results) {
       histogram[work.date.min] = (histogram[work.date.min] || 0) + 1;
     }
     return histogram;
   }
 
-  const getLocal = (id) => works.find((work) => work.id == id);
+  const getLocal = (id: string) => works.find((work) => work.id == id);
 
   return {
     searchLocal,
