@@ -87,7 +87,8 @@ function endTextChange() {
 }
 
 function enableOldChange() {
-  range.value[0] = 0;
+  if (enableOld.value && range.value[0] == MIN) range.value[0] = 0;
+  else if (range.value[0] < min.value) range.value[0] = min.value;
   if (range.value[1] < min.value) range.value[1] = min.value;
   emitChange();
 }
