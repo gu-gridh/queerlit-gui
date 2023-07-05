@@ -1,7 +1,8 @@
 <script setup>
 // Avoid emitting click event when scrolldragging
 
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
+import { dragscroll as vDragscroll } from "vue-dragscroll";
 
 // See: https://github.com/donmbelembe/vue-dragscroll/issues/61
 const dragging = ref(false);

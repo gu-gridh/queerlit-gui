@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "@vue/reactivity";
+import { computed, ref } from "vue";
 import { get } from "@/services/libris.service";
 import { useRoute } from "vue-router";
 import useTitle from "./title.composable";

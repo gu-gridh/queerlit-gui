@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between mb-1">
+    <div class="flex justify-between mb-1 relative z-10">
       <input
         :id="inputId"
         v-model.number="range[0]"
@@ -26,20 +26,19 @@
     </div>
 
     <div class="mx-1">
-      <Histogram
-        :min="min"
-        :max="MAX"
-        class="-mb-2 relative"
-        style="z-index: 3; /* The slider handle has z-index 5 */"
-      />
+      <Histogram :min="min" :max="MAX" :zeroes="enableOld ? 2 : 1" />
 
-      <VueSlider
+      <Slider
         v-model="range"
         :min="min"
         :max="MAX"
-        tooltip="none"
-        :process-style="{ backgroundColor: 'currentColor' }"
-        class="text-text"
+        :tooltips="false"
+        :classes="{
+          horizontal: 'slider-horizontal h-1 mb-2',
+          connect: 'slider-connect bg-current',
+          origin: 'slider-origin transition-transform',
+          handle: 'slider-handle border border-current',
+        }"
         @change="emitChange"
       />
     </div>
@@ -57,10 +56,11 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import debounce from "lodash/debounce";
-// Docs: https://vue-3-slider-component.netlify.app/?path=/docs/
-import VueSlider from "vue-3-slider-component";
+// Docs: https://github.com/vueform/slider/blob/main/README.md
+import Slider from "@vueform/slider";
+import "@vueform/slider/themes/tailwind.scss";
 import Histogram from "./Histogram.vue";
 
 const MIN = 1800;
@@ -72,6 +72,11 @@ const range = ref([props.start || MIN, props.end || MAX]);
 const enableOld = ref(false);
 // While the max value is constant, the min value depends on the enableOld checkbox.
 const min = computed(() => (enableOld.value ? 0 : MIN));
+
+watch(props, () => {
+  range.value[0] = props.start || min.value;
+  range.value[1] = props.end || MAX;
+});
 
 function startTextChange() {
   if (!range.value[0] && range.value[0] !== 0) range.value[0] = min.value;
@@ -87,7 +92,8 @@ function endTextChange() {
 }
 
 function enableOldChange() {
-  if (range.value[0] < min.value) range.value[0] = min.value;
+  if (enableOld.value && range.value[0] == MIN) range.value[0] = 0;
+  else if (range.value[0] < min.value) range.value[0] = min.value;
   if (range.value[1] < min.value) range.value[1] = min.value;
   emitChange();
 }

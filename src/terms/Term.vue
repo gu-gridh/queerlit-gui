@@ -2,6 +2,7 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { vOnClickOutside } from "@vueuse/components";
+import useTerms from "./terms.composable";
 
 const props = defineProps({
   data: Object,
@@ -14,13 +15,10 @@ const props = defineProps({
 });
 
 const { commit } = useStore();
-const isQlit = computed(
-  () =>
-    props.data?.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
-    props.data?.["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
-);
-const isMenuVisible = ref(false);
+const { termIsQlit } = useTerms();
 
+const isMenuVisible = ref(false);
+const isQlit = computed(() => props.data && termIsQlit(props.data));
 const optionItems = computed(() =>
   props.options
     .map((op) => op(props.data))
@@ -54,19 +52,7 @@ function dragEnd() {
     @click="toggleMenu"
   >
     <span
-      class="
-        flex
-        items-center
-        transform
-        transition-all
-        px-2
-        py-0.5
-        text-black
-        font-thin
-        rounded-md
-        shadow
-        cursor-default
-      "
+      class="flex items-center transition-all px-2 py-0.5 text-black font-thin rounded-md shadow cursor-default"
       :class="[
         isQlit
           ? secondary
@@ -93,26 +79,12 @@ function dragEnd() {
         class="absolute z-10 h-0 bottom-0 left-0 duration-200"
       >
         <ul
-          class="
-            bg-gray-50 bg-opacity-95
-            rounded
-            shadow
-            mt-0.5
-            text-sm
-            w-40
-            overflow-hidden
-          "
+          class="bg-gray-50/95 rounded shadow mt-0.5 text-sm w-40 overflow-hidden"
         >
           <li
             v-for="(option, i) in optionItems"
             :key="i"
-            class="
-              overflow-ellipsis
-              whitespace-nowrap
-              px-1
-              hover:bg-gray-100
-              cursor-pointer
-            "
+            class="overflow-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
             @click.prevent.stop="
               () => {
                 option.action();

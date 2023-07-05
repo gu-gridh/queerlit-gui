@@ -8,6 +8,7 @@ const {
   text,
   terms,
   termsSecondary,
+  hierarchical,
   title,
   author,
   yearStart,
@@ -47,6 +48,11 @@ const { setQuery } = useSearch();
       >
         {{ term._label }}
       </FilterButton>
+
+      <FilterButton
+        v-if="terms.length || termsSecondary.length"
+        :label="hierarchical ? 'Även smalare' : 'Ej smalare'"
+      />
 
       <FilterButton
         v-if="title"

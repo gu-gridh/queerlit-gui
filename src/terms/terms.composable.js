@@ -1,4 +1,4 @@
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import useQuery from "@/search/query.composable";
 import {
   getTerm,
@@ -15,9 +15,9 @@ import useSearch from "@/search/search.composable";
 
 export default function useTerms() {
   const router = useRouter();
-  const { terms, termsSecondary } = useQuery();
+  const { terms, termsSecondary, hierarchical } = useQuery();
   const suggestions = ref([]);
-  const { doSearch, setQuery } = useSearch();
+  const { setQuery } = useSearch();
 
   function add(term) {
     if (!terms.value.find((term2) => term2["@id"] == term["@id"]))
@@ -43,12 +43,21 @@ export default function useTerms() {
     });
   }
 
+  function toggleHierarchical(value) {
+    // If no arg, toggle to opposite value.
+    if (value === undefined) value = !hierarchical.value;
+    setQuery({ hierarchical: value });
+  }
+
   async function hasChildren(term) {
     return (await getChildren(term)).length;
   }
 
   function termIsQlit(term) {
-    return term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1";
+    return (
+      term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
+      term["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
+    );
   }
 
   function sortTerms(terms) {
@@ -65,7 +74,11 @@ export default function useTerms() {
 
   function searchByTerm(term) {
     add(term);
-    doSearch();
+    router.push("/");
+  }
+
+  function searchByTermSecondary(term) {
+    addSecondary(term);
     router.push("/");
   }
 
@@ -85,12 +98,15 @@ export default function useTerms() {
     suggestions,
     terms,
     termsSecondary,
+    hierarchical,
     add,
     remove,
     addSecondary,
     removeSecondary,
+    toggleHierarchical,
     sortTerms,
     searchByTerm,
+    searchByTermSecondary,
     gotoTerm,
     termIsQlit,
   };

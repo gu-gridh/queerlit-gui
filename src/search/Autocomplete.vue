@@ -13,16 +13,7 @@
     />
     <div v-show="suggestions.length" class="relative h-0 z-20">
       <div
-        class="
-          suggestions
-          bg-white
-          py-1
-          shadow
-          rounded-b
-          text-sm
-          whitespace-nowrap
-          overflow-hidden
-        "
+        class="suggestions bg-white py-1 shadow rounded-b text-sm whitespace-nowrap overflow-hidden"
       >
         <div
           v-for="item in suggestions"
@@ -38,8 +29,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "@vue/reactivity";
-import { watchEffect } from "@vue/runtime-core";
+import { computed, ref, watchEffect } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import QInput from "@/components/QInput.vue";

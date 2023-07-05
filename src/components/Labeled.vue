@@ -2,6 +2,7 @@
 defineProps({
   label: String,
   labelClass: [Object, String],
+  innerClass: [Object, String],
   forId: String,
 });
 </script>
@@ -17,7 +18,7 @@ defineProps({
       {{ label }}
     </component>
 
-    <div>
+    <div :class="innerClass">
       <slot />
     </div>
   </section>

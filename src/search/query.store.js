@@ -2,6 +2,7 @@ const getInitialState = () => ({
   text: "",
   terms: [],
   termsSecondary: [],
+  hierarchical: true,
   title: "",
   author: null,
   yearStart: null,
@@ -18,6 +19,7 @@ export default {
         text,
         terms,
         termsSecondary,
+        hierarchical,
         title,
         author,
         yearStart,
@@ -29,6 +31,7 @@ export default {
       if (text !== undefined) state.text = text;
       if (terms !== undefined) state.terms = terms;
       if (termsSecondary !== undefined) state.termsSecondary = termsSecondary;
+      if (hierarchical !== undefined) state.hierarchical = !!hierarchical;
       if (title !== undefined) state.title = title;
       if (author !== undefined) state.author = author;
       if (yearStart !== undefined) state.yearStart = parseInt(yearStart);

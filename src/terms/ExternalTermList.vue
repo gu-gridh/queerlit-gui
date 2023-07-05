@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from "@vue/reactivity";
-import { watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import { compareEmptyLast, urlBasename } from "@/util";
 import { getLcshLabel } from "@/services/lcsh.service";
 

@@ -26,18 +26,7 @@ watchEffect(async () => {
       :class="{ invisible: selected }"
     >
       <div
-        class="
-          p-2
-          px-4
-          bg-yellow-300
-          shadow
-          rounded-lg
-          h-full
-          flex
-          justify-center
-          items-center
-          cursor-pointer
-        "
+        class="p-2 px-4 bg-amber-300 shadow rounded-lg h-full flex justify-center items-center cursor-pointer"
         @click="selected = collection"
       >
         {{ collection._label }}
@@ -47,7 +36,7 @@ watchEffect(async () => {
       v-if="selected"
       class="absolute top-0 left-0 right-0 bottom-0 z-10 m-1 text-left"
     >
-      <div class="bg-yellow-200 shadow rounded-lg h-full overflow-auto">
+      <div class="bg-amber-200 shadow rounded-lg h-full overflow-auto">
         <div
           class="p-1 px-2 flex gap-2 items-center cursor-pointer"
           @click="selected = null"

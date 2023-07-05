@@ -19,18 +19,7 @@ const [showHelp, toggleHelp] = useToggle();
 <template>
   <div>
     <div
-      class="
-        w-full
-        flex
-        items-center
-        py-1
-        px-2
-        rounded
-        text-text text-lg
-        shadow-inner
-        leading-snug
-        transition-colors
-      "
+      class="w-full flex items-center py-1 px-2 rounded text-text text-lg shadow-inner leading-snug transition-colors"
       :class="[
         isIncomplete ? 'incomplete' : null,
         hasValue

@@ -18,6 +18,7 @@ export default createStore({
     // Remember which nodes in the term tree are expanded,
     // but forget it if the term search query changes.
     termsExpanded: [],
+    // {1952: 5, ...}
     histogram: {},
     error: null,
   },
@@ -54,6 +55,11 @@ export default createStore({
     },
     setHistogram(state, histogram) {
       state.histogram = histogram;
+    },
+    patchHistogram(state, histogram) {
+      for (const year in histogram) {
+        state.histogram[year] = (state.histogram[year] || 0) + histogram[year];
+      }
     },
     setError(state, message) {
       state.error = message;

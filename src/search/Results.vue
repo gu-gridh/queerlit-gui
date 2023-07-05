@@ -17,15 +17,7 @@
           <select
             id="sort-input"
             :value="sort"
-            class="
-              appearance-none
-              border
-              rounded
-              cursor-pointer
-              -my-1
-              pl-1
-              pr-5
-            "
+            class="appearance-none border rounded cursor-pointer -my-1 pl-1 pr-5"
             @change="setSort"
           >
             <option value="-publication.year">Nyast först</option>
@@ -96,7 +88,7 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import useTitle from "@/views/title.composable";
 import WorkResultItem from "./WorkResultItem.vue";

@@ -11,7 +11,27 @@ As this project is a user-facing application, the places in the semantic version
 - `MINOR` denotes changes that may affect the user experience _or_ the development workflow
 - `PATCH` denotes changes that are insignificant to the user experience or the develpment workflow
 
-## [Unreleased]
+## [1.8.0] (2023-07-05)
+
+### Added
+
+- Checkbox to toggle hierarchical term search
+- The term search fields can be collapsed
+
+### Changed
+
+- Term autocomplete suggestions is limited to 10 suggestions
+- The two term inputs for major and minor terms are now visually presented as one input
+- Histogram bars are separated by small spaces, and the lowest are raised to a minimum height for visibility
+- When enabling older works, histogram bars are by 100 years, not 10 years
+
+### Fixed
+
+- Title input is not being cleared when the value is changed
+- Autocomplete for terms is not triggered for empty string
+- Labels for minor SAO/Barn terms are guessed from their id uris and displayed
+- Special works are included in the year histogram
+- Various fixes for year filter (slider, histogram, inputs)
 
 ## [1.7.0] (2023-06-21)
 
@@ -134,7 +154,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.4.0...v1.5.0

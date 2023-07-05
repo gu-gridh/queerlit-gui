@@ -2,25 +2,14 @@
   <div class="flex-1 flex flex-col lg:flex-row text-text">
     <div class="lg:w-1/2 lg:max-w-screen-sm"></div>
     <div
-      class="
-        bg-smoke-500
-        lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full
-        overflow-y-auto
-      "
+      class="bg-smoke-500 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
     >
       <div class="container py-12">
         <header class="max-w-screen-md pb-8">
           <router-link to="/" class="flex-1" @click="reset">
             <img
               src="@/assets/qlogo.svg"
-              class="
-                ml-2
-                mt-6
-                h-24
-                transition-all
-                duration-500
-                low:mt-0 low:h-14
-              "
+              class="ml-2 mt-6 h-24 transition-all duration-500 low:mt-0 low:h-14"
             />
           </router-link>
         </header>
@@ -61,7 +50,7 @@ import { useRoute } from "vue-router";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
-import "@fontsource/barlow-condensed/latin-300.css";
+import "@fontsource/barlow-condensed/300.css";
 import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
@@ -95,7 +84,7 @@ if (import.meta.env.DEV) {
 
 <style lang="scss" scoped>
 .main-nav-link {
-  @apply p-1 px-4 mr-1 hover:bg-opacity-25 hover:bg-white rounded-lg transition-all;
+  @apply p-1 px-4 mr-1 hover:bg-white/25 rounded-lg transition-all;
 }
 .main-nav-link.router-link-active {
   @apply bg-white rounded-lg text-gray-800 shadow-lg;

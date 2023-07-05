@@ -1,10 +1,15 @@
 module.exports = {
-  purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Barlow Condensed", "Arial Narrow", "Arial", "sans-serif"],
+        sans: [
+          "Barlow Condensed",
+          "Roboto Condensed",
+          "Arial Narrow",
+          "Arial",
+          "sans-serif",
+        ],
         label: [
           "system-ui",
           "-apple-system",
@@ -45,8 +50,5 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+  plugins: [require("@vueform/slider/tailwind")],
 };

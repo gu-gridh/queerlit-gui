@@ -14,15 +14,7 @@ const error = computed(() => store.state.error);
       class="absolute top-10 left-0 right-0 flex justify-center duration-500"
     >
       <div
-        class="
-          mx-auto
-          bg-red-400
-          text-white text-lg
-          p-2
-          px-4
-          rounded-lg
-          shadow-lg
-        "
+        class="mx-auto bg-red-400 text-white text-lg p-2 px-4 rounded-lg shadow-lg"
       >
         {{ error }}
       </div>

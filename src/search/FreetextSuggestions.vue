@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { ref, watch } from "vue";
 import Dragscroll from "./Dragscroll.vue";
 import Labeled from "@/components/Labeled.vue";
 
@@ -40,26 +39,15 @@ watch(
 
 <template>
   <Labeled
-    :label="heading"
     v-if="items.length"
+    :label="heading"
     class="my-2"
     label-class="mx-2 opacity-80"
   >
     <div class="relative" @wheel.prevent="scroll">
       <span
         v-show="!isScrolledToStart"
-        class="
-          absolute
-          left-0
-          top-0
-          bottom-0
-          z-10
-          flex flex-col
-          justify-center
-          p-1
-          pr-2
-          prev-button
-        "
+        class="absolute left-0 top-0 bottom-0 z-10 flex flex-col justify-center p-1 pr-2 prev-button"
         @click="scrollStepLeft"
       >
         <icon icon="angle-double-left" size="xs" />
@@ -82,18 +70,7 @@ watch(
       </Dragscroll>
       <span
         v-show="!isScrolledToEnd"
-        class="
-          absolute
-          right-0
-          top-0
-          bottom-0
-          z-10
-          flex flex-col
-          justify-center
-          p-1
-          pl-2
-          next-button
-        "
+        class="absolute right-0 top-0 bottom-0 z-10 flex flex-col justify-center p-1 pl-2 next-button"
         @click="scrollStepRight"
       >
         <icon icon="angle-double-right" size="xs" />

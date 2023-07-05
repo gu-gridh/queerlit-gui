@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { ref, watch } from "vue";
 
 // Parent component is responsible for updating :current on @change.
 // If :last is not int, make sure to ceil it.
