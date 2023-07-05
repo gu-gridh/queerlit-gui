@@ -37,7 +37,7 @@ async function enrichTerm(term) {
 
   if (term.uri.indexOf("http://id.loc.gov/authorities/subjects/") == 0) {
     term.scheme = "LCSH";
-    term.prefLabel = await getLcshLabel(term.uri);
+    term.prefLabel = (await getLcshLabel(term.uri)) || urlBasename(term.uri);
   }
 
   return term;

@@ -305,7 +305,7 @@ function termDataFromId(id) {
   if (scheme == ConceptScheme.Qlit) {
     data.prefLabel = qlitLabels[urlBasename(id)];
   } else if (scheme) {
-    data.prefLabel = decodeURIComponent(urlBasename(id));
+    data.prefLabel = urlBasename(id);
   }
 
   return data;
