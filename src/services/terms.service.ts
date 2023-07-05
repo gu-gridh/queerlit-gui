@@ -1,35 +1,44 @@
 import axios from "axios";
+import type {
+  QlitCollection,
+  QlitName,
+  QlitTerm,
+  TermLike,
+} from "./terms.types";
 
 const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
 
 /** Get a single term. */
-async function qlitGet(endpoint, params) {
+async function qlitGet(endpoint: string, params?: Record<string, any>) {
   const response = await axios.get(QLIT_BASE + endpoint, { params });
   return response.data;
 }
 
 /** Get multiple terms and sort alphabetically. */
-async function qlitList(endpoint, params) {
-  const data = await qlitGet(endpoint, params);
+async function qlitList<T extends TermLike = QlitTerm>(
+  endpoint: string,
+  params?: Record<string, any>
+) {
+  const data: T[] = await qlitGet(endpoint, params);
   const terms = data.map(fakeXlTerm);
   return terms;
 }
 
-export async function getTerm(name) {
-  const data = await qlitGet("term/" + name);
+export async function getTerm(name: QlitName) {
+  const data = (await qlitGet("term/" + name)) as QlitTerm;
   return fakeXlTerm(data);
 }
 
-export async function getParents(child) {
+export async function getParents(child: QlitName) {
   return qlitList("parents", { child });
 }
 
-export async function getChildren(parent) {
+export async function getChildren(parent: QlitName) {
   return qlitList("children", { parent });
 }
 
-export async function getRelated(other) {
+export async function getRelated(other: QlitName) {
   return qlitList("related", { other });
 }
 
@@ -38,29 +47,29 @@ export async function getRoots() {
 }
 
 // TODO: Re-use Libris Concept search instead.
-export async function searchTerms(s) {
+export async function searchTerms(s: string) {
   return qlitList("autocomplete", { s });
 }
 
 export function getCollections() {
-  return qlitList("collections").then((terms) =>
-    terms.map((term) => ({
-      ...term,
-      _label: term._label.replace("Tema: ", "").replace(" (HBTQI)", ""),
+  return qlitList<QlitCollection>("collections").then((collections) =>
+    collections.map((collection) => ({
+      ...collection,
+      _label: collection._label.replace("Tema: ", "").replace(" (HBTQI)", ""),
     }))
   );
 }
 
-export function getCollection(name) {
+export function getCollection(name: QlitName) {
   return qlitList("collections/" + name);
 }
 
 export async function getLabels() {
-  return await qlitGet("labels");
+  return (await qlitGet("labels")) as Record<string, string>;
 }
 
 /** Reshape a queerlit-terms object like an XL object */
-function fakeXlTerm(term) {
+function fakeXlTerm(term: TermLike) {
   return {
     "@id": term.uri,
     _label: term.prefLabel,
