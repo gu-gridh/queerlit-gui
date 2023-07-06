@@ -46,13 +46,14 @@
 </template>
 
 <script setup>
-import { computed, ref, watchEffect } from "@vue/runtime-core";
+import { computed, ref, watchEffect } from "vue";
 import { useStore } from "vuex";
+import { key } from "@/store";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
 
 const props = defineProps(["parent", "level", "expanded"]);
-const { state, commit } = useStore();
+const { state, commit } = useStore(key);
 const { getChildren } = useTerms();
 const children = ref(null);
 const expanded = ref(

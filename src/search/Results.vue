@@ -90,6 +90,7 @@
 <script setup>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { key } from "@/store";
 import useTitle from "@/views/title.composable";
 import WorkResultItem from "./WorkResultItem.vue";
 import LocalWorkResultItem from "./LocalWorkResultItem.vue";
@@ -98,7 +99,7 @@ import useSearch from "./search.composable";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import FiltersBar from "./FiltersBar.vue";
 
-const store = useStore();
+const store = useStore(key);
 const { doSearch } = useSearch();
 useTitle();
 

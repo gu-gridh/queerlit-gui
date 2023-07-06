@@ -23,7 +23,7 @@ type State = {
 // See https://vuex.vuejs.org/guide/typescript-support.html#typing-usestore-composition-function
 export const key: InjectionKey<Store<State>> = Symbol();
 
-export default createStore<State>({
+export const store = createStore<State>({
   modules: {
     query,
   },

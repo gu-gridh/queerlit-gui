@@ -15,16 +15,11 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  onMounted,
-  ref,
-  watch,
-  watchEffect,
-} from "@vue/runtime-core";
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
 import { useStore } from "vuex";
 import { vElementVisibility } from "@vueuse/components";
 import debounce from "lodash/debounce";
+import { key } from "@/store";
 import useTerms from "@/terms/terms.composable";
 import useTitle from "@/views/title.composable";
 import TermTree from "@/terms/TermTree.vue";
@@ -35,7 +30,7 @@ const PAGE_SIZE = 15;
 const { getRoots, searchTerms } = useTerms();
 const rootTerms = ref([]);
 const terms = ref([]);
-const { state } = useStore();
+const { state } = useStore(key);
 useTitle();
 const termTextQuery = computed(() => state.termTextQuery);
 const limit = ref(PAGE_SIZE);

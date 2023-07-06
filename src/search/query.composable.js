@@ -1,8 +1,9 @@
-import { computed } from "@vue/runtime-core";
+import { computed } from "vue";
 import { useStore } from "vuex";
+import { key } from "@/store";
 
 export default function useQuery() {
-  const store = useStore();
+  const store = useStore(key);
 
   const text = computed(() => store.state.query.text);
   const terms = computed(() => store.state.query.terms);

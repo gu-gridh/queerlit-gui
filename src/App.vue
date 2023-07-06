@@ -57,9 +57,10 @@ import ErrorMessage from "./ErrorMessage.vue";
 import SiteFooter from "./SiteFooter.vue";
 import useQuery from "./search/query.composable";
 import useSearch from "./search/search.composable";
+import { key } from "./store";
 
 const { is404 } = use404();
-const { state } = useStore();
+const { state } = useStore(key);
 const route = useRoute();
 const { resetQuery } = useQuery();
 const { doSearch } = useSearch();

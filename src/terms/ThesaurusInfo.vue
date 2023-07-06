@@ -49,12 +49,13 @@
 </template>
 
 <script setup>
-import Labeled from "@/components/Labeled.vue";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { key } from "@/store";
+import Labeled from "@/components/Labeled.vue";
 
-const { state, commit } = useStore();
+const { state, commit } = useStore(key);
 const router = useRouter();
 
 const termTextQuery = computed({

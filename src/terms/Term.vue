@@ -2,6 +2,7 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { vOnClickOutside } from "@vueuse/components";
+import { key } from "@/store";
 import useTerms from "./terms.composable";
 
 const props = defineProps({
@@ -14,7 +15,7 @@ const props = defineProps({
   draggable: Boolean,
 });
 
-const { commit } = useStore();
+const { commit } = useStore(key);
 const { termIsQlit } = useTerms();
 
 const isMenuVisible = ref(false);

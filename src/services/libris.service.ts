@@ -113,8 +113,6 @@ export async function search(options: Partial<SearchOptions>) {
   params.set("_offset", String(offset));
   params.set("_limit", "20");
 
-  console.log([...params.entries()]);
-
   const response = await xlFindBooks(params);
 
   return {

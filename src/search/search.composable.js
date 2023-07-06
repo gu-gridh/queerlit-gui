@@ -1,16 +1,17 @@
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import { debounce } from "lodash";
+import { key } from "@/store";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
 import useQuery from "./query.composable";
-import { useRouter } from "vue-router";
 
 // Keep the debounced function in module scope, because it needs to be identical across all usages of this composable.
 // But the function can only be actually defined inside useSearch, as it depends on other composables.
 let doSearchDebounced;
 
 export default function useSearch() {
-  const { commit, state } = useStore();
+  const { commit, state } = useStore(key);
   const { setQuery: setQueryReal, serializedQuery } = useQuery();
   const { searchLocal } = useLocalWorks();
   const router = useRouter();

@@ -83,6 +83,7 @@ import { useStore } from "vuex";
 import { useToggle } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
+import { key } from "@/store";
 import { searchTerms } from "@/services/terms.service";
 import Term from "@/terms/Term.vue";
 import CloseButton from "@/components/CloseButton.vue";
@@ -94,7 +95,7 @@ import Labeled from "@/components/Labeled.vue";
 
 const props = defineProps(["label", "terms", "input-id", "help", "secondary"]);
 const emit = defineEmits(["add", "remove"]);
-const { commit, state } = useStore();
+const { commit, state } = useStore(key);
 const [showHelp, toggleHelp] = useToggle();
 const { remove: removeTerm, removeSecondary } = useTerms();
 const { goto } = useTermOptions();
