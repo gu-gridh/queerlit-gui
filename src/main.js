@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "@/App.vue";
 import router from "@/router";
-import store from "./store";
+import store, { key } from "./store";
 import "./index.scss";
 import "./fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -10,7 +10,7 @@ import matomo from "vue-matomo";
 
 const app = createApp(App) //
   .use(router)
-  .use(store)
+  .use(store, key)
   .component("Icon", FontAwesomeIcon)
   .use(VueDragDrop);
 

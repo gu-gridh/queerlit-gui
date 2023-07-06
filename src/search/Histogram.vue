@@ -1,22 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import range from "lodash/range";
 import floor from "lodash/floor";
+import { key } from "@/store";
 
-const props = defineProps({
-  min: Number,
-  max: Number,
+type Props = {
+  min: number;
+  max: number;
   /** Split by decades (1) or centuries (2). */
-  zeroes: {
-    type: Number,
-    default: 1,
-  },
+  zeroes: number;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  zeroes: 1,
 });
 
-const store = useStore();
+type Bar = { year: number; n: number };
 
-const focus = ref(null);
+const store = useStore(key);
+
+const focus = ref<Bar | null>(null);
 
 const histogram = computed(() => store.state.histogram);
 const bars = computed(() =>
@@ -30,14 +34,14 @@ const bars = computed(() =>
       const bin = acc.find((bar2) => bar2.year == year);
       bin ? (bin.n += bar.n) : acc.push({ year, n: bar.n });
       return acc;
-    }, [])
+    }, [] as Bar[])
 );
 
 const maxHeight = computed(() =>
   Math.max(...bars.value.map((bar) => bar.n || 0))
 );
 
-function getBarHeight(n) {
+function getBarHeight(n: number) {
   return Math.round((n / maxHeight.value) * 100);
 }
 </script>
@@ -52,7 +56,7 @@ function getBarHeight(n) {
         v-for="bar in bars"
         :key="bar.year"
         class="flex-1 h-full relative"
-        :title="bar.year"
+        :title="String(bar.year)"
         @mouseover="focus = bar"
         @mouseout="focus = null"
       >

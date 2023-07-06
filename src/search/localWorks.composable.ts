@@ -5,6 +5,7 @@ import intersectionBy from "lodash/intersectionBy";
 import useQuery from "./query.composable";
 import worksRaw from "@/assets/local-works.yaml";
 import type { LocalTerm, LocalWork, LocalWorkRaw } from "./localWorks.types";
+import { key } from "@/store";
 
 // Harmonize local entries.
 const works = Object.keys(worksRaw).map((id) => {
@@ -64,7 +65,7 @@ export default function useLocalWorks() {
     author,
     genreform,
   } = useQuery();
-  const { commit, state } = useStore();
+  const { commit, state } = useStore(key);
 
   function searchLocal() {
     const results = cloneDeep(Object.values(works));

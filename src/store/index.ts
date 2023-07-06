@@ -1,6 +1,8 @@
-import { createStore } from "vuex";
-import query from "@/search/query.store";
+import type { InjectionKey } from "vue";
+import { Store, createStore } from "vuex";
 import { union, without } from "lodash";
+import type { Histogram } from "@/types/app";
+import query from "@/search/query.store";
 import type { QlitName } from "@/services/qlit.types";
 import type { LocalWork } from "@/search/localWorks.types";
 
@@ -14,9 +16,12 @@ type State = {
   dragged: any;
   termTextQuery: string;
   termsExpanded: QlitName[];
-  histogram: Record<number, number>;
+  histogram: Histogram;
   error: string | null;
 };
+
+// See https://vuex.vuejs.org/guide/typescript-support.html#typing-usestore-composition-function
+export const key: InjectionKey<Store<State>> = Symbol();
 
 export default createStore<State>({
   modules: {
