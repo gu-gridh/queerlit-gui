@@ -1,46 +1,50 @@
-<script setup>
-import { ref, watchEffect } from "vue";
+<script setup lang="ts">
+import { ref, watchEffect, type PropType } from "vue";
 import { compareEmptyLast, urlBasename } from "@/util";
 import { getLcshLabel } from "@/services/lcsh.service";
+import type { HasUri } from "./terms.types";
 
 const props = defineProps({
   terms: {
-    type: Array,
+    type: Array as PropType<HasUri[]>,
     required: true,
-    validator: (terms) => terms.every((term) => term.uri),
+    validator: (terms: any[]) => terms.every((term) => term.uri),
   },
 });
 
-const termsEnriched = ref(null);
+type EnrichedTerm = HasUri & { scheme?: string; prefLabel?: string };
+
+const termsEnriched = ref<EnrichedTerm[]>([]);
 
 watchEffect(async () => {
   termsEnriched.value = (await Promise.all(props.terms.map(enrichTerm)))
-    .sort((a, b) => String(a.prefLabel).localeCompare(b.prefLabel))
+    .sort((a, b) => String(a.prefLabel).localeCompare(String(b.prefLabel)))
     .sort((a, b) => compareEmptyLast(a.scheme, b.scheme));
 });
 
-async function enrichTerm(term) {
-  term = { ...term };
+async function enrichTerm(term: HasUri) {
+  const enriched: EnrichedTerm = { ...term };
 
   if (term.uri.indexOf("https://homosaurus.org/") == 0)
-    term.scheme = "Homosaurus";
+    enriched.scheme = "Homosaurus";
 
   if (term.uri.indexOf("https://id.kb.se/term/sao/") == 0) {
-    term.scheme = "SAO";
-    term.prefLabel = urlBasename(term.uri);
+    enriched.scheme = "SAO";
+    enriched.prefLabel = urlBasename(term.uri);
   }
 
   if (term.uri.indexOf("https://id.kb.se/term/barn/") == 0) {
-    term.scheme = "Barnämnesord";
-    term.prefLabel = urlBasename(term.uri);
+    enriched.scheme = "Barnämnesord";
+    enriched.prefLabel = urlBasename(term.uri);
   }
 
   if (term.uri.indexOf("http://id.loc.gov/authorities/subjects/") == 0) {
-    term.scheme = "LCSH";
-    term.prefLabel = (await getLcshLabel(term.uri)) || urlBasename(term.uri);
+    enriched.scheme = "LCSH";
+    enriched.prefLabel =
+      (await getLcshLabel(term.uri)) || urlBasename(term.uri);
   }
 
-  return term;
+  return enriched;
 }
 </script>
 
