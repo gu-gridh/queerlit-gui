@@ -1,8 +1,24 @@
 import { createStore } from "vuex";
 import query from "@/search/query.store";
 import { union, without } from "lodash";
+import type { QlitName } from "@/services/qlit.types";
+import type { LocalWork } from "@/search/localWorks.types";
 
-export default createStore({
+type State = {
+  results: any[] | null;
+  localResults: LocalWork[];
+  total: number;
+  sort: string;
+  offset: number;
+  currentSearch: string | null;
+  dragged: any;
+  termTextQuery: string;
+  termsExpanded: QlitName[];
+  histogram: Record<number, number>;
+  error: string | null;
+};
+
+export default createStore<State>({
   modules: {
     query,
   },
@@ -56,7 +72,7 @@ export default createStore({
     setHistogram(state, histogram) {
       state.histogram = histogram;
     },
-    patchHistogram(state, histogram) {
+    patchHistogram(state, histogram: Record<number, number>) {
       for (const year in histogram) {
         state.histogram[year] = (state.histogram[year] || 0) + histogram[year];
       }

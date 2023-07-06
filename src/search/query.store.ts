@@ -1,4 +1,16 @@
-const getInitialState = () => ({
+export type State = {
+  text: string;
+  terms: any[];
+  termsSecondary: any[];
+  hierarchical: boolean;
+  title: string;
+  author: any;
+  yearStart: number | null;
+  yearEnd: number | null;
+  genreform: any;
+};
+
+const getInitialState: () => State = () => ({
   text: "",
   terms: [],
   termsSecondary: [],
@@ -14,7 +26,7 @@ export default {
   state: getInitialState(),
   mutations: {
     setQuery(
-      state,
+      state: State,
       {
         text,
         terms,
@@ -25,7 +37,7 @@ export default {
         yearStart,
         yearEnd,
         genreform,
-      }
+      }: Partial<State>
     ) {
       // Modify each value only if it is given.
       if (text !== undefined) state.text = text;
@@ -34,11 +46,11 @@ export default {
       if (hierarchical !== undefined) state.hierarchical = !!hierarchical;
       if (title !== undefined) state.title = title;
       if (author !== undefined) state.author = author;
-      if (yearStart !== undefined) state.yearStart = parseInt(yearStart);
-      if (yearEnd !== undefined) state.yearEnd = parseInt(yearEnd);
+      if (yearStart !== undefined) state.yearStart = yearStart;
+      if (yearEnd !== undefined) state.yearEnd = yearEnd;
       if (genreform !== undefined) state.genreform = genreform;
     },
-    resetQuery(state) {
+    resetQuery(state: State) {
       Object.assign(state, getInitialState());
     },
   },
