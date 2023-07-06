@@ -1,3 +1,5 @@
+import type { URI } from "@/types/util";
+
 export type QlitTerm = {
   name: QlitName;
   prefLabel: string;
@@ -30,4 +32,7 @@ export type TermLike = Record<string, any> & {
 };
 
 export type QlitName = string;
-export type URI = string;
+
+export type HasUri = {
+  uri: URI;
+};

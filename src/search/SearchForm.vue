@@ -78,7 +78,7 @@
               :value="genreform"
               :suggest="searchGenreform"
               :get-label="getGenreformLabel"
-              :get-id="(item) => item.id"
+              :get-id="(item) => item['@id']"
               input-id="genreform"
               help="Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi"
               @change="setGenreform"

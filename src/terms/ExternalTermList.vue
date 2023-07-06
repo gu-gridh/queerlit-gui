@@ -2,7 +2,7 @@
 import { ref, watchEffect, type PropType } from "vue";
 import { compareEmptyLast, urlBasename } from "@/util";
 import { getLcshLabel } from "@/services/lcsh.service";
-import type { HasUri } from "./terms.types";
+import type { HasUri } from "@/services/qlit.types";
 
 const props = defineProps({
   terms: {

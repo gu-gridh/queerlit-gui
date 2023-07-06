@@ -4,7 +4,8 @@ import type {
   QlitName,
   QlitTerm,
   TermLike,
-} from "./terms.types";
+} from "./qlit.types";
+import type { Term } from "@/types/work";
 
 const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
@@ -65,15 +66,15 @@ export function getCollection(name: QlitName) {
 }
 
 export async function getLabels() {
-  return (await qlitGet("labels")) as Record<string, string>;
+  return (await qlitGet("labels")) as Record<QlitName, string>;
 }
 
 /** Reshape a queerlit-terms object like an XL object */
-function fakeXlTerm(term: TermLike) {
+function fakeXlTerm(term: TermLike): Term {
   return {
     "@id": term.uri,
     _label: term.prefLabel,
-    inScheme: { "@id": "https://queerlit.dh.gu.se/qlit/v1" },
+    inScheme: "https://queerlit.dh.gu.se/qlit/v1",
     ...term,
   };
 }

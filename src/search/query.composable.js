@@ -54,7 +54,8 @@ export default function useQuery() {
     `${item.givenName} ${item.familyName}` +
     (item.lifeSpan ? ` (${item.lifeSpan})` : "");
 
-  const getGenreformLabel = (item) => `${item.label} (${item.scheme})`;
+  const getGenreformLabel = (item) =>
+    `${item.prefLabel} (${item.inScheme.code})`;
 
   return {
     text,
