@@ -3,29 +3,21 @@ export type LocalWork = {
   title: string;
   creators: { name: string; lifeSpan: string }[];
   motivation?: string;
-  date: {
-    label: string;
-    min: number;
-    max: number;
-  };
+  date: { label: string; min: number; max: number };
   terms: LocalTerm[];
   genreform: LocalTerm[];
   librisUrl?: string;
 };
 
-export type LocalWorkRaw = Readonly<
-  Omit<LocalWork, "id" | "date" | "terms" | "genreform"> & {
-    date:
-      | {
-          label?: string;
-          min: number;
-          max: number;
-        }
-      | number;
-    terms?: Record<string, string>;
-    genreform?: Record<string, string>;
-  }
->;
+export type LocalWorkRaw = Readonly<{
+  title: string;
+  creators: { name: string; lifeSpan: string }[];
+  motivation?: string;
+  date: { label?: string; min: number; max: number } | number;
+  terms: Record<string, string>;
+  genreform?: Record<string, string>;
+  librisUrl?: string;
+}>;
 
 export type LocalTerm = {
   "@id": string;

@@ -17,7 +17,7 @@ import type { URI } from "@/types/util";
 import type { QlitName } from "./qlit.types";
 
 // Labels are sometimes missing in the Libris response, so keep a local copy of all labels as fetched from the QLIT backend.
-const qlitLabels: Record<QlitName, string> = {};
+const qlitLabels: Readonly<Record<QlitName, string>> = {};
 
 /** Load QLIT term labels and cache them locally. */
 async function loadQlitLabels() {
@@ -247,7 +247,7 @@ function processXlItem(item: LibrisInstance): WorkFromLibris {
   // Get the Queerlit item post
   const queerlitItem = item["@reverse"].itemOf?.find(
     (l) => l.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
-  ) as LibrisItem;
+  )!;
   processed.motivation = unarray(unarray(queerlitItem.summary)?.label);
 
   // For the subject terms nested here, Libris only gives the @id.
@@ -348,7 +348,7 @@ export function getLabel(object: LibrisTerm | Labeled): string {
     if (object["@type"] == "ComplexSubject")
       return object.termComponentList.map(getLabel).filter(Boolean).join(" – ");
     if (["Person", "Organization"].includes(object["@type"]))
-      return getPersonName(object as LibrisPerson) || "";
+      return getPersonName(object satisfies LibrisPerson) || "";
   }
   if (object.prefLabelByLang) return object.prefLabelByLang.sv;
   if (object.prefLabel) return object.prefLabel;

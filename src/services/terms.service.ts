@@ -11,7 +11,10 @@ const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
 
 /** Get a single term. */
-async function qlitGet(endpoint: string, params?: Record<string, any>) {
+async function qlitGet<T = any>(
+  endpoint: string,
+  params?: Record<string, any>
+): Promise<T> {
   const response = await axios.get(QLIT_BASE + endpoint, { params });
   return response.data;
 }
@@ -27,7 +30,7 @@ async function qlitList<T extends TermLike = QlitTerm>(
 }
 
 export async function getTerm(name: QlitName) {
-  const data = (await qlitGet("term/" + name)) as QlitTerm;
+  const data = await qlitGet<QlitTerm>("term/" + name);
   return fakeXlTerm(data);
 }
 
@@ -66,7 +69,7 @@ export function getCollection(name: QlitName) {
 }
 
 export async function getLabels() {
-  return (await qlitGet("labels")) as Record<QlitName, string>;
+  return (await qlitGet<Readonly<Record<QlitName, string>>>("labels"));
 }
 
 /** Reshape a queerlit-terms object like an XL object */

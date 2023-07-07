@@ -3,19 +3,20 @@ import cloneDeep from "lodash/cloneDeep";
 import remove from "lodash/remove";
 import intersectionBy from "lodash/intersectionBy";
 import useQuery from "./query.composable";
-import worksRaw from "@/assets/local-works.yaml";
+import worksData from "@/assets/local-works.yaml";
 import type { LocalTerm, LocalWork, LocalWorkRaw } from "./localWorks.types";
 import { key } from "@/store";
 
+const worksRaw: Readonly<Record<string, LocalWorkRaw>> = worksData;
+
 // Harmonize local entries.
-const works = Object.keys(worksRaw).map((id) => {
-  const work: LocalWorkRaw = (worksRaw as Record<string, LocalWorkRaw>)[id];
+const works: LocalWork[] = Object.keys(worksRaw).map((id) => {
+  const work = worksRaw[id];
 
   const date =
     typeof work.date == "object"
-      ? work.date
+      ? { ...work.date, label: `${work.date.min}–${work.date.max}` }
       : { label: String(work.date), min: work.date, max: work.date };
-  date.label = date.label || `${date.min}–${date.max}`;
 
   const inflateTerm = ([uri, prefLabel]: [string, string]): LocalTerm => ({
     "@id": uri,
@@ -24,8 +25,9 @@ const works = Object.keys(worksRaw).map((id) => {
     // Works as long as term uri = scheme uri + a name
     inScheme: { "@id": uri.replace(/\/[^/]*$/, "") },
   });
+  work.terms;
 
-  const terms = Object.entries(work.terms || {}).map(inflateTerm);
+  const terms = work.terms ? Object.entries(work.terms).map(inflateTerm) : [];
   const genreform = Object.entries(work.genreform || {}).map(inflateTerm);
 
   return {
@@ -33,10 +35,9 @@ const works = Object.keys(worksRaw).map((id) => {
     ...work,
     creators: work.creators || [],
     date,
-    classification: [],
     terms,
     genreform,
-  } as LocalWork;
+  } satisfies LocalWork;
 });
 
 /** Simple algorithm matching a search string against a text value. */
