@@ -1,5 +1,7 @@
-<script setup>
-defineEmits(["dismiss"]);
+<script setup lang="ts">
+defineEmits<{
+  dismiss: [];
+}>();
 </script>
 
 <template>

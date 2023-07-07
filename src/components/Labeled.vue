@@ -1,10 +1,10 @@
-<script setup>
-defineProps({
-  label: String,
-  labelClass: [Object, String],
-  innerClass: [Object, String],
-  forId: String,
-});
+<script setup lang="ts">
+defineProps<{
+  label?: string;
+  labelClass: any;
+  innerClass: any;
+  forId: string;
+}>();
 </script>
 
 <template>

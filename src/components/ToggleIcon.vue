@@ -1,15 +1,9 @@
-<script setup>
-defineProps({
-  value: Boolean,
-  toggle: {
-    type: Function,
-    required: true,
-  },
-  icon: {
-    type: String,
-    default: () => null,
-  },
-});
+<script setup lang="ts">
+defineProps<{
+  value?: boolean;
+  toggle: () => {};
+  icon: string;
+}>();
 </script>
 
 <template>

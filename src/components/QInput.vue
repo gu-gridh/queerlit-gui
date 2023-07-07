@@ -1,17 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { useToggle } from "@vueuse/core";
 import ToggleIcon from "./ToggleIcon.vue";
 import InputHelp from "./InputHelp.vue";
 
-defineProps([
-  "modelValue",
-  "input-id",
-  "search",
-  "is-incomplete",
-  "has-value",
-  "help",
-]);
-defineEmits(["update:modelValue", "focus"]);
+type Props = {
+  modelValue: string;
+  inputId?: string;
+  search?: boolean;
+  isIncomplete: boolean;
+  hasValue: boolean;
+  help: string;
+};
+defineProps<Props>();
+defineEmits<{
+  "update:modelValue": [Props["modelValue"]];
+  focus: [];
+}>();
 
 const [showHelp, toggleHelp] = useToggle();
 </script>
@@ -33,8 +37,10 @@ const [showHelp, toggleHelp] = useToggle();
         autocomplete="off"
         size="10"
         class="flex-1 bg-transparent"
-        @input="$emit('update:modelValue', $event.target.value)"
-        @focus="$emit('focus', $event.target.value)"
+        @input="
+          $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+        "
+        @focus="$emit('focus')"
       />
 
       <ToggleIcon

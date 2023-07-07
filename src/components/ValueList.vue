@@ -1,15 +1,11 @@
-<script setup>
+<script setup lang="ts">
+import type { MaybeArray } from "@/types/util";
 import { enarray } from "@/util";
 
-defineProps({
-  values: {
-    type: Object,
-    default: () => null,
-  },
-  optional: {
-    type: Boolean,
-  },
-});
+defineProps<{
+  values: MaybeArray<string>;
+  optional: boolean;
+}>();
 </script>
 
 <template>

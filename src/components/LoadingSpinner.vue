@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <div class="p-6 py-10 text-center">
     <icon icon="spinner" size="6x" spin />
