@@ -50,7 +50,7 @@ export type LibrisItem = {
   subject?: LibrisTerm[];
 };
 
-export type LibrisAgent = {
+export type LibrisAgent = HasId & {
   lifeSpan?: string;
 };
 

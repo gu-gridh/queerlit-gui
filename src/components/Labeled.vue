@@ -1,9 +1,9 @@
 <script setup lang="ts">
 defineProps<{
-  label?: string;
-  labelClass: any;
-  innerClass: any;
-  forId: string;
+  label: string;
+  labelClass?: any;
+  innerClass?: any;
+  forId?: string;
 }>();
 </script>
 

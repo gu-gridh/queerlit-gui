@@ -1,13 +1,15 @@
+import type { Term } from "@/types/work";
+
 export type QueryState = {
   text: string;
-  terms: any[];
-  termsSecondary: any[];
+  terms: Term[];
+  termsSecondary: Term[];
   hierarchical: boolean;
   title: string;
   author: any;
   yearStart: number | null;
   yearEnd: number | null;
-  genreform: any;
+  genreform: Term | null;
 };
 
 export const getInitialState: () => QueryState = () => ({

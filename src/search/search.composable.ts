@@ -38,7 +38,7 @@ export default function useSearch() {
         author: query.author,
         yearStart: query.yearStart != null ? query.yearStart : undefined,
         yearEnd: query.yearEnd != null ? query.yearEnd : undefined,
-        genreform: query.genreform,
+        genreform: query.genreform != null ? query.genreform : undefined,
         sort: state.sort,
         offset: state.offset,
       });

@@ -236,7 +236,7 @@ function processXlItem(item: LibrisInstance): WorkFromLibris {
       getPersonName(p.agent),
       p.year,
       p.country && getLabel(unarray(p.country)),
-      p.place && getPersonName(unarray(p.place)),
+      p.place && getLabel(unarray(p.place)),
     ]
       .filter(Boolean)
       .join(", ")

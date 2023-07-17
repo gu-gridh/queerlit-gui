@@ -7,9 +7,9 @@ type Props = {
   modelValue: string;
   inputId?: string;
   search?: boolean;
-  isIncomplete: boolean;
-  hasValue: boolean;
-  help: string;
+  isIncomplete?: boolean;
+  hasValue?: boolean;
+  help?: string;
 };
 defineProps<Props>();
 defineEmits<{

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-6" @keyup.enter="doSearch">
+  <div class="bg-white rounded-xl shadow-lg p-6" @keyup.enter="doSearch()">
     <div class="mb-4 q-body">
       <ReadMore :expanded="isQueryEmpty">
         <p>
@@ -50,7 +50,7 @@
             <QInput
               v-model="titleLocal"
               input-id="title"
-              :has-value="title"
+              :has-value="!!title"
               help="Titeln måste innehålla dessa ord"
               :search="true"
               @change="setTitle"
@@ -64,7 +64,7 @@
               :value="author"
               :suggest="searchPerson"
               :get-label="getPersonLabel"
-              :get-id="(item) => item['@id']"
+              :get-id="(item: LibrisPerson) => item['@id']"
               input-id="author"
               help="Alla författare som listas finns inte representerade i Queerlit"
               @change="setAuthor"
@@ -78,7 +78,7 @@
               :value="genreform"
               :suggest="searchGenreform"
               :get-label="getGenreformLabel"
-              :get-id="(item) => item['@id']"
+              :get-id="(item: LibrisGenreForm) => item['@id']"
               input-id="genreform"
               help="Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi"
               @change="setGenreform"
@@ -103,20 +103,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useToggle } from "@vueuse/core";
-import useQuery from "@/search/query.composable";
+import type { Term } from "@/types/work";
+import type { LibrisGenreForm, LibrisPerson } from "@/services/libris.types";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
+import useQuery from "./query.composable";
 import Freetext from "./Freetext.vue";
-import YearFilter from "@/search/YearFilter.vue";
-import Autocomplete from "@/search/Autocomplete.vue";
-import QButton from "@/components/QButton.vue";
+import YearFilter from "./YearFilter.vue";
+import Autocomplete from "./Autocomplete.vue";
 import useSearch from "./search.composable";
+import TermFilters from "./TermFilters.vue";
+import QButton from "@/components/QButton.vue";
 import Labeled from "@/components/Labeled.vue";
 import QInput from "@/components/QInput.vue";
 import ReadMore from "@/components/ReadMore.vue";
-import TermFilters from "./TermFilters.vue";
 import QDetails from "@/components/QDetails.vue";
 
 const { doSearch, setQuery } = useSearch();
@@ -142,19 +144,19 @@ const usingTerms = computed(
 );
 const titleLocal = ref(title.value);
 
-function setTitle(event) {
-  setQuery({ title: event.target.value });
+function setTitle(event: Event) {
+  setQuery({ title: (event.target as HTMLInputElement).value });
 }
 
-function setAuthor(author) {
+function setAuthor(author: Event) {
   setQuery({ author });
 }
 
-function yearChange(yearStart, yearEnd) {
+function yearChange(yearStart: number, yearEnd: number) {
   setQuery({ yearStart, yearEnd });
 }
 
-function setGenreform(genreform) {
+function setGenreform(genreform: Term) {
   setQuery({ genreform });
 }
 
