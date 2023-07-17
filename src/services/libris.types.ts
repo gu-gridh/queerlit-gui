@@ -69,6 +69,12 @@ export type LibrisTerm = HasId &
     termComponentList: Labeled[];
   };
 
+export type LibrisGenreForm = Omit<LibrisTerm, "inScheme"> & {
+  inScheme: HasId & {
+    code: string;
+  };
+};
+
 export type LibrisStats = {
   sliceByDimension?: Record<
     string,

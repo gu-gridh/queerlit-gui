@@ -1,4 +1,4 @@
-export type State = {
+export type QueryState = {
   text: string;
   terms: any[];
   termsSecondary: any[];
@@ -10,7 +10,7 @@ export type State = {
   genreform: any;
 };
 
-const getInitialState: () => State = () => ({
+export const getInitialState: () => QueryState = () => ({
   text: "",
   terms: [],
   termsSecondary: [],
@@ -26,7 +26,7 @@ export default {
   state: getInitialState(),
   mutations: {
     setQuery(
-      state: State,
+      state: QueryState,
       {
         text,
         terms,
@@ -37,7 +37,7 @@ export default {
         yearStart,
         yearEnd,
         genreform,
-      }: Partial<State>
+      }: Partial<QueryState>
     ) {
       // Modify each value only if it is given.
       if (text !== undefined) state.text = text;
@@ -50,7 +50,7 @@ export default {
       if (yearEnd !== undefined) state.yearEnd = yearEnd;
       if (genreform !== undefined) state.genreform = genreform;
     },
-    resetQuery(state: State) {
+    resetQuery(state: QueryState) {
       Object.assign(state, getInitialState());
     },
   },

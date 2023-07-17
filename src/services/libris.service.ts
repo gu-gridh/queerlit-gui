@@ -263,7 +263,7 @@ export async function searchPerson(nameQuery: string) {
   // Add wildcard at end of each word
   const q = nameQuery.replace(/\S+/g, "$&*");
   const params = { "@type": "Person", q, _limit: "10" };
-  const data = await xlFind(params);
+  const data = await xlFind<LibrisPerson>(params);
   return data.items.filter((author) => author.givenName || author.familyName);
 }
 

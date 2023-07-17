@@ -2,11 +2,12 @@ import type { InjectionKey } from "vue";
 import { Store, createStore } from "vuex";
 import { union, without } from "lodash";
 import type { Histogram } from "@/types/app";
-import query from "@/search/query.store";
+import query, { type QueryState } from "@/search/query.store";
 import type { QlitName } from "@/services/qlit.types";
 import type { LocalWork } from "@/search/localWorks.types";
 
 type State = {
+  query?: QueryState; // TODO Switch to Pinia and remove this.
   results: any[] | null;
   localResults: LocalWork[];
   total: number;

@@ -78,7 +78,7 @@ export default function useLocalWorks() {
     if (text.value) {
       // We don't handle special characters.
       // Since we don't match whole words anyway, stripping wildcards solves some of the cases.
-      const textValue = text.value.replaceAll(/[*?]/g, "");
+      const textValue = text.value.replace(/[*?]/g, "");
       filter((work) => matchText(getWorkText(work), textValue));
     }
 
@@ -100,12 +100,12 @@ export default function useLocalWorks() {
 
     // Work end year cannot be less than the filter start year.
     if (yearStart.value) {
-      filter((work) => work.date.max >= yearStart.value);
+      filter((work) => work.date.max >= yearStart.value!);
     }
 
     // Work start year cannot be more than the filter end year.
     if (yearEnd.value) {
-      filter((work) => work.date.min <= yearEnd.value);
+      filter((work) => work.date.min <= yearEnd.value!);
     }
 
     // We cannot really handle these filters, so return no results.
