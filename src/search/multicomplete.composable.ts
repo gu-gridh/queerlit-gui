@@ -1,9 +1,13 @@
 import mapValues from "lodash/mapValues";
 import { computed, ref } from "vue";
 
-export default function useMulticomplete(autocompleters) {
+export type Autocompleter<T = any> = (s: string) => Promise<T[]>;
+
+export default function useMulticomplete(
+  autocompleters: Record<string, Autocompleter>
+) {
   const lenses = mapValues(autocompleters, (autocomplete) => ({
-    suggestions: ref([]),
+    suggestions: ref<any[]>([]),
     autocomplete,
   }));
 
@@ -11,7 +15,7 @@ export default function useMulticomplete(autocompleters) {
     mapValues(lenses, (lense) => lense.suggestions.value)
   );
 
-  function autocomplete(s) {
+  function autocomplete(s: string) {
     Object.values(lenses).forEach(({ autocomplete, suggestions }) =>
       autocomplete(s).then((items) => (suggestions.value = items))
     );

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
@@ -18,6 +18,7 @@ import ToggleIcon from "@/components/ToggleIcon.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import { searchTerms } from "@/services/terms.service";
 import useSearch from "./search.composable";
+import type { Term as TermType } from "@/types/work";
 
 const { text } = useQuery();
 const { setQuery } = useSearch();
@@ -52,12 +53,12 @@ function onInput() {
   toggleSuggestions(true);
 }
 
-function addTerm(term) {
+function addTerm(term: TermType) {
   terms.add(term);
   removeLastWord();
 }
 
-function setGenreform(genreform) {
+function setGenreform(genreform: TermType) {
   setQuery({ genreform });
   removeLastWord();
 }
