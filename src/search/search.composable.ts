@@ -1,14 +1,15 @@
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { debounce } from "lodash";
+import { debounce, type DebouncedFunc } from "lodash";
 import { key } from "@/store";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
 import useQuery from "./query.composable";
+import type { QueryState } from "./query.store";
 
 // Keep the debounced function in module scope, because it needs to be identical across all usages of this composable.
 // But the function can only be actually defined inside useSearch, as it depends on other composables.
-let doSearchDebounced;
+let doSearchDebounced: DebouncedFunc<() => Promise<void>>;
 
 export default function useSearch() {
   const { commit, state } = useStore(key);
@@ -17,7 +18,7 @@ export default function useSearch() {
   const router = useRouter();
 
   /** Search Libris using the query, then set results. */
-  async function doSearch({ retain } = {}) {
+  async function doSearch({ retain }: { retain?: boolean } = {}) {
     // The query might change while waiting for response. Remember current query.
     const currentSerializedQuery = serializedQuery.value;
     commit("setSearching", currentSerializedQuery);
@@ -26,7 +27,7 @@ export default function useSearch() {
       commit("setOffset", 0);
       router.push("/");
     }
-    const query = state.query;
+    const query = state.query!;
     try {
       const { items, total, histogram } = await search({
         text: query.text,
@@ -35,8 +36,8 @@ export default function useSearch() {
         hierarchical: query.hierarchical,
         title: query.title,
         author: query.author,
-        yearStart: query.yearStart,
-        yearEnd: query.yearEnd,
+        yearStart: query.yearStart != null ? query.yearStart : undefined,
+        yearEnd: query.yearEnd != null ? query.yearEnd : undefined,
         genreform: query.genreform,
         sort: state.sort,
         offset: state.offset,
@@ -55,7 +56,7 @@ export default function useSearch() {
       commit("setTotal", total);
     } catch (error) {
       console.error(error);
-      if (!error.response) {
+      if (error instanceof Error && !("reponse" in error)) {
         commit("setError", "Det går inte att nå Libris webbtjänst just nu");
       }
     } finally {
@@ -68,7 +69,7 @@ export default function useSearch() {
   doSearchDebounced = debounce(doSearch, 50);
 
   /** Modify query and trigger search */
-  function setQuery(params) {
+  function setQuery(params: Partial<QueryState>) {
     const queryBefore = serializedQuery.value;
     setQueryReal(params);
     // Search if there was a meaningful change.
