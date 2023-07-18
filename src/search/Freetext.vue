@@ -19,6 +19,7 @@ import CloseButton from "@/components/CloseButton.vue";
 import { searchTerms } from "@/services/terms.service";
 import useSearch from "./search.composable";
 import type { Term as TermType } from "@/types/work";
+import type { LibrisGenreForm } from "@/services/libris.types";
 
 const { text } = useQuery();
 const { setQuery } = useSearch();
@@ -58,7 +59,7 @@ function addTerm(term: TermType) {
   removeLastWord();
 }
 
-function setGenreform(genreform: TermType) {
+function setGenreform(genreform: LibrisGenreForm) {
   setQuery({ genreform });
   removeLastWord();
 }

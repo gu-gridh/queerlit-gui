@@ -2,6 +2,7 @@ import { enarray, unarray, urlBasename } from "@/util";
 import axios from "axios";
 import { getLabels } from "./terms.service";
 import type {
+  LibrisGenreForm,
   HasId,
   Labeled,
   LibrisFindParams,
@@ -297,7 +298,9 @@ export async function searchConceptQlit(conceptQuery: string) {
   return await searchConcept(conceptQuery, [ConceptScheme.Qlit]);
 }
 
-export async function searchGenreform(query: string) {
+export async function searchGenreform(
+  query: string
+): Promise<(LibrisGenreForm & Term)[]> {
   // Add an asterisk after each word (`\S+` is any word, `$&` is that matched word)
   const q = query.replace(/\S+/g, "$&*");
   const params = new URLSearchParams({
@@ -307,16 +310,16 @@ export async function searchGenreform(query: string) {
   });
   params.append("inScheme.@id", ConceptScheme.BarnGf);
   params.append("inScheme.@id", ConceptScheme.SaoGf);
-  const data = await xlFind(params);
-  return data.items;
+  const data = await xlFind<LibrisGenreForm>(params);
+  return data.items.map(processXlTerm);
 }
 
-function processXlTerm(term: LibrisTerm): Term {
+function processXlTerm<T extends LibrisTerm>(term: T): T & Term {
   const guess = term["@id"] ? termDataFromId(term["@id"]) : {};
   const processed = { ...guess, ...term };
   if (term.inScheme?.["@id"]) processed.inScheme = term.inScheme["@id"];
   processed._label = getLabel(processed);
-  return processed as Term;
+  return processed as T & Term;
 }
 
 /** Guess scheme and label from the id uri. */

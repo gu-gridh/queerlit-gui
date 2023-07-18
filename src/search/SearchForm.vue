@@ -75,10 +75,10 @@
         <div class="w-full sm:w-1/2 p-2">
           <Labeled label="Genre/form" for-id="genreform">
             <Autocomplete
-              :value="genreform"
+              :value="genreform || undefined"
               :suggest="searchGenreform"
               :get-label="getGenreformLabel"
-              :get-id="(item: LibrisGenreForm) => item['@id']"
+              :get-id="(item: HasId) => item['@id']"
               input-id="genreform"
               help="Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi"
               @change="setGenreform"
@@ -107,7 +107,11 @@
 import { computed, ref, watch } from "vue";
 import { useToggle } from "@vueuse/core";
 import type { Term } from "@/types/work";
-import type { LibrisGenreForm, LibrisPerson } from "@/services/libris.types";
+import type {
+  HasId,
+  LibrisGenreForm,
+  LibrisPerson,
+} from "@/services/libris.types";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
 import useQuery from "./query.composable";
 import Freetext from "./Freetext.vue";
@@ -156,7 +160,7 @@ function yearChange(yearStart: number, yearEnd: number) {
   setQuery({ yearStart, yearEnd });
 }
 
-function setGenreform(genreform: Term) {
+function setGenreform(genreform: LibrisGenreForm) {
   setQuery({ genreform });
 }
 

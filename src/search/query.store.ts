@@ -1,3 +1,4 @@
+import type { LibrisGenreForm } from "@/services/libris.types";
 import type { Term } from "@/types/work";
 
 export type QueryState = {
@@ -9,7 +10,7 @@ export type QueryState = {
   author: any;
   yearStart: number | null;
   yearEnd: number | null;
-  genreform: Term | null;
+  genreform: LibrisGenreForm | null;
 };
 
 export const getInitialState: () => QueryState = () => ({

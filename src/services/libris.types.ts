@@ -69,7 +69,7 @@ export type LibrisTerm = HasId &
     termComponentList: Labeled[];
   };
 
-export type LibrisGenreForm = Omit<LibrisTerm, "inScheme"> & {
+export type LibrisGenreForm = LibrisTerm & {
   inScheme: HasId & {
     code: string;
   };
