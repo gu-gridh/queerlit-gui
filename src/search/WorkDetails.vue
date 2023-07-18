@@ -9,7 +9,7 @@
     <h2 class="text-3xl">{{ work.title }}</h2>
     <div class="flex flex-wrap my-4 gap-y-2">
       <Labeled label="Författare" class="w-full sm:w-1/2 pr-4">
-        <div v-for="creator in work.creators" :key="creator" class="mr-4">
+        <div v-for="(creator, i) in work.creators" :key="i" class="mr-4">
           <template v-if="creator.roles">
             {{ creator.roles.join(", ") }}:
           </template>
@@ -36,7 +36,7 @@
       <div class="text-base my-1">
         <Term
           v-for="term in work.termsSecondary"
-          :key="term"
+          :key="term['@id']"
           :data="term"
           secondary
           :options="[search, searchSecondary, goto]"
@@ -85,9 +85,9 @@
       <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
         <ValueList
           :values="
-            work.classification.map((c) =>
-              c.type ? `${c.type}: ${c.code}` : c.code
-            )
+            work.classification?.map((c) =>
+              c.type ? `${c.type}: ${c.code}` : c.code!
+            ).filter(Boolean)
           "
         />
       </Labeled>
@@ -113,20 +113,18 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, watchEffect } from "vue";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
 import useTermOptions from "@/terms/termOptions.composable";
 import Labeled from "@/components/Labeled.vue";
 import ValueList from "@/components/ValueList.vue";
+import type { Work } from "@/types/work";
 
-const props = defineProps({
-  work: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<{
+  work: Work;
+}>();
 
 const { sortTerms } = useTerms();
 const { goto, search, searchSecondary } = useTermOptions();
@@ -136,7 +134,7 @@ const terms = computed(() => sortTerms(props.work.terms));
 // Expose full data to developer console.
 if (import.meta.env.DEV) {
   watchEffect(() => {
-    window.work = props.work;
+    (window as any).work = props.work;
   });
 }
 </script>

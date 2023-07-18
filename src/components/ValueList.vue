@@ -3,16 +3,15 @@ import type { MaybeArray } from "@/types/util";
 import { enarray } from "@/util";
 
 defineProps<{
-  values: MaybeArray<string>;
-  optional: boolean;
+  values?: MaybeArray<string>;
 }>();
 </script>
 
 <template>
-  <div v-for="(value, i) in enarray(values)" :key="i">
+  <div v-if="!values?.length">—</div>
+  <div v-for="(value, i) in enarray(values)" v-else :key="i">
     {{ value }}
   </div>
-  <div v-if="!values?.length && !optional">—</div>
 </template>
 
 <style></style>

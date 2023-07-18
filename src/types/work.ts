@@ -23,11 +23,12 @@ export type Work = {
   classification?: { type?: string; code?: string }[];
   publication?: string[];
   intendedAudience?: string[];
+  librisUrl?: string;
 };
 
 export type WorkFromLibris = Work & {
   _item: LibrisInstance;
-  librisUrl?: string;
+  librisUrl: string;
 };
 
 export type Term = {
