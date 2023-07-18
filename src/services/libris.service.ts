@@ -356,6 +356,7 @@ export function getLabel(object: LibrisTerm | Labeled): string {
   if (object.prefLabelByLang) return object.prefLabelByLang.sv;
   if (object.prefLabel) return object.prefLabel;
   if (object.name) return object.name;
+  if (object.label) return enarray(object.label).join(", ");
   // E.g. Légion étrangère https://libris.kb.se/hftx3pt10h7p7c3#it
   if ("marc:subordinateUnit" in object)
     return enarray(object["marc:subordinateUnit"]).join(" ");

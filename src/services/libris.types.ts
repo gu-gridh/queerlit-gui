@@ -93,7 +93,8 @@ export type LibrisId = string;
 export type HasId = { "@id": URI };
 export type Labeled = Partial<{
   prefLabel: string;
-  prefLabelByLang?: { sv: string };
-  name?: string;
-  "marc:subordinateUnit"?: MaybeArray<string>;
+  prefLabelByLang: { sv: string };
+  label: MaybeArray<string>;
+  name: string;
+  "marc:subordinateUnit": MaybeArray<string>;
 }>;
