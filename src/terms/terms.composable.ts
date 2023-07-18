@@ -12,6 +12,9 @@ import negate from "lodash/negate";
 import { useRouter } from "vue-router";
 import { urlBasename } from "@/util";
 import useSearch from "@/search/search.composable";
+import type { Term } from "@/types/work";
+import type { LibrisTerm } from "@/services/libris.types";
+import type { QlitTerm } from "@/services/qlit.types";
 
 export default function useTerms() {
   const router = useRouter();
@@ -19,23 +22,23 @@ export default function useTerms() {
   const suggestions = ref([]);
   const { setQuery } = useSearch();
 
-  function add(term) {
+  function add(term: Term) {
     if (!terms.value.find((term2) => term2["@id"] == term["@id"]))
       setQuery({ terms: [...terms.value, term] });
   }
 
-  function remove(term) {
+  function remove(term: Term) {
     setQuery({
       terms: terms.value.filter((term2) => term2["@id"] != term["@id"]),
     });
   }
 
-  function addSecondary(term) {
+  function addSecondary(term: Term) {
     if (!termsSecondary.value.find((term2) => term2["@id"] == term["@id"]))
       setQuery({ termsSecondary: [...termsSecondary.value, term] });
   }
 
-  function removeSecondary(term) {
+  function removeSecondary(term: Term) {
     setQuery({
       termsSecondary: termsSecondary.value.filter(
         (term2) => term2["@id"] != term["@id"]
@@ -43,24 +46,24 @@ export default function useTerms() {
     });
   }
 
-  function toggleHierarchical(value) {
+  function toggleHierarchical(value?: boolean) {
     // If no arg, toggle to opposite value.
     if (value === undefined) value = !hierarchical.value;
     setQuery({ hierarchical: value });
   }
 
-  async function hasChildren(term) {
+  async function hasChildren(term: string) {
     return (await getChildren(term)).length;
   }
 
-  function termIsQlit(term) {
+  function termIsQlit(term: LibrisTerm) {
     return (
       term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
       term["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
     );
   }
 
-  function sortTerms(terms) {
+  function sortTerms(terms: LibrisTerm[]) {
     return (
       terms && {
         qlit: terms
@@ -72,18 +75,18 @@ export default function useTerms() {
     );
   }
 
-  function searchByTerm(term) {
+  function searchByTerm(term: Term) {
     add(term);
     router.push("/");
   }
 
-  function searchByTermSecondary(term) {
+  function searchByTermSecondary(term: Term) {
     addSecondary(term);
     router.push("/");
   }
 
-  function gotoTerm(term) {
-    const name = term.name || urlBasename(term.uri || term["@id"]);
+  function gotoTerm(term: QlitTerm | LibrisTerm) {
+    const name = "name" in term ? term.name : urlBasename(term["@id"]);
     router.push(`/subjects/${name}`);
   }
 
