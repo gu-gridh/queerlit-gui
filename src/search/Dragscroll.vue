@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Avoid emitting click event when scrolldragging
 
 import { ref } from "vue";
@@ -6,7 +6,7 @@ import { dragscroll as vDragscroll } from "vue-dragscroll";
 
 // See: https://github.com/donmbelembe/vue-dragscroll/issues/61
 const dragging = ref(false);
-let timer = null;
+let timer: number | undefined;
 
 function start() {
   // Wait a little before setting dragging. Consider a very short drag as a click.
@@ -20,7 +20,7 @@ function end() {
   setTimeout(() => (dragging.value = false));
 }
 
-function click(event) {
+function click(event: Event) {
   // Cancel the click event if it's the release of a dragscroll.
   if (dragging.value) {
     event.stopPropagation();

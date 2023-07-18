@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
@@ -76,10 +76,10 @@ function reset() {
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {
-  window.state = state;
-  window.libris = libris;
-  window.terms = terms;
-  window.util = util;
+  (window as any).state = state;
+  (window as any).libris = libris;
+  (window as any).terms = terms;
+  (window as any).util = util;
 }
 </script>
 

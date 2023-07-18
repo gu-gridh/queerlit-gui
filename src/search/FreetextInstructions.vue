@@ -1,7 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import CloseButton from "@/components/CloseButton.vue";
 
-defineEmits(["dismiss"]);
+defineEmits<{
+  dismiss: [];
+}>();
 </script>
 
 <template>

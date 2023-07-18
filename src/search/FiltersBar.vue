@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import useQuery from "./query.composable";
 import FilterButton from "./FilterButton.vue";
 import useTerms from "@/terms/terms.composable";
