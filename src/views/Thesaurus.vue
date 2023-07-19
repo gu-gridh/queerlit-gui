@@ -1,20 +1,4 @@
-<template>
-  <div class="container py-6">
-    <LoadingSpinner v-if="isLoading" />
-    <div v-else-if="terms.length" :key="termTextQuery">
-      <TermTree
-        v-for="term in termsLimited"
-        :key="term.name"
-        :parent="term"
-        :level="0"
-      />
-      <div v-element-visibility="onBottomVisibility"></div>
-    </div>
-    <div v-else class="my-8 text-center text-xl">Inga träffar!</div>
-  </div>
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, ref, watch, watchEffect } from "vue";
 import { useStore } from "vuex";
 import { vElementVisibility } from "@vueuse/components";
@@ -24,12 +8,13 @@ import useTerms from "@/terms/terms.composable";
 import useTitle from "@/views/title.composable";
 import TermTree from "@/terms/TermTree.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import type { QlitTerm } from "@/services/qlit.types";
 
 const PAGE_SIZE = 15;
 
 const { getRoots, searchTerms } = useTerms();
-const rootTerms = ref([]);
-const terms = ref([]);
+const rootTerms = ref<QlitTerm[]>([]);
+const terms = ref<QlitTerm[]>([]);
 const { state } = useStore(key);
 useTitle();
 const termTextQuery = computed(() => state.termTextQuery);
@@ -61,11 +46,27 @@ watch(terms, () => {
   limit.value = PAGE_SIZE;
 });
 
-function onBottomVisibility(visible) {
+function onBottomVisibility(visible: boolean) {
   if (visible && terms.value.length > limit.value) {
     limit.value += PAGE_SIZE;
   }
 }
 </script>
+
+<template>
+  <div class="container py-6">
+    <LoadingSpinner v-if="isLoading" />
+    <div v-else-if="terms.length" :key="termTextQuery">
+      <TermTree
+        v-for="term in termsLimited"
+        :key="term.name"
+        :parent="term"
+        :level="0"
+      />
+      <div v-element-visibility="onBottomVisibility"></div>
+    </div>
+    <div v-else class="my-8 text-center text-xl">Inga träffar!</div>
+  </div>
+</template>
 
 <style></style>

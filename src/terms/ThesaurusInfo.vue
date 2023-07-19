@@ -1,3 +1,23 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { key } from "@/store";
+import Labeled from "@/components/Labeled.vue";
+
+const { state, commit } = useStore(key);
+const router = useRouter();
+
+const termTextQuery = computed({
+  get: () => state.termTextQuery,
+  set: (value) => commit("setTermTextQuery", value),
+});
+
+function gotoThesaurus() {
+  router.push("/subjects");
+}
+</script>
+
 <template>
   <div class="bg-white rounded-xl shadow-lg">
     <div class="p-4 md:p-8 q-body">
@@ -47,23 +67,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { computed } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-import { key } from "@/store";
-import Labeled from "@/components/Labeled.vue";
-
-const { state, commit } = useStore(key);
-const router = useRouter();
-
-const termTextQuery = computed({
-  get: () => state.termTextQuery,
-  set: (value) => commit("setTermTextQuery", value),
-});
-
-function gotoThesaurus() {
-  router.push("/subjects");
-}
-</script>
