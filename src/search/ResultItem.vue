@@ -10,7 +10,7 @@ const props = defineProps<{
   i: number;
   title: string;
   to: string;
-  creators: any[];
+  creators?: any[];
   date?: string;
   genreform: string[];
   terms: TermType[];
