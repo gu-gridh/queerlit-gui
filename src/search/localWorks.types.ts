@@ -1,11 +1,13 @@
+import type { Term } from "@/types/work";
+
 export type LocalWork = {
   id: string;
   title: string;
   creators: { name: string; lifeSpan: string }[];
   motivation?: string;
   date: { label: string; min: number; max: number };
-  terms: LocalTerm[];
-  genreform: LocalTerm[];
+  terms: Term[];
+  genreform: Term[];
   librisUrl?: string;
 };
 
@@ -18,12 +20,3 @@ export type LocalWorkRaw = Readonly<{
   genreform?: Record<string, string>;
   librisUrl?: string;
 }>;
-
-export type LocalTerm = {
-  "@id": string;
-  prefLabel: string;
-  _label: string;
-  inScheme: {
-    "@id": string;
-  };
-};

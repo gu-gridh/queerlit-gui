@@ -22,7 +22,7 @@
             :secondary="secondary"
             :draggable="true"
           >
-            {{ term._label }}
+            {{ term.label }}
             <template v-if="secondary">– perifert</template>
             <icon
               icon="times"
@@ -67,7 +67,7 @@
         >
           {{ term.id }}
           <Term :data="term" class="cursor-pointer" @click="add(term)">
-            {{ term._label }}
+            {{ term.label }}
             <icon icon="plus" size="xs" class="ml-1" />
           </Term>
           <div class="flex-1"></div>
@@ -146,7 +146,7 @@ function blur() {
 }
 
 const removeOption = (term) => ({
-  label: `Rensa <em>${term._label}</em>`,
+  label: `Rensa <em>${term.label}</em>`,
   action: () => remove(term),
 });
 

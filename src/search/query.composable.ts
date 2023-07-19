@@ -2,7 +2,8 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import { key } from "@/store";
 import { getInitialState, type QueryState } from "./query.store";
-import type { LibrisGenreForm, LibrisPerson } from "@/services/libris.types";
+import type { LibrisPerson } from "@/services/libris.types";
+import type { GenreForm } from "@/types/work";
 
 export default function useQuery() {
   const store = useStore(key);
@@ -34,8 +35,8 @@ export default function useQuery() {
   const serializedQuery = computed(() =>
     JSON.stringify([
       text.value,
-      terms.value?.map((term) => term._label) || [],
-      termsSecondary.value?.map((term) => term._label) || [],
+      terms.value?.map((term) => term.label) || [],
+      termsSecondary.value?.map((term) => term.label) || [],
       terms.value?.length || termsSecondary.value?.length
         ? hierarchical.value
         : null,
@@ -63,8 +64,8 @@ export default function useQuery() {
     `${item.givenName} ${item.familyName}` +
     (item.lifeSpan ? ` (${item.lifeSpan})` : "");
 
-  const getGenreformLabel = (item: LibrisGenreForm) =>
-    `${item.prefLabel} (${item.inScheme?.code})`;
+  const getGenreformLabel = (item: GenreForm) =>
+    `${item.label} (${item.schemeCode})`;
 
   return {
     text,

@@ -63,7 +63,7 @@ function dragEnd() {
       ]"
     >
       <slot>
-        {{ data._label }}
+        {{ data.label }}
       </slot>
 
       <icon

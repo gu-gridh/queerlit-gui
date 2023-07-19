@@ -52,7 +52,7 @@
             :options="[search, searchSecondary, goto]"
             :draggable="true"
           >
-            {{ term._label }} – perifert
+            {{ term.label }} – perifert
           </Term>
           <span v-if="termsSecondaryMore" class="opacity-70">...</span>
         </div>

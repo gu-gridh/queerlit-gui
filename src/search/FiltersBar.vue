@@ -33,20 +33,20 @@ const { setQuery } = useSearch();
 
       <FilterButton
         v-for="term in terms"
-        :key="term['@id']"
+        :key="term.id"
         label="Ämnesord"
         @clear="remove(term)"
       >
-        {{ term._label }}
+        {{ term.label }}
       </FilterButton>
 
       <FilterButton
         v-for="term in termsSecondary"
-        :key="term['@id']"
+        :key="term.id"
         label="Perifert ämnesord"
         @clear="removeSecondary(term)"
       >
-        {{ term._label }}
+        {{ term.label }}
       </FilterButton>
 
       <FilterButton

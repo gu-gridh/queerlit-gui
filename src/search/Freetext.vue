@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import { useToggle } from "@vueuse/shared";
+import type { GenreForm, Term as TermType } from "@/types/work";
 import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
 import {
@@ -18,8 +19,6 @@ import ToggleIcon from "@/components/ToggleIcon.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import { searchTerms } from "@/services/terms.service";
 import useSearch from "./search.composable";
-import type { Term as TermType } from "@/types/work";
-import type { LibrisGenreForm } from "@/services/libris.types";
 
 const { text } = useQuery();
 const { setQuery } = useSearch();
@@ -59,7 +58,7 @@ function addTerm(term: TermType) {
   removeLastWord();
 }
 
-function setGenreform(genreform: LibrisGenreForm) {
+function setGenreform(genreform: GenreForm) {
   setQuery({ genreform });
   removeLastWord();
 }
@@ -128,7 +127,7 @@ watch(showHelp, () => {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item._label }}
+            {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
@@ -142,7 +141,7 @@ watch(showHelp, () => {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item._label }}
+            {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
@@ -156,7 +155,7 @@ watch(showHelp, () => {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item._label }}
+            {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>

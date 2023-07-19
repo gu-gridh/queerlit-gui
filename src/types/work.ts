@@ -32,8 +32,11 @@ export type WorkFromLibris = Work & {
 };
 
 export type Term = {
-  "@id": URI;
-  _label: string;
-  inScheme?: URI;
-  prefLabel?: string;
+  id: URI;
+  label: string;
+  scheme?: URI;
+};
+
+export type GenreForm = Term & {
+  schemeCode?: string;
 };

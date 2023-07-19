@@ -5,7 +5,7 @@
     :title="work.title"
     :creators="work.creators"
     :date="work.date"
-    :genreform="work.genreform.map((gf) => gf._label)"
+    :genreform="work.genreform.map((gf) => gf.label)"
     :terms="work.terms"
     :terms-secondary="termsSecondary"
     :terms-secondary-more="termsSecondaryMore"
@@ -23,7 +23,7 @@ const props = defineProps({
   i: { type: [Number, String], required: true },
 });
 
-const termsSecondary = props.work.termsSecondary.filter((term) => term._label);
+const termsSecondary = props.work.termsSecondary.filter((term) => term.label);
 const termsSecondaryMore =
   termsSecondary.length < props.work.termsSecondary.length;
 </script>

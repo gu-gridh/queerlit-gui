@@ -25,13 +25,13 @@ async function qlitList<T extends TermLike = QlitTerm>(
   params?: Record<string, any>
 ) {
   const data: T[] = await qlitGet(endpoint, params);
-  const terms = data.map(fakeXlTerm);
+  const terms = data.map(processTerm);
   return terms;
 }
 
 export async function getTerm(name: QlitName) {
   const data = await qlitGet<QlitTerm>("term/" + name);
-  return fakeXlTerm(data);
+  return processTerm(data);
 }
 
 export async function getParents(child: QlitName) {
@@ -55,11 +55,11 @@ export async function searchTerms(s: string) {
   return qlitList("autocomplete", { s });
 }
 
-export function getCollections() {
+export function getCollections(): Promise<Term[]> {
   return qlitList<QlitCollection>("collections").then((collections) =>
     collections.map((collection) => ({
       ...collection,
-      _label: collection._label.replace("Tema: ", "").replace(" (HBTQI)", ""),
+      label: collection.label.replace("Tema: ", "").replace(" (HBTQI)", ""),
     }))
   );
 }
@@ -69,15 +69,13 @@ export function getCollection(name: QlitName) {
 }
 
 export async function getLabels() {
-  return (await qlitGet<Readonly<Record<QlitName, string>>>("labels"));
+  return await qlitGet<Readonly<Record<QlitName, string>>>("labels");
 }
 
-/** Reshape a queerlit-terms object like an XL object */
-function fakeXlTerm(term: TermLike): Term {
+function processTerm(term: TermLike): Term {
   return {
-    "@id": term.uri,
-    _label: term.prefLabel,
-    inScheme: "https://queerlit.dh.gu.se/qlit/v1",
-    ...term,
+    id: term.uri,
+    label: term.prefLabel,
+    scheme: "https://queerlit.dh.gu.se/qlit/v1",
   };
 }

@@ -4,8 +4,9 @@ import remove from "lodash/remove";
 import intersectionBy from "lodash/intersectionBy";
 import useQuery from "./query.composable";
 import worksData from "@/assets/local-works.yaml";
-import type { LocalTerm, LocalWork, LocalWorkRaw } from "./localWorks.types";
+import type { LocalWork, LocalWorkRaw } from "./localWorks.types";
 import { key } from "@/store";
+import type { Term } from "@/types/work";
 
 const worksRaw: Readonly<Record<string, LocalWorkRaw>> = worksData;
 
@@ -18,12 +19,11 @@ const works: LocalWork[] = Object.keys(worksRaw).map((id) => {
       ? { ...work.date, label: `${work.date.min}–${work.date.max}` }
       : { label: String(work.date), min: work.date, max: work.date };
 
-  const inflateTerm = ([uri, prefLabel]: [string, string]): LocalTerm => ({
-    "@id": uri,
-    prefLabel,
-    _label: prefLabel,
+  const inflateTerm = ([uri, prefLabel]: [string, string]): Term => ({
+    id: uri,
+    label: prefLabel,
     // Works as long as term uri = scheme uri + a name
-    inScheme: { "@id": uri.replace(/\/[^/]*$/, "") },
+    scheme: uri.replace(/\/[^/]*$/, ""),
   });
   work.terms;
 
@@ -50,8 +50,8 @@ const getWorkText = (work: LocalWork) =>
     work.title,
     work.motivation,
     ...work.creators.map((c) => `${c.name} ${c.lifeSpan}`),
-    ...work.terms.map((term) => term.prefLabel),
-    ...work.genreform.map((genreform) => genreform.prefLabel),
+    ...work.terms.map((term) => term.label),
+    ...work.genreform.map((genreform) => genreform.label),
     ...Object.values(work.date),
   ].join(" ");
 
@@ -86,7 +86,7 @@ export default function useLocalWorks() {
     if (terms.value.length) {
       filter(
         (work) =>
-          intersectionBy(work.terms, terms.value, "@id").length ==
+          intersectionBy(work.terms, terms.value, "id").length ==
           terms.value.length
       );
     }

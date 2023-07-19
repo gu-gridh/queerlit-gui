@@ -31,14 +31,14 @@ export default function useSearch() {
     try {
       const { items, total, histogram } = await search({
         text: query.text,
-        terms: query.terms,
-        termsSecondary: query.termsSecondary,
+        terms: query.terms.map((term) => term.id),
+        termsSecondary: query.termsSecondary.map((term) => term.id),
         hierarchical: query.hierarchical,
         title: query.title,
         author: query.author,
         yearStart: query.yearStart != null ? query.yearStart : undefined,
         yearEnd: query.yearEnd != null ? query.yearEnd : undefined,
-        genreform: query.genreform != null ? query.genreform : undefined,
+        genreform: query.genreform != null ? query.genreform.id : undefined,
         sort: state.sort,
         offset: state.offset,
       });

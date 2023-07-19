@@ -21,7 +21,7 @@ watchEffect(async () => {
   <div class="relative my-2 flex flex-wrap justify-center -mx-1 text-center">
     <div
       v-for="collection in collections"
-      :key="collection['@id']"
+      :key="collection.id"
       class="w-1/2 sm:w-1/3 p-1"
       :class="{ invisible: selected }"
     >
@@ -29,7 +29,7 @@ watchEffect(async () => {
         class="p-2 px-4 bg-amber-300 shadow rounded-lg h-full flex justify-center items-center cursor-pointer"
         @click="selected = collection"
       >
-        {{ collection._label }}
+        {{ collection.label }}
       </div>
     </div>
     <div
@@ -42,7 +42,7 @@ watchEffect(async () => {
           @click="selected = null"
         >
           <icon icon="arrow-left" size="xs" />
-          <span>{{ selected._label }}</span>
+          <span>{{ selected.label }}</span>
         </div>
         <TermTreeSmall v-for="term in terms" :key="term.name" :parent="term" />
       </div>

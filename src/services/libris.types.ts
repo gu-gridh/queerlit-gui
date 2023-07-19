@@ -30,7 +30,7 @@ export type LibrisInstance = HasId & {
 
 export type LibrisWork = {
   subject?: LibrisTerm[];
-  genreForm?: LibrisTerm[];
+  genreForm?: LibrisGenreForm[];
   contribution?: { agent?: LibrisAgent; role?: MaybeArray<Labeled> }[];
   summary?: { label: MaybeArray<string> }[];
   language: Labeled[];
@@ -70,7 +70,7 @@ export type LibrisTerm = HasId &
   };
 
 export type LibrisGenreForm = LibrisTerm & {
-  inScheme: HasId & {
+  inScheme?: HasId & {
     code: string;
   };
 };

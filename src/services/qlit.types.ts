@@ -27,6 +27,7 @@ export type QlitCollection = {
 };
 
 export type TermLike = Record<string, any> & {
+  name: QlitName;
   uri: URI;
   prefLabel: string;
 };

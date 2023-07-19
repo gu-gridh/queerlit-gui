@@ -12,22 +12,22 @@ export default function useTermOptions() {
     useTerms();
 
   const goto: TermOption = (term) => ({
-    label: `Om ämnesordet <em>${term._label}</em>`,
+    label: `Om ämnesordet <em>${term.label}</em>`,
     action: () => gotoTerm(term),
     // The Term view only works with QLIT terms.
     isApplicable: termIsQlit(term),
   });
 
   const search: TermOption = (term) => ({
-    label: `Sök på <em>${term._label}</em>`,
+    label: `Sök på <em>${term.label}</em>`,
     action: () => searchByTerm(term),
-    isApplicable: !!term["@id"],
+    isApplicable: !!term.id,
   });
 
   const searchSecondary: TermOption = (term) => ({
-    label: `Sök perifert på <em>${term._label}</em>`,
+    label: `Sök perifert på <em>${term.label}</em>`,
     action: () => searchByTermSecondary(term),
-    isApplicable: !!term["@id"],
+    isApplicable: !!term.id,
   });
 
   return {

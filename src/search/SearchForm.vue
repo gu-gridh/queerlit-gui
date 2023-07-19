@@ -78,7 +78,7 @@
               :value="genreform || undefined"
               :suggest="searchGenreform"
               :get-label="getGenreformLabel"
-              :get-id="(item: HasId) => item['@id']"
+              :get-id="(item: GenreForm) => item.id"
               input-id="genreform"
               help="Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi"
               @change="setGenreform"
@@ -106,12 +106,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useToggle } from "@vueuse/core";
-import type { Term } from "@/types/work";
-import type {
-  HasId,
-  LibrisGenreForm,
-  LibrisPerson,
-} from "@/services/libris.types";
+import type { LibrisPerson } from "@/services/libris.types";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
 import useQuery from "./query.composable";
 import Freetext from "./Freetext.vue";
@@ -124,6 +119,7 @@ import Labeled from "@/components/Labeled.vue";
 import QInput from "@/components/QInput.vue";
 import ReadMore from "@/components/ReadMore.vue";
 import QDetails from "@/components/QDetails.vue";
+import type { GenreForm } from "@/types/work";
 
 const { doSearch, setQuery } = useSearch();
 const {
@@ -160,7 +156,7 @@ function yearChange(yearStart: number, yearEnd: number) {
   setQuery({ yearStart, yearEnd });
 }
 
-function setGenreform(genreform: LibrisGenreForm) {
+function setGenreform(genreform: GenreForm) {
   setQuery({ genreform });
 }
 
