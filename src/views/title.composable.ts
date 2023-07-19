@@ -1,11 +1,15 @@
-import { watch, type MaybeRef } from "vue";
+import { watch, type MaybeRef, type ComputedRef } from "vue";
 import { useTitle as vueUseTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
 import useMatomo from "./matomo.composable";
 import use404 from "./404.composable";
 
 /** Decorate the useTitle of VueUse */
-export default function useTitle(customTitle?: MaybeRef<string>) {
+export default function useTitle(
+  customTitle?:
+    | MaybeRef<string | null | undefined>
+    | ComputedRef<string | null | undefined>
+) {
   const route = useRoute();
   const { trackPage } = useMatomo();
   const { is404 } = use404();

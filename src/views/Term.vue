@@ -1,3 +1,44 @@
+<script setup lang="ts">
+import { computed, ref, watchEffect } from "vue";
+import useTitle from "./title.composable";
+import use404 from "./404.composable";
+import Term from "@/terms/Term.vue";
+import Labeled from "@/components/Labeled.vue";
+import useTerms from "@/terms/terms.composable";
+import { useRoute } from "vue-router";
+import ExternalTermList from "@/terms/ExternalTermList.vue";
+import QButton from "@/components/QButton.vue";
+import type { QlitTerm } from "@/services/qlit.types";
+
+const route = useRoute();
+const { getParents, getChildren, getRelated, getTerm, searchByTerm } =
+  useTerms();
+const { flag404 } = use404();
+
+const term = ref<QlitTerm>();
+const parents = ref<QlitTerm[]>([]);
+const children = ref<QlitTerm[]>([]);
+const related = ref<QlitTerm[]>([]);
+useTitle(computed(() => term.value && term.value.label));
+
+// Get term data instantly and if the term name parameter changes.
+watchEffect(async () => {
+  if (route.name != "Term") return;
+  const termValue = await getTerm(route.params.id as string).catch(flag404);
+  if (!termValue) return;
+  term.value = termValue;
+  parents.value = [];
+  children.value = [];
+  related.value = [];
+  if (term.value.broader.length)
+    getParents(term.value.name).then((terms) => (parents.value = terms));
+  if (term.value.narrower.length)
+    getChildren(term.value.name).then((terms) => (children.value = terms));
+  if (term.value.related.length)
+    getRelated(term.value.name).then((terms) => (related.value = terms));
+});
+</script>
+
 <template>
   <div class="p-6">
     <router-link to="/subjects">
@@ -8,7 +49,7 @@
 
   <article v-if="term" class="container">
     <div class="bg-amber-50 border border-amber-200 p-4 mb-2">
-      <h2 class="text-2xl">{{ term.prefLabel }}</h2>
+      <h2 class="text-2xl">{{ term.label }}</h2>
       <table class="mt-4">
         <tr v-if="term.scopeNote">
           <th>Anvisning</th>
@@ -25,7 +66,7 @@
         <tr>
           <th>Identifierare</th>
           <td>
-            <div class="break-all">{{ term.uri }}</div>
+            <div class="break-all">{{ term.id }}</div>
             <div class="text-sm">
               <icon icon="info-circle" size="xs" />
               Identifieraren har formen av en URL, men används inte främst som
@@ -39,7 +80,7 @@
       <div class="mt-2 text-center">
         <QButton @click="searchByTerm(term)">
           <icon icon="search" size="xs" class="mr-1" />
-          Sök i Queerlit på <em>{{ term.prefLabel }}</em>
+          Sök i Queerlit på <em>{{ term.label }}</em>
         </QButton>
       </div>
     </div>
@@ -119,44 +160,6 @@
     </div>
   </article>
 </template>
-
-<script setup>
-import { computed, ref, watchEffect } from "vue";
-import useTitle from "./title.composable";
-import use404 from "./404.composable";
-import Term from "@/terms/Term.vue";
-import Labeled from "@/components/Labeled.vue";
-import useTerms from "@/terms/terms.composable";
-import { useRoute } from "vue-router";
-import ExternalTermList from "@/terms/ExternalTermList.vue";
-import QButton from "@/components/QButton.vue";
-
-const route = useRoute();
-const { getParents, getChildren, getRelated, getTerm, searchByTerm } =
-  useTerms();
-const { flag404 } = use404();
-
-const term = ref(null);
-const parents = ref([]);
-const children = ref([]);
-const related = ref([]);
-useTitle(computed(() => term.value && term.value.prefLabel));
-
-// Get term data instantly and if the term name parameter changes.
-watchEffect(async () => {
-  if (route.name != "Term") return;
-  term.value = await getTerm(route.params.id).catch(flag404);
-  parents.value = [];
-  children.value = [];
-  related.value = [];
-  if (term.value.broader.length)
-    getParents(term.value.name).then((terms) => (parents.value = terms));
-  if (term.value.narrower.length)
-    getChildren(term.value.name).then((terms) => (children.value = terms));
-  if (term.value.related.length)
-    getRelated(term.value.name).then((terms) => (related.value = terms));
-});
-</script>
 
 <style lang="scss" scoped>
 th,
