@@ -1,11 +1,11 @@
 import axios from "axios";
 import type {
   QlitCollection,
+  QlitCollectionRaw,
   QlitName,
   QlitTerm,
-  TermLike,
+  QlitTermRaw,
 } from "./qlit.types";
-import type { Term } from "@/types/work";
 
 const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
@@ -20,17 +20,14 @@ async function qlitGet<T = any>(
 }
 
 /** Get multiple terms and sort alphabetically. */
-async function qlitList<T extends TermLike = QlitTerm>(
-  endpoint: string,
-  params?: Record<string, any>
-) {
-  const data: T[] = await qlitGet(endpoint, params);
+async function qlitList(endpoint: string, params?: Record<string, any>) {
+  const data: QlitTermRaw[] = await qlitGet(endpoint, params);
   const terms = data.map(processTerm);
   return terms;
 }
 
 export async function getTerm(name: QlitName) {
-  const data = await qlitGet<QlitTerm>("term/" + name);
+  const data = await qlitGet<QlitTermRaw>("term/" + name);
   return processTerm(data);
 }
 
@@ -55,13 +52,13 @@ export async function searchTerms(s: string) {
   return qlitList("autocomplete", { s });
 }
 
-export function getCollections(): Promise<Term[]> {
-  return qlitList<QlitCollection>("collections").then((collections) =>
-    collections.map((collection) => ({
-      ...collection,
-      label: collection.label.replace("Tema: ", "").replace(" (HBTQI)", ""),
-    }))
-  );
+export async function getCollections(): Promise<QlitCollection[]> {
+  const collections = await qlitGet<QlitCollectionRaw[]>("collections");
+  return collections.map((collection) => ({
+    ...collection,
+    id: collection.uri,
+    label: collection.prefLabel.replace("Tema: ", "").replace(" (HBTQI)", ""),
+  }));
 }
 
 export function getCollection(name: QlitName) {
@@ -72,10 +69,19 @@ export async function getLabels() {
   return await qlitGet<Readonly<Record<QlitName, string>>>("labels");
 }
 
-function processTerm(term: TermLike): Term {
+function processTerm(term: QlitTermRaw): QlitTerm {
   return {
     id: term.uri,
     label: term.prefLabel,
     scheme: "https://queerlit.dh.gu.se/qlit/v1",
+    name: term.name,
+    altLabels: term.altLabels,
+    hiddenLabels: term.hiddenLabels,
+    scopeNote: term.scopeNote,
+    broader: term.broader,
+    narrower: term.narrower,
+    related: term.related,
+    exactMatch: term.exactMatch,
+    closeMatch: term.closeMatch,
   };
 }

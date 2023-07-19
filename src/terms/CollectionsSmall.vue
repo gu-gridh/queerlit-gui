@@ -1,18 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watchEffect } from "vue";
+import type { QlitCollection, QlitTerm } from "@/services/qlit.types";
+import { urlBasename } from "@/util";
 import { getCollection, getCollections } from "@/services/terms.service";
 import TermTreeSmall from "./TermTreeSmall.vue";
 
-const collections = ref();
-const selected = ref(null);
-const terms = ref();
+const collections = ref<QlitCollection[]>();
+const selected = ref<QlitCollection>();
+const terms = ref<QlitTerm[]>();
 
 watchEffect(async () => (collections.value = await getCollections()));
 
 watchEffect(async () => {
-  terms.value = null;
+  terms.value = undefined;
   if (selected.value) {
-    terms.value = await getCollection(selected.value.name);
+    const name = urlBasename(selected.value.id);
+    terms.value = await getCollection(name);
   }
 });
 </script>
@@ -39,12 +42,12 @@ watchEffect(async () => {
       <div class="bg-amber-200 shadow rounded-lg h-full overflow-auto">
         <div
           class="p-1 px-2 flex gap-2 items-center cursor-pointer"
-          @click="selected = null"
+          @click="selected = undefined"
         >
           <icon icon="arrow-left" size="xs" />
           <span>{{ selected.label }}</span>
         </div>
-        <TermTreeSmall v-for="term in terms" :key="term.name" :parent="term" />
+        <TermTreeSmall v-for="term in terms" :key="term.id" :parent="term" />
       </div>
     </div>
   </div>
