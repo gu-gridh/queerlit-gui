@@ -1,7 +1,7 @@
 import type { Term } from "@/types/work";
 import useTerms from "./terms.composable";
 
-type TermOption = (term: Term) => {
+export type TermOption = (term: Term) => {
   label: string;
   action: () => void;
   isApplicable: boolean;

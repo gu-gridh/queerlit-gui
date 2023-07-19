@@ -1,33 +1,33 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { vOnClickOutside } from "@vueuse/components";
 import { key } from "@/store";
+import type { Term } from "@/types/work";
+import type { TermOption } from "./termOptions.composable";
 import useTerms from "./terms.composable";
 
-const props = defineProps({
-  data: Object,
-  secondary: Boolean,
-  options: {
-    type: Array,
-    default: () => [],
-  },
-  draggable: Boolean,
-});
+const props = defineProps<{
+  data: Term;
+  secondary?: boolean;
+  options?: TermOption[];
+  draggable?: boolean;
+}>();
 
 const { commit } = useStore(key);
 const { termIsQlit } = useTerms();
 
 const isMenuVisible = ref(false);
-const isQlit = computed(() => props.data && termIsQlit(props.data));
-const optionItems = computed(() =>
-  props.options
-    .map((op) => op(props.data))
-    .filter((op) => op.isApplicable !== false)
+const isQlit = computed(() => termIsQlit(props.data));
+const optionItems = computed(
+  () =>
+    props.options
+      ?.map((op) => op(props.data))
+      .filter((op) => op.isApplicable !== false) || []
 );
 
-function toggleMenu(event) {
-  if (optionItems.value?.length) {
+function toggleMenu(event: Event) {
+  if (optionItems.value.length) {
     event.preventDefault();
     isMenuVisible.value = !isMenuVisible.value;
   }
@@ -47,7 +47,7 @@ function dragEnd() {
   <drag
     v-on-click-outside="() => (isMenuVisible = false)"
     class="inline-block relative"
-    :draggable="draggable && !!data"
+    :draggable="draggable"
     @dragstart="dragStart"
     @dragend="dragEnd"
     @click="toggleMenu"
@@ -67,7 +67,7 @@ function dragEnd() {
       </slot>
 
       <icon
-        v-if="optionItems?.length"
+        v-if="optionItems.length"
         icon="ellipsis-v"
         size="xs"
         class="ml-2 opacity-50"
@@ -75,7 +75,7 @@ function dragEnd() {
     </span>
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <div
-        v-if="optionItems && optionItems.length"
+        v-if="optionItems.length"
         v-show="isMenuVisible"
         class="absolute z-10 h-0 bottom-0 left-0 duration-200"
       >
