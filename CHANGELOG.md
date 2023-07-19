@@ -11,6 +11,17 @@ As this project is a user-facing application, the places in the semantic version
 - `MINOR` denotes changes that may affect the user experience _or_ the development workflow
 - `PATCH` denotes changes that are insignificant to the user experience or the develpment workflow
 
+## [Unreleased]
+
+### Added
+
+- Added Runsten as a Genre/Form for some local works, using a SHM URI since there is no Libris item for this.
+
+### Changed
+
+- Completely rewritten to TypeScript!
+- Simplified the term object used internally (e.g. `id` instead of `@id`)
+
 ## [1.8.0] (2023-07-05)
 
 ### Added
