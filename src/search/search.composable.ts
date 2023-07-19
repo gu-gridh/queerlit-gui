@@ -35,7 +35,7 @@ export default function useSearch() {
         termsSecondary: query.termsSecondary.map((term) => term.id),
         hierarchical: query.hierarchical,
         title: query.title,
-        author: query.author,
+        author: query.author != null ? query.author["@id"] : undefined,
         yearStart: query.yearStart != null ? query.yearStart : undefined,
         yearEnd: query.yearEnd != null ? query.yearEnd : undefined,
         genreform: query.genreform != null ? query.genreform.id : undefined,

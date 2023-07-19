@@ -61,7 +61,7 @@
         <div class="w-full sm:w-1/2 p-2">
           <Labeled label="Författare" for-id="author">
             <Autocomplete
-              :value="author"
+              :value="author || undefined"
               :suggest="searchPerson"
               :get-label="getPersonLabel"
               :get-id="(item: LibrisPerson) => item['@id']"
@@ -148,7 +148,7 @@ function setTitle(event: Event) {
   setQuery({ title: (event.target as HTMLInputElement).value });
 }
 
-function setAuthor(author: Event) {
+function setAuthor(author: LibrisPerson) {
   setQuery({ author });
 }
 
