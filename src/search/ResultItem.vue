@@ -1,3 +1,30 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import { ellipsis } from "@/util";
+import useTerms from "@/terms/terms.composable";
+import Term from "@/terms/Term.vue";
+import useTermOptions from "@/terms/termOptions.composable";
+import type { Term as TermType } from "@/types/work";
+
+const props = defineProps<{
+  i: number;
+  title: string;
+  to: string;
+  creators: any[];
+  date?: string;
+  genreform: string[];
+  terms: TermType[];
+  termsSecondary: TermType[];
+  termsSecondaryMore?: boolean;
+  summary?: string;
+  motivation?: string;
+}>();
+
+const { sortTerms } = useTerms();
+const { goto, search, searchSecondary } = useTermOptions();
+const terms = computed(() => sortTerms(props.terms));
+</script>
+
 <template>
   <router-link :to="to" class="block">
     <article
@@ -33,7 +60,7 @@
         <div v-if="terms.qlit.length" class="flex flex-wrap gap-1 my-2">
           <Term
             v-for="term in terms.qlit"
-            :key="term"
+            :key="term.id"
             :data="term"
             :options="[search, searchSecondary, goto]"
             :draggable="true"
@@ -46,7 +73,7 @@
         >
           <Term
             v-for="term in termsSecondary"
-            :key="term"
+            :key="term.id"
             :data="term"
             secondary
             :options="[search, searchSecondary, goto]"
@@ -63,7 +90,7 @@
         >
           <Term
             v-for="term in terms.other"
-            :key="term"
+            :key="term.id"
             :data="term"
             :options="[search]"
             :draggable="true"
@@ -81,31 +108,5 @@
     </article>
   </router-link>
 </template>
-
-<script setup>
-import { computed } from "vue";
-import { ellipsis } from "@/util";
-import useTerms from "@/terms/terms.composable";
-import Term from "@/terms/Term.vue";
-import useTermOptions from "@/terms/termOptions.composable";
-
-const props = defineProps({
-  i: { type: [Number, String], required: true },
-  title: { type: String, required: true },
-  to: { type: [String, Object], required: true },
-  creators: { type: Array, default: () => [] },
-  date: { type: String, default: () => null },
-  genreform: { type: Array, default: () => [] },
-  terms: { type: Array, default: () => [] },
-  termsSecondary: { type: Array, default: () => [] },
-  termsSecondaryMore: { type: Boolean },
-  summary: { type: String, default: () => null },
-  motivation: { type: String, default: () => null },
-});
-
-const { sortTerms } = useTerms();
-const { goto, search, searchSecondary } = useTermOptions();
-const terms = computed(() => sortTerms(props.terms));
-</script>
 
 <style></style>

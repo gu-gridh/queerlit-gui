@@ -32,8 +32,9 @@ const works: LocalWork[] = Object.keys(worksRaw).map((id) => {
 
   return {
     id,
-    ...work,
+    title: work.title,
     creators: work.creators || [],
+    motivation: work.motivation,
     date,
     terms,
     genreform,

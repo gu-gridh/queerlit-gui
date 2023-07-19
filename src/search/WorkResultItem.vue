@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import type { Work } from "@/types/work";
+import ResultItem from "./ResultItem.vue";
+
+const props = defineProps<{
+  work: Work;
+  i: number;
+}>();
+
+const termsSecondary = props.work.termsSecondary.filter((term) => term.label);
+const termsSecondaryMore =
+  termsSecondary.length < props.work.termsSecondary.length;
+</script>
+
 <template>
   <ResultItem
     :i="i"
@@ -14,18 +28,5 @@
     class="hover:bg-smoke-100"
   />
 </template>
-
-<script setup>
-import ResultItem from "./ResultItem.vue";
-
-const props = defineProps({
-  work: { type: Object, required: true },
-  i: { type: [Number, String], required: true },
-});
-
-const termsSecondary = props.work.termsSecondary.filter((term) => term.label);
-const termsSecondaryMore =
-  termsSecondary.length < props.work.termsSecondary.length;
-</script>
 
 <style></style>
