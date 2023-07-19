@@ -1,25 +1,28 @@
-<script setup>
+<script setup lang="ts" generic="T">
 import { ref, watch } from "vue";
 import Dragscroll from "./Dragscroll.vue";
 import Labeled from "@/components/Labeled.vue";
 
-const props = defineProps(["heading", "items", "select"]);
+const props = defineProps<{
+  heading: string;
+  items: T[];
+}>();
 defineEmits(["select"]);
 
-const hscroll = ref(null);
+const hscroll = ref<InstanceType<typeof Dragscroll>>();
 const isScrolledToStart = ref(true);
 const isScrolledToEnd = ref(false);
 
-function scroll(event) {
-  if (!event.deltaX) hscroll.value.$el.scrollLeft += event.deltaY;
+function scroll(event: WheelEvent) {
+  if (!event.deltaX) hscroll.value!.$el.scrollLeft += event.deltaY;
 }
 
 function scrollStepLeft() {
-  hscroll.value.$el.scrollLeft -= hscroll.value.$el.clientWidth * 0.5;
+  hscroll.value!.$el.scrollLeft -= hscroll.value!.$el.clientWidth * 0.5;
 }
 
 function scrollStepRight() {
-  hscroll.value.$el.scrollLeft += hscroll.value.$el.clientWidth * 0.5;
+  hscroll.value!.$el.scrollLeft += hscroll.value!.$el.clientWidth * 0.5;
 }
 
 function checkScrollPosition() {
