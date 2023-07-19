@@ -55,8 +55,8 @@
   </div>
 </template>
 
-<script setup>
-import { computed, ref, watch, watchEffect } from "vue";
+<script setup lang="ts">
+import { computed, ref, watch } from "vue";
 import debounce from "lodash/debounce";
 // Docs: https://github.com/vueform/slider/blob/main/README.md
 import Slider from "@vueform/slider";
@@ -66,8 +66,16 @@ import Histogram from "./Histogram.vue";
 const MIN = 1800;
 const MAX = new Date().getFullYear();
 
-const emit = defineEmits(["change"]);
-const props = defineProps(["start", "end", "input-id"]);
+const props = defineProps<{
+  start?: number;
+  end?: number;
+  inputId: string;
+}>();
+
+const emit = defineEmits<{
+  change: [number | null, number | null];
+}>();
+
 const range = ref([props.start || MIN, props.end || MAX]);
 const enableOld = ref(false);
 // While the max value is constant, the min value depends on the enableOld checkbox.
@@ -102,8 +110,8 @@ const emitChange = debounce(() => {
   // When range extends to min or max, report as empty, thus letting the API determine filtering.
   emit(
     "change",
-    range.value[0] != min.value && range.value[0],
-    range.value[1] != MAX && range.value[1]
+    range.value[0] != min.value ? range.value[0] : null,
+    range.value[1] != MAX ? range.value[1] : null
   );
 }, 400);
 </script>

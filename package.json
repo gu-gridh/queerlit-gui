@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "yarn typecheck && yarn vite build",
+    "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write '!.yarn'"

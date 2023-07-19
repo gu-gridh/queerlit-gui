@@ -31,8 +31,8 @@
 
     <Labeled label="Utgivningsår" for-id="year">
       <YearFilter
-        :start="yearStart"
-        :end="yearEnd"
+        :start="yearStart != null ? yearStart : undefined"
+        :end="yearEnd != null ? yearEnd : undefined"
         input-id="year"
         @change="yearChange"
       />
@@ -152,7 +152,7 @@ function setAuthor(author: Event) {
   setQuery({ author });
 }
 
-function yearChange(yearStart: number, yearEnd: number) {
+function yearChange(yearStart: number | null, yearEnd: number | null) {
   setQuery({ yearStart, yearEnd });
 }
 
