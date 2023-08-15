@@ -172,14 +172,25 @@ function processInstance(item: LibrisInstance): WorkFromLibris {
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Find terms
-  processed.terms =
-    item.instanceOf?.subject?.map(processTerm).filter((term) => term.label) ||
-    [];
+  processed.terms = (item.instanceOf?.subject || [])
+    .map(processTerm)
+    .filter((term) => {
+      return term.label;
+    })
+    .filter(
+      (term) =>
+        conceptSchemes.includes(term.scheme || "") ||
+        conceptSchemes.some((c) => term.id?.indexOf(c) === 0)
+    );
 
   processed.genreform = (item.instanceOf?.genreForm || [])
     .map(processGenreform)
     .filter((term) => term.label)
-    .filter((term) => term.scheme !== "https://id.kb.se/marc");
+    .filter(
+      (term) =>
+        conceptSchemes.includes(term.scheme || "") ||
+        conceptSchemes.some((c) => term.id?.indexOf(c) === 0)
+    );
 
   // Normalize some values.
   const hasTitle = item.hasTitle?.find((hasTitle) => hasTitle.mainTitle);
@@ -307,12 +318,12 @@ export async function searchGenreform(query: string): Promise<GenreForm[]> {
   return data.items.map(processGenreform);
 }
 
-function processTerm<T extends LibrisTerm>(term: T): T & Term {
+function processTerm<T extends LibrisTerm>(term: T): Term {
   const guess = term["@id"] ? termDataFromId(term["@id"]) : {};
   const processed: Partial<Term> = { ...guess };
   if (term.inScheme?.["@id"]) processed.scheme = term.inScheme["@id"];
   processed.label = getLabel({ ...processed, ...term });
-  return processed as T & Term;
+  return processed as Term;
 }
 
 function processGenreform(genreform: LibrisGenreForm): GenreForm {
@@ -323,13 +334,7 @@ function processGenreform(genreform: LibrisGenreForm): GenreForm {
 
 /** Guess scheme and label from the id uri. */
 function termDataFromId(id: URI) {
-  const scheme = [
-    ConceptScheme.Qlit,
-    ConceptScheme.BarnGf,
-    ConceptScheme.Barn,
-    ConceptScheme.SaoGf,
-    ConceptScheme.Sao,
-  ].find((scheme) => id.indexOf(scheme) === 0);
+  const scheme = conceptSchemes.find((scheme) => id.indexOf(scheme) === 0);
 
   const label =
     scheme == ConceptScheme.Qlit
@@ -414,3 +419,11 @@ export class ConceptScheme {
     return "https://id.kb.se/term/barngf";
   }
 }
+
+const conceptSchemes = [
+  ConceptScheme.Qlit,
+  ConceptScheme.BarnGf,
+  ConceptScheme.Barn,
+  ConceptScheme.SaoGf,
+  ConceptScheme.Sao,
+];
