@@ -42,8 +42,13 @@ watchEffect(async () => {
 
 <template>
   <div
-    class="mt-4 pl-4 pb-4 border-l-4 border-transparent"
-    :class="[level == 0 ? '-ml-2' : 'ml-8']"
+    class="mt-4 pb-4 border-l-4"
+    :class="{
+      'ml-6 pl-2 ': level && expanded,
+      'ml-8': level && !expanded,
+      '-ml-2 pl-2': !level && expanded,
+      'ml-0': !level && !expanded,
+    }"
     :style="{
       borderColor: `hsl(${hue} 70% 80% / ${expanded ? 1 : 0})`,
     }"

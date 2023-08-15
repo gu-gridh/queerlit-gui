@@ -3,7 +3,7 @@ import { Store, createStore } from "vuex";
 import { union, without } from "lodash";
 import type { Histogram } from "@/types/app";
 import query, { type QueryState } from "@/search/query.store";
-import type { QlitName } from "@/services/qlit.types";
+import type { QlitCollection, QlitName } from "@/services/qlit.types";
 import type { LocalWork } from "@/search/localWorks.types";
 
 type State = {
@@ -15,7 +15,11 @@ type State = {
   offset: number;
   currentSearch: string | null;
   dragged: any;
+  /** User's input in the thesaurus search box. */
   termTextQuery: string;
+  /** A collection chosen in the thesaurus view. */
+  termCollection: QlitCollection | null;
+  /** Which terms are expanded in the thesaurus tree view. */
   termsExpanded: QlitName[];
   histogram: Histogram;
   error: string | null;
@@ -37,6 +41,7 @@ export const store = createStore<State>({
     currentSearch: null,
     dragged: null,
     termTextQuery: "",
+    termCollection: null,
     // Remember which nodes in the term tree are expanded,
     // but forget it if the term search query changes.
     termsExpanded: [],
@@ -68,6 +73,12 @@ export const store = createStore<State>({
     },
     setTermTextQuery(state, termTextQuery) {
       state.termTextQuery = termTextQuery;
+      state.termCollection = null;
+      state.termsExpanded = [];
+    },
+    setTermCollection(state, collection: QlitCollection | null) {
+      state.termTextQuery = "";
+      state.termCollection = collection || null;
       state.termsExpanded = [];
     },
     toggleTermExpanded(state, { name, expanded }) {

@@ -15,6 +15,8 @@ As this project is a user-facing application, the places in the semantic version
 
 ### Added
 
+- Collection buttons in thesaurus view
+- A heading for the thesaurus view, indicating the view mode: tree, search or collection
 - Added Runsten as a Genre/Form for some local works, using a SHM URI since there is no Libris item for this.
 
 ### Changed
