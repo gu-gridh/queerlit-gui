@@ -4,7 +4,7 @@ import type { QlitCollection } from "@/services/qlit.types";
 import { getCollections } from "@/services/terms.service";
 
 defineProps<{
-  selected: string[];
+  selected?: string[];
 }>();
 
 const emit = defineEmits<{
