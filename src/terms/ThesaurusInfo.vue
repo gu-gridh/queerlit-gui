@@ -16,7 +16,7 @@ const termTextQuery = computed({
 });
 
 function selectCollection(collection: QlitCollection) {
-  if (state.termCollection?.id == collection.id) {
+  if (state.termCollection?.name == collection.name) {
     commit("setTermCollection", null);
   } else {
     commit("setTermCollection", collection);
@@ -64,8 +64,8 @@ function gotoThesaurus() {
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <Labeled label="Samlingar" class="mb-4">
-        {{ state.termCollection }}
         <CollectionsGrid
+          :selected="state.termCollection ? [state.termCollection.name] : []"
           @select="(collection) => selectCollection(collection)"
         />
       </Labeled>

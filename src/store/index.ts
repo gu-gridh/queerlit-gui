@@ -73,10 +73,13 @@ export const store = createStore<State>({
     },
     setTermTextQuery(state, termTextQuery) {
       state.termTextQuery = termTextQuery;
+      state.termCollection = null;
       state.termsExpanded = [];
     },
     setTermCollection(state, collection: QlitCollection | null) {
+      state.termTextQuery = "";
       state.termCollection = collection || null;
+      state.termsExpanded = [];
     },
     toggleTermExpanded(state, { name, expanded }) {
       state.termsExpanded = expanded
