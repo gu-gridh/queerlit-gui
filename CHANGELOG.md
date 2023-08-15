@@ -23,6 +23,7 @@ As this project is a user-facing application, the places in the semantic version
 
 - Completely rewritten to TypeScript!
 - Simplified the term object used internally (e.g. `id` instead of `@id`)
+- Subject headings outside the QLIT, SAO and Barn concept schemes are hidden, as well as genre/form terms outside the SAOGF and BarnGF schemes
 
 ## [1.8.0] (2023-07-05)
 
