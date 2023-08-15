@@ -4,6 +4,8 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { key } from "@/store";
 import Labeled from "@/components/Labeled.vue";
+import CollectionsGrid from "./CollectionsGrid.vue";
+import type { QlitCollection } from "@/services/qlit.types";
 
 const { state, commit } = useStore(key);
 const router = useRouter();
@@ -12,6 +14,14 @@ const termTextQuery = computed({
   get: () => state.termTextQuery,
   set: (value) => commit("setTermTextQuery", value),
 });
+
+function selectCollection(collection: QlitCollection) {
+  if (state.termCollection?.id == collection.id) {
+    commit("setTermCollection", null);
+  } else {
+    commit("setTermCollection", collection);
+  }
+}
 
 function gotoThesaurus() {
   router.push("/subjects");
@@ -53,7 +63,14 @@ function gotoThesaurus() {
     </div>
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
-      <Labeled label="Sök ämnesord">
+      <Labeled label="Samlingar" class="mb-4">
+        {{ state.termCollection }}
+        <CollectionsGrid
+          @select="(collection) => selectCollection(collection)"
+        />
+      </Labeled>
+
+      <Labeled label="Sök ämnesord" class="mt-4">
         <input
           v-model="termTextQuery"
           type="search"
