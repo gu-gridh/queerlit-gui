@@ -1,0 +1,807 @@
+{
+  "@id": "https://libris.kb.se/n5zw0z3007n98r6#it",
+  "@type": "Instance",
+  "sameAs": [
+    {
+      "@id": "http://libris.kb.se/resource/bib/8396190"
+    }
+  ],
+  "@reverse": {
+    "itemOf": [
+      {
+        "@id": "https://libris.kb.se/r7w61g4fp8qt2sfp#it",
+        "@type": "Item",
+        "meta": {
+          "@id": "https://libris.kb.se/r7w61g4fp8qt2sfp",
+          "@type": "Record",
+          "mainEntity": {
+            "@id": "https://libris.kb.se/r7w61g4fp8qt2sfp#it"
+          },
+          "controlNumber": "r7w61g4fp8qt2sfp"
+        },
+        "itemOf": {
+          "@id": "https://libris.kb.se/n5zw0z3007n98r6#it"
+        },
+        "heldBy": {
+          "@id": "https://libris.kb.se/library/QLIT",
+          "@type": "Bibliography",
+          "sameAs": [
+            {
+              "@id": "http://bibdb.libris.kb.se/library/QLIT"
+            }
+          ],
+          "meta": {
+            "@id": "https://libris.kb.se/bf1nkjtsd59d7lv9",
+            "@type": "Record",
+            "mainEntity": {
+              "@id": "https://libris.kb.se/library/QLIT"
+            },
+            "inDataset": [
+              {
+                "@id": "https://libris.kb.se/dataset/bibdb"
+              },
+              {
+                "@id": "https://libris.kb.se/dataset/bibliographies"
+              }
+            ]
+          },
+          "name": "Göteborgs universitetsbibliotek QUEERLIT",
+          "sigel": "QLIT"
+        },
+        "subject": [
+          {
+            "@id": "https://queerlit.dh.gu.se/qlit/v1/lj67gb57"
+          },
+          {
+            "@id": "https://queerlit.dh.gu.se/qlit/v1/ka64zi36"
+          },
+          {
+            "@id": "https://queerlit.dh.gu.se/qlit/v1/tn16nz77"
+          }
+        ],
+        "summary": [
+          {
+            "@type": "Summary",
+            "label": "Med början hos litteraturhistorikern Victor Svanberg (1928) har Rydbergs författarskap tolkats homoerotiskt, och det har länge ingått i manlig homosexuell kanon. Bakgrunden till detta är framför allt författarens vurm för antik grekisk kultur, den platonska idealiseringen av unga, manliga kroppar samt de återkommande skildringarna av svärmisk vänskap mellan män. ”Singoalla” har kommit ut i flera versioner, och det är framför allt i den första, något längre versionen, som forskningen pekat ut homoerotiken som ett bärande motiv. Den unga pojkkroppen idealiseras ofta i Rydbergs författarskap, men det råder inom forskningen delade meningar om huruvida detta ska tolkas som erotiskt; något som litteraturvetaren Dominik Dziedzic i antologin \"Efter Rydberg\" (2020) har diskuterat i detalj. Densamme har i en artikel i Lambda nordica (2022) argumenterat för att romanens gosse Sorgbarn avviker från Rydbergs vanliga idealiserade barnfigurer genom att anknyta till skräckromantisk tradition. Mot den bakgrunden kan relationen mellan Erland och Sorgbarn, enligt Dziedzic, förstås som samtidigt homoerotisk, incestuös och pedofil."
+          }
+        ]
+      },
+      {
+        "@id": "https://libris.kb.se/6bh6hhgc29cv8dp#it",
+        "@type": "Item",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/hold/14961701"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/6bh6hhgc29cv8dp",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/hold/14961701"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://libris.kb.se/6bh6hhgc29cv8dp#it"
+          },
+          "controlNumber": "14961701"
+        },
+        "itemOf": {
+          "@id": "https://libris.kb.se/n5zw0z3007n98r6#it"
+        },
+        "heldBy": {
+          "@id": "https://libris.kb.se/library/S",
+          "@type": "Library",
+          "sameAs": [
+            {
+              "@id": "http://bibdb.libris.kb.se/library/S"
+            }
+          ],
+          "meta": {
+            "@id": "https://libris.kb.se/000n6qq313f988g2",
+            "@type": "Record",
+            "mainEntity": {
+              "@id": "https://libris.kb.se/library/S"
+            },
+            "inDataset": [
+              {
+                "@id": "https://libris.kb.se/dataset/bibdb"
+              },
+              {
+                "@id": "https://libris.kb.se/dataset/libraries"
+              }
+            ]
+          },
+          "name": "Kungliga biblioteket",
+          "sigel": "S"
+        },
+        "shelfMark": {
+          "@type": "ShelfMark",
+          "label": "81 Aza Aurora. Toilette-kalender för 1858"
+        },
+        "subject": [
+          {
+            "@type": "Meeting",
+            "name": "kbretro"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "@id": "https://libris.kb.se/n5zw0z3007n98r6",
+    "@type": "Record",
+    "sameAs": [
+      {
+        "@id": "http://libris.kb.se/bib/8396190"
+      }
+    ],
+    "mainEntity": {
+      "@id": "https://libris.kb.se/n5zw0z3007n98r6#it"
+    },
+    "controlNumber": "8396190",
+    "created": "2002-02-14T08:51:02+01:00",
+    "modified": "2023-08-15T15:03:04.295+02:00",
+    "bibliography": [
+      {
+        "@id": "https://libris.kb.se/library/QLIT",
+        "@type": "Bibliography",
+        "sameAs": [
+          {
+            "@id": "http://bibdb.libris.kb.se/library/QLIT"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/bf1nkjtsd59d7lv9",
+          "@type": "Record",
+          "mainEntity": {
+            "@id": "https://libris.kb.se/library/QLIT"
+          },
+          "inDataset": [
+            {
+              "@id": "https://libris.kb.se/dataset/bibdb"
+            },
+            {
+              "@id": "https://libris.kb.se/dataset/bibliographies"
+            }
+          ]
+        },
+        "name": "Göteborgs universitetsbibliotek QUEERLIT",
+        "sigel": "QLIT"
+      },
+      {
+        "@id": "https://libris.kb.se/library/ROMB",
+        "@type": "Bibliography",
+        "sameAs": [
+          {
+            "@id": "http://bibdb.libris.kb.se/library/ROMB"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/b3wn529vd2bvdhw1",
+          "@type": "Record",
+          "mainEntity": {
+            "@id": "https://libris.kb.se/library/ROMB"
+          },
+          "inDataset": [
+            {
+              "@id": "https://libris.kb.se/dataset/bibdb"
+            },
+            {
+              "@id": "https://libris.kb.se/dataset/bibliographies"
+            }
+          ]
+        },
+        "name": "Romsk bibliografi",
+        "sigel": "ROMB"
+      }
+    ],
+    "encodingLevel": "marc:LessThanFullLevelMaterialNotExamined",
+    "recordStatus": "marc:CorrectedOrRevised",
+    "descriptionCreator": {
+      "@id": "https://libris.kb.se/library/S",
+      "@type": "Library",
+      "sameAs": [
+        {
+          "@id": "http://bibdb.libris.kb.se/library/S"
+        }
+      ],
+      "meta": {
+        "@id": "https://libris.kb.se/000n6qq313f988g2",
+        "@type": "Record",
+        "mainEntity": {
+          "@id": "https://libris.kb.se/library/S"
+        },
+        "inDataset": [
+          {
+            "@id": "https://libris.kb.se/dataset/bibdb"
+          },
+          {
+            "@id": "https://libris.kb.se/dataset/libraries"
+          }
+        ]
+      },
+      "name": "Kungliga biblioteket",
+      "sigel": "S"
+    },
+    "descriptionLastModifier": {
+      "@id": "https://libris.kb.se/library/Mo",
+      "@type": "Library",
+      "sameAs": [
+        {
+          "@id": "http://bibdb.libris.kb.se/library/Mo"
+        }
+      ],
+      "meta": {
+        "@id": "https://libris.kb.se/000nvd6j10g24fst",
+        "@type": "Record",
+        "mainEntity": {
+          "@id": "https://libris.kb.se/library/Mo"
+        },
+        "inDataset": [
+          {
+            "@id": "https://libris.kb.se/dataset/bibdb"
+          },
+          {
+            "@id": "https://libris.kb.se/dataset/libraries"
+          }
+        ]
+      },
+      "name": "Malmö stadsbibliotek",
+      "sigel": "Mo"
+    },
+    "descriptionConventions": [
+      {
+        "@id": "https://id.kb.se/marc/Aacr2",
+        "@type": "marc:CatFormType",
+        "sameAs": [
+          {
+            "@id": "https://id.kb.se/marc/CatFormType-a"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/v9b707fzx4wqz50j",
+          "@type": "Record",
+          "mainEntity": {
+            "@id": "https://id.kb.se/marc/Aacr2"
+          },
+          "inDataset": [
+            {
+              "@id": "https://id.kb.se/dataset/common"
+            },
+            {
+              "@id": "https://id.kb.se/dataset/enums"
+            }
+          ]
+        },
+        "prefLabelByLang": {
+          "en": "AACR 2",
+          "sv": "AACR2/KRS"
+        },
+        "code": "a"
+      }
+    ],
+    "generationDate": "2023-06-15T12:55:43.117+02:00",
+    "generationProcess": {
+      "@id": "https://libris.kb.se/sys/globalchanges/cleanups/2023/06/lxl-4186-resave.groovy"
+    }
+  },
+  "issuanceType": "Monograph",
+  "hasTitle": [
+    {
+      "@type": "Title",
+      "mainTitle": "Singoalla",
+      "subtitle": "romantisk sagodikt"
+    }
+  ],
+  "instanceOf": {
+    "@type": "Text",
+    "contribution": [
+      {
+        "@type": "PrimaryContribution",
+        "agent": {
+          "@id": "https://libris.kb.se/khwzvcl303s2ks5#it",
+          "@type": "Person",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/resource/auth/88653"
+            }
+          ],
+          "meta": {
+            "@id": "https://libris.kb.se/khwzvcl303s2ks5",
+            "@type": "Record",
+            "sameAs": [
+              {
+                "@id": "http://libris.kb.se/auth/88653"
+              }
+            ],
+            "mainEntity": {
+              "@id": "https://libris.kb.se/khwzvcl303s2ks5#it"
+            },
+            "controlNumber": "88653"
+          },
+          "familyName": "Rydberg",
+          "givenName": "Viktor",
+          "lifeSpan": "1828-1895",
+          "hasVariant": [
+            {
+              "@type": "Person",
+              "familyName": "Rydberg",
+              "givenName": "Abraham Viktor",
+              "lifeSpan": "1828-1895"
+            },
+            {
+              "@type": "Person",
+              "name": "Agricola",
+              "lifeSpan": "1828-1895"
+            },
+            {
+              "@type": "Person",
+              "familyName": "Roedŭberi",
+              "givenName": "Piktorŭ",
+              "lifeSpan": "1828-1895"
+            },
+            {
+              "@type": "Person",
+              "familyName": "Rydberg",
+              "givenName": "Victor",
+              "lifeSpan": "1828-1895"
+            }
+          ]
+        },
+        "role": {
+          "@id": "https://id.kb.se/relator/author",
+          "@type": "Role",
+          "sameAs": [
+            {
+              "@id": "https://id.kb.se/relator/aut"
+            }
+          ],
+          "meta": {
+            "@id": "https://libris.kb.se/01671gl323zxzzhh",
+            "@type": "Record",
+            "mainEntity": {
+              "@id": "https://id.kb.se/relator/author"
+            },
+            "inDataset": [
+              {
+                "@id": "https://id.kb.se/dataset/common"
+              },
+              {
+                "@id": "https://id.kb.se/dataset/relators"
+              }
+            ]
+          },
+          "prefLabelByLang": {
+            "en": "Author",
+            "sv": "Författare"
+          },
+          "code": "aut"
+        }
+      }
+    ],
+    "language": [
+      {
+        "@id": "https://id.kb.se/language/swe",
+        "@type": "Language",
+        "sameAs": [
+          {
+            "@id": "https://id.kb.se/i18n/lang/sv"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/93lzl5lfc2l3hvc7",
+          "@type": "Record",
+          "mainEntity": {
+            "@id": "https://id.kb.se/language/swe"
+          },
+          "inDataset": [
+            {
+              "@id": "https://id.kb.se/dataset/common"
+            },
+            {
+              "@id": "https://id.kb.se/dataset/languages"
+            }
+          ]
+        },
+        "prefLabelByLang": {
+          "en": "Swedish",
+          "sv": "Svenska"
+        },
+        "code": "swe"
+      }
+    ],
+    "genreForm": [
+      {
+        "@id": "https://id.kb.se/marc/Novel",
+        "@type": "marc:BooksLiteraryFormType",
+        "sameAs": [
+          {
+            "@id": "https://id.kb.se/marc/BooksLiteraryFormType-f"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/6nwmbkr980w28r6j",
+          "@type": "Record",
+          "mainEntity": {
+            "@id": "https://id.kb.se/marc/Novel"
+          },
+          "inDataset": [
+            {
+              "@id": "https://id.kb.se/dataset/common"
+            },
+            {
+              "@id": "https://id.kb.se/dataset/enums"
+            }
+          ]
+        },
+        "prefLabelByLang": {
+          "en": "Novels",
+          "sv": "Roman"
+        },
+        "inScheme": {
+          "@id": "https://id.kb.se/marc"
+        },
+        "code": "f"
+      },
+      {
+        "@id": "https://id.kb.se/term/saogf/Romaner",
+        "@type": "GenreForm",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/389072"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/jgvz6gc258ns5hp",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/389072"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/saogf/Romaner"
+          },
+          "controlNumber": "389072"
+        },
+        "prefLabel": "Romaner",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/saogf"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/saogf/K%C3%A4rleksskildringar",
+        "@type": "GenreForm",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/350795"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/mkz274x52bbvxbd",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/350795"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/saogf/K%C3%A4rleksskildringar"
+          },
+          "controlNumber": "350795"
+        },
+        "prefLabel": "Kärleksskildringar",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/saogf"
+        }
+      }
+    ],
+    "classification": [
+      {
+        "@type": "Classification",
+        "inScheme": {
+          "@type": "ConceptScheme",
+          "code": "kssb"
+        },
+        "code": "Hc.01"
+      }
+    ],
+    "subject": [
+      {
+        "@id": "https://id.kb.se/term/sao/1300-talet",
+        "@type": "Temporal",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/355065"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/zw9dlm0h4s6bp7b",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/355065"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/1300-talet"
+          },
+          "controlNumber": "355065"
+        },
+        "prefLabel": "1300-talet",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/Riddare",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/158149"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/31fhggbm1xnkgn0",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/158149"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/Riddare"
+          },
+          "controlNumber": "158149"
+        },
+        "prefLabel": "Riddare",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/Romer",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/160714"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/ljx0z2p44rtxjjf",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/160714"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/Romer"
+          },
+          "controlNumber": "160714"
+        },
+        "prefLabel": "Romer",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/Hypnos",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/148284"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/86lnm8js473wdqn",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/148284"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/Hypnos"
+          },
+          "controlNumber": "148284"
+        },
+        "prefLabel": "Hypnos",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/St%C3%B6ld",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/163254"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/86lnnt5s3nn7tx8",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/163254"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/St%C3%B6ld"
+          },
+          "controlNumber": "163254"
+        },
+        "prefLabel": "Stöld",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/Slavar",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/165919"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/31fhhrzm3cxt9jx",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/165919"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/Slavar"
+          },
+          "controlNumber": "165919"
+        },
+        "prefLabel": "Slavar",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/Olycklig%20k%C3%A4rlek",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/388836"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/nl03bl7613fwbnm",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/388836"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/Olycklig%20k%C3%A4rlek"
+          },
+          "controlNumber": "388836"
+        },
+        "prefLabel": "Olycklig kärlek",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/Pest",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/141987"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/c9prq4mw1tjksf3",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/141987"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/Pest"
+          },
+          "controlNumber": "141987"
+        },
+        "prefLabel": "Pest",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      },
+      {
+        "@id": "https://id.kb.se/term/sao/Kloster",
+        "@type": "Topic",
+        "sameAs": [
+          {
+            "@id": "http://libris.kb.se/resource/auth/150420"
+          }
+        ],
+        "meta": {
+          "@id": "https://libris.kb.se/gdsvtk4048d1dwx",
+          "@type": "Record",
+          "sameAs": [
+            {
+              "@id": "http://libris.kb.se/auth/150420"
+            }
+          ],
+          "mainEntity": {
+            "@id": "https://id.kb.se/term/sao/Kloster"
+          },
+          "controlNumber": "150420"
+        },
+        "prefLabel": "Kloster",
+        "inScheme": {
+          "@id": "https://id.kb.se/term/sao"
+        }
+      }
+    ]
+  },
+  "publication": [
+    {
+      "@type": "PrimaryPublication",
+      "country": {
+        "@id": "https://id.kb.se/country/sw",
+        "@type": "Country",
+        "meta": {
+          "@id": "https://libris.kb.se/jf9xxz4ml0jrz74j",
+          "@type": "Record",
+          "mainEntity": {
+            "@id": "https://id.kb.se/country/sw"
+          },
+          "inDataset": [
+            {
+              "@id": "https://id.kb.se/dataset/common"
+            },
+            {
+              "@id": "https://id.kb.se/dataset/countries"
+            }
+          ]
+        },
+        "prefLabelByLang": {
+          "en": "Sweden",
+          "sv": "Sverige"
+        },
+        "code": "sw"
+      },
+      "place": [
+        {
+          "@type": "Place",
+          "label": ["[Göteborg]"]
+        }
+      ],
+      "year": "1857",
+      "date": "[1857]"
+    }
+  ],
+  "seriesMembership": [
+    {
+      "@type": "SeriesMembership",
+      "inSeries": {
+        "@type": "Instance",
+        "instanceOf": {
+          "@type": "Work",
+          "hasTitle": [
+            {
+              "@type": "Title",
+              "mainTitle": "Aurora. Toilette-kalender för 1858"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "reverseLinks": {
+    "@type": "PartialCollectionView",
+    "totalItems": 2,
+    "@id": "https://libris.kb.se/find?o=https%3A%2F%2Flibris.kb.se%2Fn5zw0z3007n98r6%23it"
+  }
+}
