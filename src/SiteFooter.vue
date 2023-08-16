@@ -1,4 +1,4 @@
-<script setup></script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="container mt-8 py-8 border-t flex gap-4 justify-between text-sm">

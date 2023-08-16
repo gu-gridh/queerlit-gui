@@ -1,8 +1,34 @@
-import { createStore } from "vuex";
-import query from "@/search/query.store";
+import type { InjectionKey } from "vue";
+import { Store, createStore } from "vuex";
 import { union, without } from "lodash";
+import type { Histogram } from "@/types/app";
+import query, { type QueryState } from "@/search/query.store";
+import type { QlitCollection, QlitName } from "@/services/qlit.types";
+import type { LocalWork } from "@/search/localWorks.types";
 
-export default createStore({
+type State = {
+  query?: QueryState; // TODO Switch to Pinia and remove this.
+  results: any[] | null;
+  localResults: LocalWork[];
+  total: number;
+  sort: string;
+  offset: number;
+  currentSearch: string | null;
+  dragged: any;
+  /** User's input in the thesaurus search box. */
+  termTextQuery: string;
+  /** A collection chosen in the thesaurus view. */
+  termCollection: QlitCollection | null;
+  /** Which terms are expanded in the thesaurus tree view. */
+  termsExpanded: QlitName[];
+  histogram: Histogram;
+  error: string | null;
+};
+
+// See https://vuex.vuejs.org/guide/typescript-support.html#typing-usestore-composition-function
+export const key: InjectionKey<Store<State>> = Symbol();
+
+export const store = createStore<State>({
   modules: {
     query,
   },
@@ -15,6 +41,7 @@ export default createStore({
     currentSearch: null,
     dragged: null,
     termTextQuery: "",
+    termCollection: null,
     // Remember which nodes in the term tree are expanded,
     // but forget it if the term search query changes.
     termsExpanded: [],
@@ -46,6 +73,12 @@ export default createStore({
     },
     setTermTextQuery(state, termTextQuery) {
       state.termTextQuery = termTextQuery;
+      state.termCollection = null;
+      state.termsExpanded = [];
+    },
+    setTermCollection(state, collection: QlitCollection | null) {
+      state.termTextQuery = "";
+      state.termCollection = collection || null;
       state.termsExpanded = [];
     },
     toggleTermExpanded(state, { name, expanded }) {
@@ -56,7 +89,7 @@ export default createStore({
     setHistogram(state, histogram) {
       state.histogram = histogram;
     },
-    patchHistogram(state, histogram) {
+    patchHistogram(state, histogram: Record<number, number>) {
       for (const year in histogram) {
         state.histogram[year] = (state.histogram[year] || 0) + histogram[year];
       }

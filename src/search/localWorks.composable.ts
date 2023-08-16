@@ -3,50 +3,56 @@ import cloneDeep from "lodash/cloneDeep";
 import remove from "lodash/remove";
 import intersectionBy from "lodash/intersectionBy";
 import useQuery from "./query.composable";
-import worksRaw from "@/assets/local-works.yaml";
+import worksData from "@/assets/local-works.yaml";
+import type { LocalWork, LocalWorkRaw } from "./localWorks.types";
+import { key } from "@/store";
+import type { Term } from "@/types/work";
+
+const worksRaw: Readonly<Record<string, LocalWorkRaw>> = worksData;
 
 // Harmonize local entries.
-const works = Object.keys(worksRaw).map((id) => {
+const works: LocalWork[] = Object.keys(worksRaw).map((id) => {
   const work = worksRaw[id];
 
-  const date = Number.isInteger(work.date)
-    ? { label: String(work.date), min: work.date, max: work.date }
-    : work.date;
-  date.label = date.label || `${date.min}–${date.max}`;
+  const date =
+    typeof work.date == "object"
+      ? { ...work.date, label: `${work.date.min}–${work.date.max}` }
+      : { label: String(work.date), min: work.date, max: work.date };
 
-  const inflateTerm = ([uri, prefLabel]) => ({
-    "@id": uri,
-    prefLabel,
-    _label: prefLabel,
+  const inflateTerm = ([uri, prefLabel]: [string, string]): Term => ({
+    id: uri,
+    label: prefLabel,
     // Works as long as term uri = scheme uri + a name
-    inScheme: { "@id": uri.replace(/\/[^/]*$/, "") },
+    scheme: uri.replace(/\/[^/]*$/, ""),
   });
+  work.terms;
 
-  const terms = Object.entries(work.terms || {}).map(inflateTerm);
+  const terms = work.terms ? Object.entries(work.terms).map(inflateTerm) : [];
   const genreform = Object.entries(work.genreform || {}).map(inflateTerm);
 
   return {
     id,
-    ...work,
+    title: work.title,
     creators: work.creators || [],
+    motivation: work.motivation,
     date,
-    classification: [],
     terms,
     genreform,
-  };
+  } satisfies LocalWork;
 });
 
 /** Simple algorithm matching a search string against a text value. */
-const matchText = (v, s) => v.toLowerCase().includes(s.trim().toLowerCase());
+const matchText = (v: string, s: string) =>
+  v.toLowerCase().includes(s.trim().toLowerCase());
 
 /** Extract text values from a local work entry into one string. */
-const getWorkText = (work) =>
+const getWorkText = (work: LocalWork) =>
   [
     work.title,
     work.motivation,
     ...work.creators.map((c) => `${c.name} ${c.lifeSpan}`),
-    ...work.terms.map((term) => term.prefLabel),
-    ...work.genreform.map((genreform) => genreform.prefLabel),
+    ...work.terms.map((term) => term.label),
+    ...work.genreform.map((genreform) => genreform.label),
     ...Object.values(work.date),
   ].join(" ");
 
@@ -61,18 +67,19 @@ export default function useLocalWorks() {
     author,
     genreform,
   } = useQuery();
-  const { commit, state } = useStore();
+  const { commit, state } = useStore(key);
 
   function searchLocal() {
     const results = cloneDeep(Object.values(works));
 
-    const filter = (isMatch) => remove(results, (work) => !isMatch(work));
+    const filter = (isMatch: (work: LocalWork) => Boolean) =>
+      remove(results, (work) => !isMatch(work));
 
     // Match free-text filter against any field.
     if (text.value) {
       // We don't handle special characters.
       // Since we don't match whole words anyway, stripping wildcards solves some of the cases.
-      const textValue = text.value.replaceAll(/[*?]/g, "");
+      const textValue = text.value.replace(/[*?]/g, "");
       filter((work) => matchText(getWorkText(work), textValue));
     }
 
@@ -80,7 +87,7 @@ export default function useLocalWorks() {
     if (terms.value.length) {
       filter(
         (work) =>
-          intersectionBy(work.terms, terms.value, "@id").length ==
+          intersectionBy(work.terms, terms.value, "id").length ==
           terms.value.length
       );
     }
@@ -94,12 +101,12 @@ export default function useLocalWorks() {
 
     // Work end year cannot be less than the filter start year.
     if (yearStart.value) {
-      filter((work) => work.date.max >= yearStart.value);
+      filter((work) => work.date.max >= yearStart.value!);
     }
 
     // Work start year cannot be more than the filter end year.
     if (yearEnd.value) {
-      filter((work) => work.date.min <= yearEnd.value);
+      filter((work) => work.date.min <= yearEnd.value!);
     }
 
     // We cannot really handle these filters, so return no results.
@@ -123,15 +130,15 @@ export default function useLocalWorks() {
     commit("patchHistogram", createHistogram(results));
   }
 
-  function createHistogram(results) {
-    const histogram = {};
+  function createHistogram(results: LocalWork[]) {
+    const histogram: Record<number, number> = {};
     for (const work of results) {
       histogram[work.date.min] = (histogram[work.date.min] || 0) + 1;
     }
     return histogram;
   }
 
-  const getLocal = (id) => works.find((work) => work.id == id);
+  const getLocal = (id: string) => works.find((work) => work.id == id);
 
   return {
     searchLocal,

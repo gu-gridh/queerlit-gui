@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import useQuery from "./query.composable";
 import FilterButton from "./FilterButton.vue";
 import useTerms from "@/terms/terms.composable";
@@ -33,20 +33,20 @@ const { setQuery } = useSearch();
 
       <FilterButton
         v-for="term in terms"
-        :key="term['@id']"
+        :key="term.id"
         label="Ämnesord"
         @clear="remove(term)"
       >
-        {{ term._label }}
+        {{ term.label }}
       </FilterButton>
 
       <FilterButton
         v-for="term in termsSecondary"
-        :key="term['@id']"
+        :key="term.id"
         label="Perifert ämnesord"
         @clear="removeSecondary(term)"
       >
-        {{ term._label }}
+        {{ term.label }}
       </FilterButton>
 
       <FilterButton

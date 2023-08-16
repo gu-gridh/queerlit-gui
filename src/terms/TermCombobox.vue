@@ -13,16 +13,16 @@
     >
       <Labeled :label="label" :for-id="inputId" inner-class="flex items-center">
         <div class="flex-1 flex flex-wrap items-baseline gap-1">
-          <Term
+          <TermButton
             v-for="term in terms"
-            :key="term.name"
+            :key="term.id"
             class="term-added text-md"
             :data="term"
             :options="[removeOption, goto]"
             :secondary="secondary"
             :draggable="true"
           >
-            {{ term._label }}
+            {{ term.label }}
             <template v-if="secondary">– perifert</template>
             <icon
               icon="times"
@@ -30,7 +30,7 @@
               class="ml-1 cursor-pointer"
               @click.prevent="remove(term)"
             />
-          </Term>
+          </TermButton>
 
           <input
             :id="inputId"
@@ -62,14 +62,14 @@
       <div class="bg-smoke-200 rounded-b pt-2 shadow">
         <div
           v-for="term in suggestions"
-          :key="term.name"
+          :key="term.id"
           class="px-2 pb-2 flex items-baseline"
         >
           {{ term.id }}
-          <Term :data="term" class="cursor-pointer" @click="add(term)">
-            {{ term._label }}
+          <TermButton :data="term" class="cursor-pointer" @click="add(term)">
+            {{ term.label }}
             <icon icon="plus" size="xs" class="ml-1" />
-          </Term>
+          </TermButton>
           <div class="flex-1"></div>
         </div>
       </div>
@@ -77,29 +77,43 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useToggle } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
+import { key } from "@/store";
 import { searchTerms } from "@/services/terms.service";
-import Term from "@/terms/Term.vue";
+import TermButton from "@/terms/Term.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
 import InputHelp from "@/components/InputHelp.vue";
 import useTerms from "./terms.composable";
 import useTermOptions from "./termOptions.composable";
 import Labeled from "@/components/Labeled.vue";
+import type { Term } from "@/types/work";
 
-const props = defineProps(["label", "terms", "input-id", "help", "secondary"]);
-const emit = defineEmits(["add", "remove"]);
-const { commit, state } = useStore();
+const props = defineProps<{
+  label: string;
+  terms: Term[];
+  inputId: string;
+  help: string;
+  secondary?: boolean;
+}>();
+
+const emit = defineEmits<{
+  add: [Term];
+  remove: [Term];
+}>();
+
+const { commit, state } = useStore(key);
 const [showHelp, toggleHelp] = useToggle();
 const { remove: removeTerm, removeSecondary } = useTerms();
 const { goto } = useTermOptions();
+
 const input = ref("");
-const suggestions = ref([]);
+const suggestions = ref<Term[]>([]);
 const isDraggingTerm = computed(() => state.dragged?.type == "term");
 
 // No need to load suggestions until user slows down typing.
@@ -120,13 +134,13 @@ async function suggest() {
   }
 }
 
-function add(term) {
+function add(term: Term) {
   emit("add", term);
   input.value = "";
   setSuggestions([]);
 }
 
-function remove(term) {
+function remove(term: Term) {
   emit("remove", term);
 }
 
@@ -136,7 +150,7 @@ function removeLast() {
   if (lastTerm) remove(lastTerm);
 }
 
-function setSuggestions(matches) {
+function setSuggestions(matches: Term[]) {
   suggestions.value = matches || [];
 }
 
@@ -144,9 +158,10 @@ function blur() {
   setSuggestions([]);
 }
 
-const removeOption = (term) => ({
-  label: `Rensa <em>${term._label}</em>`,
+const removeOption = (term: Term) => ({
+  label: `Rensa <em>${term.label}</em>`,
   action: () => remove(term),
+  isApplicable: true,
 });
 
 function dropTerm() {

@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { useToggle } from "@vueuse/core";
 import { watch } from "vue";
 
-const props = defineProps({
-  expanded: Boolean,
-});
+const props = defineProps<{
+  expanded: boolean;
+}>();
 
 const [expandedNow, toggle] = useToggle(props.expanded);
 

@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { key } from "./store";
 
-const store = useStore();
+const store = useStore(key);
 
 const error = computed(() => store.state.error);
 </script>

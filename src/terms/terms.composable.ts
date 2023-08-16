@@ -12,6 +12,7 @@ import negate from "lodash/negate";
 import { useRouter } from "vue-router";
 import { urlBasename } from "@/util";
 import useSearch from "@/search/search.composable";
+import type { Term } from "@/types/work";
 
 export default function useTerms() {
   const router = useRouter();
@@ -19,71 +20,71 @@ export default function useTerms() {
   const suggestions = ref([]);
   const { setQuery } = useSearch();
 
-  function add(term) {
-    if (!terms.value.find((term2) => term2["@id"] == term["@id"]))
+  function add(term: Term) {
+    if (!terms.value.find((term2) => term2.id == term.id))
       setQuery({ terms: [...terms.value, term] });
   }
 
-  function remove(term) {
+  function remove(term: Term) {
     setQuery({
-      terms: terms.value.filter((term2) => term2["@id"] != term["@id"]),
+      terms: terms.value.filter((term2) => term2.id != term.id),
     });
   }
 
-  function addSecondary(term) {
-    if (!termsSecondary.value.find((term2) => term2["@id"] == term["@id"]))
+  function addSecondary(term: Term) {
+    if (!termsSecondary.value.find((term2) => term2.id == term.id))
       setQuery({ termsSecondary: [...termsSecondary.value, term] });
   }
 
-  function removeSecondary(term) {
+  function removeSecondary(term: Term) {
     setQuery({
       termsSecondary: termsSecondary.value.filter(
-        (term2) => term2["@id"] != term["@id"]
+        (term2) => term2.id != term.id
       ),
     });
   }
 
-  function toggleHierarchical(value) {
+  function toggleHierarchical(value?: boolean) {
     // If no arg, toggle to opposite value.
     if (value === undefined) value = !hierarchical.value;
     setQuery({ hierarchical: value });
   }
 
-  async function hasChildren(term) {
+  async function hasChildren(term: string) {
     return (await getChildren(term)).length;
   }
 
-  function termIsQlit(term) {
+  function termIsQlit(term: Term) {
     return (
-      term.inScheme?.["@id"] == "https://queerlit.dh.gu.se/qlit/v1" ||
-      term["@id"]?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
+      term.scheme == "https://queerlit.dh.gu.se/qlit/v1" ||
+      term.id?.indexOf("https://queerlit.dh.gu.se/qlit/v1/") === 0
     );
   }
 
-  function sortTerms(terms) {
+  function sortTerms(terms: Term[]) {
     return (
       terms && {
         qlit: terms
           .filter(termIsQlit)
           // Add the `name` prop so we can use them more like the ones from the thesaurus backend.
-          .map((term) => ({ name: term["@id"].split("/").pop(), ...term })),
+          .map((term) => ({ name: term.id.split("/").pop(), ...term })),
         other: terms.filter(negate(termIsQlit)),
       }
     );
   }
 
-  function searchByTerm(term) {
+  function searchByTerm(term: Term) {
     add(term);
     router.push("/");
   }
 
-  function searchByTermSecondary(term) {
+  function searchByTermSecondary(term: Term) {
     addSecondary(term);
     router.push("/");
   }
 
-  function gotoTerm(term) {
-    const name = term.name || urlBasename(term.uri || term["@id"]);
+  function gotoTerm(term: Term) {
+    const name = "name" in term ? term.name : urlBasename(term.id);
     router.push(`/subjects/${name}`);
   }
 

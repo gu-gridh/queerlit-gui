@@ -1,9 +1,56 @@
+<script setup lang="ts">
+import { computed, ref, watchEffect } from "vue";
+import { useStore } from "vuex";
+import { key } from "@/store";
+import type { QlitTerm } from "@/services/qlit.types";
+import useTerms from "@/terms/terms.composable";
+import Term from "@/terms/Term.vue";
+
+const props = defineProps<{
+  parent: QlitTerm;
+  level?: number;
+  expanded?: boolean;
+}>();
+
+const { state, commit } = useStore(key);
+const { getChildren } = useTerms();
+
+const children = ref<QlitTerm[]>();
+const expanded = ref(
+  props.expanded || state.termsExpanded.includes(props.parent.name)
+);
+
+const toggleExpanded = () => {
+  expanded.value = !expanded.value;
+  commit("toggleTermExpanded", {
+    name: props.parent.name,
+    expanded: expanded.value,
+  });
+};
+
+// 333° is the hue for Tailwind's pink-600
+// 92° is approximately ϕ radians, which gives suitable steps around the hue circle.
+const hue = computed(() => 333 + (props.level || 0) * 92);
+
+// Load children when expanding.
+watchEffect(async () => {
+  if (expanded.value && !children.value) {
+    children.value = await getChildren(props.parent.name);
+  }
+});
+</script>
+
 <template>
   <div
-    class="mt-4 pl-4 pb-4 border-l-4 border-transparent"
-    :class="[level == 0 ? '-ml-2' : 'ml-8']"
+    class="mt-4 pb-4 border-l-4"
+    :class="{
+      'ml-6 pl-2 ': level && expanded,
+      'ml-8': level && !expanded,
+      '-ml-2 pl-2': !level && expanded,
+      'ml-0': !level && !expanded,
+    }"
     :style="{
-      borderColor: `hsl(${hue} 70% 80% / ${0 + expanded})`,
+      borderColor: `hsl(${hue} 70% 80% / ${expanded ? 1 : 0})`,
     }"
   >
     <div class="flex flex-wrap justify-between items-baseline gap-4">
@@ -36,7 +83,7 @@
           v-for="child in children"
           :key="child.name"
           :parent="child"
-          :level="level + 1"
+          :level="(level || 0) + 1"
           :expanded="false"
         />
       </div>
@@ -44,39 +91,5 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { computed, ref, watchEffect } from "@vue/runtime-core";
-import { useStore } from "vuex";
-import useTerms from "@/terms/terms.composable";
-import Term from "@/terms/Term.vue";
-
-const props = defineProps(["parent", "level", "expanded"]);
-const { state, commit } = useStore();
-const { getChildren } = useTerms();
-const children = ref(null);
-const expanded = ref(
-  props.expanded || state.termsExpanded.includes(props.parent.name)
-);
-
-const toggleExpanded = () => {
-  expanded.value = !expanded.value;
-  commit("toggleTermExpanded", {
-    name: props.parent.name,
-    expanded: expanded.value,
-  });
-};
-
-// 333° is the hue for Tailwind's pink-600
-// 92° is approximately ϕ radians, which gives suitable steps around the hue circle.
-const hue = computed(() => 333 + props.level * 92);
-
-// Load children when expanding.
-watchEffect(async () => {
-  if (expanded.value && !children.value) {
-    children.value = await getChildren(props.parent.name);
-  }
-});
-</script>
 
 <style></style>

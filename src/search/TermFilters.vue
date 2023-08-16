@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import useTerms from "@/terms/terms.composable";
 import CollectionsSmall from "@/terms/CollectionsSmall.vue";

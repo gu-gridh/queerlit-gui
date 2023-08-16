@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import { useToggle } from "@vueuse/shared";
+import type { GenreForm, Term as TermType } from "@/types/work";
 import useQuery from "@/search/query.composable";
 import useTerms from "@/terms/terms.composable";
 import {
@@ -52,12 +53,12 @@ function onInput() {
   toggleSuggestions(true);
 }
 
-function addTerm(term) {
+function addTerm(term: TermType) {
   terms.add(term);
   removeLastWord();
 }
 
-function setGenreform(genreform) {
+function setGenreform(genreform: GenreForm) {
   setQuery({ genreform });
   removeLastWord();
 }
@@ -126,7 +127,7 @@ watch(showHelp, () => {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item._label }}
+            {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
@@ -140,7 +141,7 @@ watch(showHelp, () => {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item._label }}
+            {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
@@ -154,7 +155,7 @@ watch(showHelp, () => {
           @select="addTerm"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item._label }}
+            {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>

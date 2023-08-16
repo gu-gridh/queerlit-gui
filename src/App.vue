@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
@@ -57,9 +57,10 @@ import ErrorMessage from "./ErrorMessage.vue";
 import SiteFooter from "./SiteFooter.vue";
 import useQuery from "./search/query.composable";
 import useSearch from "./search/search.composable";
+import { key } from "./store";
 
 const { is404 } = use404();
-const { state } = useStore();
+const { state } = useStore(key);
 const route = useRoute();
 const { resetQuery } = useQuery();
 const { doSearch } = useSearch();
@@ -75,10 +76,10 @@ function reset() {
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {
-  window.state = state;
-  window.libris = libris;
-  window.terms = terms;
-  window.util = util;
+  (window as any).state = state;
+  (window as any).libris = libris;
+  (window as any).terms = terms;
+  (window as any).util = util;
 }
 </script>
 

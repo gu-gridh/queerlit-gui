@@ -1,12 +1,11 @@
-<script setup>
-defineProps({
-  heading: {
-    type: String,
-    required: true,
-  },
-  expanded: Boolean,
-});
-defineEmits(["toggle"]);
+<script setup lang="ts">
+defineProps<{
+  heading: string;
+  expanded?: Boolean;
+}>();
+defineEmits<{
+  toggle: [];
+}>();
 </script>
 
 <template>

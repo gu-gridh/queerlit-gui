@@ -11,6 +11,22 @@ As this project is a user-facing application, the places in the semantic version
 - `MINOR` denotes changes that may affect the user experience _or_ the development workflow
 - `PATCH` denotes changes that are insignificant to the user experience or the develpment workflow
 
+## [Unreleased]
+
+## [2.0.0] (2023-08-16)
+
+### Added
+
+- Collection buttons in thesaurus view
+- A heading for the thesaurus view, indicating the view mode: tree, search or collection
+- Added Runsten as a Genre/Form for some local works, using a SHM URI since there is no Libris item for this.
+
+### Changed
+
+- Completely rewritten to TypeScript!
+- Simplified the term object used internally (e.g. `id` instead of `@id`)
+- Subject headings outside the QLIT, SAO and Barn concept schemes are hidden, as well as genre/form terms outside the SAOGF and BarnGF schemes
+
 ## [1.8.0] (2023-07-05)
 
 ### Added
@@ -154,7 +170,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v1.8.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.5.0...v1.6.0

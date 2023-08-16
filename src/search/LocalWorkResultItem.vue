@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import ResultItem from "./ResultItem.vue";
+import type { LocalWork } from "./localWorks.types";
+
+defineProps<{
+  work: LocalWork;
+  i: number;
+}>();
+</script>
+
 <template>
   <ResultItem
     :i="i"
@@ -5,19 +15,12 @@
     :title="work.title"
     :creators="work.creators"
     :date="work.date.label"
+    :genreform="work.genreform.map((gf) => gf.label)"
     :terms="work.terms"
+    :terms-secondary="[]"
     :summary="work.motivation"
     class="hover:bg-pink-100"
   />
 </template>
-
-<script setup>
-import ResultItem from "./ResultItem.vue";
-
-defineProps({
-  work: { type: Object, required: true },
-  i: { type: [Number, String], required: true },
-});
-</script>
 
 <style></style>

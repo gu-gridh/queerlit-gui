@@ -1,11 +1,24 @@
 import { enarray, unarray, urlBasename } from "@/util";
 import axios from "axios";
 import { getLabels } from "./terms.service";
+import type {
+  LibrisGenreForm,
+  Labeled,
+  LibrisFindParams,
+  LibrisId,
+  LibrisInstance,
+  LibrisItem,
+  LibrisPerson,
+  LibrisStats,
+  LibrisTerm,
+} from "./libris.types";
+import type { GenreForm, Term, WorkFromLibris } from "@/types/work";
+import type { URI } from "@/types/util";
+import type { QlitName } from "./qlit.types";
 
 // Labels are sometimes missing in the Libris response, so keep a local copy of all labels as fetched from the QLIT backend.
-const qlitLabels = {
-  // [name]: label
-};
+const qlitLabels: Readonly<Record<QlitName, string>> = {};
+
 /** Load QLIT term labels and cache them locally. */
 async function loadQlitLabels() {
   if (Object.keys(qlitLabels).length == 0) {
@@ -14,7 +27,21 @@ async function loadQlitLabels() {
 }
 const qlitLabelsPromise = loadQlitLabels();
 
-export async function search(options) {
+type SearchOptions = {
+  text: string;
+  terms: string[];
+  termsSecondary: string[];
+  hierarchical: boolean;
+  title: string;
+  author?: string;
+  yearStart?: number;
+  yearEnd?: number;
+  genreform?: string;
+  sort?: string;
+  offset: number | string;
+};
+
+export async function search(options: Partial<SearchOptions>) {
   const defaults = {
     text: "",
     terms: [],
@@ -37,7 +64,7 @@ export async function search(options) {
     genreform,
     sort,
     offset,
-  } = { ...defaults, ...options };
+  }: SearchOptions = { ...defaults, ...options };
 
   // "q" is the free text parameter
   const q = text || "*";
@@ -47,18 +74,15 @@ export async function search(options) {
   const subjectCondPrefix = hierarchical ? "and-matches-" : "and-";
 
   (terms || []).forEach((term) =>
-    params.append(subjectCondPrefix + "instanceOf.subject.@id", term["@id"])
+    params.append(subjectCondPrefix + "instanceOf.subject.@id", term)
   );
 
   (termsSecondary || []).forEach((term) =>
-    params.append(
-      subjectCondPrefix + "@reverse.itemOf.subject.@id",
-      term["@id"]
-    )
+    params.append(subjectCondPrefix + "@reverse.itemOf.subject.@id", term)
   );
 
   if (author) {
-    params.set("instanceOf.contribution.agent.@id", author["@id"]);
+    params.set("instanceOf.contribution.agent.@id", author);
   }
 
   if (title) {
@@ -66,25 +90,25 @@ export async function search(options) {
   }
 
   if (genreform) {
-    params.set("instanceOf.genreForm.@id", genreform.id);
+    params.set("instanceOf.genreForm.@id", genreform);
   }
 
   if (yearStart) {
     // Libris cannot handle a date value under 1000.
     // There are no such old titles in Libris anyway, so coercing to 1000 doesn't affect result.
-    params.set("min-publication.year", Math.max(yearStart, 1000));
+    params.set("min-publication.year", String(Math.max(yearStart, 1000)));
   }
 
   if (yearEnd) {
-    params.set("max-publication.year", Math.max(yearEnd, 1000));
+    params.set("max-publication.year", String(Math.max(yearEnd, 1000)));
   }
 
   params.set("@reverse.itemOf.heldBy.@id", "https://libris.kb.se/library/QLIT");
   if (sort) {
     params.set("_sort", sort);
   }
-  params.set("_offset", offset);
-  params.set("_limit", 20);
+  params.set("_offset", String(offset));
+  params.set("_limit", "20");
 
   const response = await xlFindBooks(params);
 
@@ -95,7 +119,7 @@ export async function search(options) {
   };
 }
 
-export async function get(id) {
+export async function get(id: LibrisId) {
   const fullId = `https://libris.kb.se/${id}#it`;
   const result = await xlFindBooks({ "@id": fullId });
   if (result.items.length != 1) {
@@ -106,22 +130,25 @@ export async function get(id) {
   // Get the Item record (QLIT's "copy" of the book)
   const itemShort = instance._item["@reverse"].itemOf.find(
     (i) => i.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
-  );
-  const item = await xlFind({ "@id": itemShort["@id"] }).then(
+  )!;
+  const item = await xlFind<LibrisItem>({ "@id": itemShort["@id"] }).then(
     (data) => data.items[0]
   );
   instance.motivation = unarray(unarray(item.summary)?.label);
   instance.termsSecondary =
-    item.subject?.map(processXlTerm).filter((term) => term._label) || [];
+    item.subject?.map(processTerm).filter((term) => term.label) || [];
   return instance;
 }
 
-export async function xlFindBooks(params) {
-  // The QLIT labels will be needed in processXlItem, so await them while sending the Libris request.
-  const [findResponse] = await Promise.all([xlFind(params), qlitLabelsPromise]);
+export async function xlFindBooks(params: LibrisFindParams) {
+  // The QLIT labels will be needed in processInstance, so await them while sending the Libris request.
+  const [findResponse] = await Promise.all([
+    xlFind<LibrisInstance>(params),
+    qlitLabelsPromise,
+  ]);
 
   const { items, totalItems, stats } = findResponse;
-  const processedItems = items.map(processXlItem);
+  const processedItems = items.map(processInstance);
   return { items: processedItems, totalItems, stats };
 }
 
@@ -129,28 +156,41 @@ export async function xlFindBooks(params) {
  * Query the /find API
  *
  * @see https://github.com/libris/librisxl/blob/develop/rest/API.md */
-export async function xlFind(params) {
+export async function xlFind<T = any>(
+  params: LibrisFindParams
+): Promise<{ items: T[]; totalItems: number; stats?: any }> {
   return axios
     .get("https://libris.kb.se/find", { params })
     .then((response) => response.data);
 }
 
-function processXlItem(item) {
-  const processed = { _item: item };
+function processInstance(item: LibrisInstance): WorkFromLibris {
+  const id = item["@id"].split("/").pop()!.split("#").shift()!;
+  const processed: Partial<WorkFromLibris> = { id, _item: item };
 
   if (item.meta.controlNumber)
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Find terms
-  processed.terms =
-    item.instanceOf?.subject
-      ?.map(processXlTerm)
-      .filter((term) => term._label) || [];
+  processed.terms = (item.instanceOf?.subject || [])
+    .map(processTerm)
+    .filter((term) => {
+      return term.label;
+    })
+    .filter(
+      (term) =>
+        conceptSchemes.includes(term.scheme || "") ||
+        conceptSchemes.some((c) => term.id?.indexOf(c) === 0)
+    );
 
   processed.genreform = (item.instanceOf?.genreForm || [])
-    .map(processXlTerm)
-    .filter((term) => term._label)
-    .filter((term) => term.inScheme?.["@id"] !== "https://id.kb.se/marc");
+    .map(processGenreform)
+    .filter((term) => term.label)
+    .filter(
+      (term) =>
+        conceptSchemes.includes(term.scheme || "") ||
+        conceptSchemes.some((c) => term.id?.indexOf(c) === 0)
+    );
 
   // Normalize some values.
   const hasTitle = item.hasTitle?.find((hasTitle) => hasTitle.mainTitle);
@@ -166,20 +206,18 @@ function processXlItem(item) {
   }
   processed.creators = item.instanceOf?.contribution
     ?.map((c) => ({
-      name: getPersonName(unarray(c.agent)),
-      lifeSpan: unarray(c.agent).lifeSpan,
+      name: (c.agent && getPersonName(unarray(c.agent))) || "",
+      lifeSpan: c.agent && unarray(c.agent).lifeSpan,
       roles: c.role && enarray(c.role).map(getLabel),
     }))
     .filter((c) => c.name);
   const publication = item.publication?.find((publication) => publication.year);
   processed.date = publication?.year;
-  processed.id = item["@id"].split("/").pop().split("#").shift();
   // The summary can be in the Instance or the Text record, and it can be one or multiple values.
-  processed.summary = (item.summary || item.instanceOf?.summary)?.[0].label;
-  processed.summary = unarray(processed.summary);
+  const summary = item.summary || item.instanceOf?.summary;
+  processed.summary = summary && unarray(unarray(summary).label);
   processed.languages = item.instanceOf?.language.map(getLabel);
   processed.contentType = item.instanceOf?.contentType?.map(getLabel);
-  processed.libraries = item["@reverse"]?.itemOf?.map((l) => l.heldBy["@id"]);
 
   processed.extent = item.extent?.map((e) => e.label).join(", ");
   processed.note = item.hasNote?.map((n) => n.label).join(", ");
@@ -196,7 +234,7 @@ function processXlItem(item) {
         ? { type: "DDC", code: c.code }
         : c.inScheme
         ? { type: c.inScheme.code?.replace("kssb", "SAB"), code: c.code }
-        : null
+        : null!
     )
     .filter(Boolean);
 
@@ -204,8 +242,8 @@ function processXlItem(item) {
     [
       getPersonName(p.agent),
       p.year,
-      getLabel(unarray(p.country)),
-      getPersonName(unarray(p.place)),
+      p.country && getLabel(unarray(p.country)),
+      p.place && getLabel(unarray(p.place)),
     ]
       .filter(Boolean)
       .join(", ")
@@ -214,142 +252,153 @@ function processXlItem(item) {
   processed.intendedAudience = item.instanceOf?.intendedAudience?.map(getLabel);
 
   // Get the Queerlit item post
-  const queerlitItem = item["@reverse"]?.itemOf?.find(
+  const queerlitItem = item["@reverse"].itemOf?.find(
     (l) => l.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
-  );
+  )!;
   processed.motivation = unarray(unarray(queerlitItem.summary)?.label);
 
   // For the subject terms nested here, Libris only gives the @id.
   // The QLIT terms are important enough that we will load labels from the QLIT backend.
   // However, other terms are filtered away here because we cannot show a suitable label.
   // TODO If any labels are filtered away here, we could indicate that with something like "More...".
-  processed.termsSecondary = queerlitItem.subject?.map(processXlTerm) || [];
+  processed.termsSecondary = queerlitItem.subject?.map(processTerm) || [];
 
-  return processed;
+  return processed as WorkFromLibris;
 }
 
-export async function searchPerson(nameQuery) {
+export async function searchPerson(nameQuery: string) {
   // Add wildcard at end of each word
-  const q = nameQuery.replaceAll(/\S+/g, "$&*");
-  const params = { "@type": "Person", q, _limit: 10 };
-  const data = await xlFind(params);
+  const q = nameQuery.replace(/\S+/g, "$&*");
+  const params = { "@type": "Person", q, _limit: "10" };
+  const data = await xlFind<LibrisPerson>(params);
   return data.items.filter((author) => author.givenName || author.familyName);
 }
 
-export async function searchConcept(conceptQuery, schemeIds = []) {
+export async function searchConcept(
+  conceptQuery: string,
+  schemeIds: string[] = []
+) {
   const q = conceptQuery + "*";
   const params = new URLSearchParams({
     "@type": "Concept",
     q,
-    _limit: 10,
+    _limit: "10",
   });
   // Filter by any of the given schemes
   if (schemeIds.length) {
     schemeIds.forEach((schemeId) => params.append("inScheme.@id", schemeId));
   }
   const data = await xlFind(params);
-  return data.items.map(processXlTerm).filter((term) => term._label);
+  return data.items.map(processTerm).filter((term) => term.label);
 }
 
-export async function searchConceptSao(conceptQuery) {
+export async function searchConceptSao(conceptQuery: string) {
   return await searchConcept(conceptQuery, [ConceptScheme.Sao]);
 }
 
-export async function searchConceptBarn(conceptQuery) {
+export async function searchConceptBarn(conceptQuery: string) {
   return await searchConcept(conceptQuery, [ConceptScheme.Barn]);
 }
 
-export async function searchConceptQlit(conceptQuery) {
+export async function searchConceptQlit(conceptQuery: string) {
   return await searchConcept(conceptQuery, [ConceptScheme.Qlit]);
 }
 
-export async function searchGenreform(query) {
+export async function searchGenreform(query: string): Promise<GenreForm[]> {
   // Add an asterisk after each word (`\S+` is any word, `$&` is that matched word)
-  const q = query.replaceAll(/\S+/g, "$&*");
+  const q = query.replace(/\S+/g, "$&*");
   const params = new URLSearchParams({
     "@type": "GenreForm",
     prefLabel: q,
-    _limit: 10,
+    _limit: "10",
   });
   params.append("inScheme.@id", ConceptScheme.BarnGf);
   params.append("inScheme.@id", ConceptScheme.SaoGf);
-  const data = await xlFind(params);
-  return data.items.map((item) => ({
-    id: item["@id"],
-    label: item.prefLabel,
-    scheme: item.inScheme.code,
-    _item: item,
-  }));
+  const data = await xlFind<LibrisGenreForm>(params);
+  return data.items.map(processGenreform);
 }
 
-function processXlTerm(term) {
+function processTerm<T extends LibrisTerm>(term: T): Term {
   const guess = term["@id"] ? termDataFromId(term["@id"]) : {};
-  const processed = { ...guess, ...term };
-  processed._label = getLabel(processed);
-  return processed;
+  const processed: Partial<Term> = { ...guess };
+  if (term.inScheme?.["@id"]) processed.scheme = term.inScheme["@id"];
+  processed.label = getLabel({ ...processed, ...term });
+  return processed as Term;
+}
+
+function processGenreform(genreform: LibrisGenreForm): GenreForm {
+  const { id, label, scheme } = processTerm(genreform);
+  const schemeCode = genreform.inScheme?.code;
+  return { id, label, scheme, schemeCode };
 }
 
 /** Guess scheme and label from the id uri. */
-function termDataFromId(id) {
-  const data = {};
+function termDataFromId(id: URI) {
+  const scheme = conceptSchemes.find((scheme) => id.indexOf(scheme) === 0);
 
-  const scheme = [
-    ConceptScheme.Qlit,
-    ConceptScheme.BarnGf,
-    ConceptScheme.Barn,
-    ConceptScheme.SaoGf,
-    ConceptScheme.Sao,
-  ].find((scheme) => id.indexOf(scheme) === 0);
-  if (scheme) data.inScheme = scheme;
+  const label =
+    scheme == ConceptScheme.Qlit
+      ? qlitLabels[urlBasename(id)]
+      : scheme
+      ? urlBasename(id)
+      : undefined;
 
-  if (scheme == ConceptScheme.Qlit) {
-    data.prefLabel = qlitLabels[urlBasename(id)];
-  } else if (scheme) {
-    data.prefLabel = decodeURIComponent(urlBasename(id));
-  }
-
-  return data;
+  return { id, scheme, label };
 }
 
 /** Build a string of the label of an object. */
-export function getLabel(object) {
-  if (!object) return undefined;
-  if (object["@type"] == "ComplexSubject")
-    return object.termComponentList.map(getLabel).filter(Boolean).join(" – ");
-  if (["Person", "Organization"].includes(object["@type"]))
-    return getPersonName(object);
-  if (object.prefLabelByLang) return object.prefLabelByLang.sv;
-  if (object.prefLabel) return object.prefLabel;
-  if (object.name) return object.name;
+export function getLabel(object: LibrisTerm | LibrisPerson | Labeled): string {
+  if (!object) return "";
+  if ("@type" in object) {
+    if (object["@type"] == "ComplexSubject")
+      return object.termComponentList.map(getLabel).filter(Boolean).join(" – ");
+    if (["Person", "Organization"].includes(object["@type"]!))
+      return getPersonName(object satisfies LibrisPerson) || "";
+  }
+  if ("prefLabelByLang" in object) return object.prefLabelByLang!.sv;
+  if ("prefLabel" in object) return object.prefLabel!;
+  if ("name" in object) return enarray(object.name!).join(", ");
+  if (object.label) return enarray(object.label).join(", ");
   // E.g. Légion étrangère https://libris.kb.se/hftx3pt10h7p7c3#it
-  if (object["marc:subordinateUnit"])
+  if ("marc:subordinateUnit" in object)
     return enarray(object["marc:subordinateUnit"]).join(" ");
+
   console.warn("No label found", object);
+  return "";
 }
 
-function getHistogram(stats) {
+function getHistogram(stats: LibrisStats) {
   if (!stats) return {};
-  /** @type {Array} */
   const obs = stats?.sliceByDimension?.["publication.year"]?.observation;
   if (!obs) {
     return {};
   }
   return obs.reduce((acc, ob) => {
-    const year = urlBasename(ob?.object?.label);
+    const year = urlBasename(ob.object.label);
     if (/^\d{4}$/.test(year)) {
       acc[year] = ob.totalItems;
     }
     return acc;
-  }, {});
+  }, {} as Record<string, number>);
 }
 
 /** Build a string of a person's name. */
-export function getPersonName(person) {
+export function getPersonName(person?: LibrisPerson) {
   // Sometimes the name is split in two, sometimes not.
-  return ["givenName", "familyName", "name", "label", "marc:numeration"]
-    .map((prop) => unarray(person?.[prop])?.trim())
-    .filter(Boolean)
-    .join(" ");
+  const props: (keyof LibrisPerson)[] = [
+    "givenName",
+    "familyName",
+    "name",
+    "label",
+    "marc:numeration",
+  ];
+  return (
+    person &&
+    props
+      .map((prop) => person[prop] && unarray(person[prop]!).trim())
+      .filter(Boolean)
+      .join(" ")
+  );
 }
 
 /** Constants for uris. */
@@ -370,3 +419,11 @@ export class ConceptScheme {
     return "https://id.kb.se/term/barngf";
   }
 }
+
+const conceptSchemes = [
+  ConceptScheme.Qlit,
+  ConceptScheme.BarnGf,
+  ConceptScheme.Barn,
+  ConceptScheme.SaoGf,
+  ConceptScheme.Sao,
+];

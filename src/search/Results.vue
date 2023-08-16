@@ -1,3 +1,39 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { key } from "@/store";
+import useTitle from "@/views/title.composable";
+import WorkResultItem from "./WorkResultItem.vue";
+import LocalWorkResultItem from "./LocalWorkResultItem.vue";
+import Pagination from "@/search/Pagination.vue";
+import useSearch from "./search.composable";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import FiltersBar from "./FiltersBar.vue";
+
+const store = useStore(key);
+const { doSearch } = useSearch();
+useTitle();
+
+const sort = computed(() => store.state.sort);
+const results = computed(() => store.state.results);
+const total = computed(
+  () => store.state.total + store.state.localResults.length
+);
+const offset = computed(() => store.state.offset);
+const isSearching = computed(() => store.getters.isSearching);
+const localResults = computed(() => store.state.localResults);
+
+function setPage(page: number) {
+  store.commit("setOffset", (page - 1) * 20);
+  doSearch({ retain: true });
+}
+
+function setSort(event: Event) {
+  store.commit("setSort", (event.target as HTMLSelectElement).value);
+  doSearch();
+}
+</script>
+
 <template>
   <div class="p-4">
     <LoadingSpinner v-if="isSearching" />
@@ -86,41 +122,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { computed } from "vue";
-import { useStore } from "vuex";
-import useTitle from "@/views/title.composable";
-import WorkResultItem from "./WorkResultItem.vue";
-import LocalWorkResultItem from "./LocalWorkResultItem.vue";
-import Pagination from "@/search/Pagination.vue";
-import useSearch from "./search.composable";
-import LoadingSpinner from "@/components/LoadingSpinner.vue";
-import FiltersBar from "./FiltersBar.vue";
-
-const store = useStore();
-const { doSearch } = useSearch();
-useTitle();
-
-const sort = computed(() => store.state.sort);
-const results = computed(() => store.state.results);
-const total = computed(
-  () => store.state.total + store.state.localResults.length
-);
-const offset = computed(() => store.state.offset);
-const isSearching = computed(() => store.getters.isSearching);
-const localResults = computed(() => store.state.localResults);
-
-function setPage(page) {
-  store.commit("setOffset", (page - 1) * 20);
-  doSearch({ retain: true });
-}
-
-function setSort(event) {
-  store.commit("setSort", event.target.value);
-  doSearch();
-}
-</script>
 
 <style>
 select {

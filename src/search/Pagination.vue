@@ -1,52 +1,47 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 
 // Parent component is responsible for updating :current on @change.
 // If :last is not int, make sure to ceil it.
-const props = defineProps({
-  current: {
-    type: Number,
-    required: true,
-  },
-  last: {
-    type: Number,
-    required: true,
-  },
-});
+const props = defineProps<{
+  current: number;
+  last: number;
+}>();
 
 const emit = defineEmits(["change"]);
 
 const value = ref(props.current);
 const isInputValid = ref(true);
 
-const isValidPage = (page) => page > 0 && page <= Math.ceil(props.last);
+const isValidPage = (page: number) => page > 0 && page <= Math.ceil(props.last);
 
-const goto = (page) =>
+const goto = (page: number) =>
   isValidPage(page)
     ? emit("change", page)
     : console.warn(`Pagination cannot goto ${page}`);
 
-function onInputChange(event) {
-  isInputValid.value = isValidPage(event.target.value);
+function onInputChange(event: Event) {
+  const target = event.target as HTMLInputElement;
+  isInputValid.value = isValidPage(parseInt(target.value));
   if (isInputValid.value) {
-    goto(event.target.value);
+    goto(parseInt(target.value));
   }
-  event.target.select();
+  target.select();
 }
 
-function onInputClick(event) {
-  event.target.select();
+function onInputClick(event: Event) {
+  (event.target as HTMLInputElement).select();
   isInputValid.value = true;
 }
 
-function onInputDown(event) {
+function onInputDown(event: Event) {
   goto(props.current - 1);
-  setTimeout(() => event.target.select());
+  setTimeout(() => (event.target as HTMLInputElement).select());
 }
 
-function onInputUp(event) {
+function onInputUp(event: Event) {
   goto(props.current + 1);
-  setTimeout(() => event.target.select());
+  setTimeout(() => (event.target as HTMLInputElement).select());
 }
 
 watch(

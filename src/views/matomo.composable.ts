@@ -11,9 +11,9 @@ export default function useMatomo() {
   const site = import.meta.env.VITE_MATOMO_ID;
   const enabled = host && site;
 
-  const send = (...args) => window._paq.push(args);
+  const send = (...args: string[]) => (window as any)._paq.push(args);
 
-  function trackPage(title) {
+  function trackPage(title: string) {
     if (!enabled) return;
     if (route.fullPath == lastPath.value) return;
 

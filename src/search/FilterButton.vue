@@ -1,12 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { computed, getCurrentInstance } from "vue";
 
-defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{
+  label: string;
+}>();
 
 defineEmits(["clear"]);
 

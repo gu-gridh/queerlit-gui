@@ -1,4 +1,19 @@
-const getInitialState = () => ({
+import type { LibrisPerson } from "@/services/libris.types";
+import type { GenreForm, Term } from "@/types/work";
+
+export type QueryState = {
+  text: string;
+  terms: Term[];
+  termsSecondary: Term[];
+  hierarchical: boolean;
+  title: string;
+  author: LibrisPerson | null;
+  yearStart: number | null;
+  yearEnd: number | null;
+  genreform: GenreForm | null;
+};
+
+export const getInitialState: () => QueryState = () => ({
   text: "",
   terms: [],
   termsSecondary: [],
@@ -14,7 +29,7 @@ export default {
   state: getInitialState(),
   mutations: {
     setQuery(
-      state,
+      state: QueryState,
       {
         text,
         terms,
@@ -25,7 +40,7 @@ export default {
         yearStart,
         yearEnd,
         genreform,
-      }
+      }: Partial<QueryState>
     ) {
       // Modify each value only if it is given.
       if (text !== undefined) state.text = text;
@@ -34,11 +49,11 @@ export default {
       if (hierarchical !== undefined) state.hierarchical = !!hierarchical;
       if (title !== undefined) state.title = title;
       if (author !== undefined) state.author = author;
-      if (yearStart !== undefined) state.yearStart = parseInt(yearStart);
-      if (yearEnd !== undefined) state.yearEnd = parseInt(yearEnd);
+      if (yearStart !== undefined) state.yearStart = yearStart;
+      if (yearEnd !== undefined) state.yearEnd = yearEnd;
       if (genreform !== undefined) state.genreform = genreform;
     },
-    resetQuery(state) {
+    resetQuery(state: QueryState) {
       Object.assign(state, getInitialState());
     },
   },
