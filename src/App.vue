@@ -58,29 +58,6 @@ import SiteFooter from "./SiteFooter.vue";
 import useQuery from "./search/query.composable";
 import useSearch from "./search/search.composable";
 import { key } from "./store";
-import recent1 from "@/testdata/recent1";
-import recent from "@/testdata/recent.json";
-import recent100 from "@/testdata/recent100.json";
-import type { Instance } from "./services/libris.types";
-
-type DeepReadonly<T> = T extends (infer R)[]
-  ? DeepReadonlyArray<R>
-  : T extends Function
-  ? T
-  : T extends object
-  ? DeepReadonlyObject<T>
-  : T;
-
-interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
-
-type DeepReadonlyObject<T> = {
-  readonly [P in keyof T]: DeepReadonly<T[P]>;
-};
-
-const recent1T: DeepReadonly<Instance> = recent1;
-const recentT: DeepReadonly<Instance[]> = recent;
-const recent100T: DeepReadonly<Instance[]> = recent100;
-console.log(recent1T, recentT, recent100T);
 
 const { is404 } = use404();
 const { state } = useStore(key);
