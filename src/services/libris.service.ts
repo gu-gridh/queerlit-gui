@@ -261,8 +261,8 @@ export async function searchPerson(nameQuery: string) {
   // Add wildcard at end of each word
   const q = nameQuery.replace(/\S+/g, "$&*");
   const params = { "@type": "Person", q, _limit: "10" };
-  const data = await xlFind<L.Person>(params);
-  return data.items.filter((author) => author.givenName || author.familyName);
+  const data = await xlFind<L.Person & L.HasId>(params);
+  return data.items;
 }
 
 export async function searchConcept(
