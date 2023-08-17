@@ -233,7 +233,7 @@ export type Manufacture = {
 export type Publication = {
   "@type": "PrimaryPublication" | "Publication";
   year: string;
-  country?: Country;
+  country?: MaybeArray<Country>;
   place?: MaybeArray<Labels>;
   agent?: Agent;
   date?: MaybeArray<string>;

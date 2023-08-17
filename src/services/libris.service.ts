@@ -233,8 +233,8 @@ function processInstance(item: L.Instance): WorkFromLibris {
     [
       p.agent && getLabel(p.agent),
       p.year,
-      p.country && getLabel(p.country),
       p.place && getLabel(unarray(p.place)),
+      p.country && getLabel(unarray(p.country)),
     ]
       .filter(Boolean)
       .join(", ")
@@ -372,6 +372,7 @@ export function getLabel(
   if ("label" in object) return enarray(object.label).join(", ");
 
   console.warn("No label found", object);
+  debugger;
   return "";
 }
 
