@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Improved TS typings for the Libris API.
+
 ## [2.0.0] (2023-08-16)
 
 ### Added
