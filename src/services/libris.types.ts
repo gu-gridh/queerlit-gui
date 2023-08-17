@@ -30,7 +30,7 @@ type Item = {
   "@id": string;
   itemOf: HasId;
   heldBy: BibliographyLibrary;
-  subject?: ItemSubject[];
+  subject?: Subject[];
   summary?: Labels[];
 };
 
@@ -40,48 +40,14 @@ type BibliographyLibrary = {
 };
 
 type HasId = {
-  "@id": string;
+  "@id": URI;
 };
-
-type ItemSubject = {
-  "@id"?: URI;
-  "@type"?: string;
-  label?: string;
-  prefLabel?: string;
-};
-
-type SubjectType =
-  | "Topic"
-  | "ComplexSubject"
-  | "Geographic"
-  | "Temporal"
-  | "Person";
 
 type Labels = {
-  "@type": string;
-  label: string[];
+  // TODO Document what @types can occur
+  // Seen @types: Place
+  label: MaybeArray<string>;
 };
-
-type CarrierType = {
-  "@id": string;
-  "@type": CarrierTypeType;
-  prefLabelByLang: ByLang;
-  label?: string[] | string;
-  code?: CarrierTypeCode;
-  inScheme?: HasId;
-};
-
-type CarrierTypeType =
-  | "CarrierType"
-  | "ContentType"
-  | "Role"
-  | "marc:BooksIllustrationsType"
-  | "marc:AudienceType"
-  | "Language"
-  | "MediaType"
-  | "marc:CatFormType";
-
-type CarrierTypeCode = "ill" | "aut" | "a" | "j" | "swe";
 
 type ByLang = {
   en?: string;
@@ -99,42 +65,42 @@ type Identifier = IdentifierISBN | IdentifierOther;
 type IdentifierISBN = {
   "@type": "ISBN";
   value: string;
+  qualifier?: MaybeArray<string>; // e.g. "inb.", "danskt band"
 };
 
 type IdentifierOther = {
-  "@type": string;
+  "@type": "Identifier";
   value: string;
-  qualifier?: string[];
+  typeNote?: string;
 };
 
 type Text = {
   "@type": "Text";
   contribution: Contribution[];
-  language: CarrierType[];
+  language: Language[];
   genreForm: GenreFormAny[];
-  classification: Classification[];
-  subject: TextSubject[];
-  intendedAudience?: CarrierType[];
-  contentType?: CarrierType[];
-  illustrativeContent?: CarrierType;
+  classification: ClassificationAny[];
+  subject: Subject[];
+  intendedAudience?: AudienceType[];
+  contentType?: ContentType[];
+  illustrativeContent?: IllustrationsType;
 };
 
-type Classification = {
-  "@type": ClassificationType;
-  inScheme?: ClassificationInScheme;
-  code: string;
-};
+type ClassificationAny = Classification | ClassificationDdc;
 
 type ClassificationDdc = {
   "@type": "ClassificationDdc";
   code?: string;
 };
 
-type ClassificationType = "Classification" | "ClassificationDdc";
+type Classification = {
+  "@type": "Classification";
+  inScheme?: ConceptScheme;
+};
 
-type ClassificationInScheme = {
+type ConceptScheme = {
   "@type": "ConceptScheme";
-  code: "kssb";
+  code: string;
 };
 
 type Contribution = {
@@ -143,14 +109,14 @@ type Contribution = {
   role: MaybeArray<Role>;
 };
 
-type Agent = AgentOrganization | AgentPerson;
+type Agent = Organization | Person;
 
-type AgentOrganization = {
+type Organization = {
   "@type": "Organization";
   name: string;
 };
 
-type AgentPerson = {
+type Person = {
   "@id"?: string;
   "@type": "Person";
   familyName: string;
@@ -164,7 +130,14 @@ type Role = {
   code: string;
 };
 
-type GenreFormAny = GenreForm | MarcGenreForm;
+type Language = {
+  "@type": "Language";
+  "@id": URI;
+  prefLabelByLang: ByLang;
+  code: string;
+};
+
+type GenreFormAny = GenreForm | GenreFormMarc;
 
 type GenreForm = {
   "@id"?: string;
@@ -179,73 +152,86 @@ type GenreFormMarc = {
   code: string;
 };
 
-type TextSubject = {
-  "@id"?: string;
-  "@type": SubjectType;
-  prefLabel?: string;
-  inScheme?: SubjectInScheme;
-  termComponentList?: TermComponentList[];
-  familyName?: string;
-  givenName?: string;
-  "marc:titlesAndOtherWordsAssociatedWithAName"?: string;
-  lifeSpan?: string;
-};
+type Subject = Person | Topic | Temporal | ComplexSubject;
 
-type SubjectInScheme = {
-  "@id": string;
-  "@type"?: CountryType;
-  titleByLang?: ByLang;
-  code?: FluffyCode;
-  title?: string;
-};
-
-type CountryType = "TopicScheme" | "Country";
-
-type FluffyCode = "barn" | "ncjt" | "sao";
-
-type TermComponentList = {
-  "@type": TermComponentListType;
+type Topic = {
+  "@type": "Topic";
   prefLabel: string;
+};
+
+type Temporal = {
+  "@type": "Temporal";
+  prefLabel: string;
+  inScheme: HasId | TopicScheme;
+};
+
+type TopicScheme = {
+  "@id": URI;
+  "@type": "TopicScheme";
+  titleByLang: ByLang;
+  code: string;
+};
+
+type ComplexSubject = {
+  "@type": "ComplexSubject";
+  prefLabel?: string;
+  inScheme: HasId | TopicScheme;
+  termComponentList: TermComponent[];
+};
+
+type TermComponent = Topic | Person | TermComponentOther;
+
+type TermComponentOther = {
+  // Seen @types: GenreSubdivision, Geographic, GeographicSubdivision, Person, TemporalSubdivision, Topic, TopicSubdivision
+  prefLabel?: string;
   "@id"?: string;
-  inScheme?: Country;
+  inScheme?: TopicScheme;
 };
 
-type TermComponentListType =
-  | "Geographic"
-  | "GeographicSubdivision"
-  | "Topic"
-  | "TopicSubdivision";
-
-type Country = {
-  "@id": string;
-  "@type": CountryType;
-  titleByLang?: TitleByLang;
-  code: CountryCode;
-  prefLabelByLang?: ByLang;
+type AudienceType = {
+  "@type": "marc:AudienceType";
+  prefLabelByLang: ByLang;
+  inScheme: HasId;
+  code: string;
 };
 
-type CountryCode = "sao" | "sw";
+type ContentType = {
+  "@type": "ContentType";
+  "@id": URI;
+  label: string;
+  prefLabelByLang: ByLang;
+};
 
-type TitleByLang = {
-  sv: string;
+type IllustrationsType = {
+  "@type": "marc:BooksIllustrationsType";
+  "@id": URI;
+  prefLabelByLang: ByLang;
+  code: string;
 };
 
 type Manufacture = {
-  "@type": ManufactureType;
-  place?: Labels[];
+  "@type": "Manufacture";
   agent?: Labels;
+  date?: MaybeArray<string>; // TODO check
+  place?: MaybeArray<Labels>;
+  year?: string;
 };
 
-type ManufactureType = "Manufacture" | "Publication";
-
 type Publication = {
-  "@type": "PrimaryPublication";
-  country: Country;
-  place?: Labels[];
-  agent?: Labels;
+  "@type": "PrimaryPublication" | "Publication";
   year: string;
-  date?: string;
-  hasPart?: Manufacture[];
+  country?: Country;
+  place?: MaybeArray<Labels>;
+  agent?: Labels;
+  date?: MaybeArray<string>;
+  hasPart?: Publication[];
+};
+
+type Country = {
+  "@id": URI;
+  "@type": "Country";
+  code: string;
+  prefLabelByLang: ByLang;
 };
 
 type SeriesMembership = {
