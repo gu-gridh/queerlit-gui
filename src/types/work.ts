@@ -1,4 +1,4 @@
-import type { LibrisInstance } from "@/services/libris.types";
+import type * as L from "@/services/libris.types";
 import type { URI } from "@/types/util";
 
 export type Work = {
@@ -27,7 +27,7 @@ export type Work = {
 };
 
 export type WorkFromLibris = Work & {
-  _item: LibrisInstance;
+  _item: L.Instance;
   librisUrl: string;
 };
 

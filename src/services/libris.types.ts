@@ -1,8 +1,14 @@
 import type { MaybeArray, URI } from "@/types/util";
 
-export type LibrisFindParams = Record<string, string> | URLSearchParams;
+export type FindParams = Record<string, string> | URLSearchParams;
+
+export type Id = string;
 
 // Generated with help from https://quicktype.io/typescript
+
+export type HasId = {
+  "@id": URI;
+};
 
 export type Instance = {
   "@type": "Instance" | "Print";
@@ -23,9 +29,10 @@ export type Instance = {
   seriesMembership?: SeriesMembership[];
   editionStatement?: string;
   summary?: Labels[];
+  meta: InstanceMeta;
 };
 
-type Item = {
+export type Item = {
   "@type": "Item";
   "@id": string;
   itemOf: HasId;
@@ -34,47 +41,50 @@ type Item = {
   summary?: Labels[];
 };
 
-type BibliographyLibrary = {
+export type BibliographyLibrary = {
   "@id": string;
   sigel?: string;
 };
 
-type HasId = {
-  "@id": URI;
-};
-
-type Labels = {
+export type Labels = {
   // TODO Document what @types can occur
-  // Seen @types: Place
+  // Seen @types: Place, Agent
   label: MaybeArray<string>;
 };
 
-type ByLang = {
+export type ByLang = {
   en?: string;
   sv?: string;
 };
 
-type Title = {
+export type Title = {
   "@type": "Title";
   mainTitle: string;
   subtitle?: string;
+  hasPart?: TitlePart[];
 };
 
-type Identifier = IdentifierISBN | IdentifierOther;
+export type TitlePart = {
+  "@type": "TitlePart";
+  partNumber: string[];
+  partName: string[];
+};
 
-type IdentifierISBN = {
+export type Identifier = IdentifierISBN | IdentifierOther;
+
+export type IdentifierISBN = {
   "@type": "ISBN";
   value: string;
   qualifier?: MaybeArray<string>; // e.g. "inb.", "danskt band"
 };
 
-type IdentifierOther = {
+export type IdentifierOther = {
   "@type": "Identifier";
   value: string;
   typeNote?: string;
 };
 
-type Text = {
+export type Text = {
   "@type": "Text";
   contribution: Contribution[];
   language: Language[];
@@ -86,156 +96,180 @@ type Text = {
   illustrativeContent?: IllustrationsType;
 };
 
-type ClassificationAny = Classification | ClassificationDdc;
+export type ClassificationAny = Classification | ClassificationDdc;
 
-type ClassificationDdc = {
+export type ClassificationDdc = {
   "@type": "ClassificationDdc";
   code?: string;
 };
 
-type Classification = {
+export type Classification = {
   "@type": "Classification";
   inScheme?: ConceptScheme;
+  code?: string;
 };
 
-type ConceptScheme = {
+export type ConceptScheme = {
   "@type": "ConceptScheme";
   code: string;
 };
 
-type Contribution = {
+export type Contribution = {
   "@type": "PrimaryContribution" | "Contribution";
-  agent: Agent;
+  agent: Organization | Person;
   role: MaybeArray<Role>;
 };
 
-type Agent = Organization | Person;
-
-type Organization = {
+export type Organization = {
   "@type": "Organization";
   name: string;
 };
 
-type Person = {
+export type Person = {
   "@id"?: string;
   "@type": "Person";
-  familyName: string;
-  givenName: string;
-  lifeSpan: string;
+  familyName?: string;
+  givenName?: string;
+  lifeSpan?: string;
+  name?: string;
 };
 
-type Role = {
+export type Role = {
   "@id"?: URI;
   prefLabelByLang?: ByLang;
   code: string;
 };
 
-type Language = {
+export type Language = {
   "@type": "Language";
   "@id": URI;
   prefLabelByLang: ByLang;
   code: string;
 };
 
-type GenreFormAny = GenreForm | GenreFormMarc;
+export type GenreFormAny = GenreForm | GenreFormMarc;
 
-type GenreForm = {
+export type GenreForm = {
   "@id"?: string;
   "@type": "GenreForm";
   prefLabel: string;
-  inScheme?: HasId;
+  inScheme?: HasId | TopicScheme;
 };
 
-type GenreFormMarc = {
+export type GenreFormMarc = {
   "@type": `marc:${string}` | `marc:${string}`[];
   prefLabelByLang: ByLang;
   code: string;
 };
 
-type Subject = Person | Topic | Temporal | ComplexSubject;
+export type Subject = Person | Topic | Temporal | ComplexSubject;
 
-type Topic = {
+export type Topic = {
   "@type": "Topic";
   prefLabel: string;
+  inScheme: HasId | TopicScheme;
 };
 
-type Temporal = {
+export type Temporal = {
   "@type": "Temporal";
   prefLabel: string;
   inScheme: HasId | TopicScheme;
 };
 
-type TopicScheme = {
+export type TopicScheme = {
   "@id": URI;
   "@type": "TopicScheme";
   titleByLang: ByLang;
   code: string;
 };
 
-type ComplexSubject = {
+export type ComplexSubject = {
   "@type": "ComplexSubject";
   prefLabel?: string;
   inScheme: HasId | TopicScheme;
   termComponentList: TermComponent[];
 };
 
-type TermComponent = Topic | Person | TermComponentOther;
+export type TermComponent = Topic | Person | TermComponentOther;
 
-type TermComponentOther = {
+export type TermComponentOther = {
   // Seen @types: GenreSubdivision, Geographic, GeographicSubdivision, Person, TemporalSubdivision, Topic, TopicSubdivision
   prefLabel?: string;
   "@id"?: string;
   inScheme?: TopicScheme;
 };
 
-type AudienceType = {
+export type Concept = GenreFormAny | Subject;
+
+export type AudienceType = {
   "@type": "marc:AudienceType";
   prefLabelByLang: ByLang;
   inScheme: HasId;
   code: string;
 };
 
-type ContentType = {
+export type ContentType = {
   "@type": "ContentType";
   "@id": URI;
   label: string;
   prefLabelByLang: ByLang;
 };
 
-type IllustrationsType = {
+export type IllustrationsType = {
   "@type": "marc:BooksIllustrationsType";
   "@id": URI;
   prefLabelByLang: ByLang;
   code: string;
 };
 
-type Manufacture = {
+export type Manufacture = {
   "@type": "Manufacture";
-  agent?: Labels;
+  agent?: Agent;
   date?: MaybeArray<string>; // TODO check
   place?: MaybeArray<Labels>;
   year?: string;
 };
 
-type Publication = {
+export type Publication = {
   "@type": "PrimaryPublication" | "Publication";
   year: string;
   country?: Country;
   place?: MaybeArray<Labels>;
-  agent?: Labels;
+  agent?: Agent;
   date?: MaybeArray<string>;
   hasPart?: Publication[];
 };
 
-type Country = {
+export type Agent = Labels & {
+  "@type": "Agent";
+};
+
+export type Country = {
   "@id": URI;
   "@type": "Country";
   code: string;
   prefLabelByLang: ByLang;
 };
 
-type SeriesMembership = {
+export type SeriesMembership = {
   "@type": "SeriesMembership";
   seriesStatement: string[];
   seriesEnumeration?: string;
+};
+
+type InstanceMeta = {
+  controlNumber: string;
+};
+
+export type Stats = {
+  sliceByDimension?: Record<string, StatsSlice>;
+};
+
+export type StatsSlice = {
+  observation: StatsObservation[];
+};
+
+export type StatsObservation = {
+  object: { label: string };
+  totalItems: number;
 };
