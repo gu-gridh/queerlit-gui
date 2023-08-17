@@ -10,7 +10,7 @@
     <div class="flex flex-wrap my-4 gap-y-2">
       <Labeled label="Författare" class="w-full sm:w-1/2 pr-4">
         <div v-for="(creator, i) in work.creators" :key="i" class="mr-4">
-          <template v-if="creator.roles">
+          <template v-if="creator.roles?.length">
             {{ creator.roles.join(", ") }}:
           </template>
           {{ creator.name }}

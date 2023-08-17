@@ -198,7 +198,7 @@ function processInstance(item: L.Instance): WorkFromLibris {
     ?.map((c) => ({
       name: getLabel(c.agent) || "",
       lifeSpan: "lifeSpan" in c.agent ? c.agent.lifeSpan : undefined,
-      roles: c.role && enarray(c.role).map(getLabel),
+      roles: c.role && enarray(c.role).map(getLabel).filter(Boolean),
     }))
     .filter((c) => c.name);
   const primaryPublication =
