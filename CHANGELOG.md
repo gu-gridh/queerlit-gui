@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Re-added Person/Organization subject headings
+
 ### Changed
 
 - Improved TS typings for the Libris API.

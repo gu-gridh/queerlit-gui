@@ -162,16 +162,15 @@ function processInstance(item: L.Instance): WorkFromLibris {
     processed.librisUrl = `https://libris.kb.se/bib/${item.meta.controlNumber}`;
 
   // Find terms
-  processed.terms = (item.instanceOf?.subject || [])
-    .map(processTerm)
-    .filter((term) => {
-      return term.label;
-    })
-    .filter(
-      (term) =>
-        conceptSchemes.includes(term.scheme || "") ||
-        conceptSchemes.some((c) => term.id?.indexOf(c) === 0)
-    );
+  processed.terms = [];
+  for (const term of item.instanceOf?.subject || []) {
+    const processedTerm = processTerm(term);
+    // Allow terms from known schemes, plus Person/Organization terms
+    const isKnownScheme = conceptSchemes.includes(processedTerm.scheme || "");
+    const isName = ["Person", "Organization"].includes(term["@type"]);
+    if (processedTerm.label && (isKnownScheme || isName))
+      processed.terms.push(processedTerm);
+  }
 
   processed.genreform = (item.instanceOf?.genreForm || [])
     .map(processGenreform)
@@ -314,6 +313,12 @@ function processTerm(term: L.Concept): Term {
   const processed: Partial<Term> = { ...guess };
   if ("inScheme" in term && term.inScheme?.["@id"]) {
     processed.scheme = term.inScheme["@id"];
+  } else if ("@id" in term) {
+    // Deduce scheme uri from term uri
+    const scheme = conceptSchemes.find(
+      (schemeUri) => (term["@id"] || "").indexOf(schemeUri) === 0
+    );
+    if (scheme) processed.scheme = scheme;
   }
   processed.label = getLabel({ ...processed, ...term });
   return processed as Term;
