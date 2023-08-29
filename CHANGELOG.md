@@ -20,6 +20,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Changed
 
 - Improved TS typings for the Libris API.
+- Using renamed QLIT server routes "search", "broader" and "narrower"
 
 ## [2.0.0] (2023-08-16)
 
