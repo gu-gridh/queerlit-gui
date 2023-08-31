@@ -2,7 +2,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import { key } from "@/store";
 import { getInitialState, type QueryState } from "./query.store";
-import type { LibrisPerson } from "@/services/libris.types";
+import type { Person } from "@/services/libris.types";
 import type { GenreForm } from "@/types/work";
 
 export default function useQuery() {
@@ -60,8 +60,8 @@ export default function useQuery() {
       !genreform.value
   );
 
-  const getPersonLabel = (item: LibrisPerson) =>
-    `${item.givenName} ${item.familyName}` +
+  const getPersonLabel = (item: Person) =>
+    [item.givenName, item.familyName, item.name].filter(Boolean).join(" ") +
     (item.lifeSpan ? ` (${item.lifeSpan})` : "");
 
   const getGenreformLabel = (item: GenreForm) =>

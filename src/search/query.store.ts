@@ -1,4 +1,4 @@
-import type { LibrisPerson } from "@/services/libris.types";
+import type { HasId, Person } from "@/services/libris.types";
 import type { GenreForm, Term } from "@/types/work";
 
 export type QueryState = {
@@ -7,7 +7,7 @@ export type QueryState = {
   termsSecondary: Term[];
   hierarchical: boolean;
   title: string;
-  author: LibrisPerson | null;
+  author: (Person & HasId) | null;
   yearStart: number | null;
   yearEnd: number | null;
   genreform: GenreForm | null;

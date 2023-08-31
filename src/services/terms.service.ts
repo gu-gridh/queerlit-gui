@@ -31,12 +31,12 @@ export async function getTerm(name: QlitName) {
   return processTerm(data);
 }
 
-export async function getParents(child: QlitName) {
-  return qlitList("parents", { child });
+export async function getParents(narrower: QlitName) {
+  return qlitList("broader", { narrower });
 }
 
-export async function getChildren(parent: QlitName) {
-  return qlitList("children", { parent });
+export async function getChildren(broader: QlitName) {
+  return qlitList("narrower", { broader });
 }
 
 export async function getRelated(other: QlitName) {
@@ -47,9 +47,8 @@ export async function getRoots() {
   return qlitList("roots");
 }
 
-// TODO: Re-use Libris Concept search instead.
 export async function searchTerms(s: string) {
-  return qlitList("autocomplete", { s });
+  return qlitList("search", { s });
 }
 
 export async function getCollections(): Promise<QlitCollection[]> {

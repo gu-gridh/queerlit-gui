@@ -64,7 +64,7 @@
               :value="author || undefined"
               :suggest="searchPerson"
               :get-label="getPersonLabel"
-              :get-id="(item: LibrisPerson) => item['@id']"
+              :get-id="(item) => item['@id']"
               input-id="author"
               help="Alla författare som listas finns inte representerade i Queerlit"
               @change="setAuthor"
@@ -106,7 +106,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useToggle } from "@vueuse/core";
-import type { LibrisPerson } from "@/services/libris.types";
+import type { HasId, Person } from "@/services/libris.types";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
 import useQuery from "./query.composable";
 import Freetext from "./Freetext.vue";
@@ -148,7 +148,7 @@ function setTitle(event: Event) {
   setQuery({ title: (event.target as HTMLInputElement).value });
 }
 
-function setAuthor(author: LibrisPerson) {
+function setAuthor(author: Person & HasId) {
   setQuery({ author });
 }
 
