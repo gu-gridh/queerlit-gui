@@ -13,6 +13,8 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [2.1.0]
+
 ### Added
 
 - Re-added Person/Organization subject headings
@@ -179,7 +181,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.0...HEAD
+[2.0.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...v1.7.0
