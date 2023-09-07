@@ -65,7 +65,6 @@
           :key="term.id"
           class="px-2 pb-2 flex items-baseline"
         >
-          {{ term.id }}
           <TermButton :data="term" class="cursor-pointer" @click="add(term)">
             {{ term.label }}
             <icon icon="plus" size="xs" class="ml-1" />
