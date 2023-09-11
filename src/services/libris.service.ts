@@ -194,11 +194,14 @@ function processInstance(item: L.Instance): WorkFromLibris {
     }
   }
   processed.creators = item.instanceOf?.contribution
-    ?.map((c) => ({
-      name: getLabel(c.agent) || "",
-      lifeSpan: "lifeSpan" in c.agent ? c.agent.lifeSpan : undefined,
-      roles: c.role && enarray(c.role).map(getLabel).filter(Boolean),
-    }))
+    ?.map((c) => {
+      const agent = unarray(c.agent);
+      return {
+        name: getLabel(agent) || "",
+        lifeSpan: "lifeSpan" in agent ? agent.lifeSpan : undefined,
+        roles: c.role && enarray(c.role).map(getLabel).filter(Boolean),
+      };
+    })
     .filter((c) => c.name);
   const primaryPublication =
     item.publication.find((p) => p["@type"] == "PrimaryPublication") ||
@@ -377,7 +380,6 @@ export function getLabel(
   if ("label" in object) return enarray(object.label).join(", ");
 
   console.warn("No label found", object);
-  debugger;
   return "";
 }
 

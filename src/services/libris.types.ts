@@ -116,7 +116,7 @@ export type ConceptScheme = {
 
 export type Contribution = {
   "@type": "PrimaryContribution" | "Contribution";
-  agent: Organization | Person;
+  agent: MaybeArray<Organization | Person>;
   role: MaybeArray<Role>;
 };
 
