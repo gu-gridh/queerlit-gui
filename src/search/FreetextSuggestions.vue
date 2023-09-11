@@ -36,7 +36,7 @@ function checkScrollPosition() {
 // If the suggestion list is short, the scrolled-to-end flag should be true.
 watch(
   () => props.items,
-  () => setTimeout(checkScrollPosition)
+  () => setTimeout(checkScrollPosition),
 );
 </script>
 

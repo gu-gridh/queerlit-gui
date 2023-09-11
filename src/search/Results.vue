@@ -17,7 +17,7 @@ useTitle();
 const sort = computed(() => store.state.sort);
 const results = computed(() => store.state.results);
 const total = computed(
-  () => store.state.total + store.state.localResults.length
+  () => store.state.total + store.state.localResults.length,
 );
 const offset = computed(() => store.state.offset);
 const isSearching = computed(() => store.getters.isSearching);

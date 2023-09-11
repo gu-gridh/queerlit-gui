@@ -66,7 +66,7 @@ const { resetQuery } = useQuery();
 const { doSearch } = useSearch();
 
 const isTitlesRoute = computed(() =>
-  /^\/(work|special)\//.test(route.fullPath)
+  /^\/(work|special)\//.test(route.fullPath),
 );
 
 function reset() {

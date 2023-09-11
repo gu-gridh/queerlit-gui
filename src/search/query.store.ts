@@ -40,7 +40,7 @@ export default {
         yearStart,
         yearEnd,
         genreform,
-      }: Partial<QueryState>
+      }: Partial<QueryState>,
     ) {
       // Modify each value only if it is given.
       if (text !== undefined) state.text = text;

@@ -85,9 +85,9 @@
       <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
         <ValueList
           :values="
-            work.classification?.map((c) =>
-              c.type ? `${c.type}: ${c.code}` : c.code!
-            ).filter(Boolean)
+            work.classification
+              ?.map((c) => (c.type ? `${c.type}: ${c.code}` : c.code!))
+              .filter(Boolean)
           "
         />
       </Labeled>

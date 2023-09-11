@@ -34,11 +34,11 @@ const bars = computed(() =>
       const bin = acc.find((bar2) => bar2.year == year);
       bin ? (bin.n += bar.n) : acc.push({ year, n: bar.n });
       return acc;
-    }, [] as Bar[])
+    }, [] as Bar[]),
 );
 
 const maxHeight = computed(() =>
-  Math.max(...bars.value.map((bar) => bar.n || 0))
+  Math.max(...bars.value.map((bar) => bar.n || 0)),
 );
 
 function getBarHeight(n: number) {

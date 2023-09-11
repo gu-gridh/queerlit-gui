@@ -13,7 +13,7 @@ const QLIT_BASE =
 /** Get a single term. */
 async function qlitGet<T = any>(
   endpoint: string,
-  params?: Record<string, any>
+  params?: Record<string, any>,
 ): Promise<T> {
   const response = await axios.get(QLIT_BASE + endpoint, { params });
   return response.data;
