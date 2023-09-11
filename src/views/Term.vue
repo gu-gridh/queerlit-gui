@@ -9,11 +9,13 @@ import { useRoute } from "vue-router";
 import ExternalTermList from "@/terms/ExternalTermList.vue";
 import QButton from "@/components/QButton.vue";
 import type { QlitTerm } from "@/services/qlit.types";
+import useHistory from "./history.composable";
 
 const route = useRoute();
 const { getParents, getChildren, getRelated, getTerm, searchByTerm } =
   useTerms();
 const { flag404 } = use404();
+const { prev } = useHistory();
 
 const term = ref<QlitTerm>();
 const parents = ref<QlitTerm[]>([]);
@@ -41,7 +43,11 @@ watchEffect(async () => {
 
 <template>
   <div class="p-6">
-    <router-link to="/subjects">
+    <router-link v-if="prev" :to="prev">
+      <icon icon="arrow-left" size="xs" class="mr-1" />
+      Gå tillbaka
+    </router-link>
+    <router-link v-else to="/subjects">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Tillbaka till ämnen
     </router-link>

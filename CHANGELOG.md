@@ -18,6 +18,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Fixed
 
 - Remove stray term id printout in TermCombobox
+- The back link from a term page now leads to last page if any, otherwise to the thesaurus page
 
 ## [2.1.0] (2023-08-31)
 
