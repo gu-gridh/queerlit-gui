@@ -59,6 +59,7 @@ import SiteFooter from "./SiteFooter.vue";
 import useQuery from "./search/query.composable";
 import useSearch from "./search/search.composable";
 import { key } from "./store";
+import useParamsSearch from "./search/paramsSearch.composable";
 
 const { activateHistory } = useHistory();
 const { is404 } = use404();
@@ -66,6 +67,7 @@ const { state } = useStore(key);
 const route = useRoute();
 const { resetQuery } = useQuery();
 const { doSearch } = useSearch();
+useParamsSearch();
 
 const isTitlesRoute = computed(() =>
   /^\/(work|special)\//.test(route.fullPath),
