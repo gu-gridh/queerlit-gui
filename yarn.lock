@@ -763,13 +763,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.0.0-beta.11":
-  version: 6.0.0-beta.19
-  resolution: "@vue/devtools-api@npm:6.0.0-beta.19"
-  checksum: 2eecb7096540ed2777d16e9be21f81429cc8eeed8fcef14dc0481db3f213dad8e3534e099cf268bc91ffbc5a721b3e5252a3ae38a5cc9f67ab59ee24204e974c
-  languageName: node
-  linkType: hard
-
 "@vue/devtools-api@npm:^6.5.0":
   version: 6.5.0
   resolution: "@vue/devtools-api@npm:6.5.0"
@@ -3050,7 +3043,6 @@ __metadata:
     vue-router: ^4.2.4
     vue-tsc: ^1.8.8
     vue3-drag-drop: ^1.0.0
-    vuex: ^4.1.0
   languageName: unknown
   linkType: soft
 
@@ -3756,17 +3748,6 @@ __metadata:
     "@vue/server-renderer": 3.3.4
     "@vue/shared": 3.3.4
   checksum: 58b6c62a66a375ce5df460fcb7ba41b37c8637c635faf06ef472ae4197f412cf9ad83586cd8e3f66c486404fbe8550e694f90ff724a571d1ba78830791099c59
-  languageName: node
-  linkType: hard
-
-"vuex@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "vuex@npm:4.1.0"
-  dependencies:
-    "@vue/devtools-api": ^6.0.0-beta.11
-  peerDependencies:
-    vue: ^3.2.0
-  checksum: f5e375a9c19ea3bbf4b9bc4c2adc033c37d2583e59b2d79da42bde2ab0771a086c419d62323fb354b6d421a8ddb4fd4e14f3abe5d49e9862311bc4847732b608
   languageName: node
   linkType: hard
 
