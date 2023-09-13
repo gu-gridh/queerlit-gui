@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 import { store, key } from "./store";
+import { createPinia } from "pinia";
 import "./index.scss";
 import "./fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -11,6 +12,7 @@ import matomo from "vue-matomo";
 const app = createApp(App) //
   .use(router)
   .use(store, key)
+  .use(createPinia())
   .component("Icon", FontAwesomeIcon)
   .use(VueDragDrop);
 
