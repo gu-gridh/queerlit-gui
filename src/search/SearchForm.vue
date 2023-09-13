@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white rounded-xl shadow-lg p-6" @keyup.enter="doSearch()">
     <div class="mb-4 q-body">
-      <ReadMore :expanded="isQueryEmpty">
+      <ReadMore :expanded="queryStore.isEmpty">
         <p>
           Queerlit är en databas för svensk skönlitteratur som skildrar samkönat
           begär och överskridanden av binära könsnormer. Det innefattar bland
@@ -109,6 +109,7 @@ import { useToggle } from "@vueuse/core";
 import type { HasId, Person } from "@/services/libris.types";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
 import useQuery from "./query.composable";
+import useQueryStore from "@/stores/query.store";
 import Freetext from "./Freetext.vue";
 import YearFilter from "./YearFilter.vue";
 import Autocomplete from "./Autocomplete.vue";
@@ -132,8 +133,8 @@ const {
   yearEnd,
   getPersonLabel,
   getGenreformLabel,
-  isQueryEmpty,
 } = useQuery();
+const queryStore = useQueryStore();
 const [expandedAdvanced, toggleAdvanced] = useToggle();
 const [expandedTerms, toggleTerms] = useToggle(true);
 const usingAdvanced = computed(

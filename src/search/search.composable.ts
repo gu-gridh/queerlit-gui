@@ -5,7 +5,6 @@ import { debounce, type DebouncedFunc } from "lodash";
 import { key } from "@/store";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
-import useQuery from "./query.composable";
 
 // Keep the debounced function in module scope, because it needs to be identical across all usages of this composable.
 // But the function can only be actually defined inside useSearch, as it depends on other composables.
@@ -14,14 +13,13 @@ let doSearchDebounced: DebouncedFunc<() => Promise<void>>;
 export default function useSearch() {
   const { commit, state } = useStore(key);
   const queryStore = useQueryStore();
-  const { serializedQuery } = useQuery();
   const { searchLocal } = useLocalWorks();
   const router = useRouter();
 
   /** Search Libris using the query, then set results. */
   async function doSearch({ retain }: { retain?: boolean } = {}) {
     // The query might change while waiting for response. Remember current query.
-    const currentSerializedQuery = serializedQuery.value;
+    const currentSerializedQuery = queryStore.serializedQuery;
     commit("setSearching", currentSerializedQuery);
 
     if (!retain) {
@@ -45,7 +43,7 @@ export default function useSearch() {
       });
 
       // In case of concurrent requests, only use the last.
-      if (serializedQuery.value != currentSerializedQuery) {
+      if (queryStore.serializedQuery != currentSerializedQuery) {
         console.log(
           "Query has changed since search request; dropping results.",
         );
@@ -71,10 +69,10 @@ export default function useSearch() {
 
   /** Modify query and trigger search */
   function setQuery(params: Partial<QueryState>) {
-    const queryBefore = serializedQuery.value;
+    const queryBefore = queryStore.serializedQuery;
     queryStore.setQuery(params);
     // Search if there was a meaningful change.
-    if (serializedQuery.value != queryBefore) {
+    if (queryStore.serializedQuery != queryBefore) {
       // Use debounce, so multiple setQuery at the same time will trigger search only once.
       doSearchDebounced();
     }

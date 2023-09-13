@@ -28,6 +28,7 @@ export const getInitialState: () => QueryState = () => ({
 
 export default defineStore("query", {
   state: (): QueryState => getInitialState(),
+
   actions: {
     // TODO This function is probably entirely unnecessary? Assign directly instead.
     setQuery({
@@ -52,8 +53,40 @@ export default defineStore("query", {
       if (yearEnd !== undefined) this.yearEnd = yearEnd;
       if (genreform !== undefined) this.genreform = genreform;
     },
+
     resetQuery() {
       this.$reset();
+    },
+  },
+
+  getters: {
+    serializedQuery(): string {
+      return JSON.stringify([
+        this.text,
+        this.terms.map((term) => term.label),
+        this.termsSecondary.map((term) => term.label),
+        this.terms.length || this.termsSecondary.length
+          ? this.hierarchical
+          : null,
+        this.title,
+        this.author,
+        this.yearStart,
+        this.yearEnd,
+        this.genreform,
+      ]);
+    },
+
+    isEmpty(): boolean {
+      return (
+        !this.text &&
+        !this.terms.length &&
+        !this.termsSecondary.length &&
+        !this.title &&
+        !this.author &&
+        !this.yearStart &&
+        !this.yearEnd &&
+        !this.genreform
+      );
     },
   },
 });
