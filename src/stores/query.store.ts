@@ -29,6 +29,7 @@ export const getInitialState: () => QueryState = () => ({
 export default defineStore("query", {
   state: (): QueryState => getInitialState(),
   actions: {
+    // TODO This function is probably entirely unnecessary? Assign directly instead.
     setQuery({
       text,
       terms,

@@ -51,6 +51,7 @@ import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
 import "@fontsource/barlow-condensed/300.css";
+import useQueryStore from "@/stores/query.store";
 import useHistory from "./views/history.composable";
 import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
@@ -63,6 +64,7 @@ import { key } from "./store";
 const { activateHistory } = useHistory();
 const { is404 } = use404();
 const { state } = useStore(key);
+const queryStore = useQueryStore();
 const route = useRoute();
 const { resetQuery } = useQuery();
 const { doSearch } = useSearch();
@@ -81,6 +83,7 @@ function reset() {
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {
   (window as any).state = state;
+  (window as any).queryStore = queryStore;
   (window as any).libris = libris;
   (window as any).terms = terms;
   (window as any).util = util;

@@ -1,4 +1,5 @@
 import { useStore } from "vuex";
+import useQueryStore from "@/stores/query.store";
 import { useRouter } from "vue-router";
 import { debounce, type DebouncedFunc } from "lodash";
 import { key } from "@/store";
@@ -13,6 +14,7 @@ let doSearchDebounced: DebouncedFunc<() => Promise<void>>;
 
 export default function useSearch() {
   const { commit, state } = useStore(key);
+  const queryStore = useQueryStore();
   const { setQuery: setQueryReal, serializedQuery } = useQuery();
   const { searchLocal } = useLocalWorks();
   const router = useRouter();
@@ -27,18 +29,18 @@ export default function useSearch() {
       commit("setOffset", 0);
       router.push("/");
     }
-    const query = state.query!;
     try {
       const { items, total, histogram } = await search({
-        text: query.text,
-        terms: query.terms.map((term) => term.id),
-        termsSecondary: query.termsSecondary.map((term) => term.id),
-        hierarchical: query.hierarchical,
-        title: query.title,
-        author: query.author != null ? query.author["@id"] : undefined,
-        yearStart: query.yearStart != null ? query.yearStart : undefined,
-        yearEnd: query.yearEnd != null ? query.yearEnd : undefined,
-        genreform: query.genreform != null ? query.genreform.id : undefined,
+        text: queryStore.text,
+        terms: queryStore.terms.map((term) => term.id),
+        termsSecondary: queryStore.termsSecondary.map((term) => term.id),
+        hierarchical: queryStore.hierarchical,
+        title: queryStore.title,
+        author: queryStore.author?.["@id"],
+        yearStart:
+          queryStore.yearStart != null ? queryStore.yearStart : undefined,
+        yearEnd: queryStore.yearEnd != null ? queryStore.yearEnd : undefined,
+        genreform: queryStore.genreform?.id,
         sort: state.sort,
         offset: state.offset,
       });
