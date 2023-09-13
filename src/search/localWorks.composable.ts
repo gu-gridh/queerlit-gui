@@ -88,7 +88,7 @@ export default function useLocalWorks() {
       filter(
         (work) =>
           intersectionBy(work.terms, terms.value, "id").length ==
-          terms.value.length
+          terms.value.length,
       );
     }
     if (termsSecondary.value.length) {

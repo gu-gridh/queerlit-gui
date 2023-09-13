@@ -13,10 +13,10 @@ export default function useQuery() {
   const text = computed(() => store.state.query?.text || "");
   const terms = computed(() => store.state.query?.terms || []);
   const termsSecondary = computed(
-    () => store.state.query?.termsSecondary || []
+    () => store.state.query?.termsSecondary || [],
   );
   const hierarchical = computed(
-    () => store.state.query?.hierarchical || initialQuery.hierarchical
+    () => store.state.query?.hierarchical || initialQuery.hierarchical,
   );
   const title = computed(() => store.state.query?.title || "");
   const author = computed(() => store.state.query?.author);
@@ -45,7 +45,7 @@ export default function useQuery() {
       yearStart.value,
       yearEnd.value,
       genreform.value,
-    ])
+    ]),
   );
 
   const isQueryEmpty = computed(
@@ -57,7 +57,7 @@ export default function useQuery() {
       !author.value &&
       !yearStart.value &&
       !yearEnd.value &&
-      !genreform.value
+      !genreform.value,
   );
 
   const getPersonLabel = (item: Person) =>

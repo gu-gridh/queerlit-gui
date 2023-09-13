@@ -64,11 +64,11 @@ export async function search(options: Partial<SearchOptions>) {
   const subjectCondPrefix = hierarchical ? "and-matches-" : "and-";
 
   (terms || []).forEach((term) =>
-    params.append(subjectCondPrefix + "instanceOf.subject.@id", term)
+    params.append(subjectCondPrefix + "instanceOf.subject.@id", term),
   );
 
   (termsSecondary || []).forEach((term) =>
-    params.append(subjectCondPrefix + "@reverse.itemOf.subject.@id", term)
+    params.append(subjectCondPrefix + "@reverse.itemOf.subject.@id", term),
   );
 
   if (author) {
@@ -119,10 +119,10 @@ export async function get(id: L.Id) {
 
   // Get the Item record (QLIT's "copy" of the book)
   const itemShort = instance._item["@reverse"].itemOf.find(
-    (i) => i.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
+    (i) => i.heldBy["@id"] == "https://libris.kb.se/library/QLIT",
   )!;
   const item = await xlFind<L.Item>({ "@id": itemShort["@id"] }).then(
-    (data) => data.items[0]
+    (data) => data.items[0],
   );
   instance.motivation = unarray(unarray(item.summary)?.label);
   instance.termsSecondary =
@@ -147,7 +147,7 @@ export async function xlFindBooks(params: L.FindParams) {
  *
  * @see https://github.com/libris/librisxl/blob/develop/rest/API.md */
 export async function xlFind<T = any>(
-  params: L.FindParams
+  params: L.FindParams,
 ): Promise<{ items: T[]; totalItems: number; stats?: any }> {
   return axios
     .get("https://libris.kb.se/find", { params })
@@ -178,7 +178,7 @@ function processInstance(item: L.Instance): WorkFromLibris {
     .filter(
       (term) =>
         conceptSchemes.includes(term.scheme || "") ||
-        conceptSchemes.some((c) => term.id?.indexOf(c) === 0)
+        conceptSchemes.some((c) => term.id?.indexOf(c) === 0),
     );
 
   // Normalize some values.
@@ -194,11 +194,14 @@ function processInstance(item: L.Instance): WorkFromLibris {
     }
   }
   processed.creators = item.instanceOf?.contribution
-    ?.map((c) => ({
-      name: getLabel(c.agent) || "",
-      lifeSpan: "lifeSpan" in c.agent ? c.agent.lifeSpan : undefined,
-      roles: c.role && enarray(c.role).map(getLabel).filter(Boolean),
-    }))
+    ?.map((c) => {
+      const agent = unarray(c.agent);
+      return {
+        name: getLabel(agent) || "",
+        lifeSpan: "lifeSpan" in agent ? agent.lifeSpan : undefined,
+        roles: c.role && enarray(c.role).map(getLabel).filter(Boolean),
+      };
+    })
     .filter((c) => c.name);
   const primaryPublication =
     item.publication.find((p) => p["@type"] == "PrimaryPublication") ||
@@ -215,7 +218,7 @@ function processInstance(item: L.Instance): WorkFromLibris {
     (i) =>
       (i["@type"] ? `${i["@type"]}: ` : "") +
       i.value +
-      ("qualifier" in i ? ` (${unarray(i.qualifier)})` : "")
+      ("qualifier" in i ? ` (${unarray(i.qualifier)})` : ""),
   );
 
   processed.classification = (item.instanceOf?.classification || [])
@@ -224,7 +227,7 @@ function processInstance(item: L.Instance): WorkFromLibris {
         ? { type: "DDC", code: c.code }
         : c.inScheme
         ? { type: c.inScheme.code?.replace("kssb", "SAB"), code: c.code }
-        : null!
+        : null!,
     )
     .filter(Boolean);
 
@@ -236,14 +239,14 @@ function processInstance(item: L.Instance): WorkFromLibris {
       p.country && getLabel(unarray(p.country)),
     ]
       .filter(Boolean)
-      .join(", ")
+      .join(", "),
   );
 
   processed.intendedAudience = item.instanceOf?.intendedAudience?.map(getLabel);
 
   // Get the Queerlit item post
   const queerlitItem = item["@reverse"].itemOf?.find(
-    (l) => l.heldBy["@id"] == "https://libris.kb.se/library/QLIT"
+    (l) => l.heldBy["@id"] == "https://libris.kb.se/library/QLIT",
   )!;
   processed.motivation = unarray(unarray(queerlitItem.summary)?.label);
 
@@ -266,7 +269,7 @@ export async function searchPerson(nameQuery: string) {
 
 export async function searchConcept(
   conceptQuery: string,
-  schemeIds: string[] = []
+  schemeIds: string[] = [],
 ) {
   const q = conceptQuery + "*";
   const params = new URLSearchParams({
@@ -316,7 +319,7 @@ function processTerm(term: L.Concept): Term {
   } else if ("@id" in term) {
     // Deduce scheme uri from term uri
     const scheme = conceptSchemes.find(
-      (schemeUri) => (term["@id"] || "").indexOf(schemeUri) === 0
+      (schemeUri) => (term["@id"] || "").indexOf(schemeUri) === 0,
     );
     if (scheme) processed.scheme = scheme;
   }
@@ -360,7 +363,7 @@ type Labelable = {
 
 /** Build a string of the label of an object. */
 export function getLabel(
-  object: Labelable | L.ComplexSubject | L.Person
+  object: Labelable | L.ComplexSubject | L.Person,
 ): string {
   if (!object) return "";
   if ("@type" in object) {
@@ -377,7 +380,6 @@ export function getLabel(
   if ("label" in object) return enarray(object.label).join(", ");
 
   console.warn("No label found", object);
-  debugger;
   return "";
 }
 
@@ -387,13 +389,16 @@ function getHistogram(stats: L.Stats) {
   if (!obs) {
     return {};
   }
-  return obs.reduce((acc, ob) => {
-    const year = urlBasename(ob.object.label);
-    if (/^\d{4}$/.test(year)) {
-      acc[year] = ob.totalItems;
-    }
-    return acc;
-  }, {} as Record<string, number>);
+  return obs.reduce(
+    (acc, ob) => {
+      const year = urlBasename(ob.object.label);
+      if (/^\d{4}$/.test(year)) {
+        acc[year] = ob.totalItems;
+      }
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 }
 
 /** Build a string of a person's name. */

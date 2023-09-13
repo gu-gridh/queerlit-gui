@@ -111,7 +111,7 @@ const emitChange = debounce(() => {
   emit(
     "change",
     range.value[0] != min.value ? range.value[0] : null,
-    range.value[1] != MAX ? range.value[1] : null
+    range.value[1] != MAX ? range.value[1] : null,
   );
 }, 400);
 </script>

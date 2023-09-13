@@ -23,7 +23,7 @@ const optionItems = computed(
   () =>
     props.options
       ?.map((op) => op(props.data))
-      .filter((op) => op.isApplicable !== false) || []
+      .filter((op) => op.isApplicable !== false) || [],
 );
 
 function toggleMenu(event: Event) {

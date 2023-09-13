@@ -137,10 +137,10 @@ const {
 const [expandedAdvanced, toggleAdvanced] = useToggle();
 const [expandedTerms, toggleTerms] = useToggle(true);
 const usingAdvanced = computed(
-  () => title.value || author.value || genreform.value
+  () => title.value || author.value || genreform.value,
 );
 const usingTerms = computed(
-  () => terms.value.length || termsSecondary.value.length
+  () => terms.value.length || termsSecondary.value.length,
 );
 const titleLocal = ref(title.value);
 

@@ -27,7 +27,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="mx-2 mb-1" :class="{ 'ml-4': level as number > 0 }">
+  <div class="mx-2 mb-1" :class="{ 'ml-4': (level as number) > 0 }">
     <div class="mb-1 flex flex-wrap items-baseline gap-4">
       <Term
         :data="parent"

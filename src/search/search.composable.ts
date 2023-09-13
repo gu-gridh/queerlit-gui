@@ -46,7 +46,7 @@ export default function useSearch() {
       // In case of concurrent requests, only use the last.
       if (serializedQuery.value != currentSerializedQuery) {
         console.log(
-          "Query has changed since search request; dropping results."
+          "Query has changed since search request; dropping results.",
         );
         return;
       }

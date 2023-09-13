@@ -51,6 +51,7 @@ import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
 import "@fontsource/barlow-condensed/300.css";
+import useHistory from "./views/history.composable";
 import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
@@ -59,6 +60,7 @@ import useQuery from "./search/query.composable";
 import useSearch from "./search/search.composable";
 import { key } from "./store";
 
+const { activateHistory } = useHistory();
 const { is404 } = use404();
 const { state } = useStore(key);
 const route = useRoute();
@@ -66,8 +68,10 @@ const { resetQuery } = useQuery();
 const { doSearch } = useSearch();
 
 const isTitlesRoute = computed(() =>
-  /^\/(work|special)\//.test(route.fullPath)
+  /^\/(work|special)\//.test(route.fullPath),
 );
+
+activateHistory();
 
 function reset() {
   resetQuery();

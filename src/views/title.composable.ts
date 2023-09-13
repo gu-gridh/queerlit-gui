@@ -8,7 +8,7 @@ import use404 from "./404.composable";
 export default function useTitle(
   customTitle?:
     | MaybeRef<string | null | undefined>
-    | ComputedRef<string | null | undefined>
+    | ComputedRef<string | null | undefined>,
 ) {
   const route = useRoute();
   const { trackPage } = useMatomo();

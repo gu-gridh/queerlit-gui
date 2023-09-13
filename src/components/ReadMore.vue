@@ -10,7 +10,7 @@ const [expandedNow, toggle] = useToggle(props.expanded);
 
 watch(
   () => props.expanded,
-  () => (expandedNow.value = props.expanded)
+  () => (expandedNow.value = props.expanded),
 );
 </script>
 

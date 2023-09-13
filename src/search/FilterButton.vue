@@ -9,7 +9,7 @@ defineEmits(["clear"]);
 
 // Thanks to @Simon https://stackoverflow.com/a/76208995
 const hasClearListener = computed(
-  () => !!getCurrentInstance()?.vnode.props?.onClear
+  () => !!getCurrentInstance()?.vnode.props?.onClear,
 );
 </script>
 

@@ -17,7 +17,7 @@ const { getChildren } = useTerms();
 
 const children = ref<QlitTerm[]>();
 const expanded = ref(
-  props.expanded || state.termsExpanded.includes(props.parent.name)
+  props.expanded || state.termsExpanded.includes(props.parent.name),
 );
 
 const toggleExpanded = () => {

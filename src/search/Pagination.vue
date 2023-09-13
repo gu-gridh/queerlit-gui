@@ -49,7 +49,7 @@ watch(
   () => {
     value.value = props.current;
     isInputValid.value = isValidPage(props.current);
-  }
+  },
 );
 </script>
 

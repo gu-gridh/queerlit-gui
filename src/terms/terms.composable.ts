@@ -39,7 +39,7 @@ export default function useTerms() {
   function removeSecondary(term: Term) {
     setQuery({
       termsSecondary: termsSecondary.value.filter(
-        (term2) => term2.id != term.id
+        (term2) => term2.id != term.id,
       ),
     });
   }

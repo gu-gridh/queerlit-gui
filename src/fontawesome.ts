@@ -34,5 +34,5 @@ library.add(
   faSitemap,
   faSpinner,
   faStream,
-  faTimes
+  faTimes,
 );
