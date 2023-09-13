@@ -13,12 +13,18 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [2.1.2] (2023-09-13)
+
+### Fixed
+
+- The back link from a term page now leads to last page if any, otherwise to the thesaurus page
+- Author was not showing for a few titles, `agent` can apparently be an array
+
 ## [2.1.1] (2023-09-07)
 
 ### Fixed
 
 - Remove stray term id printout in TermCombobox
-- The back link from a term page now leads to last page if any, otherwise to the thesaurus page
 
 ## [2.1.0] (2023-08-31)
 
@@ -188,9 +194,10 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.1...HEAD
-[2.0.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.0...v2.1.1
-[2.0.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.0.0...v2.1.0
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.2...HEAD
+[2.1.2]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.1...v2.1.2
+[2.1.1]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/gu-gridh/queerlit-gui/compare/v1.6.0...v1.7.0
