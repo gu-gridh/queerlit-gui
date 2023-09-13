@@ -1,66 +1,64 @@
-import { useStore } from "vuex";
+import useRootStore from "@/stores/root.store";
+import useQueryStore, { type QueryState } from "@/stores/query.store";
 import { useRouter } from "vue-router";
 import { debounce, type DebouncedFunc } from "lodash";
-import { key } from "@/store";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
-import useQuery from "./query.composable";
-import type { QueryState } from "./query.store";
 
 // Keep the debounced function in module scope, because it needs to be identical across all usages of this composable.
 // But the function can only be actually defined inside useSearch, as it depends on other composables.
 let doSearchDebounced: DebouncedFunc<() => Promise<void>>;
 
 export default function useSearch() {
-  const { commit, state } = useStore(key);
-  const { setQuery: setQueryReal, serializedQuery } = useQuery();
+  const store = useRootStore();
+  const queryStore = useQueryStore();
   const { searchLocal } = useLocalWorks();
   const router = useRouter();
 
   /** Search Libris using the query, then set results. */
   async function doSearch({ retain }: { retain?: boolean } = {}) {
     // The query might change while waiting for response. Remember current query.
-    const currentSerializedQuery = serializedQuery.value;
-    commit("setSearching", currentSerializedQuery);
+    const currentSerializedQuery = queryStore.serializedQuery;
+    store.setSearching(currentSerializedQuery);
 
     if (!retain) {
-      commit("setOffset", 0);
+      store.offset = 0;
       router.push("/");
     }
-    const query = state.query!;
     try {
       const { items, total, histogram } = await search({
-        text: query.text,
-        terms: query.terms.map((term) => term.id),
-        termsSecondary: query.termsSecondary.map((term) => term.id),
-        hierarchical: query.hierarchical,
-        title: query.title,
-        author: query.author != null ? query.author["@id"] : undefined,
-        yearStart: query.yearStart != null ? query.yearStart : undefined,
-        yearEnd: query.yearEnd != null ? query.yearEnd : undefined,
-        genreform: query.genreform != null ? query.genreform.id : undefined,
-        sort: state.sort,
-        offset: state.offset,
+        text: queryStore.text,
+        terms: queryStore.terms.map((term) => term.id),
+        termsSecondary: queryStore.termsSecondary.map((term) => term.id),
+        hierarchical: queryStore.hierarchical,
+        title: queryStore.title,
+        author: queryStore.author?.["@id"],
+        yearStart:
+          queryStore.yearStart != null ? queryStore.yearStart : undefined,
+        yearEnd: queryStore.yearEnd != null ? queryStore.yearEnd : undefined,
+        genreform: queryStore.genreform?.id,
+        sort: store.sort,
+        offset: store.offset,
       });
 
       // In case of concurrent requests, only use the last.
-      if (serializedQuery.value != currentSerializedQuery) {
+      if (queryStore.serializedQuery != currentSerializedQuery) {
         console.log(
           "Query has changed since search request; dropping results.",
         );
         return;
       }
 
-      commit("setResults", items);
-      commit("setHistogram", histogram);
-      commit("setTotal", total);
+      store.results = items;
+      store.histogram = histogram;
+      store.total = total;
     } catch (error) {
       console.error(error);
       if (error instanceof Error && !("reponse" in error)) {
-        commit("setError", "Det går inte att nå Libris webbtjänst just nu");
+        store.setError("Det går inte att nå Libris webbtjänst just nu");
       }
     } finally {
-      commit("setSearching", false);
+      store.setSearching();
     }
     searchLocal();
   }
@@ -70,10 +68,23 @@ export default function useSearch() {
 
   /** Modify query and trigger search */
   function setQuery(params: Partial<QueryState>) {
-    const queryBefore = serializedQuery.value;
-    setQueryReal(params);
+    const queryBefore = queryStore.serializedQuery;
+
+    // Modify each value only if it is given.
+    if (params.text !== undefined) queryStore.text = params.text;
+    if (params.terms !== undefined) queryStore.terms = params.terms;
+    if (params.termsSecondary !== undefined)
+      queryStore.termsSecondary = params.termsSecondary;
+    if (params.hierarchical !== undefined)
+      queryStore.hierarchical = !!params.hierarchical;
+    if (params.title !== undefined) queryStore.title = params.title;
+    if (params.author !== undefined) queryStore.author = params.author;
+    if (params.yearStart !== undefined) queryStore.yearStart = params.yearStart;
+    if (params.yearEnd !== undefined) queryStore.yearEnd = params.yearEnd;
+    if (params.genreform !== undefined) queryStore.genreform = params.genreform;
+
     // Search if there was a meaningful change.
-    if (serializedQuery.value != queryBefore) {
+    if (queryStore.serializedQuery != queryBefore) {
       // Use debounce, so multiple setQuery at the same time will trigger search only once.
       doSearchDebounced();
     }

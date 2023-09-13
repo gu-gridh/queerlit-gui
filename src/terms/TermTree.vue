@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
-import { useStore } from "vuex";
-import { key } from "@/store";
+import useRootStore from "@/stores/root.store";
 import type { QlitTerm } from "@/services/qlit.types";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
@@ -12,20 +11,17 @@ const props = defineProps<{
   expanded?: boolean;
 }>();
 
-const { state, commit } = useStore(key);
+const store = useRootStore();
 const { getChildren } = useTerms();
 
 const children = ref<QlitTerm[]>();
 const expanded = ref(
-  props.expanded || state.termsExpanded.includes(props.parent.name),
+  props.expanded || store.termsExpanded.includes(props.parent.name),
 );
 
 const toggleExpanded = () => {
   expanded.value = !expanded.value;
-  commit("toggleTermExpanded", {
-    name: props.parent.name,
-    expanded: expanded.value,
-  });
+  store.toggleTermExpanded(props.parent.name, expanded.value);
 };
 
 // 333° is the hue for Tailwind's pink-600

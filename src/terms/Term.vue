@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useStore } from "vuex";
 import { vOnClickOutside } from "@vueuse/components";
-import { key } from "@/store";
+import useRootStore from "@/stores/root.store";
 import type { Term } from "@/types/work";
 import type { TermOption } from "./termOptions.composable";
 import useTerms from "./terms.composable";
@@ -14,7 +13,7 @@ const props = defineProps<{
   draggable?: boolean;
 }>();
 
-const { commit } = useStore(key);
+const store = useRootStore();
 const { termIsQlit } = useTerms();
 
 const isMenuVisible = ref(false);
@@ -35,11 +34,11 @@ function toggleMenu(event: Event) {
 
 function dragStart() {
   isMenuVisible.value = false;
-  commit("setDragged", { type: "term", data: props.data });
+  store.dragged = { type: "term", data: props.data };
 }
 
 function dragEnd() {
-  commit("setDragged", null);
+  store.dragged = null;
 }
 </script>
 
