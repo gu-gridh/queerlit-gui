@@ -1,12 +1,11 @@
 import { useStore } from "vuex";
-import useQueryStore from "@/stores/query.store";
+import useQueryStore, { type QueryState } from "@/stores/query.store";
 import { useRouter } from "vue-router";
 import { debounce, type DebouncedFunc } from "lodash";
 import { key } from "@/store";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
 import useQuery from "./query.composable";
-import type { QueryState } from "./query.store";
 
 // Keep the debounced function in module scope, because it needs to be identical across all usages of this composable.
 // But the function can only be actually defined inside useSearch, as it depends on other composables.
@@ -15,7 +14,7 @@ let doSearchDebounced: DebouncedFunc<() => Promise<void>>;
 export default function useSearch() {
   const { commit, state } = useStore(key);
   const queryStore = useQueryStore();
-  const { setQuery: setQueryReal, serializedQuery } = useQuery();
+  const { serializedQuery } = useQuery();
   const { searchLocal } = useLocalWorks();
   const router = useRouter();
 
@@ -73,7 +72,7 @@ export default function useSearch() {
   /** Modify query and trigger search */
   function setQuery(params: Partial<QueryState>) {
     const queryBefore = serializedQuery.value;
-    setQueryReal(params);
+    queryStore.setQuery(params);
     // Search if there was a meaningful change.
     if (serializedQuery.value != queryBefore) {
       // Use debounce, so multiple setQuery at the same time will trigger search only once.
