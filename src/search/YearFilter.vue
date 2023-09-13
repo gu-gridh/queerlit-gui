@@ -27,7 +27,6 @@
 
     <div class="mx-1">
       <Histogram :min="min" :max="MAX" :zeroes="enableOld ? 2 : 1" />
-
       <Slider
         v-model="range"
         :min="min"

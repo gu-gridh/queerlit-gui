@@ -9,10 +9,14 @@ import Pagination from "@/search/Pagination.vue";
 import useSearch from "./search.composable";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import FiltersBar from "./FiltersBar.vue";
+import useParamsSearch from "./paramsSearch.composable";
 
 const store = useStore(key);
 const { doSearch } = useSearch();
 useTitle();
+const { activateParamsSearch } = useParamsSearch();
+
+activateParamsSearch();
 
 const sort = computed(() => store.state.sort);
 const results = computed(() => store.state.results);

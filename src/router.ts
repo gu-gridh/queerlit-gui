@@ -5,6 +5,8 @@ import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
 
 import "vue-router";
+import type { RouteRecordRaw } from "vue-router";
+import useParamsSearch from "./search/paramsSearch.composable";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -12,13 +14,18 @@ declare module "vue-router" {
   }
 }
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Search",
     components: {
       side: SearchForm,
       default: Results,
+    },
+    beforeEnter() {
+      console.log("beforeEnter /");
+      const { syncStoreToUrl } = useParamsSearch();
+      syncStoreToUrl();
     },
   },
   {

@@ -67,13 +67,14 @@ const { state } = useStore(key);
 const route = useRoute();
 const { resetQuery } = useQuery();
 const { doSearch } = useSearch();
-useParamsSearch();
+const { activateParamsSearch } = useParamsSearch();
 
 const isTitlesRoute = computed(() =>
   /^\/(work|special)\//.test(route.fullPath),
 );
 
 activateHistory();
+// activateParamsSearch()
 
 function reset() {
   resetQuery();
