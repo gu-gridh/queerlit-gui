@@ -57,7 +57,6 @@ import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
 import SiteFooter from "./SiteFooter.vue";
-import useQuery from "./search/query.composable";
 import useSearch from "./search/search.composable";
 import { key } from "./store";
 
@@ -66,7 +65,6 @@ const { is404 } = use404();
 const { state } = useStore(key);
 const queryStore = useQueryStore();
 const route = useRoute();
-const { resetQuery } = useQuery();
 const { doSearch } = useSearch();
 
 const isTitlesRoute = computed(() =>
@@ -76,7 +74,7 @@ const isTitlesRoute = computed(() =>
 activateHistory();
 
 function reset() {
-  resetQuery();
+  queryStore.resetQuery();
   doSearch();
 }
 

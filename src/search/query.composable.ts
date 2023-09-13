@@ -15,8 +15,6 @@ export default function useQuery() {
 
   return {
     ...storeToRefs(queryStore),
-    setQuery: queryStore.setQuery,
-    resetQuery: queryStore.resetQuery,
     getPersonLabel,
     getGenreformLabel,
   };

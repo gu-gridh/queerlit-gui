@@ -30,30 +30,6 @@ export default defineStore("query", {
   state: (): QueryState => getInitialState(),
 
   actions: {
-    // TODO This function is probably entirely unnecessary? Assign directly instead.
-    setQuery({
-      text,
-      terms,
-      termsSecondary,
-      hierarchical,
-      title,
-      author,
-      yearStart,
-      yearEnd,
-      genreform,
-    }: Partial<QueryState>) {
-      // Modify each value only if it is given.
-      if (text !== undefined) this.text = text;
-      if (terms !== undefined) this.terms = terms;
-      if (termsSecondary !== undefined) this.termsSecondary = termsSecondary;
-      if (hierarchical !== undefined) this.hierarchical = !!hierarchical;
-      if (title !== undefined) this.title = title;
-      if (author !== undefined) this.author = author;
-      if (yearStart !== undefined) this.yearStart = yearStart;
-      if (yearEnd !== undefined) this.yearEnd = yearEnd;
-      if (genreform !== undefined) this.genreform = genreform;
-    },
-
     resetQuery() {
       this.$reset();
     },

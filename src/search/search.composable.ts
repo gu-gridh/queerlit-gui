@@ -70,7 +70,20 @@ export default function useSearch() {
   /** Modify query and trigger search */
   function setQuery(params: Partial<QueryState>) {
     const queryBefore = queryStore.serializedQuery;
-    queryStore.setQuery(params);
+
+    // Modify each value only if it is given.
+    if (params.text !== undefined) queryStore.text = params.text;
+    if (params.terms !== undefined) queryStore.terms = params.terms;
+    if (params.termsSecondary !== undefined)
+      queryStore.termsSecondary = params.termsSecondary;
+    if (params.hierarchical !== undefined)
+      queryStore.hierarchical = !!params.hierarchical;
+    if (params.title !== undefined) queryStore.title = params.title;
+    if (params.author !== undefined) queryStore.author = params.author;
+    if (params.yearStart !== undefined) queryStore.yearStart = params.yearStart;
+    if (params.yearEnd !== undefined) queryStore.yearEnd = params.yearEnd;
+    if (params.genreform !== undefined) queryStore.genreform = params.genreform;
+
     // Search if there was a meaningful change.
     if (queryStore.serializedQuery != queryBefore) {
       // Use debounce, so multiple setQuery at the same time will trigger search only once.
