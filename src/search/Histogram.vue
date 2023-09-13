@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useStore } from "vuex";
 import range from "lodash/range";
 import floor from "lodash/floor";
-import { key } from "@/store";
+import useRootStore from "@/stores/root.store";
 
 type Props = {
   min: number;
@@ -18,16 +17,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 type Bar = { year: number; n: number };
 
-const store = useStore(key);
+const store = useRootStore();
 
 const focus = ref<Bar | null>(null);
 
-const histogram = computed(() => store.state.histogram);
 const bars = computed(() =>
   range(props.min, props.max)
     .map((year) => ({
       year,
-      n: histogram.value[year] || 0,
+      n: store.histogram[year] || 0,
     }))
     .reduce((acc, bar) => {
       const year = floor(bar.year, -props.zeroes);
@@ -51,7 +49,7 @@ function getBarHeight(n: number) {
     <div class="text-center text-xs h-4 -mt-4 whitespace-nowrap">
       <span v-if="focus">{{ focus.year }}-talet: {{ focus.n }} st</span>
     </div>
-    <div v-if="histogram" class="flex items-end h-12">
+    <div v-if="store.histogram" class="flex items-end h-12">
       <div
         v-for="bar in bars"
         :key="bar.year"

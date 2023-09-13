@@ -45,12 +45,13 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useStore } from "vuex";
 import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
 import "@fontsource/barlow-condensed/300.css";
+import useRootStore from "@/stores/root.store";
 import useQueryStore from "@/stores/query.store";
 import useHistory from "./views/history.composable";
 import use404 from "./views/404.composable";
@@ -58,11 +59,10 @@ import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
 import SiteFooter from "./SiteFooter.vue";
 import useSearch from "./search/search.composable";
-import { key } from "./store";
 
 const { activateHistory } = useHistory();
 const { is404 } = use404();
-const { state } = useStore(key);
+const store = useRootStore();
 const queryStore = useQueryStore();
 const route = useRoute();
 const { doSearch } = useSearch();
@@ -80,7 +80,7 @@ function reset() {
 
 // Make internal apis available in browser console.
 if (import.meta.env.DEV) {
-  (window as any).state = state;
+  (window as any).state = storeToRefs(store);
   (window as any).queryStore = queryStore;
   (window as any).libris = libris;
   (window as any).terms = terms;

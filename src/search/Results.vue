@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useStore } from "vuex";
-import { key } from "@/store";
 import useTitle from "@/views/title.composable";
+import useRootStore from "@/stores/root.store";
 import WorkResultItem from "./WorkResultItem.vue";
 import LocalWorkResultItem from "./LocalWorkResultItem.vue";
 import Pagination from "@/search/Pagination.vue";
@@ -10,40 +9,33 @@ import useSearch from "./search.composable";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import FiltersBar from "./FiltersBar.vue";
 
-const store = useStore(key);
+const store = useRootStore();
 const { doSearch } = useSearch();
 useTitle();
 
-const sort = computed(() => store.state.sort);
-const results = computed(() => store.state.results);
-const total = computed(
-  () => store.state.total + store.state.localResults.length,
-);
-const offset = computed(() => store.state.offset);
-const isSearching = computed(() => store.getters.isSearching);
-const localResults = computed(() => store.state.localResults);
+const total = computed(() => store.total + store.localResults.length);
 
 function setPage(page: number) {
-  store.commit("setOffset", (page - 1) * 20);
+  store.offset = (page - 1) * 20;
   doSearch({ retain: true });
 }
 
 function setSort(event: Event) {
-  store.commit("setSort", (event.target as HTMLSelectElement).value);
+  store.sort = (event.target as HTMLSelectElement).value;
   doSearch();
 }
 </script>
 
 <template>
   <div class="p-4">
-    <LoadingSpinner v-if="isSearching" />
-    <div v-else-if="results">
+    <LoadingSpinner v-if="store.isSearching" />
+    <div v-else-if="store.results">
       <div class="flex pb-2">
         <div class="flex-1 flex flex-wrap">
           <span class="mr-2">{{ total }} träffar</span>
           <Pagination
             v-if="total"
-            :current="offset / 20 + 1"
+            :current="store.offset / 20 + 1"
             :last="total / 20"
             @change="setPage"
           />
@@ -52,7 +44,7 @@ function setSort(event: Event) {
           <label for="sort-input">Sortering: </label>
           <select
             id="sort-input"
-            :value="sort"
+            :value="store.sort"
             class="appearance-none border rounded cursor-pointer -my-1 pl-1 pr-5"
             @change="setSort"
           >
@@ -68,15 +60,15 @@ function setSort(event: Event) {
       <FiltersBar class="py-2 pb-6" />
 
       <WorkResultItem
-        v-for="(work, i) in results"
+        v-for="(work, i) in store.results"
         :key="work['@id']"
         :work="work"
-        :i="offset + i + 1"
+        :i="store.offset + i + 1"
       />
 
-      <div v-if="total > localResults.length" class="p-6">
+      <div v-if="total > store.localResults.length" class="p-6">
         <Pagination
-          :current="offset / 20 + 1"
+          :current="store.offset / 20 + 1"
           :last="total / 20"
           class="mx-auto"
           @change="setPage"
@@ -84,7 +76,10 @@ function setSort(event: Event) {
       </div>
     </div>
 
-    <div v-if="!isSearching && localResults.length" class="bg-pink-50">
+    <div
+      v-if="!store.isSearching && store.localResults.length"
+      class="bg-pink-50"
+    >
       <header class="p-1 px-2">
         <h2 class="text-lg">Specialtitlar</h2>
         <p class="mt-1 text-sm">
@@ -93,14 +88,14 @@ function setSort(event: Event) {
         </p>
       </header>
       <LocalWorkResultItem
-        v-for="(work, i) in localResults"
+        v-for="(work, i) in store.localResults"
         :key="work.id"
         :work="work"
         :i="i + 1"
       />
     </div>
 
-    <div v-if="!isSearching && !total" class="q-body">
+    <div v-if="!store.isSearching && !total" class="q-body">
       <h1 class="text-6xl my-10">Inga träffar</h1>
       <p>Sökningen gav inga träffar i databasen.</p>
       <p>

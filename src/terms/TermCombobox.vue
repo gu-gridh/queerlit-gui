@@ -78,11 +78,10 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useStore } from "vuex";
 import { useToggle } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
-import { key } from "@/store";
+import useRootStore from "@/stores/root.store";
 import { searchTerms } from "@/services/terms.service";
 import TermButton from "@/terms/Term.vue";
 import CloseButton from "@/components/CloseButton.vue";
@@ -106,14 +105,14 @@ const emit = defineEmits<{
   remove: [Term];
 }>();
 
-const { commit, state } = useStore(key);
+const store = useRootStore();
 const [showHelp, toggleHelp] = useToggle();
 const { remove: removeTerm, removeSecondary } = useTerms();
 const { goto } = useTermOptions();
 
 const input = ref("");
 const suggestions = ref<Term[]>([]);
-const isDraggingTerm = computed(() => state.dragged?.type == "term");
+const isDraggingTerm = computed(() => store.dragged?.type == "term");
 
 // No need to load suggestions until user slows down typing.
 const getSuggestions = debounce(async () => {
@@ -165,14 +164,14 @@ const removeOption = (term: Term) => ({
 
 function dropTerm() {
   if (isDraggingTerm.value) {
-    const term = state.dragged.data;
+    const term = store.dragged.data;
     // Remove from both fields.
     removeTerm(term);
     removeSecondary(term);
     // Add to the current field.
     add(term);
 
-    commit("setDragged", null);
+    store.dragged = null
   }
 }
 </script>

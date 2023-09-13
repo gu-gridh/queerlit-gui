@@ -1,8 +1,7 @@
-import { useStore } from "vuex";
+import useRootStore from "@/stores/root.store";
 import useQueryStore, { type QueryState } from "@/stores/query.store";
 import { useRouter } from "vue-router";
 import { debounce, type DebouncedFunc } from "lodash";
-import { key } from "@/store";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
 
@@ -11,7 +10,7 @@ import useLocalWorks from "./localWorks.composable";
 let doSearchDebounced: DebouncedFunc<() => Promise<void>>;
 
 export default function useSearch() {
-  const { commit, state } = useStore(key);
+  const store = useRootStore();
   const queryStore = useQueryStore();
   const { searchLocal } = useLocalWorks();
   const router = useRouter();
@@ -20,10 +19,10 @@ export default function useSearch() {
   async function doSearch({ retain }: { retain?: boolean } = {}) {
     // The query might change while waiting for response. Remember current query.
     const currentSerializedQuery = queryStore.serializedQuery;
-    commit("setSearching", currentSerializedQuery);
+    store.setSearching(currentSerializedQuery);
 
     if (!retain) {
-      commit("setOffset", 0);
+      store.offset = 0;
       router.push("/");
     }
     try {
@@ -38,8 +37,8 @@ export default function useSearch() {
           queryStore.yearStart != null ? queryStore.yearStart : undefined,
         yearEnd: queryStore.yearEnd != null ? queryStore.yearEnd : undefined,
         genreform: queryStore.genreform?.id,
-        sort: state.sort,
-        offset: state.offset,
+        sort: store.sort,
+        offset: store.offset,
       });
 
       // In case of concurrent requests, only use the last.
@@ -50,16 +49,16 @@ export default function useSearch() {
         return;
       }
 
-      commit("setResults", items);
-      commit("setHistogram", histogram);
-      commit("setTotal", total);
+      store.results = items;
+      store.histogram = histogram;
+      store.total = total;
     } catch (error) {
       console.error(error);
       if (error instanceof Error && !("reponse" in error)) {
-        commit("setError", "Det går inte att nå Libris webbtjänst just nu");
+        store.setError("Det går inte att nå Libris webbtjänst just nu");
       }
     } finally {
-      commit("setSearching", false);
+      store.setSearching();
     }
     searchLocal();
   }

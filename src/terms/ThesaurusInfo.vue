@@ -1,25 +1,24 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-import { key } from "@/store";
+import type { QlitCollection } from "@/services/qlit.types";
+import useRootStore from "@/stores/root.store";
 import Labeled from "@/components/Labeled.vue";
 import CollectionsGrid from "./CollectionsGrid.vue";
-import type { QlitCollection } from "@/services/qlit.types";
 
-const { state, commit } = useStore(key);
+const store = useRootStore();
 const router = useRouter();
 
 const termTextQuery = computed({
-  get: () => state.termTextQuery,
-  set: (value) => commit("setTermTextQuery", value),
+  get: () => store.termTextQuery,
+  set: (value) => store.setTermTextQuery(value),
 });
 
 function selectCollection(collection: QlitCollection) {
-  if (state.termCollection?.name == collection.name) {
-    commit("setTermCollection", null);
+  if (store.termCollection?.name == collection.name) {
+    store.setTermCollection(null);
   } else {
-    commit("setTermCollection", collection);
+    store.setTermCollection(collection);
   }
 }
 
@@ -65,7 +64,7 @@ function gotoThesaurus() {
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <Labeled label="Samlingar" class="mb-4">
         <CollectionsGrid
-          :selected="state.termCollection ? [state.termCollection.name] : []"
+          :selected="store.termCollection ? [store.termCollection.name] : []"
           @select="(collection) => selectCollection(collection)"
         />
       </Labeled>

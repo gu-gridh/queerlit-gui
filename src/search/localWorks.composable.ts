@@ -1,11 +1,10 @@
-import { useStore } from "vuex";
 import cloneDeep from "lodash/cloneDeep";
 import remove from "lodash/remove";
 import intersectionBy from "lodash/intersectionBy";
+import useRootStore from "@/stores/root.store";
 import useQuery from "./query.composable";
 import worksData from "@/assets/local-works.yaml";
 import type { LocalWork, LocalWorkRaw } from "./localWorks.types";
-import { key } from "@/store";
 import type { Term } from "@/types/work";
 
 const worksRaw: Readonly<Record<string, LocalWorkRaw>> = worksData;
@@ -67,7 +66,7 @@ export default function useLocalWorks() {
     author,
     genreform,
   } = useQuery();
-  const { commit, state } = useStore(key);
+  const store = useRootStore();
 
   function searchLocal() {
     const results = cloneDeep(Object.values(works));
@@ -115,19 +114,19 @@ export default function useLocalWorks() {
     }
 
     // Sort by title if specified, otherwise date.
-    if (state.sort.includes("sortKeyByLang.sv")) {
+    if (store.sort.includes("sortKeyByLang.sv")) {
       results.sort((a, b) => a.title.localeCompare(b.title, "sv"));
     } else {
       results.sort((a, b) => a.date.min - b.date.min);
     }
 
     // Ascending/descending
-    if (!state.sort || state.sort.indexOf("-") === 0) {
+    if (!store.sort || store.sort.indexOf("-") === 0) {
       results.reverse();
     }
 
-    commit("setLocalResults", results);
-    commit("patchHistogram", createHistogram(results));
+    store.localResults = results;
+    store.patchHistogram(createHistogram(results));
   }
 
   function createHistogram(results: LocalWork[]) {
