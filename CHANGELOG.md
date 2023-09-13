@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Migrated from Vuex to Pinia
+
 ## [2.1.2] (2023-09-13)
 
 ### Fixed
