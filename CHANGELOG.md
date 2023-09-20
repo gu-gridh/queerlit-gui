@@ -13,6 +13,12 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [2.2.0] (2023-09-20)
+
+### Changed
+
+- Migrated from Vuex to Pinia
+
 ## [2.1.2] (2023-09-13)
 
 ### Fixed
@@ -194,7 +200,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.2...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.2...v2.2.0
 [2.1.2]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.0.0...v2.1.0

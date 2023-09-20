@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useQuery from "./query.composable";
+import useQueryStore from "@/stores/query.store";
 import FilterButton from "./FilterButton.vue";
 import useTerms from "@/terms/terms.composable";
 import useSearch from "./search.composable";
@@ -14,16 +15,16 @@ const {
   yearStart,
   yearEnd,
   genreform,
-  isQueryEmpty,
   getPersonLabel,
   getGenreformLabel,
 } = useQuery();
+const queryStore = useQueryStore();
 const { remove, removeSecondary } = useTerms();
 const { setQuery } = useSearch();
 </script>
 
 <template>
-  <aside v-if="!isQueryEmpty">
+  <aside v-if="!queryStore.isEmpty">
     <div class="flex flex-wrap items-baseline gap-1">
       <span>Din sökning:</span>
 
