@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Fixed
+
+- In the freetext input, the genre/form suggestions had the whole scheme url showing, changed it back to just the scheme code
+
 ## [2.2.0] (2023-09-20)
 
 ### Changed
