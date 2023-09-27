@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Search button on term page for minor terms, not just major
+
 ### Fixed
 
 - Changed some clickable elements (e.g. term buttons) into links, so they can be opened in new tab etc.

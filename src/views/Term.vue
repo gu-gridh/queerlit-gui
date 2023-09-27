@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+import { useToggle } from "@vueuse/core";
+import { vOnClickOutside } from "@vueuse/components";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
-import { useRoute } from "vue-router";
 import ExternalTermList from "@/terms/ExternalTermList.vue";
 import QButton from "@/components/QButton.vue";
 import type { QlitTerm } from "@/services/qlit.types";
 import useHistory from "./history.composable";
 
 const route = useRoute();
-const { getParents, getChildren, getRelated, getTerm, searchByTerm } =
-  useTerms();
+const {
+  getParents,
+  getChildren,
+  getRelated,
+  getTerm,
+  searchByTerm,
+  searchByTermSecondary,
+} = useTerms();
 const { flag404 } = use404();
 const { prev } = useHistory();
 
@@ -21,6 +29,7 @@ const term = ref<QlitTerm>();
 const parents = ref<QlitTerm[]>([]);
 const children = ref<QlitTerm[]>([]);
 const related = ref<QlitTerm[]>([]);
+const [searchMenu, toggleSearchMenu] = useToggle();
 useTitle(computed(() => term.value && term.value.label));
 
 // Get term data instantly and if the term name parameter changes.
@@ -84,10 +93,36 @@ watchEffect(async () => {
       </table>
 
       <div class="mt-2 text-center">
-        <QButton @click="searchByTerm(term)">
-          <icon icon="search" size="xs" class="mr-1" />
-          Sök i Queerlit på <em>{{ term.label }}</em>
-        </QButton>
+        <div class="inline-block relative text-left">
+          <QButton
+            v-on-click-outside="() => toggleSearchMenu(false)"
+            @click="toggleSearchMenu()"
+          >
+            Sök i Queerlit på <em>{{ term.label }}</em>
+            <icon icon="ellipsis-v" size="xs" class="ml-2 mb-0.5" />
+          </QButton>
+          <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
+            <div
+              v-if="searchMenu"
+              class="absolute z-10 h-0 bottom-0 left-0 duration-200 w-full"
+            >
+              <ul class="bg-gray-50/95 rounded shadow mt-0.5">
+                <li
+                  class="overflow-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                  @click="searchByTerm(term)"
+                >
+                  Sök som centralt ämnesord
+                </li>
+                <li
+                  class="overflow-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                  @click="searchByTermSecondary(term)"
+                >
+                  Sök som perifert ämnesord
+                </li>
+              </ul>
+            </div>
+          </Transition>
+        </div>
       </div>
     </div>
 
