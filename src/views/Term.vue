@@ -94,18 +94,10 @@ watchEffect(async () => {
     <div class="flex flex-wrap my-4 gap-4">
       <div class="flex-1">
         <Labeled label="Bredare">
-          <ul class="py-1">
-            <li v-for="term in parents" :key="term.name" class="my-1">
-              <router-link
-                v-slot="{ navigate }"
-                :to="`/subjects/${term.name}`"
-                custom
-              >
-                <Term
-                  class="mr-1 mb-1 cursor-pointer"
-                  :data="term"
-                  @click="navigate"
-                />
+          <ul class="my-1 flex flex-col gap-2">
+            <li v-for="term in parents" :key="term.name">
+              <router-link :to="`/subjects/${term.name}`">
+                <Term :data="term" />
               </router-link>
             </li>
           </ul>
@@ -114,18 +106,10 @@ watchEffect(async () => {
 
       <div class="flex-1">
         <Labeled label="Underordnade">
-          <ul>
-            <li v-for="term in children" :key="term.name" class="my-1">
-              <router-link
-                v-slot="{ navigate }"
-                :to="`/subjects/${term.name}`"
-                custom
-              >
-                <Term
-                  class="mr-1 mb-1 cursor-pointer"
-                  :data="term"
-                  @click="navigate"
-                />
+          <ul class="my-1 flex flex-col gap-2">
+            <li v-for="term in children" :key="term.name">
+              <router-link :to="`/subjects/${term.name}`">
+                <Term :data="term" />
               </router-link>
             </li>
           </ul>
@@ -134,21 +118,13 @@ watchEffect(async () => {
 
       <div class="w-full">
         <Labeled label="Relaterade">
-          <div class="py-1">
-            <router-link
-              v-for="term in related"
-              :key="term.name"
-              v-slot="{ navigate }"
-              :to="`/subjects/${term.name}`"
-              custom
-            >
-              <Term
-                class="mr-1 my-1 cursor-pointer"
-                :data="term"
-                @click="navigate"
-              />
-            </router-link>
-          </div>
+          <ul class="my-1 flex flex-wrap gap-2">
+            <li v-for="term in related" :key="term.name">
+              <router-link :to="`/subjects/${term.name}`">
+                <Term :data="term" />
+              </router-link>
+            </li>
+          </ul>
         </Labeled>
       </div>
 

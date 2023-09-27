@@ -52,7 +52,7 @@ function dragEnd() {
     @click="toggleMenu"
   >
     <span
-      class="flex items-center transition-all px-2 py-0.5 text-black font-thin rounded-md shadow cursor-default"
+      class="flex items-center transition-all px-2 py-0.5 text-black font-thin rounded-md shadow"
       :class="[
         isQlit
           ? secondary
@@ -81,18 +81,20 @@ function dragEnd() {
         <ul
           class="bg-gray-50/95 rounded shadow mt-0.5 text-sm w-40 overflow-hidden"
         >
-          <li
-            v-for="(option, i) in optionItems"
-            :key="i"
-            class="overflow-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
-            @click.prevent.stop="
-              () => {
-                option.action();
-                isMenuVisible = false;
-              }
-            "
-            v-html="option.label"
-          />
+          <li v-for="(option, i) in optionItems" :key="i">
+            <component
+              :is="option.to ? 'router-link' : 'div'"
+              :to="option.to || undefined"
+              class="overflow-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+              @click.prevent.stop="
+                () => {
+                  option.action();
+                  isMenuVisible = false;
+                }
+              "
+              v-html="option.label"
+            />
+          </li>
         </ul>
       </div>
     </Transition>

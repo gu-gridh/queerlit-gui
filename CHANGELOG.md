@@ -15,7 +15,9 @@ As this project is a user-facing application, the places in the semantic version
 
 ### Fixed
 
+- Changed some clickable elements (e.g. term buttons) into links, so they can be opened in new tab etc.
 - In the freetext input, the genre/form suggestions had the whole scheme url showing, changed it back to just the scheme code
+- Adjusted spacing between broader/narrower/related terms on term page
 
 ## [2.2.0] (2023-09-20)
 
