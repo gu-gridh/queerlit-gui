@@ -9,7 +9,7 @@ const [showOptions, toggleOptions] = useToggle();
   <div class="inline-block relative">
     <div
       v-on-click-outside="() => toggleOptions(false)"
-      @click="toggleOptions()"
+      @click.prevent.stop="toggleOptions()"
     >
       <slot />
     </div>
