@@ -2,17 +2,26 @@
 import { useToggle } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
 
+defineProps<{
+  disabled?: boolean;
+}>();
+
 const [showOptions, toggleOptions] = useToggle();
 </script>
 
 <template>
   <div class="inline-block relative">
     <div
+      v-if="disabled !== true"
       v-on-click-outside="() => toggleOptions(false)"
       @click.prevent.stop="toggleOptions()"
     >
       <slot />
     </div>
+    <div v-else>
+      <slot />
+    </div>
+
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <div
         v-if="showOptions"

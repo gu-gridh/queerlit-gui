@@ -44,7 +44,7 @@ function dragEnd() {
 </script>
 
 <template>
-  <OptionsButton>
+  <OptionsButton :disabled="!optionItems.length">
     <drag
       class="inline-block relative"
       :draggable="draggable"
