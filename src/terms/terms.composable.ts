@@ -83,9 +83,13 @@ export default function useTerms() {
     router.push("/");
   }
 
-  function gotoTerm(term: Term) {
+  function getTermPagePath(term: Term) {
     const name = "name" in term ? term.name : urlBasename(term.id);
-    router.push(`/subjects/${name}`);
+    return `/subjects/${name}`;
+  }
+
+  function gotoTerm(term: Term) {
+    router.push(getTermPagePath(term));
   }
 
   return {
@@ -108,6 +112,7 @@ export default function useTerms() {
     sortTerms,
     searchByTerm,
     searchByTermSecondary,
+    getTermPagePath,
     gotoTerm,
     termIsQlit,
   };

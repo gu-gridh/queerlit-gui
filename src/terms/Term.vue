@@ -5,6 +5,7 @@ import useRootStore from "@/stores/root.store";
 import type { Term } from "@/types/work";
 import type { TermOption } from "./termOptions.composable";
 import useTerms from "./terms.composable";
+import OptionsButton from "@/components/OptionsButton.vue";
 
 const props = defineProps<{
   data: Term;
@@ -43,48 +44,44 @@ function dragEnd() {
 </script>
 
 <template>
-  <drag
-    v-on-click-outside="() => (isMenuVisible = false)"
-    class="inline-block relative"
-    :draggable="draggable"
-    @dragstart="dragStart"
-    @dragend="dragEnd"
-    @click="toggleMenu"
-  >
-    <span
-      class="flex items-center transition-all px-2 py-0.5 text-black font-thin rounded-md shadow cursor-default"
-      :class="[
-        isQlit
-          ? secondary
-            ? 'bg-tagyellow-bright'
-            : 'bg-tagyellow'
-          : 'bg-gray-200',
-      ]"
+  <OptionsButton>
+    <drag
+      class="inline-block relative"
+      :draggable="draggable"
+      @dragstart="dragStart"
+      @dragend="dragEnd"
     >
-      <slot>
-        {{ data.label }}
-      </slot>
-
-      <icon
-        v-if="optionItems.length"
-        icon="ellipsis-v"
-        size="xs"
-        class="ml-2 opacity-50"
-      />
-    </span>
-    <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
-      <div
-        v-if="optionItems.length"
-        v-show="isMenuVisible"
-        class="absolute z-10 h-0 bottom-0 left-0 duration-200"
+      <span
+        class="flex items-center transition-all px-2 py-0.5 text-black font-thin rounded-md shadow"
+        :class="[
+          isQlit
+            ? secondary
+              ? 'bg-tagyellow-bright'
+              : 'bg-tagyellow'
+            : 'bg-gray-200',
+          optionItems.length ? 'cursor-context-menu' : '',
+        ]"
       >
-        <ul
-          class="bg-gray-50/95 rounded shadow mt-0.5 text-sm w-40 overflow-hidden"
-        >
-          <li
-            v-for="(option, i) in optionItems"
-            :key="i"
-            class="overflow-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+        <slot>
+          {{ data.label }}
+        </slot>
+
+        <icon
+          v-if="optionItems.length"
+          icon="ellipsis-v"
+          size="xs"
+          class="ml-2 opacity-50"
+        />
+      </span>
+    </drag>
+
+    <template v-if="optionItems.length" #menu>
+      <ul class="bg-gray-50/95 rounded shadow mt-0.5 w-40">
+        <li v-for="(option, i) in optionItems" :key="i">
+          <component
+            :is="option.to ? 'router-link' : 'div'"
+            :to="option.to || undefined"
+            class="block text-ellipsis overflow-hidden whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
             @click.prevent.stop="
               () => {
                 option.action();
@@ -93,10 +90,10 @@ function dragEnd() {
             "
             v-html="option.label"
           />
-        </ul>
-      </div>
-    </Transition>
-  </drag>
+        </li>
+      </ul>
+    </template>
+  </OptionsButton>
 </template>
 
 <style scoped></style>

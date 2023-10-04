@@ -169,7 +169,7 @@ watch(showHelp, () => {
           @select="setGenreform"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item.label }} ({{ item.scheme }})
+            {{ item.label }} ({{ item.schemeCode }})
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>

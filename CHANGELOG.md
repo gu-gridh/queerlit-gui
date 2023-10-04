@@ -13,6 +13,18 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+## [2.2.1] (2023-10-04)
+
+### Added
+
+- Search button on term page for minor terms, not just major
+
+### Fixed
+
+- Changed some clickable elements (e.g. term buttons) into links, so they can be opened in new tab etc.
+- In the freetext input, the genre/form suggestions had the whole scheme url showing, changed it back to just the scheme code
+- Adjusted spacing between broader/narrower/related terms on term page
+
 ## [2.2.0] (2023-09-20)
 
 ### Changed
@@ -200,7 +212,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.2...v2.2.0
 [2.1.2]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/gu-gridh/queerlit-gui/compare/v2.1.0...v2.1.1

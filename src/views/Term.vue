@@ -1,19 +1,26 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
 import useTerms from "@/terms/terms.composable";
-import { useRoute } from "vue-router";
 import ExternalTermList from "@/terms/ExternalTermList.vue";
 import QButton from "@/components/QButton.vue";
 import type { QlitTerm } from "@/services/qlit.types";
 import useHistory from "./history.composable";
+import OptionsButton from "@/components/OptionsButton.vue";
 
 const route = useRoute();
-const { getParents, getChildren, getRelated, getTerm, searchByTerm } =
-  useTerms();
+const {
+  getParents,
+  getChildren,
+  getRelated,
+  getTerm,
+  searchByTerm,
+  searchByTermSecondary,
+} = useTerms();
 const { flag404 } = use404();
 const { prev } = useHistory();
 
@@ -84,28 +91,39 @@ watchEffect(async () => {
       </table>
 
       <div class="mt-2 text-center">
-        <QButton @click="searchByTerm(term)">
-          <icon icon="search" size="xs" class="mr-1" />
-          Sök i Queerlit på <em>{{ term.label }}</em>
-        </QButton>
+        <OptionsButton class="text-left">
+          <QButton class="cursor-context-menu">
+            Sök i Queerlit på <em>{{ term.label }}</em>
+            <icon icon="ellipsis-v" size="xs" class="ml-2 mb-0.5" />
+          </QButton>
+          <template #menu>
+            <div class="w-40"></div>
+            <ul class="bg-gray-50/95 rounded shadow mt-0.5">
+              <li
+                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                @click="searchByTerm(term)"
+              >
+                Sök som centralt ämnesord
+              </li>
+              <li
+                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                @click="searchByTermSecondary(term)"
+              >
+                Sök som perifert ämnesord
+              </li>
+            </ul>
+          </template>
+        </OptionsButton>
       </div>
     </div>
 
     <div class="flex flex-wrap my-4 gap-4">
       <div class="flex-1">
         <Labeled label="Bredare">
-          <ul class="py-1">
-            <li v-for="term in parents" :key="term.name" class="my-1">
-              <router-link
-                v-slot="{ navigate }"
-                :to="`/subjects/${term.name}`"
-                custom
-              >
-                <Term
-                  class="mr-1 mb-1 cursor-pointer"
-                  :data="term"
-                  @click="navigate"
-                />
+          <ul class="my-1 flex flex-col gap-2">
+            <li v-for="term in parents" :key="term.name">
+              <router-link :to="`/subjects/${term.name}`">
+                <Term :data="term" />
               </router-link>
             </li>
           </ul>
@@ -114,18 +132,10 @@ watchEffect(async () => {
 
       <div class="flex-1">
         <Labeled label="Underordnade">
-          <ul>
-            <li v-for="term in children" :key="term.name" class="my-1">
-              <router-link
-                v-slot="{ navigate }"
-                :to="`/subjects/${term.name}`"
-                custom
-              >
-                <Term
-                  class="mr-1 mb-1 cursor-pointer"
-                  :data="term"
-                  @click="navigate"
-                />
+          <ul class="my-1 flex flex-col gap-2">
+            <li v-for="term in children" :key="term.name">
+              <router-link :to="`/subjects/${term.name}`">
+                <Term :data="term" />
               </router-link>
             </li>
           </ul>
@@ -134,21 +144,13 @@ watchEffect(async () => {
 
       <div class="w-full">
         <Labeled label="Relaterade">
-          <div class="py-1">
-            <router-link
-              v-for="term in related"
-              :key="term.name"
-              v-slot="{ navigate }"
-              :to="`/subjects/${term.name}`"
-              custom
-            >
-              <Term
-                class="mr-1 my-1 cursor-pointer"
-                :data="term"
-                @click="navigate"
-              />
-            </router-link>
-          </div>
+          <ul class="my-1 flex flex-wrap gap-2">
+            <li v-for="term in related" :key="term.name">
+              <router-link :to="`/subjects/${term.name}`">
+                <Term :data="term" />
+              </router-link>
+            </li>
+          </ul>
         </Labeled>
       </div>
 
