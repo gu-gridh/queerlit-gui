@@ -10,7 +10,7 @@
         <p>
           Om du saknar något verk, eller har tips på ämnesord till något av
           verken, så vill vi gärna
-          <a href="https://queerlit.dh.gu.se/om/kontakt" title="Kontakt"
+          <a href="https://queerlit.dh.gu.se/om/foresla" title="Kontakt"
             >höra av dig</a
           >!
         </p>
