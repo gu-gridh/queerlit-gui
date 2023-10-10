@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Contact menu link
+
 ## [2.2.2] (2023-10-04)
 
 ### Fixed

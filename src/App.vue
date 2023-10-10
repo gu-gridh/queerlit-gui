@@ -24,6 +24,9 @@
           </router-link>
           <router-link to="/subjects" class="main-nav-link">Ämnen</router-link>
           <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">Om</a>
+          <a href="https://queerlit.dh.gu.se/om/kontakt" class="main-nav-link">
+            Kontakt
+          </a>
         </nav>
 
         <aside>
