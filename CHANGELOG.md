@@ -16,6 +16,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Added
 
 - Contact menu link
+- About and contact links in footer
 
 ## [2.2.2] (2023-10-04)
 
