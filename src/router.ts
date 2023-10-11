@@ -1,18 +1,14 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  type RouteRecordRaw,
+} from "vue-router";
 import SearchForm from "@/search/SearchForm.vue";
 import Results from "@/search/Results.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
 
-import "vue-router";
-
-declare module "vue-router" {
-  interface RouteMeta {
-    title?: string;
-  }
-}
-
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Search",
