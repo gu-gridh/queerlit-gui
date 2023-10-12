@@ -404,7 +404,12 @@ function getHistogram(stats: L.Stats) {
 /** Build a string of a person's name. */
 export function getPersonName(person?: L.Person) {
   // Sometimes the name is split in two, sometimes not.
-  const props: (keyof L.Person)[] = ["givenName", "familyName", "name"];
+  const props: (keyof L.Person)[] = [
+    "givenName",
+    "familyName",
+    "name",
+    "marc:numeration",
+  ];
   return (
     person &&
     props

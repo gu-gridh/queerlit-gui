@@ -18,6 +18,10 @@ As this project is a user-facing application, the places in the semantic version
 - Contact menu link
 - About and contact links in footer
 
+### Fixed
+
+- Restore person name numeration (e.g. XII) to term label
+
 ## [2.2.2] (2023-10-04)
 
 ### Fixed

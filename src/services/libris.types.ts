@@ -132,6 +132,7 @@ export type Person = {
   givenName?: string;
   lifeSpan?: string;
   name?: string;
+  "marc:numeration"?: string; // e.g. "XII"
 };
 
 export type Role = {
