@@ -6,6 +6,11 @@ import type { GenreForm, Term, WorkFromLibris } from "@/types/work";
 import type { MaybeArray, URI } from "@/types/util";
 import type { QlitName } from "./qlit.types";
 
+const XLAPI_BASE = import.meta.env.VITE_XLAPI_QA
+  ? "https://libris-qa.kb.se/"
+  : "https://libris.kb.se/";
+const XLAPI_FIND = XLAPI_BASE + "find";
+
 // Labels are sometimes missing in the Libris response, so keep a local copy of all labels as fetched from the QLIT backend.
 const qlitLabels: Readonly<Record<QlitName, string>> = {};
 
@@ -110,7 +115,7 @@ export async function search(options: Partial<SearchOptions>) {
 }
 
 export async function get(id: L.Id) {
-  const fullId = `https://libris.kb.se/${id}#it`;
+  const fullId = XLAPI_BASE + `${id}#it`;
   const result = await xlFindBooks({ "@id": fullId });
   if (result.items.length != 1) {
     throw RangeError("get(id) result length should be 1");
@@ -149,9 +154,7 @@ export async function xlFindBooks(params: L.FindParams) {
 export async function xlFind<T = any>(
   params: L.FindParams,
 ): Promise<{ items: T[]; totalItems: number; stats?: any }> {
-  return axios
-    .get("https://libris.kb.se/find", { params })
-    .then((response) => response.data);
+  return axios.get(XLAPI_FIND, { params }).then((response) => response.data);
 }
 
 function processInstance(item: L.Instance): WorkFromLibris {

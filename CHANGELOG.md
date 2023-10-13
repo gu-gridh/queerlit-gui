@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- The test environment of Libris XL can now be used by setting the `VITE_XLAPI_QA` env flag
+
 ### Changed
 
 - Lower-case most occurrences of "hbtqi"
