@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- GitHub Actions build workflow, to catch build errors sooner
+
 ## [2.2.3] (2023-10-13)
 
 ### Added
