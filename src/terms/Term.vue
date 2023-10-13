@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { vOnClickOutside } from "@vueuse/components";
 import useRootStore from "@/stores/root.store";
 import type { Term } from "@/types/work";
 import type { TermOption } from "./termOptions.composable";
@@ -25,13 +24,6 @@ const optionItems = computed(
       ?.map((op) => op(props.data))
       .filter((op) => op.isApplicable !== false) || [],
 );
-
-function toggleMenu(event: Event) {
-  if (optionItems.value.length) {
-    event.preventDefault();
-    isMenuVisible.value = !isMenuVisible.value;
-  }
-}
 
 function dragStart() {
   isMenuVisible.value = false;
