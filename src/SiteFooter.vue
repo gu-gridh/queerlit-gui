@@ -2,7 +2,7 @@
 
 <template>
   <div class="container mt-8 py-8 border-t flex gap-4 justify-between text-sm">
-    <div class="flex-1 q-body">
+    <div class="flex-1 q-body flex flex-col gap-1">
       <div>
         Queerlitprojektet bedrivs på
         <a href="https://gu.se">Göteborgs universitet</a> i samarbete med
@@ -12,6 +12,10 @@
         <a href="https://lnu.se/">Linnéuniversitetet</a>.
       </div>
       <div>
+        <a href="https://queerlit.dh.gu.se/om/">Mer om projektet Queerlit</a>
+        <span class="px-1">·</span>
+        <a href="https://queerlit.dh.gu.se/om/kontakt">Kontakta oss</a>
+        <span class="px-1">·</span>
         Licens:
         <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"
           >CC0</a

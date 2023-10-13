@@ -8,10 +8,9 @@
           annat – men inte enbart – skildringar av HBTQI-personer.
         </p>
         <p>
-          Databasen är under uppbyggnad, och vi arbetar fortfarande med att föra
-          in all information. Om du saknar något verk, eller har tips på
-          ämnesord till något av verken, så vill vi gärna
-          <a href="https://queerlit.dh.gu.se/om/kontakt" title="Kontakt"
+          Om du saknar något verk, eller har tips på ämnesord till något av
+          verken, så vill vi gärna
+          <a href="https://queerlit.dh.gu.se/om/foresla" title="Kontakt"
             >höra av dig</a
           >!
         </p>
