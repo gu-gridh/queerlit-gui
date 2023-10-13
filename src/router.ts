@@ -8,6 +8,14 @@ import Results from "@/search/Results.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
 
+// Specify typing for router meta.
+import "vue-router";
+declare module "vue-router" {
+  interface RouteMeta {
+    title?: string;
+  }
+}
+
 const routes: RouteRecordRaw[] = [
   {
     path: "/",

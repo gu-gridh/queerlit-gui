@@ -121,9 +121,9 @@ watchEffect(async () => {
       <div class="flex-1">
         <Labeled label="Bredare">
           <ul class="my-1 flex flex-col gap-2">
-            <li v-for="term in parents" :key="term.name">
-              <router-link :to="`/subjects/${term.name}`">
-                <Term :data="term" />
+            <li v-for="broaderTerm in parents" :key="broaderTerm.name">
+              <router-link :to="`/subjects/${broaderTerm.name}`">
+                <Term :data="broaderTerm" />
               </router-link>
             </li>
           </ul>
@@ -133,9 +133,9 @@ watchEffect(async () => {
       <div class="flex-1">
         <Labeled label="Underordnade">
           <ul class="my-1 flex flex-col gap-2">
-            <li v-for="term in children" :key="term.name">
-              <router-link :to="`/subjects/${term.name}`">
-                <Term :data="term" />
+            <li v-for="narrowerTerm in children" :key="narrowerTerm.name">
+              <router-link :to="`/subjects/${narrowerTerm.name}`">
+                <Term :data="narrowerTerm" />
               </router-link>
             </li>
           </ul>
@@ -145,9 +145,9 @@ watchEffect(async () => {
       <div class="w-full">
         <Labeled label="Relaterade">
           <ul class="my-1 flex flex-wrap gap-2">
-            <li v-for="term in related" :key="term.name">
-              <router-link :to="`/subjects/${term.name}`">
-                <Term :data="term" />
+            <li v-for="relatedTerm in related" :key="relatedTerm.name">
+              <router-link :to="`/subjects/${relatedTerm.name}`">
+                <Term :data="relatedTerm" />
               </router-link>
             </li>
           </ul>
