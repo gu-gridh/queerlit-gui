@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Lower-case most occurrences of "hbtqi"
+
 ### [2.2.4] (2023-10-13)
 
 ### Added

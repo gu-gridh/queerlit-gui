@@ -57,7 +57,7 @@ function gotoThesaurus() {
         och i så stor utsträckning som möjligt kommer den länkas till SAO och
         <a href="https://homosaurus.org/">Homosaurus</a> (utvecklad av IHLIA
         LGBT Heritage i Amsterdam och Digital Transgender Archive i Boston), som
-        är den största internationella tesaurusen för HBTQ.
+        är den största internationella tesaurusen för hbtq.
       </p>
     </div>
 
