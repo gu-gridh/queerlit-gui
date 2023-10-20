@@ -17,6 +17,10 @@ As this project is a user-facing application, the places in the semantic version
 
 - Lower-case most occurrences of "hbtqi"
 
+### Fixed
+
+- Added missing author "Arthur Magnusson" for the local work `magnusson`
+
 ### [2.2.4] (2023-10-13)
 
 ### Added
