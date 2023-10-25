@@ -14,7 +14,7 @@ export type Work = {
   termsSecondary: Term[];
   summary?: string;
   motivation?: string;
-  genreform: Term[];
+  genreform: GenreForm[];
   languages?: string[];
   contentType?: string[];
   extent?: string;
@@ -39,4 +39,5 @@ export type Term = {
 
 export type GenreForm = Term & {
   schemeCode?: string;
+  primary: boolean;
 };

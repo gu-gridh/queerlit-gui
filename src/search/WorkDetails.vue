@@ -75,7 +75,7 @@
       </Labeled>
 
       <Labeled label="Genre/form" class="w-full sm:w-1/2 pr-4">
-        <ValueList :values="work.genreform.map((gf) => gf.label)" />
+        <ValueList :values="work.genreform.map(getGenreformLabel)" />
       </Labeled>
 
       <Labeled label="Anmärkning" class="w-full sm:w-1/2 pr-4">
@@ -121,6 +121,7 @@ import useTermOptions from "@/terms/termOptions.composable";
 import Labeled from "@/components/Labeled.vue";
 import ValueList from "@/components/ValueList.vue";
 import type { Work } from "@/types/work";
+import useQuery from "./query.composable";
 
 const props = defineProps<{
   work: Work;
@@ -128,6 +129,7 @@ const props = defineProps<{
 
 const { sortTerms } = useTerms();
 const { goto, search, searchSecondary } = useTermOptions();
+const { getGenreformLabel } = useQuery();
 
 const terms = computed(() => sortTerms(props.work.terms));
 
