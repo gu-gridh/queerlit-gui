@@ -2,7 +2,7 @@
 # Fetches issue list, sorts by prio and effort labels, and outputs CSV
 # Requires `jq` to be installed: https://stedolan.github.io/jq/
 
-curl https://api.github.com/repos/CDH-DevTeam/queerlit-gui/issues?per_page=200 | \
+curl https://api.github.com/repos/gu-gridh/queerlit-gui/issues?per_page=200 | \
   jq -r '
     map([
       .title,

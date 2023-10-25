@@ -56,7 +56,9 @@ export async function getCollections(): Promise<QlitCollection[]> {
   return collections.map((collection) => ({
     ...collection,
     id: collection.uri,
-    label: collection.prefLabel.replace("Tema: ", "").replace(" (HBTQI)", ""),
+    label: collection.prefLabel
+      .replace("Tema: ", "")
+      .replace(/ \(HBTQI\)/i, ""),
   }));
 }
 

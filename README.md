@@ -12,6 +12,10 @@ See the [changelog](CHANGELOG.md).
 2. `yarn install`
 3. `yarn dev`
 
+To use the test environment of Libris XL, modify `.env.local` or run:
+
+- `VITE_XLAPI_QA=1 yarn dev`
+
 ### Visual Studio Code settings
 
 ```json

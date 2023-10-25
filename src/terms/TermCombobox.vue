@@ -171,7 +171,7 @@ function dropTerm() {
     // Add to the current field.
     add(term);
 
-    store.dragged = null
+    store.dragged = null;
   }
 }
 </script>

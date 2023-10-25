@@ -5,7 +5,7 @@
         <p>
           Queerlit är en databas för svensk skönlitteratur som skildrar samkönat
           begär och överskridanden av binära könsnormer. Det innefattar bland
-          annat – men inte enbart – skildringar av HBTQI-personer.
+          annat – men inte enbart – skildringar av hbtqi-personer.
         </p>
         <p>
           Om du saknar något verk, eller har tips på ämnesord till något av
