@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         # Having "" here enables the `node-version-file` option
-        node-version: ["", latest]
+        node-version: ["", 16.x]
 
     steps:
       - uses: actions/checkout@v4
