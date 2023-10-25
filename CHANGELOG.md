@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Set Node.js version to 20 and added "latest" to CI
+
 ### [2.2.5] (2023-10-25)
 
 ### Added
