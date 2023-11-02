@@ -13,6 +13,8 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### [2.2.6] (2023-11-02)
+
 ### Changed
 
 - Show SAOGF terms more prominently than others
@@ -258,7 +260,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.5...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.6...HEAD
+[2.2.6]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.2...v2.2.3
