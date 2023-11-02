@@ -16,6 +16,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Changed
 
 - Show SAOGF terms more prominently than others
+- Set Node version (to 16) in `.nvmrc` and respect that in GitHub CI workflow
 
 ### [2.2.5] (2023-10-25)
 
