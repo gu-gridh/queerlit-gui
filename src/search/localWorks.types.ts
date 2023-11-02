@@ -1,4 +1,4 @@
-import type { Term } from "@/types/work";
+import type { GenreForm, Term } from "@/types/work";
 
 export type LocalWork = {
   id: string;
@@ -7,7 +7,7 @@ export type LocalWork = {
   motivation?: string;
   date: { label: string; min: number; max: number };
   terms: Term[];
-  genreform: Term[];
+  genreform: GenreForm[];
   librisUrl?: string;
 };
 

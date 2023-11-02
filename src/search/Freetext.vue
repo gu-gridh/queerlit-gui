@@ -169,7 +169,8 @@ watch(showHelp, () => {
           @select="setGenreform"
         >
           <Term :data="item" class="cursor-pointer">
-            {{ item.label }} ({{ item.schemeCode }})
+            {{ item.label }}
+            <template v-if="!item.primary"> ({{ item.schemeCode }}) </template>
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>

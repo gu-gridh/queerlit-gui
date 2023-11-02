@@ -5,7 +5,7 @@ import useRootStore from "@/stores/root.store";
 import useQuery from "./query.composable";
 import worksData from "@/assets/local-works.yaml";
 import type { LocalWork, LocalWorkRaw } from "./localWorks.types";
-import type { Term } from "@/types/work";
+import type { Term, GenreForm } from "@/types/work";
 
 const worksRaw: Readonly<Record<string, LocalWorkRaw>> = worksData;
 
@@ -24,10 +24,14 @@ const works: LocalWork[] = Object.keys(worksRaw).map((id) => {
     // Works as long as term uri = scheme uri + a name
     scheme: uri.replace(/\/[^/]*$/, ""),
   });
-  work.terms;
+
+  const inflateGenreform = ([uri, prefLabel]: [string, string]): GenreForm => ({
+    ...inflateTerm([uri, prefLabel]),
+    primary: uri.indexOf("saogf") != -1,
+  });
 
   const terms = work.terms ? Object.entries(work.terms).map(inflateTerm) : [];
-  const genreform = Object.entries(work.genreform || {}).map(inflateTerm);
+  const genreform = Object.entries(work.genreform || {}).map(inflateGenreform);
 
   return {
     id,

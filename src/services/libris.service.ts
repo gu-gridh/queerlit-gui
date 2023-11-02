@@ -311,7 +311,12 @@ export async function searchGenreform(query: string): Promise<GenreForm[]> {
   params.append("inScheme.@id", ConceptScheme.BarnGf);
   params.append("inScheme.@id", ConceptScheme.SaoGf);
   const data = await xlFind<L.GenreForm>(params);
-  return data.items.map(processGenreform);
+  return (
+    data.items
+      .map(processGenreform)
+      // Primary terms (saogf) first
+      .sort((a, b) => Number(b.primary) - Number(a.primary))
+  );
 }
 
 function processTerm(term: L.Concept): Term {
@@ -333,12 +338,13 @@ function processTerm(term: L.Concept): Term {
 function processGenreform(genreform: L.GenreFormAny): GenreForm {
   const { id, label, scheme } = processTerm(genreform);
   const schemeCode =
-    "inScheme" in genreform &&
-    genreform.inScheme &&
-    "code" in genreform.inScheme
-      ? genreform.inScheme.code
+    "inScheme" in genreform && genreform.inScheme
+      ? "code" in genreform.inScheme
+        ? genreform.inScheme.code
+        : genreform.inScheme["@id"]?.split("/").pop()
       : undefined;
-  return { id, label, scheme, schemeCode };
+  const primary = schemeCode == "saogf";
+  return { id, label, scheme, schemeCode, primary };
 }
 
 /** Guess scheme and label from the id uri. */

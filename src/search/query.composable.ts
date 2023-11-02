@@ -11,7 +11,7 @@ export default function useQuery() {
     (item.lifeSpan ? ` (${item.lifeSpan})` : "");
 
   const getGenreformLabel = (item: GenreForm) =>
-    `${item.label} (${item.schemeCode})`;
+    item.primary ? item.label : `${item.label} (${item.schemeCode})`;
 
   return {
     ...storeToRefs(queryStore),
