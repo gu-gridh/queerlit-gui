@@ -131,7 +131,7 @@ watchEffect(async () => {
       </div>
 
       <div class="flex-1">
-        <Labeled label="Underordnade">
+        <Labeled label="Smalare">
           <ul class="my-1 flex flex-col gap-2">
             <li v-for="narrowerTerm in children" :key="narrowerTerm.name">
               <router-link :to="`/subjects/${narrowerTerm.name}`">
