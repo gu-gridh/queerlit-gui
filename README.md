@@ -34,6 +34,21 @@ To use the test environment of Libris XL, modify `.env.local` or run:
 }
 ```
 
+### Docker
+
+The Dockerfile describes an image that contains the build. It doesn't serve the files, and the container immediately exits.
+
+To copy the built `dist` folder, do:
+
+```sh
+# Build the image
+docker build -t queerlit-gui .
+# Remove any previous dist
+rm -r dist
+# Run a container to grab the files
+docker run -it -v .:/app/out queerlit-gui cp -r dist out/dist
+```
+
 ### Issue queue
 
 Issues are on GitHub: https://github.com/CDH-DevTeam/queerlit-gui/issues
