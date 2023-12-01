@@ -9,9 +9,13 @@ As this project is a user-facing application, the places in the semantic version
 
 - `MAJOR` denotes changes that are expected to significantly disrupt the flow of a returning user with some experience of the application, _or_ that significantly affects the development workflow
 - `MINOR` denotes changes that may affect the user experience _or_ the development workflow
-- `PATCH` denotes changes that are insignificant to the user experience or the develpment workflow
+- `PATCH` denotes changes that are insignificant to the user experience or the development workflow
 
 ## [Unreleased]
+
+### Added
+
+- Docker support
 
 ## [2.2.7] (2023-11-29)
 
