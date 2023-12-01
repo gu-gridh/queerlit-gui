@@ -16,6 +16,13 @@ To use the test environment of Libris XL, modify `.env.local` or run:
 
 - `VITE_XLAPI_QA=1 yarn dev`
 
+## Docker
+
+1. [Install Docker](https://www.docker.com/get-started/)
+2. `docker build -t queerlit-gui .`
+3. `docker run -p 8090:80 queerlit-gui`
+4. Visit site at http://localhost:8090/
+
 ### Visual Studio Code settings
 
 ```json
