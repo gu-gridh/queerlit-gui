@@ -20,3 +20,11 @@ jobs:
           node-version-file: .nvmrc
       - run: yarn install
       - run: yarn build
+
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/docker-setup-buildx@v3
+      - run: docker build .
