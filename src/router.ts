@@ -4,9 +4,9 @@ import {
   type RouteRecordRaw,
 } from "vue-router";
 import SearchForm from "@/search/SearchForm.vue";
-import Results from "@/search/Results.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
+const Results = () => import("@/search/Results.vue");
 
 // Specify typing for router meta.
 import "vue-router";

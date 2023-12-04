@@ -1,7 +1,8 @@
 import useRootStore from "@/stores/root.store";
 import useQueryStore, { type QueryState } from "@/stores/query.store";
 import { useRouter } from "vue-router";
-import { debounce, type DebouncedFunc } from "lodash";
+import debounce from "lodash/debounce";
+import type { DebouncedFunc } from "lodash";
 import { search } from "@/services/libris.service";
 import useLocalWorks from "./localWorks.composable";
 
