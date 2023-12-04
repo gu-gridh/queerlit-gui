@@ -49,7 +49,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="container py-6">
+  <nav class="container py-6">
     <router-link v-if="prev" :to="prev">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Gå tillbaka
@@ -58,11 +58,11 @@ watchEffect(async () => {
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Tillbaka till ämnen
     </router-link>
-  </div>
+  </nav>
 
-  <article v-if="term" class="container">
+  <main v-if="term" class="container">
     <div class="bg-amber-50 border border-amber-200 p-4 mb-2">
-      <h2 class="text-2xl">{{ term.label }}</h2>
+      <h1 class="text-2xl">{{ term.label }}</h1>
       <table class="mt-4">
         <tr v-if="term.scopeNote">
           <th>Anvisning</th>
@@ -94,7 +94,7 @@ watchEffect(async () => {
         <OptionsButton class="text-left">
           <QButton class="cursor-context-menu">
             Sök i Queerlit på <em>{{ term.label }}</em>
-            <icon icon="ellipsis-v" size="xs" class="ml-2 mb-0.5" />
+            <icon icon="ellipsis-v" size="xs" class="ml-2 mb-0.25" />
           </QButton>
           <template #menu>
             <div class="w-40"></div>
@@ -166,7 +166,7 @@ watchEffect(async () => {
         </Labeled>
       </div>
     </div>
-  </article>
+  </main>
 </template>
 
 <style lang="scss" scoped>

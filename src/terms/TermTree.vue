@@ -37,7 +37,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div
+  <article
     class="mt-4 pb-4 border-l-4"
     :class="{
       'ml-6 pl-2 ': level && expanded,
@@ -49,14 +49,14 @@ watchEffect(async () => {
       borderColor: `hsl(${hue} 70% 80% / ${expanded ? 1 : 0})`,
     }"
   >
-    <div class="flex flex-wrap justify-between items-baseline gap-4">
+    <header class="flex flex-wrap justify-between items-baseline gap-4">
       <router-link :to="`/subjects/${parent.name}`" class="text-lg font-bold">
-        <Term :data="parent" />
+        <h3><Term :data="parent" /></h3>
       </router-link>
       <span v-if="parent.altLabels && parent.altLabels.length">
         Varianter: {{ parent.altLabels.join(", ") }}
       </span>
-    </div>
+    </header>
 
     <div v-if="parent.scopeNote" class="my-2">
       {{ parent.scopeNote }}
@@ -73,7 +73,7 @@ watchEffect(async () => {
       <span v-else> <icon icon="plus" size="sm" /> Visa undertermer </span>
     </div>
 
-    <div v-if="expanded">
+    <section v-if="expanded">
       <div v-if="children">
         <TermTree
           v-for="child in children"
@@ -84,8 +84,8 @@ watchEffect(async () => {
         />
       </div>
       <div v-else>Laddar...</div>
-    </div>
-  </div>
+    </section>
+  </article>
 </template>
 
 <style></style>

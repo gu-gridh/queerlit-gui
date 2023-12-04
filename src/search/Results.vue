@@ -29,7 +29,7 @@ function setSort(event: Event) {
 <template>
   <LoadingSpinner v-if="store.isSearching" />
   <div v-else-if="store.results">
-    <div class="container flex pt-6 pb-2">
+    <section class="container flex pt-6 pb-2">
       <div class="flex-1 flex flex-wrap">
         <span class="mr-2">{{ total }} träffar</span>
         <Pagination
@@ -54,28 +54,31 @@ function setSort(event: Event) {
           <option value="-meta.modified">Senast ändrad först</option>
         </select>
       </div>
-    </div>
+    </section>
 
     <FiltersBar />
 
-    <WorkResultItem
-      v-for="(work, i) in store.results"
-      :key="work['@id']"
-      :work="work"
-      :i="store.offset + i + 1"
-    />
+    <section>
+      <h2 class="sr-only">Sökresultat</h2>
+      <WorkResultItem
+        v-for="(work, i) in store.results"
+        :key="work['@id']"
+        :work="work"
+        :i="store.offset + i + 1"
+      />
+    </section>
 
-    <div v-if="total > store.localResults.length" class="p-6">
+    <section v-if="total > store.localResults.length" class="p-6">
       <Pagination
         :current="store.offset / 20 + 1"
         :last="total / 20"
         class="mx-auto"
         @change="setPage"
       />
-    </div>
+    </section>
   </div>
 
-  <div
+  <section
     v-if="!store.isSearching && store.localResults.length"
     class="bg-pink-50"
   >
@@ -92,10 +95,10 @@ function setSort(event: Event) {
       :work="work"
       :i="i + 1"
     />
-  </div>
+  </section>
 
-  <div v-if="!store.isSearching && !total" class="container q-body">
-    <h1 class="text-6xl my-10">Inga träffar</h1>
+  <section v-if="!store.isSearching && !total" class="container q-body">
+    <h4 class="text-6xl my-10">Inga träffar</h4>
     <p>Sökningen gav inga träffar i databasen.</p>
     <p>
       Se gärna våra
@@ -113,7 +116,7 @@ function setSort(event: Event) {
       på ämnesord till något av verken, så vill vi gärna höra av dig! Du når oss
       enklast på mejl: queerlit@lir.gu.se
     </p>
-  </div>
+  </section>
 </template>
 
 <style>

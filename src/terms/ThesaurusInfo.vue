@@ -29,7 +29,7 @@ function gotoThesaurus() {
 
 <template>
   <div class="bg-white rounded-xl shadow-lg">
-    <div class="p-4 md:p-8 q-body">
+    <section class="p-4 md:p-8 q-body">
       <h1 class="text-5xl">Ämnen</h1>
       <p>
         Till Queerlit-databasen skapas en <em>tesaurus</em>, det vill säga en
@@ -59,7 +59,7 @@ function gotoThesaurus() {
         LGBT Heritage i Amsterdam och Digital Transgender Archive i Boston), som
         är den största internationella tesaurusen för hbtq.
       </p>
-    </div>
+    </section>
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
       <Labeled label="Samlingar" class="mb-4">

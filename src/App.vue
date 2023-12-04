@@ -14,7 +14,7 @@
     <div
       class="bg-smoke-500 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
     >
-      <div class="container py-12">
+      <nav class="container py-12">
         <header class="max-w-screen-md pb-8">
           <router-link to="/" class="flex-1" @click="reset">
             <img
@@ -24,7 +24,7 @@
           </router-link>
         </header>
 
-        <nav class="text-lg mt-6 mb-4 transition-all duration-500 low:mt-0">
+        <div class="text-lg mt-6 mb-4 transition-all duration-500 low:mt-0">
           <router-link
             to="/"
             class="main-nav-link"
@@ -37,19 +37,19 @@
           <a href="https://queerlit.dh.gu.se/om/kontakt" class="main-nav-link">
             Kontakt
           </a>
-        </nav>
+        </div>
 
-        <aside>
+        <section>
           <router-view name="side" />
-        </aside>
-      </div>
+        </section>
+      </nav>
     </div>
 
     <div class="flex-1 flex flex-col">
-      <div class="flex-1">
+      <section class="flex-1">
         <router-view v-if="!is404" />
         <NotFound v-else class="flex-1" />
-      </div>
+      </section>
 
       <ErrorMessage />
       <SiteFooter />

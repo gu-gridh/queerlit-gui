@@ -42,7 +42,7 @@ const terms = computed(() => sortTerms(props.terms));
             {{ title }}
           </h3>
 
-          <div class="w-32 grow">
+          <header class="w-32 grow">
             <div class="flex flex-wrap">
               <div v-for="(creator, j) in creators" :key="j" class="mr-4">
                 {{ creator.name }}
@@ -54,7 +54,7 @@ const terms = computed(() => sortTerms(props.terms));
                 {{ item }}
               </div>
             </div>
-          </div>
+          </header>
         </div>
 
         <div v-if="terms.qlit.length" class="flex flex-wrap gap-1 my-2">

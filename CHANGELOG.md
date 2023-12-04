@@ -21,6 +21,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Change
 
 - Set maximum app width and center on large screens
+- Better use of semantic HTML5 elements
 
 ## [2.2.7] (2023-11-29)
 

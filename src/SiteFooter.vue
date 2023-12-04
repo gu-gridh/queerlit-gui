@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="container mt-8 py-8 flex gap-4 justify-between text-sm">
+  <footer class="container mt-8 py-8 flex gap-4 justify-between text-sm">
     <div class="flex-1 q-body flex flex-col gap-1">
       <div>
         Queerlitprojektet bedrivs på
@@ -23,5 +23,5 @@
       </div>
     </div>
     <a href="https://gu.se" class="w-20"><img src="@/assets/gu.svg" /></a>
-  </div>
+  </footer>
 </template>

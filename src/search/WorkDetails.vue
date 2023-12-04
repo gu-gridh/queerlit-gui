@@ -1,12 +1,12 @@
 <template>
-  <div class="container py-6">
+  <nav class="container py-6">
     <router-link to="/" class="flex items-center">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Tillbaka till sökning
     </router-link>
-  </div>
-  <div v-if="work" class="container">
-    <h2 class="text-3xl">{{ work.title }}</h2>
+  </nav>
+  <main v-if="work" class="container">
+    <h1 class="text-3xl">{{ work.title }}</h1>
     <div class="flex flex-wrap my-4 gap-y-2">
       <Labeled label="Författare" class="w-full sm:w-1/2 pr-4">
         <div v-for="(creator, i) in work.creators" :key="i" class="mr-4">
@@ -110,7 +110,7 @@
         Se posten i Libris
       </a>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
