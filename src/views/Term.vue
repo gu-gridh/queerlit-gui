@@ -49,7 +49,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="p-6">
+  <div class="container py-6">
     <router-link v-if="prev" :to="prev">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Gå tillbaka

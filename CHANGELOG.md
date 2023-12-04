@@ -18,6 +18,10 @@ As this project is a user-facing application, the places in the semantic version
 - Docker support
 - Show year tooltip when dragging year filter slider handles
 
+### Change
+
+- Set maximum app width and center on large screens
+
 ## [2.2.7] (2023-11-29)
 
 ### Fixed

@@ -31,6 +31,7 @@ module.exports = {
       },
       screens: {
         low: { raw: "(max-height: 1000px)" },
+        high: "2000px",
       },
       keyframes: {
         throb: {

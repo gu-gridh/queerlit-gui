@@ -1,11 +1,11 @@
 <template>
-  <div class="p-6">
+  <div class="container py-6">
     <router-link to="/" class="flex items-center">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Tillbaka till sökning
     </router-link>
   </div>
-  <div v-if="work" class="container xl:max-w-screen-xl">
+  <div v-if="work" class="container">
     <h2 class="text-3xl">{{ work.title }}</h2>
     <div class="flex flex-wrap my-4 gap-y-2">
       <Labeled label="Författare" class="w-full sm:w-1/2 pr-4">

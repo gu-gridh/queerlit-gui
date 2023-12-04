@@ -1,6 +1,16 @@
 <template>
-  <div class="flex-1 flex flex-col lg:flex-row text-text">
-    <div class="lg:w-1/2 lg:max-w-screen-sm"></div>
+  <div class="flex-1 bg-smoke-500"></div>
+
+  <div class="w-full max-w-screen-high flex flex-col lg:flex-row text-text">
+    <div class="lg:w-1/2 lg:max-w-screen-sm">
+      <!--
+        This empty element has the same width as the sidebar,
+        and pushes main content out from the left border.
+        The sidebar won't do that because it is fixed.
+        This allows scrolling sidebar and main content separately.
+      -->
+    </div>
+
     <div
       class="bg-smoke-500 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
     >
@@ -34,6 +44,7 @@
         </aside>
       </div>
     </div>
+
     <div class="flex-1 flex flex-col">
       <div class="flex-1">
         <router-view v-if="!is404" />
@@ -44,6 +55,8 @@
       <SiteFooter />
     </div>
   </div>
+
+  <div class="flex-1"></div>
 </template>
 
 <script setup lang="ts">

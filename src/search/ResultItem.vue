@@ -28,7 +28,7 @@ const terms = computed(() => sortTerms(props.terms));
 <template>
   <router-link :to="to" class="block">
     <article
-      class="border-b border-dashed border-black p-4 transition-color flex items-baseline"
+      class="border-b border-dashed border-black transition-color flex items-baseline container py-4"
     >
       <div
         class="tabular-nums w-6 mr-2 font-thin text-2xl"
