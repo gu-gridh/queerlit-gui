@@ -32,12 +32,14 @@
         v-model="range"
         :min="min"
         :max="MAX"
-        :tooltips="false"
+        showTooltip="drag"
         :classes="{
           horizontal: 'slider-horizontal h-1 mb-2',
           connect: 'slider-connect bg-current',
           origin: 'slider-origin transition-transform',
-          handle: 'slider-handle border border-current',
+          handle:
+            'slider-handle border border-current focus:ring-text focus:ring-opacity-30',
+          tooltip: 'slider-tooltip bg-smoke-300 border-smoke-300 text-text',
         }"
         @change="emitChange"
       />
