@@ -10,11 +10,11 @@ export const urlBasename = (url: string) =>
 export const enarray = <T>(x: MaybeArray<T>) => (Array.isArray(x) ? x : [x]);
 export const unarray = <T>(x: MaybeArray<T>) => (Array.isArray(x) ? x[0] : x);
 
-export function ellipsis(text: string, limit: number) {
+export function ellipsis(text: string, limit = 200) {
   if (!text || text.length < limit) return text;
   // 1. Truncate; 2. Strip possibly incomplete trailing word; 3. Add ellipsis
   return text
-    .substring(0, 200)
+    .substring(0, limit)
     .replace(/\p{L}+$/u, "")
     .replace(/\P{L}$/u, "…");
 }

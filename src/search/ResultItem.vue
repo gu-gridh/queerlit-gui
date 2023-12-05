@@ -98,11 +98,11 @@ const terms = computed(() => sortTerms(props.terms));
         </div>
 
         <div v-if="summary" class="my-2 text-sm">
-          {{ ellipsis(summary, 80) }}
+          {{ ellipsis(summary) }}
         </div>
 
         <div v-if="motivation" class="my-2 text-sm italic">
-          {{ ellipsis(motivation, 80) }}
+          {{ ellipsis(motivation) }}
         </div>
       </div>
     </article>
