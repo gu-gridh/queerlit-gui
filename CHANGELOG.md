@@ -19,6 +19,7 @@ As this project is a user-facing application, the places in the semantic version
 - Show year tooltip when dragging year filter slider handles
 - Add term/work titles ("slugs") to url
 - Add structured data as JSON-LD snippets for SEO
+- Add "noindex" robots meta for the 404 page
 
 ### Change
 
