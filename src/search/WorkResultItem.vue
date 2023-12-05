@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import type { Work } from "@/types/work";
+import { useCanonicalPath } from "@/canonicalPath.composable";
 import ResultItem from "./ResultItem.vue";
 
 const props = defineProps<{
   work: Work;
   i: number;
 }>();
+
+const { getWorkPath } = useCanonicalPath();
 
 const termsSecondary = props.work.termsSecondary.filter((term) => term.label);
 const termsSecondaryMore =
@@ -15,7 +18,7 @@ const termsSecondaryMore =
 <template>
   <ResultItem
     :i="i"
-    :to="`/work/${work.id}`"
+    :to="getWorkPath(work)"
     :title="work.title"
     :creators="work.creators"
     :date="work.date"

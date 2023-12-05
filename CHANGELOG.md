@@ -17,6 +17,7 @@ As this project is a user-facing application, the places in the semantic version
 
 - Docker support
 - Show year tooltip when dragging year filter slider handles
+- Add term/work titles ("slugs") to url
 
 ### Change
 

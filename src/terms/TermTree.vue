@@ -4,6 +4,7 @@ import useRootStore from "@/stores/root.store";
 import type { QlitTerm } from "@/services/qlit.types";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
+import { useCanonicalPath } from "@/canonicalPath.composable";
 
 const props = defineProps<{
   parent: QlitTerm;
@@ -13,6 +14,7 @@ const props = defineProps<{
 
 const store = useRootStore();
 const { getChildren } = useTerms();
+const { getTermPath } = useCanonicalPath();
 
 const children = ref<QlitTerm[]>();
 const expanded = ref(
@@ -50,7 +52,7 @@ watchEffect(async () => {
     }"
   >
     <header class="flex flex-wrap justify-between items-baseline gap-4">
-      <router-link :to="`/subjects/${parent.name}`" class="text-lg font-bold">
+      <router-link :to="getTermPath(parent)" class="text-lg font-bold">
         <h3><Term :data="parent" /></h3>
       </router-link>
       <span v-if="parent.altLabels && parent.altLabels.length">

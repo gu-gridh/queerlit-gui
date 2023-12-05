@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
@@ -11,6 +11,7 @@ import QButton from "@/components/QButton.vue";
 import type { QlitTerm } from "@/services/qlit.types";
 import useHistory from "./history.composable";
 import OptionsButton from "@/components/OptionsButton.vue";
+import { useCanonicalPath } from "@/canonicalPath.composable";
 
 const route = useRoute();
 const {
@@ -23,6 +24,7 @@ const {
 } = useTerms();
 const { flag404 } = use404();
 const { prev } = useHistory();
+const { ensurePath, getTermPath } = useCanonicalPath();
 
 const term = ref<QlitTerm>();
 const parents = ref<QlitTerm[]>([]);
@@ -34,8 +36,14 @@ useTitle(computed(() => term.value && term.value.label));
 watchEffect(async () => {
   if (route.name != "Term") return;
   const termValue = await getTerm(route.params.id as string).catch(flag404);
-  if (!termValue) return;
-  term.value = termValue;
+  term.value = termValue || undefined;
+});
+
+// Once term data is loaded, do related stuff.
+watch(term, () => {
+  if (!term.value) return;
+  ensurePath(getTermPath(term.value));
+
   parents.value = [];
   children.value = [];
   related.value = [];
@@ -122,7 +130,7 @@ watchEffect(async () => {
         <Labeled label="Bredare">
           <ul class="my-1 flex flex-col gap-2">
             <li v-for="broaderTerm in parents" :key="broaderTerm.name">
-              <router-link :to="`/subjects/${broaderTerm.name}`">
+              <router-link :to="getTermPath(broaderTerm)">
                 <Term :data="broaderTerm" />
               </router-link>
             </li>
@@ -134,7 +142,7 @@ watchEffect(async () => {
         <Labeled label="Smalare">
           <ul class="my-1 flex flex-col gap-2">
             <li v-for="narrowerTerm in children" :key="narrowerTerm.name">
-              <router-link :to="`/subjects/${narrowerTerm.name}`">
+              <router-link :to="getTermPath(narrowerTerm)">
                 <Term :data="narrowerTerm" />
               </router-link>
             </li>
@@ -146,7 +154,7 @@ watchEffect(async () => {
         <Labeled label="Relaterade">
           <ul class="my-1 flex flex-wrap gap-2">
             <li v-for="relatedTerm in related" :key="relatedTerm.name">
-              <router-link :to="`/subjects/${relatedTerm.name}`">
+              <router-link :to="getTermPath(relatedTerm)">
                 <Term :data="relatedTerm" />
               </router-link>
             </li>

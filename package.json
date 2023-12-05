@@ -24,6 +24,7 @@
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "sass": "^1.69.5",
+    "slugify": "^1.6.6",
     "vue": "^3.3.9",
     "vue-dragscroll": "^4.0.5",
     "vue-matomo": "^4.2.0",

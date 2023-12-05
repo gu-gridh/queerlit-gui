@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: "/work/:id",
+    path: "/work/:id/:slug?",
     name: "Work",
     components: {
       side: SearchForm,
@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
     meta: { title: "Ämnen" },
   },
   {
-    path: "/subjects/:id",
+    path: "/subjects/:id/:slug?",
     name: "Term",
     components: {
       side: ThesaurusInfo,
