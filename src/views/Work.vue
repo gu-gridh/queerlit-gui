@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { get } from "@/services/libris.service";
 import { useRoute } from "vue-router";
+import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
+import { pathUrl } from "@/util";
+import { get } from "@/services/libris.service";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import WorkDetails from "@/search/WorkDetails.vue";
@@ -23,6 +25,17 @@ get(route.params.id as string)
 watch(work, () => {
   if (!work.value) return;
   ensurePath(getWorkPath(work.value));
+
+  useSchemaOrg([
+    defineWebPage({
+      name: work.value.title,
+      description: [work.value.summary, work.value.motivation]
+        .filter(Boolean)
+        .join(" "),
+      relatedLink: work.value.librisUrl,
+      url: pathUrl(getWorkPath(work.value)),
+    }),
+  ]);
 });
 </script>
 

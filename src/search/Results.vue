@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
 import useTitle from "@/views/title.composable";
 import useRootStore from "@/stores/root.store";
 import WorkResultItem from "./WorkResultItem.vue";
@@ -24,6 +25,8 @@ function setSort(event: Event) {
   store.sort = (event.target as HTMLSelectElement).value;
   doSearch();
 }
+
+useSchemaOrg([defineWebPage()]);
 </script>
 
 <template>

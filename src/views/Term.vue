@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import Term from "@/terms/Term.vue";
@@ -12,6 +13,7 @@ import type { QlitTerm } from "@/services/qlit.types";
 import useHistory from "./history.composable";
 import OptionsButton from "@/components/OptionsButton.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
+import { pathUrl } from "@/util";
 
 const route = useRoute();
 const {
@@ -53,6 +55,14 @@ watch(term, () => {
     getChildren(term.value.name).then((terms) => (children.value = terms));
   if (term.value.related.length)
     getRelated(term.value.name).then((terms) => (related.value = terms));
+
+  useSchemaOrg([
+    defineWebPage({
+      name: term.value.label,
+      description: term.value.scopeNote,
+      url: pathUrl(getTermPath(term.value)),
+    }),
+  ]);
 });
 </script>
 

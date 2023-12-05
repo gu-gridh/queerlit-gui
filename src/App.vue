@@ -63,6 +63,12 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
+import { useHead } from "@unhead/vue";
+import {
+  useSchemaOrg,
+  defineOrganization,
+  defineWebSite,
+} from "@unhead/schema-org";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
@@ -76,12 +82,28 @@ import ErrorMessage from "./ErrorMessage.vue";
 import SiteFooter from "./SiteFooter.vue";
 import useSearch from "./search/search.composable";
 
+const siteDescription =
+  "Queerlit är en databas för svensk skönlitteratur som skildrar samkönat begär och överskridanden av binära könsnormer.";
+
 const { activateHistory } = useHistory();
 const { is404 } = use404();
 const store = useRootStore();
 const queryStore = useQueryStore();
 const route = useRoute();
 const { doSearch } = useSearch();
+useHead({
+  // Set Schema.org host as in https://unhead.unjs.io/schema-org/getting-started/setup
+  templateParams: { schemaOrg: { host: "https://queerlit.dh.gu.se" } },
+  // Setting head values programmatically makes them available
+  // for `useSchemaOrg` to use as defaults for some properties:
+  // https://unhead.unjs.io/schema-org/getting-started/how-it-works#site-page-level-config
+  meta: [{ name: "description", content: siteDescription }],
+  htmlAttrs: { lang: "sv" },
+});
+useSchemaOrg([
+  defineOrganization({ name: "Queerlit" }),
+  defineWebSite({ name: "Queerlit", description: siteDescription }),
+]);
 
 const isTitlesRoute = computed(() =>
   /^\/(work|special)\//.test(route.fullPath),
