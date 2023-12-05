@@ -28,3 +28,9 @@ export function slugify(label: string): string {
   const shortLabel = ellipsis(label, 60, "");
   return realSlugify(shortLabel, { lower: true, strict: true });
 }
+
+/** Expand an app path to a full url */
+export function pathUrl(path: string) {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return window.location.origin + base + path;
+}

@@ -1,6 +1,6 @@
 import { useRouter, useRoute } from "vue-router";
 import { useHead } from "@unhead/vue";
-import { slugify, urlBasename } from "./util";
+import { pathUrl, slugify, urlBasename } from "./util";
 import type { Term, Work } from "./types/work";
 
 type RouteParams = {
@@ -11,6 +11,7 @@ type RouteParams = {
 export function useCanonicalPath() {
   const route = useRoute();
   const router = useRouter();
+  const head = useHead({});
 
   /** Get the preferred path for a route */
   function getCanonicalPath(name: string, params: RouteParams) {
@@ -36,7 +37,7 @@ export function useCanonicalPath() {
   /** Replace current path if needed */
   function ensurePath(path: string) {
     // Add canonical link
-    useHead({ link: [{ rel: "canonical", href: path }] });
+    head && head.patch({ link: [{ rel: "canonical", href: pathUrl(path) }] });
     // Modify current url
     if (route.path != path) {
       window.history.replaceState(window.history.state, "", path);

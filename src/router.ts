@@ -3,6 +3,7 @@ import {
   createWebHistory,
   type RouteRecordRaw,
 } from "vue-router";
+import { useHead } from "@unhead/vue";
 import SearchForm from "@/search/SearchForm.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
@@ -10,6 +11,7 @@ const Results = () => import("@/search/Results.vue");
 
 // Specify typing for router meta.
 import "vue-router";
+import { pathUrl } from "./util";
 declare module "vue-router" {
   interface RouteMeta {
     title?: string;
@@ -73,6 +75,10 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.afterEach((to) => {
+  useHead({ link: [{ rel: "canonical", href: pathUrl(to.path) }] });
 });
 
 export default router;
