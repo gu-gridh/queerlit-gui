@@ -1,6 +1,6 @@
 import { useRouter, useRoute } from "vue-router";
+import { useHead } from "@unhead/vue";
 import { slugify, urlBasename } from "./util";
-import type { QlitTerm } from "./services/qlit.types";
 import type { Term, Work } from "./types/work";
 
 type RouteParams = {
@@ -33,8 +33,11 @@ export function useCanonicalPath() {
     return getCanonicalPath("Term", { id: name, slug: term.label });
   }
 
-  /** Replace  current path if needed */
+  /** Replace current path if needed */
   function ensurePath(path: string) {
+    // Add canonical link
+    useHead({ link: [{ rel: "canonical", href: path }] });
+    // Modify current url
     if (route.path != path) {
       window.history.replaceState(window.history.state, "", path);
     }
