@@ -46,7 +46,7 @@ function setSort(event: Event) {
         <select
           id="sort-input"
           :value="store.sort"
-          class="appearance-none border rounded cursor-pointer -my-1 pl-1 pr-5"
+          class="appearance-none border dark:border-stone-700 rounded cursor-pointer -my-1 pl-1 pr-5"
           @change="setSort"
         >
           <option value="-publication.year">Nyast först</option>
@@ -82,7 +82,7 @@ function setSort(event: Event) {
 
   <section
     v-if="!store.isSearching && store.localResults.length"
-    class="bg-pink-50"
+    class="bg-pink-50 dark:bg-pink-950/50"
   >
     <header class="container py-1">
       <h2 class="text-lg">Specialtitlar</h2>

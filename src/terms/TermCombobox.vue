@@ -5,8 +5,9 @@
       :class="{
         'rounded-b': !suggestions.length,
         incomplete: input,
-        'bg-smoke-200 hover:bg-smoke-300': !terms.length,
-        'bg-blue-100': terms.length,
+        'bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700':
+          !terms.length,
+        'bg-blue-100 dark:bg-slate-600': terms.length,
         'animate-throb': isDraggingTerm,
       }"
       @drop="dropTerm"
@@ -59,7 +60,7 @@
 
     <div v-show="suggestions.length" class="h-0 relative z-20">
       <CloseButton @click="setSuggestions([])" />
-      <div class="bg-smoke-200 rounded-b pt-2 shadow">
+      <div class="bg-gray-50/95 dark:bg-gray-600/95 rounded-b pt-2 shadow">
         <div
           v-for="term in suggestions"
           :key="term.id"
@@ -182,7 +183,7 @@ function dropTerm() {
 }
 
 .incomplete:not(:focus-within) {
-  @apply bg-red-100;
+  @apply bg-red-100 dark:bg-red-900;
 }
 
 .term-added:last-of-type {

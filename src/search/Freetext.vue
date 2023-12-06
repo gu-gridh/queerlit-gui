@@ -95,10 +95,12 @@ watch(showHelp, () => {
 <template>
   <div v-on-click-outside="blur">
     <div
-      class="w-full flex items-center px-2 rounded-t text-text text-xl shadow-inner"
+      class="w-full flex items-center px-2 rounded-t text-text dark:text-stone-400 text-xl shadow-inner transition-colors"
       :class="[
         !(hasSuggestions && showSuggestions) ? 'rounded-b' : null,
-        text ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
+        text
+          ? 'bg-blue-100 dark:bg-slate-600'
+          : 'bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700',
       ]"
     >
       <input

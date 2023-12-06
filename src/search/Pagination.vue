@@ -69,8 +69,8 @@ watch(
       <input
         v-model="value"
         :size="2"
-        class="border rounded text-center"
-        :class="{ 'bg-red-100': !isInputValid }"
+        class="bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700 border-transparent text-text dark:text-stone-400 rounded text-center"
+        :class="{ 'bg-red-100 dark:bg-red-900': !isInputValid }"
         @keydown.down="onInputDown"
         @keydown.up="onInputUp"
         @change="onInputChange"

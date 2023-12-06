@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- Dark mode
+
 ### Changed
 
 - Centralized and simplified actions to run on page load: setting metadata, tracking page view, etc.

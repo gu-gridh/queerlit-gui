@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-6" @keyup.enter="doSearch()">
+  <div
+    class="bg-white dark:bg-stone-900 dark:text-stone-400 rounded-xl shadow-lg p-6"
+    @keyup.enter="doSearch()"
+  >
     <section class="mb-4 q-body">
       <ReadMore :expanded="queryStore.isEmpty">
         <p>
@@ -96,7 +99,7 @@
     <a
       href="https://libris.kb.se/form_extended.jsp?q=bib%3aqlit&f=ext"
       title="Libris är en nationell söktjänst med information om titlar på svenska bibliotek."
-      class="underline text-blue-900"
+      class="underline text-blue-900 dark:text-sky-500"
     >
       Sök i Libris
     </a>

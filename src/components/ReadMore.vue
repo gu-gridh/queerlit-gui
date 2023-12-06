@@ -22,7 +22,7 @@ watch(
 
     <div v-if="!expandedNow" class="absolute bottom-0 right-0 text-sm flex">
       <div
-        class="bg-gray-100 shadow rounded-lg px-2 cursor-pointer"
+        class="bg-gray-100 dark:bg-stone-700 dark:text-stone-400 shadow rounded-lg px-2 cursor-pointer"
         @click="toggle()"
       >
         + Läs mer

@@ -25,7 +25,9 @@ const hierarchicalModel = computed({
   <div>
     <CollectionsSmall />
 
-    <div class="bg-smoke-200 rounded flow-root relative">
+    <div
+      class="bg-smoke-200 dark:bg-stone-700 text-text dark:text-stone-400 rounded flow-root relative"
+    >
       <TermCombobox
         label="Centrala ämnesord"
         :terms="terms"

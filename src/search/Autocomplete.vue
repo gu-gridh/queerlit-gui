@@ -13,12 +13,12 @@
     />
     <div v-show="suggestions.length" class="relative h-0 z-20">
       <div
-        class="suggestions bg-white py-1 shadow rounded-b text-sm whitespace-nowrap overflow-hidden"
+        class="suggestions bg-gray-50/95 dark:bg-gray-600/95 py-1 shadow rounded-b text-sm whitespace-nowrap overflow-hidden"
       >
         <div
           v-for="item in suggestions"
           :key="typeof item == 'string' ? item : getId(item)"
-          class="hover:bg-blue-50 cursor-pointer px-1"
+          class="hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer px-1"
           @click="selectSuggestion(item)"
         >
           {{ getLabel ? getLabel(item) : item }}

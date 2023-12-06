@@ -28,7 +28,7 @@ const termsSecondaryMore =
     :terms-secondary-more="termsSecondaryMore"
     :summary="work.summary"
     :motivation="work.motivation"
-    class="hover:bg-smoke-100"
+    class="hover:bg-smoke-100 dark:hover:bg-smoke-900"
   />
 </template>
 

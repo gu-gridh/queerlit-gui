@@ -19,7 +19,7 @@ defineProps<{
     :terms="work.terms"
     :terms-secondary="[]"
     :summary="work.motivation"
-    class="hover:bg-pink-100"
+    class="hover:bg-pink-100 dark:hover:bg-pink-950/70"
   />
 </template>
 

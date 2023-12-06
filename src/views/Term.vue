@@ -74,7 +74,9 @@ watch(term, () => {
   </nav>
 
   <main v-if="term" class="container">
-    <div class="bg-amber-50 border border-amber-200 p-4 mb-2">
+    <div
+      class="bg-amber-50 dark:bg-gray-800 border border-amber-200 dark:border-0 p-4 mb-2"
+    >
       <h1 class="text-2xl">{{ term.label }}</h1>
       <table class="mt-4">
         <tr v-if="term.scopeNote">
@@ -111,15 +113,15 @@ watch(term, () => {
           </QButton>
           <template #menu>
             <div class="w-40"></div>
-            <ul class="bg-gray-50/95 rounded shadow mt-0.5">
+            <ul class="bg-gray-50/95 dark:bg-gray-600/95 rounded shadow mt-0.5">
               <li
-                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
                 @click="searchByTerm(term)"
               >
                 Sök som centralt ämnesord
               </li>
               <li
-                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
                 @click="searchByTermSecondary(term)"
               >
                 Sök som perifert ämnesord
