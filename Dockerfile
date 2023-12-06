@@ -1,12 +1,13 @@
 # Build stage
-FROM node:lts-alpine as build-stage
+FROM oven/bun:latest as build-stage
 WORKDIR /app
-# Install before copying the rest, for caching purposes
-COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn/releases .yarn/releases
-RUN yarn install
+# Install deps before adding code, for caching purposes
+COPY package.json ./
+COPY bun.lockb ./
+RUN bun install
+# Add code and build
 COPY . .
-RUN yarn run build
+RUN bunx vite build
 
 # Production stage
 FROM nginx:stable-alpine as production-stage

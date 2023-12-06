@@ -14,7 +14,7 @@ See the [changelog](CHANGELOG.md).
 
 To use the test environment of Libris XL, modify `.env.local` or run:
 
-- `VITE_XLAPI_QA=1 yarn dev`
+- `VITE_XLAPI_QA=1 bun run dev`
 
 ## Docker
 
