@@ -1,34 +1,25 @@
-import { watch, type MaybeRef, type ComputedRef } from "vue";
-import { useTitle as vueUseTitle } from "@vueuse/core";
 import { useRoute } from "vue-router";
+import { useHead } from "@unhead/vue";
 import useMatomo from "./matomo.composable";
 import use404 from "./404.composable";
 
-/** Decorate the useTitle of VueUse */
-export default function useTitle(
-  customTitle?:
-    | MaybeRef<string | null | undefined>
-    | ComputedRef<string | null | undefined>,
-) {
+const titleTemplate = (s?: string) => (s ? `${s} • Queerlit` : "Queerlit");
+
+export default function useTitle(customTitle?: string) {
   const route = useRoute();
   const { trackPage } = useMatomo();
   const { is404 } = use404();
+  const head = useHead({ titleTemplate });
 
-  // `customTitle` can be a ref
-  const title = customTitle || route.meta.title;
-  const titleRef = title
-    ? vueUseTitle(title, { titleTemplate: "%s • Queerlit" })
-    : // Fallback title (the view must still call `useTitle` for this to take effect)
-      vueUseTitle("Queerlit");
+  function setTitle(title: string = "") {
+    // Set the head <title> element
+    head?.patch({ title, titleTemplate });
+    // Track the page view
+    is404.value ? trackPage(`404/URL = ${route.fullPath}`) : trackPage(title);
+  }
 
-  // If/whenever the title is set, track the page view.
-  // `titleRef` can be set (to "Queerlit") even if `title` is empty.
-  // Not using watchEffect because of side effects in trackPage.
-  const onTitleChange = () =>
-    is404.value
-      ? trackPage(`404/URL = ${route.fullPath}`)
-      : titleRef.value && trackPage(titleRef.value);
-  watch(titleRef, onTitleChange, { immediate: true });
+  // Supply argument to set the title immediately
+  if (customTitle != undefined) setTitle(customTitle);
 
-  return titleRef;
+  return { setTitle };
 }

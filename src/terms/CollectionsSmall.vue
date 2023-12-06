@@ -22,24 +22,24 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="relative my-2">
+  <nav class="relative my-2">
     <CollectionsGrid @select="(collection) => (selected = collection)" />
     <div
       v-if="selected"
       class="absolute top-1 left-0 right-0 bottom-1 z-10 text-left"
     >
       <div class="bg-amber-200 shadow rounded-lg h-full overflow-auto">
-        <div
+        <header
           class="p-1 px-2 flex gap-2 items-center cursor-pointer"
           @click="selected = undefined"
         >
           <icon icon="arrow-left" size="xs" />
-          <span>{{ selected.label }}</span>
-        </div>
+          <h5>{{ selected.label }}</h5>
+        </header>
         <TermTreeSmall v-for="term in terms" :key="term.id" :parent="term" />
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <style></style>

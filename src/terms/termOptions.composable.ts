@@ -1,5 +1,6 @@
 import type { Term } from "@/types/work";
 import useTerms from "./terms.composable";
+import { useCanonicalPath } from "@/canonicalPath.composable";
 
 export type TermOption = (term: Term) => {
   label: string;
@@ -9,17 +10,13 @@ export type TermOption = (term: Term) => {
 };
 
 export default function useTermOptions() {
-  const {
-    gotoTerm,
-    searchByTerm,
-    searchByTermSecondary,
-    termIsQlit,
-    getTermPagePath,
-  } = useTerms();
+  const { gotoTerm, searchByTerm, searchByTermSecondary, termIsQlit } =
+    useTerms();
+  const { getTermPath } = useCanonicalPath();
 
   const goto: TermOption = (term) => ({
     label: `Om ämnesordet <em>${term.label}</em>`,
-    to: getTermPagePath(term),
+    to: getTermPath(term),
     action: () => gotoTerm(term),
     // The Term view only works with QLIT terms.
     isApplicable: termIsQlit(term),

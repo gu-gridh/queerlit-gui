@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
 import { vElementVisibility } from "@vueuse/components";
 import debounce from "lodash/debounce";
+import { pathUrl } from "@/util";
 import useRootStore from "@/stores/root.store";
 import useTerms from "@/terms/terms.composable";
 import useTitle from "@/views/title.composable";
@@ -16,7 +19,8 @@ const { getRoots, searchTerms } = useTerms();
 const rootTerms = ref<QlitTerm[]>([]);
 const terms = ref<QlitTerm[]>([]);
 const store = useRootStore();
-useTitle();
+const route = useRoute();
+useTitle("Ämnen");
 
 const limit = ref(PAGE_SIZE);
 const termsLimited = computed(() => terms.value.slice(0, limit.value));
@@ -53,6 +57,14 @@ watchEffect(async () => {
     heading.value = "Ämnesträd";
     terms.value = rootTerms.value;
   }
+
+  useSchemaOrg([
+    defineWebPage({
+      description:
+        "Till Queerlit-databasen skapas en tesaurus, det vill säga en ordlista som sorterar ämnesord, för att göra skönlitteraturen i databasen mer lättillgänglig.",
+      url: pathUrl(route.path),
+    }),
+  ]);
 });
 
 watch(terms, () => {

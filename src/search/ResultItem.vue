@@ -28,7 +28,7 @@ const terms = computed(() => sortTerms(props.terms));
 <template>
   <router-link :to="to" class="block">
     <article
-      class="border-b border-dashed border-black p-4 transition-color flex items-baseline"
+      class="border-b border-dashed border-black transition-color flex items-baseline container py-4"
     >
       <div
         class="tabular-nums w-6 mr-2 font-thin text-2xl"
@@ -42,7 +42,7 @@ const terms = computed(() => sortTerms(props.terms));
             {{ title }}
           </h3>
 
-          <div class="w-32 grow">
+          <header class="w-32 grow">
             <div class="flex flex-wrap">
               <div v-for="(creator, j) in creators" :key="j" class="mr-4">
                 {{ creator.name }}
@@ -54,7 +54,7 @@ const terms = computed(() => sortTerms(props.terms));
                 {{ item }}
               </div>
             </div>
-          </div>
+          </header>
         </div>
 
         <div v-if="terms.qlit.length" class="flex flex-wrap gap-1 my-2">
@@ -98,11 +98,11 @@ const terms = computed(() => sortTerms(props.terms));
         </div>
 
         <div v-if="summary" class="my-2 text-sm">
-          {{ ellipsis(summary, 80) }}
+          {{ ellipsis(summary) }}
         </div>
 
         <div v-if="motivation" class="my-2 text-sm italic">
-          {{ ellipsis(motivation, 80) }}
+          {{ ellipsis(motivation) }}
         </div>
       </div>
     </article>

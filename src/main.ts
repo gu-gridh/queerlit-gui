@@ -7,10 +7,12 @@ import "./fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueDragDrop from "vue3-drag-drop";
 import matomo from "vue-matomo";
+import { createHead } from "@unhead/vue";
 
 const app = createApp(App) //
   .use(router)
   .use(createPinia())
+  .use(createHead())
   .component("Icon", FontAwesomeIcon)
   .use(VueDragDrop);
 

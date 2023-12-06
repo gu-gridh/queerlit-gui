@@ -9,9 +9,30 @@ As this project is a user-facing application, the places in the semantic version
 
 - `MAJOR` denotes changes that are expected to significantly disrupt the flow of a returning user with some experience of the application, _or_ that significantly affects the development workflow
 - `MINOR` denotes changes that may affect the user experience _or_ the development workflow
-- `PATCH` denotes changes that are insignificant to the user experience or the develpment workflow
+- `PATCH` denotes changes that are insignificant to the user experience or the development workflow
 
 ## [Unreleased]
+
+## [2.3.0] (2023-12-06)
+
+### Added
+
+- Docker support
+- Show year tooltip when dragging year filter slider handles
+- Add term/work titles ("slugs") to url
+- Add structured data as JSON-LD snippets for SEO
+- Add "noindex" robots meta for the 404 page
+- Set `rel="canonical"` link element
+
+### Change
+
+- Set maximum app width and center on large screens
+- Better use of semantic HTML5 elements
+- Simplify code for setting document title
+
+### Fixed
+
+- Ellipsis ("...") was sometimes being added to non-truncated summaries
 
 ## [2.2.7] (2023-11-29)
 
@@ -266,7 +287,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.7...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.7...v2.3.0
 [2.2.7]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.6...v2.2.7
 [2.2.6]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.4...v2.2.5

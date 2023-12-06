@@ -3,18 +3,12 @@ import {
   createWebHistory,
   type RouteRecordRaw,
 } from "vue-router";
+import { useHead } from "@unhead/vue";
+import { pathUrl } from "./util";
 import SearchForm from "@/search/SearchForm.vue";
-import Results from "@/search/Results.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
-
-// Specify typing for router meta.
-import "vue-router";
-declare module "vue-router" {
-  interface RouteMeta {
-    title?: string;
-  }
-}
+const Results = () => import("@/search/Results.vue");
 
 const routes: RouteRecordRaw[] = [
   {
@@ -26,7 +20,7 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: "/work/:id",
+    path: "/work/:id/:slug?",
     name: "Work",
     components: {
       side: SearchForm,
@@ -50,10 +44,9 @@ const routes: RouteRecordRaw[] = [
       default: () =>
         import(/* webpackChunkName: "subjects" */ "@/views/Thesaurus.vue"),
     },
-    meta: { title: "Ämnen" },
   },
   {
-    path: "/subjects/:id",
+    path: "/subjects/:id/:slug?",
     name: "Term",
     components: {
       side: ThesaurusInfo,
@@ -73,6 +66,10 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.afterEach((to) => {
+  useHead({ link: [{ rel: "canonical", href: pathUrl(to.path) }] });
 });
 
 export default router;

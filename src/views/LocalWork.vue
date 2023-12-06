@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useRoute } from "vue-router";
 import useLocalWorks from "@/search/localWorks.composable";
 import useTitle from "./title.composable";
@@ -10,6 +9,7 @@ import type { Work } from "@/types/work";
 const route = useRoute();
 const { flag404 } = use404();
 const { getLocal } = useLocalWorks();
+const { setTitle } = useTitle();
 
 const work = getLocal(route.params.id as string);
 let work_: Work;
@@ -20,7 +20,7 @@ else {
     date: work.date.label,
     termsSecondary: [],
   };
-  useTitle(computed(() => work.title));
+  setTitle(work.title);
 }
 </script>
 

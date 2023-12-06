@@ -32,12 +32,14 @@
         v-model="range"
         :min="min"
         :max="MAX"
-        :tooltips="false"
+        show-tooltip="drag"
         :classes="{
           horizontal: 'slider-horizontal h-1 mb-2',
           connect: 'slider-connect bg-current',
           origin: 'slider-origin transition-transform',
-          handle: 'slider-handle border border-current',
+          handle:
+            'slider-handle border border-current focus:ring-text focus:ring-opacity-30',
+          tooltip: 'slider-tooltip bg-smoke-300 border-smoke-300 text-text',
         }"
         @change="emitChange"
       />
@@ -56,12 +58,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, defineAsyncComponent, ref, watch } from "vue";
 import debounce from "lodash/debounce";
-// Docs: https://github.com/vueform/slider/blob/main/README.md
-import Slider from "@vueform/slider";
 import "@vueform/slider/themes/tailwind.scss";
 import Histogram from "./Histogram.vue";
+
+// Async component: https://vuejs.org/guide/components/async.html
+// Slider docs: https://github.com/vueform/slider/blob/main/README.md
+const Slider = defineAsyncComponent(() => import("@vueform/slider"));
 
 const MIN = 1800;
 const MAX = new Date().getFullYear();

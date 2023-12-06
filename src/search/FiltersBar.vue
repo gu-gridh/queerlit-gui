@@ -24,9 +24,9 @@ const { setQuery } = useSearch();
 </script>
 
 <template>
-  <aside v-if="!queryStore.isEmpty">
+  <aside v-if="!queryStore.isEmpty" class="container py-2">
     <div class="flex flex-wrap items-baseline gap-1">
-      <span>Din sökning:</span>
+      <h3>Din sökning:</h3>
 
       <FilterButton v-if="text" label="Fritext" @clear="setQuery({ text: '' })">
         {{ text }}

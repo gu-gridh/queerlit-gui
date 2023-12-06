@@ -10,15 +10,16 @@ import {
 } from "@/services/terms.service";
 import negate from "lodash/negate";
 import { useRouter } from "vue-router";
-import { urlBasename } from "@/util";
 import useSearch from "@/search/search.composable";
 import type { Term } from "@/types/work";
+import { useCanonicalPath } from "@/canonicalPath.composable";
 
 export default function useTerms() {
   const router = useRouter();
   const { terms, termsSecondary, hierarchical } = useQuery();
   const suggestions = ref([]);
   const { setQuery } = useSearch();
+  const { getTermPath } = useCanonicalPath();
 
   function add(term: Term) {
     if (!terms.value.find((term2) => term2.id == term.id))
@@ -83,13 +84,8 @@ export default function useTerms() {
     router.push("/");
   }
 
-  function getTermPagePath(term: Term) {
-    const name = "name" in term ? term.name : urlBasename(term.id);
-    return `/subjects/${name}`;
-  }
-
   function gotoTerm(term: Term) {
-    router.push(getTermPagePath(term));
+    router.push(getTermPath(term));
   }
 
   return {
@@ -112,7 +108,6 @@ export default function useTerms() {
     sortTerms,
     searchByTerm,
     searchByTermSecondary,
-    getTermPagePath,
     gotoTerm,
     termIsQlit,
   };

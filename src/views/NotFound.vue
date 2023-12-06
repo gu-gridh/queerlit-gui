@@ -24,7 +24,9 @@
 </template>
 
 <script setup lang="ts">
+import { useHead } from "@unhead/vue";
 import useTitle from "./title.composable";
 
-useTitle();
+useHead({ meta: [{ name: "robots", content: "noindex" }] });
+useTitle("");
 </script>

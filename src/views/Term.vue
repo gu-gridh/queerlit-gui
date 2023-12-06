@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
 import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import Term from "@/terms/Term.vue";
@@ -11,6 +12,8 @@ import QButton from "@/components/QButton.vue";
 import type { QlitTerm } from "@/services/qlit.types";
 import useHistory from "./history.composable";
 import OptionsButton from "@/components/OptionsButton.vue";
+import { useCanonicalPath } from "@/canonicalPath.composable";
+import { pathUrl } from "@/util";
 
 const route = useRoute();
 const {
@@ -23,19 +26,27 @@ const {
 } = useTerms();
 const { flag404 } = use404();
 const { prev } = useHistory();
+const { ensurePath, getTermPath } = useCanonicalPath();
+const { setTitle } = useTitle();
 
 const term = ref<QlitTerm>();
 const parents = ref<QlitTerm[]>([]);
 const children = ref<QlitTerm[]>([]);
 const related = ref<QlitTerm[]>([]);
-useTitle(computed(() => term.value && term.value.label));
 
 // Get term data instantly and if the term name parameter changes.
 watchEffect(async () => {
   if (route.name != "Term") return;
   const termValue = await getTerm(route.params.id as string).catch(flag404);
-  if (!termValue) return;
-  term.value = termValue;
+  term.value = termValue || undefined;
+});
+
+// Once term data is loaded, do related stuff.
+watch(term, () => {
+  if (!term.value) return;
+  ensurePath(getTermPath(term.value));
+  setTitle(term.value.label);
+
   parents.value = [];
   children.value = [];
   related.value = [];
@@ -45,11 +56,18 @@ watchEffect(async () => {
     getChildren(term.value.name).then((terms) => (children.value = terms));
   if (term.value.related.length)
     getRelated(term.value.name).then((terms) => (related.value = terms));
+
+  useSchemaOrg([
+    defineWebPage({
+      description: term.value.scopeNote,
+      url: pathUrl(getTermPath(term.value)),
+    }),
+  ]);
 });
 </script>
 
 <template>
-  <div class="p-6">
+  <nav class="container py-6">
     <router-link v-if="prev" :to="prev">
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Gå tillbaka
@@ -58,11 +76,11 @@ watchEffect(async () => {
       <icon icon="arrow-left" size="xs" class="mr-1" />
       Tillbaka till ämnen
     </router-link>
-  </div>
+  </nav>
 
-  <article v-if="term" class="container">
+  <main v-if="term" class="container">
     <div class="bg-amber-50 border border-amber-200 p-4 mb-2">
-      <h2 class="text-2xl">{{ term.label }}</h2>
+      <h1 class="text-2xl">{{ term.label }}</h1>
       <table class="mt-4">
         <tr v-if="term.scopeNote">
           <th>Anvisning</th>
@@ -94,7 +112,7 @@ watchEffect(async () => {
         <OptionsButton class="text-left">
           <QButton class="cursor-context-menu">
             Sök i Queerlit på <em>{{ term.label }}</em>
-            <icon icon="ellipsis-v" size="xs" class="ml-2 mb-0.5" />
+            <icon icon="ellipsis-v" size="xs" class="ml-2 mb-0.25" />
           </QButton>
           <template #menu>
             <div class="w-40"></div>
@@ -122,7 +140,7 @@ watchEffect(async () => {
         <Labeled label="Bredare">
           <ul class="my-1 flex flex-col gap-2">
             <li v-for="broaderTerm in parents" :key="broaderTerm.name">
-              <router-link :to="`/subjects/${broaderTerm.name}`">
+              <router-link :to="getTermPath(broaderTerm)">
                 <Term :data="broaderTerm" />
               </router-link>
             </li>
@@ -134,7 +152,7 @@ watchEffect(async () => {
         <Labeled label="Smalare">
           <ul class="my-1 flex flex-col gap-2">
             <li v-for="narrowerTerm in children" :key="narrowerTerm.name">
-              <router-link :to="`/subjects/${narrowerTerm.name}`">
+              <router-link :to="getTermPath(narrowerTerm)">
                 <Term :data="narrowerTerm" />
               </router-link>
             </li>
@@ -146,7 +164,7 @@ watchEffect(async () => {
         <Labeled label="Relaterade">
           <ul class="my-1 flex flex-wrap gap-2">
             <li v-for="relatedTerm in related" :key="relatedTerm.name">
-              <router-link :to="`/subjects/${relatedTerm.name}`">
+              <router-link :to="getTermPath(relatedTerm)">
                 <Term :data="relatedTerm" />
               </router-link>
             </li>
@@ -166,7 +184,7 @@ watchEffect(async () => {
         </Labeled>
       </div>
     </div>
-  </article>
+  </main>
 </template>
 
 <style lang="scss" scoped>

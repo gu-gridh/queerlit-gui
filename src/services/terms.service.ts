@@ -1,4 +1,4 @@
-import axios from "axios";
+const axios = import("axios").then((m) => m.default);
 import type {
   QlitCollection,
   QlitCollectionRaw,
@@ -15,7 +15,7 @@ async function qlitGet<T = any>(
   endpoint: string,
   params?: Record<string, any>,
 ): Promise<T> {
-  const response = await axios.get(QLIT_BASE + endpoint, { params });
+  const response = await (await axios).get(QLIT_BASE + endpoint, { params });
   return response.data;
 }
 

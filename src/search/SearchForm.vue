@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white rounded-xl shadow-lg p-6" @keyup.enter="doSearch()">
-    <div class="mb-4 q-body">
+    <section class="mb-4 q-body">
       <ReadMore :expanded="queryStore.isEmpty">
         <p>
           Queerlit är en databas för svensk skönlitteratur som skildrar samkönat
@@ -15,8 +15,9 @@
           >!
         </p>
       </ReadMore>
-    </div>
+    </section>
 
+    <h2 class="sr-only">Sökformulär</h2>
     <Freetext class="mb-6" />
 
     <QDetails

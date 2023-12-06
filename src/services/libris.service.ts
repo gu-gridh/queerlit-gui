@@ -1,5 +1,5 @@
+const axios = import("axios").then((m) => m.default);
 import { enarray, unarray, urlBasename } from "@/util";
-import axios from "axios";
 import { getLabels } from "./terms.service";
 import type * as L from "./libris.types";
 import type { GenreForm, Term, WorkFromLibris } from "@/types/work";
@@ -154,7 +154,9 @@ export async function xlFindBooks(params: L.FindParams) {
 export async function xlFind<T = any>(
   params: L.FindParams,
 ): Promise<{ items: T[]; totalItems: number; stats?: any }> {
-  return axios.get(XLAPI_FIND, { params }).then((response) => response.data);
+  return (await axios)
+    .get(XLAPI_FIND, { params })
+    .then((response) => response.data);
 }
 
 function processInstance(item: L.Instance): WorkFromLibris {
