@@ -8,9 +8,9 @@ See the [changelog](CHANGELOG.md).
 
 ## Development
 
-1. Install Node.js and [Yarn 3](https://yarnpkg.com/getting-started/install).
-2. `yarn install`
-3. `yarn dev`
+1. [Install Bun](https://bun.sh/docs/installation)
+2. `bun install`
+3. `bun run dev`
 
 To use the test environment of Libris XL, modify `.env.local` or run:
 

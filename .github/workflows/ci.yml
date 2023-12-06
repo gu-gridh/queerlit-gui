@@ -8,18 +8,16 @@ jobs:
 
     strategy:
       matrix:
-        # Having "" here enables the `node-version-file` option
-        node-version: ["", 16.x]
+        bun-version: [1.0.7, latest]
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - name: Use Bun ${{ matrix.bun-version }}
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: ${{ matrix.node-version }}
-          node-version-file: .nvmrc
-      - run: yarn install
-      - run: yarn build
+          version: ${{ matrix.bun-version }}
+      - run: bun install
+      - run: bun run build
 
   docker:
     runs-on: ubuntu-latest

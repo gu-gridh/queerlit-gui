@@ -3,14 +3,12 @@
   "version": "2.3.0",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "yarn typecheck && yarn vite build",
-    "typecheck": "vue-tsc --noEmit",
-    "preview": "vite preview",
+    "dev": "bunx --bun vite",
+    "build": "vue-tsc --noEmit && bunx --bun vite build",
+    "preview": "bunx --bun vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
-    "format": "prettier .  --write '!.yarn'"
+    "format": "prettier .  --write"
   },
-  "packageManager": "yarn@3.2.0",
   "dependencies": {
     "@fontsource/barlow-condensed": "^4.5.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
