@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
 import useTitle from "./title.composable";
@@ -27,12 +27,12 @@ const {
 const { flag404 } = use404();
 const { prev } = useHistory();
 const { ensurePath, getTermPath } = useCanonicalPath();
+const { setTitle } = useTitle();
 
 const term = ref<QlitTerm>();
 const parents = ref<QlitTerm[]>([]);
 const children = ref<QlitTerm[]>([]);
 const related = ref<QlitTerm[]>([]);
-useTitle(computed(() => term.value && term.value.label));
 
 // Get term data instantly and if the term name parameter changes.
 watchEffect(async () => {
@@ -45,6 +45,7 @@ watchEffect(async () => {
 watch(term, () => {
   if (!term.value) return;
   ensurePath(getTermPath(term.value));
+  setTitle(term.value.label);
 
   parents.value = [];
   children.value = [];
@@ -58,7 +59,6 @@ watch(term, () => {
 
   useSchemaOrg([
     defineWebPage({
-      name: term.value.label,
       description: term.value.scopeNote,
       url: pathUrl(getTermPath(term.value)),
     }),

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
 import { pathUrl } from "@/util";
@@ -14,9 +14,9 @@ import { useCanonicalPath } from "@/canonicalPath.composable";
 const route = useRoute();
 const { flag404 } = use404();
 const { getWorkPath, ensurePath } = useCanonicalPath();
+const { setTitle } = useTitle();
 
 const work = ref<Work>();
-useTitle(computed(() => work.value && work.value.title));
 
 get(route.params.id as string)
   .then((work_) => (work.value = work_))
@@ -25,10 +25,10 @@ get(route.params.id as string)
 watch(work, () => {
   if (!work.value) return;
   ensurePath(getWorkPath(work.value));
+  setTitle(work.value.title);
 
   useSchemaOrg([
     defineWebPage({
-      name: work.value.title,
       description: [work.value.summary, work.value.motivation]
         .filter(Boolean)
         .join(" "),

@@ -25,6 +25,7 @@ As this project is a user-facing application, the places in the semantic version
 
 - Set maximum app width and center on large screens
 - Better use of semantic HTML5 elements
+- Simplify code for setting document title
 
 ### Fixed
 

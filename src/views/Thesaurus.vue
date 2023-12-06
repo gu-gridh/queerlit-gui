@@ -19,8 +19,8 @@ const { getRoots, searchTerms } = useTerms();
 const rootTerms = ref<QlitTerm[]>([]);
 const terms = ref<QlitTerm[]>([]);
 const store = useRootStore();
-useTitle();
 const route = useRoute();
+useTitle("Ämnen");
 
 const limit = ref(PAGE_SIZE);
 const termsLimited = computed(() => terms.value.slice(0, limit.value));
@@ -60,7 +60,6 @@ watchEffect(async () => {
 
   useSchemaOrg([
     defineWebPage({
-      name: "Ämnen",
       description:
         "Till Queerlit-databasen skapas en tesaurus, det vill säga en ordlista som sorterar ämnesord, för att göra skönlitteraturen i databasen mer lättillgänglig.",
       url: pathUrl(route.path),

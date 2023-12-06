@@ -37,7 +37,7 @@ export function useCanonicalPath() {
   /** Replace current path if needed */
   function ensurePath(path: string) {
     // Add canonical link
-    head && head.patch({ link: [{ rel: "canonical", href: pathUrl(path) }] });
+    head?.patch({ link: [{ rel: "canonical", href: pathUrl(path) }] });
     // Modify current url
     if (route.path != path) {
       window.history.replaceState(window.history.state, "", path);

@@ -28,5 +28,5 @@ import { useHead } from "@unhead/vue";
 import useTitle from "./title.composable";
 
 useHead({ meta: [{ name: "robots", content: "noindex" }] });
-useTitle();
+useTitle("");
 </script>

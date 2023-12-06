@@ -12,7 +12,7 @@ import FiltersBar from "./FiltersBar.vue";
 
 const store = useRootStore();
 const { doSearch } = useSearch();
-useTitle();
+useTitle("");
 
 const total = computed(() => store.total + store.localResults.length);
 
