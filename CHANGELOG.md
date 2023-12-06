@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Changed
+
+- Centralized and simplified actions to run on page load: setting metadata, tracking page view, etc.
+
 ## [2.3.0] (2023-12-06)
 
 ### Added
@@ -24,7 +28,7 @@ As this project is a user-facing application, the places in the semantic version
 - Add "noindex" robots meta for the 404 page
 - Set `rel="canonical"` link element
 
-### Change
+### Changed
 
 - Set maximum app width and center on large screens
 - Better use of semantic HTML5 elements

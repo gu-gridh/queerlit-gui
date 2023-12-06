@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
-import useTitle from "@/views/title.composable";
 import useRootStore from "@/stores/root.store";
 import WorkResultItem from "./WorkResultItem.vue";
 import LocalWorkResultItem from "./LocalWorkResultItem.vue";
@@ -9,10 +7,13 @@ import Pagination from "@/search/Pagination.vue";
 import useSearch from "./search.composable";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import FiltersBar from "./FiltersBar.vue";
+import { useRouteInfo } from "@/views/routeInfo.composable";
 
 const store = useRootStore();
 const { doSearch } = useSearch();
-useTitle("");
+const { setRouteInfo } = useRouteInfo();
+
+setRouteInfo({});
 
 const total = computed(() => store.total + store.localResults.length);
 
@@ -25,8 +26,6 @@ function setSort(event: Event) {
   store.sort = (event.target as HTMLSelectElement).value;
   doSearch();
 }
-
-useSchemaOrg([defineWebPage()]);
 </script>
 
 <template>

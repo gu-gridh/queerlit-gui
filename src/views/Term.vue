@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
-import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
-import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
@@ -13,7 +11,7 @@ import type { QlitTerm } from "@/services/qlit.types";
 import useHistory from "./history.composable";
 import OptionsButton from "@/components/OptionsButton.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
-import { pathUrl } from "@/util";
+import { useRouteInfo } from "./routeInfo.composable";
 
 const route = useRoute();
 const {
@@ -26,8 +24,8 @@ const {
 } = useTerms();
 const { flag404 } = use404();
 const { prev } = useHistory();
-const { ensurePath, getTermPath } = useCanonicalPath();
-const { setTitle } = useTitle();
+const { getTermPath } = useCanonicalPath();
+const { setRouteInfo } = useRouteInfo();
 
 const term = ref<QlitTerm>();
 const parents = ref<QlitTerm[]>([]);
@@ -44,8 +42,12 @@ watchEffect(async () => {
 // Once term data is loaded, do related stuff.
 watch(term, () => {
   if (!term.value) return;
-  ensurePath(getTermPath(term.value));
-  setTitle(term.value.label);
+
+  setRouteInfo({
+    title: term.value.label,
+    path: getTermPath(term.value),
+    description: term.value.scopeNote,
+  });
 
   parents.value = [];
   children.value = [];
@@ -56,13 +58,6 @@ watch(term, () => {
     getChildren(term.value.name).then((terms) => (children.value = terms));
   if (term.value.related.length)
     getRelated(term.value.name).then((terms) => (related.value = terms));
-
-  useSchemaOrg([
-    defineWebPage({
-      description: term.value.scopeNote,
-      url: pathUrl(getTermPath(term.value)),
-    }),
-  ]);
 });
 </script>
 
