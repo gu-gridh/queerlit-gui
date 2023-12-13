@@ -106,7 +106,10 @@
     </div>
 
     <div v-if="work.librisUrl" class="my-4">
-      <a :href="work.librisUrl" class="text-blue-700 underline">
+      <a
+        :href="work.librisUrl"
+        class="text-blue-700 dark:text-sky-500 underline"
+      >
         Se posten i Libris
       </a>
     </div>

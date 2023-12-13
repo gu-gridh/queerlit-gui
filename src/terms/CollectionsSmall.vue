@@ -28,7 +28,9 @@ watchEffect(async () => {
       v-if="selected"
       class="absolute top-1 left-0 right-0 bottom-1 z-10 text-left"
     >
-      <div class="bg-amber-200 shadow rounded-lg h-full overflow-auto">
+      <div
+        class="bg-amber-200 dark:bg-yellow-900 shadow rounded-lg h-full overflow-auto"
+      >
         <header
           class="p-1 px-2 flex gap-2 items-center cursor-pointer"
           @click="selected = undefined"

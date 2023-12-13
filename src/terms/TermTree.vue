@@ -5,6 +5,7 @@ import type { QlitTerm } from "@/services/qlit.types";
 import useTerms from "@/terms/terms.composable";
 import Term from "@/terms/Term.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
+import { useDark } from "@vueuse/core";
 
 const props = defineProps<{
   parent: QlitTerm;
@@ -15,6 +16,7 @@ const props = defineProps<{
 const store = useRootStore();
 const { getChildren } = useTerms();
 const { getTermPath } = useCanonicalPath();
+const isDark = useDark();
 
 const children = ref<QlitTerm[]>();
 const expanded = ref(
@@ -29,6 +31,7 @@ const toggleExpanded = () => {
 // 333° is the hue for Tailwind's pink-600
 // 92° is approximately ϕ radians, which gives suitable steps around the hue circle.
 const hue = computed(() => 333 + (props.level || 0) * 92);
+const lightness = computed(() => (isDark.value ? "30%" : "80%"));
 
 // Load children when expanding.
 watchEffect(async () => {
@@ -48,7 +51,7 @@ watchEffect(async () => {
       'ml-0': !level && !expanded,
     }"
     :style="{
-      borderColor: `hsl(${hue} 70% 80% / ${expanded ? 1 : 0})`,
+      borderColor: `hsl(${hue} 70% ${lightness} / ${expanded ? 1 : 0})`,
     }"
   >
     <header class="flex flex-wrap justify-between items-baseline gap-4">

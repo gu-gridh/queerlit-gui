@@ -7,7 +7,9 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="relative my-2 bg-amber-50 border border-amber-200 p-2 text-sm">
+  <div
+    class="relative my-2 bg-amber-50 border border-amber-200 dark:bg-gray-800 dark:border-0 p-2 text-sm"
+  >
     <h4 class="text-base font-bold">Sökhjälp</h4>
     <CloseButton @click="$emit('dismiss')" />
     <p>

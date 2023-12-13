@@ -1,14 +1,18 @@
 <template>
   <div>
-    <div class="flex justify-between mb-1 relative z-10">
+    <div
+      class="flex justify-between mb-1 relative z-10 text-sm text-text dark:text-stone-400"
+    >
       <input
         :id="inputId"
         v-model.number="range[0]"
         size="4"
         placeholder="Från"
-        class="text-sm text-black p-1 px-2 rounded shadow-inner leading-snug"
+        class="p-1 px-2 rounded shadow-inner leading-snug"
         :class="[
-          range[0] != min ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
+          range[0] != min
+            ? 'bg-blue-100 dark:bg-slate-600'
+            : 'bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700',
         ]"
         @change="startTextChange"
       />
@@ -16,10 +20,11 @@
         v-model.number="range[1]"
         size="4"
         placeholder="Till"
-        class="text-sm text-black p-1 px-2 rounded shadow-inner leading-snug"
+        class="p-1 px-2 rounded shadow-inner leading-snug"
         :class="{
-          'bg-smoke-200 hover:bg-smoke-300': range[1] == MAX,
-          'bg-blue-100': range[1] != MAX,
+          'bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700':
+            range[1] == MAX,
+          'bg-blue-100 dark:bg-slate-600': range[1] != MAX,
         }"
         @change="endTextChange"
       />
@@ -38,8 +43,9 @@
           connect: 'slider-connect bg-current',
           origin: 'slider-origin transition-transform',
           handle:
-            'slider-handle border border-current focus:ring-text focus:ring-opacity-30',
-          tooltip: 'slider-tooltip bg-smoke-300 border-smoke-300 text-text',
+            'slider-handle dark:bg-stone-700 border dark:border-0 border-current focus:ring-text focus:ring-opacity-30',
+          tooltip:
+            'slider-tooltip bg-smoke-200  border-smoke-300 dark:bg-stone-700 dark:border-stone-700 text-inherit',
         }"
         @change="emitChange"
       />

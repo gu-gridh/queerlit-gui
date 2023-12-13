@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
-import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
-import useTitle from "./title.composable";
 import use404 from "./404.composable";
 import Term from "@/terms/Term.vue";
 import Labeled from "@/components/Labeled.vue";
@@ -13,7 +11,7 @@ import type { QlitTerm } from "@/services/qlit.types";
 import useHistory from "./history.composable";
 import OptionsButton from "@/components/OptionsButton.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
-import { pathUrl } from "@/util";
+import { useRouteInfo } from "./routeInfo.composable";
 
 const route = useRoute();
 const {
@@ -26,8 +24,8 @@ const {
 } = useTerms();
 const { flag404 } = use404();
 const { prev } = useHistory();
-const { ensurePath, getTermPath } = useCanonicalPath();
-const { setTitle } = useTitle();
+const { getTermPath } = useCanonicalPath();
+const { setRouteInfo } = useRouteInfo();
 
 const term = ref<QlitTerm>();
 const parents = ref<QlitTerm[]>([]);
@@ -44,8 +42,12 @@ watchEffect(async () => {
 // Once term data is loaded, do related stuff.
 watch(term, () => {
   if (!term.value) return;
-  ensurePath(getTermPath(term.value));
-  setTitle(term.value.label);
+
+  setRouteInfo({
+    title: term.value.label,
+    path: getTermPath(term.value),
+    description: term.value.scopeNote,
+  });
 
   parents.value = [];
   children.value = [];
@@ -56,13 +58,6 @@ watch(term, () => {
     getChildren(term.value.name).then((terms) => (children.value = terms));
   if (term.value.related.length)
     getRelated(term.value.name).then((terms) => (related.value = terms));
-
-  useSchemaOrg([
-    defineWebPage({
-      description: term.value.scopeNote,
-      url: pathUrl(getTermPath(term.value)),
-    }),
-  ]);
 });
 </script>
 
@@ -79,7 +74,9 @@ watch(term, () => {
   </nav>
 
   <main v-if="term" class="container">
-    <div class="bg-amber-50 border border-amber-200 p-4 mb-2">
+    <div
+      class="bg-amber-50 dark:bg-gray-800 border border-amber-200 dark:border-0 p-4 mb-2"
+    >
       <h1 class="text-2xl">{{ term.label }}</h1>
       <table class="mt-4">
         <tr v-if="term.scopeNote">
@@ -116,15 +113,15 @@ watch(term, () => {
           </QButton>
           <template #menu>
             <div class="w-40"></div>
-            <ul class="bg-gray-50/95 rounded shadow mt-0.5">
+            <ul class="bg-gray-50/95 dark:bg-gray-600/95 rounded shadow mt-0.5">
               <li
-                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
                 @click="searchByTerm(term)"
               >
                 Sök som centralt ämnesord
               </li>
               <li
-                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+                class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
                 @click="searchByTermSecondary(term)"
               >
                 Sök som perifert ämnesord

@@ -50,7 +50,7 @@ function dragEnd() {
             ? secondary
               ? 'bg-tagyellow-bright'
               : 'bg-tagyellow'
-            : 'bg-gray-200',
+            : 'bg-gray-200 dark:bg-gray-600 dark:text-gray-200',
           optionItems.length ? 'cursor-context-menu' : '',
         ]"
       >
@@ -68,12 +68,14 @@ function dragEnd() {
     </drag>
 
     <template v-if="optionItems.length" #menu>
-      <ul class="bg-gray-50/95 rounded shadow mt-0.5 w-40">
+      <ul
+        class="bg-gray-50/95 dark:bg-gray-600/95 rounded shadow mt-0.5 w-40 text-base"
+      >
         <li v-for="(option, i) in optionItems" :key="i">
           <component
             :is="option.to ? 'router-link' : 'div'"
             :to="option.to || undefined"
-            class="block text-ellipsis overflow-hidden whitespace-nowrap px-1 hover:bg-gray-100 cursor-pointer"
+            class="block text-ellipsis overflow-hidden whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
             @click.prevent.stop="
               () => {
                 option.action();

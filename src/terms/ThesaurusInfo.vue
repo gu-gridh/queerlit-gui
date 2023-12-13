@@ -28,7 +28,9 @@ function gotoThesaurus() {
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-lg">
+  <div
+    class="bg-white dark:bg-stone-900 dark:text-stone-400 rounded-xl shadow-lg"
+  >
     <section class="p-4 md:p-8 q-body">
       <h1 class="text-5xl">Ämnen</h1>
       <p>
@@ -75,7 +77,9 @@ function gotoThesaurus() {
           type="search"
           class="w-full p-4 pb-3 rounded text-black shadow-inner leading-snug transition-colors text-xl"
           :class="[
-            termTextQuery ? 'bg-blue-100' : 'bg-smoke-200 hover:bg-smoke-300',
+            termTextQuery
+              ? 'bg-blue-100 dark:bg-slate-600'
+              : 'bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700',
           ]"
           @change="gotoThesaurus"
         />

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 bg-smoke-500"></div>
+  <div class="flex-1 bg-smoke-500 dark:bg-smoke-800"></div>
 
   <div class="w-full max-w-screen-high flex flex-col lg:flex-row text-text">
     <div class="lg:w-1/2 lg:max-w-screen-sm">
@@ -12,7 +12,7 @@
     </div>
 
     <div
-      class="bg-smoke-500 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
+      class="bg-smoke-500 dark:bg-smoke-800 dark:text-smoke-300 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
     >
       <nav class="container py-12">
         <header class="max-w-screen-md pb-8">
@@ -45,7 +45,7 @@
       </nav>
     </div>
 
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 dark:bg-stone-900 dark:text-stone-400 flex flex-col">
       <section class="flex-1">
         <router-view v-if="!is404" />
         <NotFound v-else class="flex-1" />
@@ -56,7 +56,7 @@
     </div>
   </div>
 
-  <div class="flex-1"></div>
+  <div class="flex-1 dark:bg-stone-900 dark:text-stone-400"></div>
 </template>
 
 <script setup lang="ts">
@@ -131,12 +131,13 @@ if (import.meta.env.DEV) {
   @apply p-1 px-4 mr-1 hover:bg-white/25 rounded-lg transition-all;
 }
 .main-nav-link.router-link-active {
-  @apply bg-white rounded-lg text-gray-800 shadow-lg;
+  @apply bg-white dark:bg-white/50 rounded-lg text-gray-800 shadow-lg;
 }
 </style>
 
 <style>
-html {
+:root {
+  color-scheme: light dark;
   font-size: 14pt;
 }
 

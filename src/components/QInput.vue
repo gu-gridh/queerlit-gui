@@ -23,12 +23,12 @@ const [showHelp, toggleHelp] = useToggle();
 <template>
   <div>
     <div
-      class="w-full flex items-center py-1 px-2 rounded text-text text-lg shadow-inner leading-snug transition-colors"
+      class="w-full flex items-center py-1 px-2 rounded text-text dark:text-stone-400 text-lg shadow-inner leading-snug transition-colors"
       :class="[
         isIncomplete ? 'incomplete' : null,
         hasValue
-          ? 'bg-blue-100'
-          : 'bg-smoke-200 hover:bg-smoke-300 focus-within:bg-smoke-300',
+          ? 'bg-blue-100 dark:bg-slate-600'
+          : 'bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700',
       ]"
     >
       <input
@@ -62,6 +62,6 @@ const [showHelp, toggleHelp] = useToggle();
   font-size: 16px;
 }
 .incomplete:not(:has(:focus)) {
-  @apply bg-red-100;
+  @apply bg-red-100 dark:bg-red-900;
 }
 </style>

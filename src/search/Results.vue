@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
-import useTitle from "@/views/title.composable";
 import useRootStore from "@/stores/root.store";
 import WorkResultItem from "./WorkResultItem.vue";
 import LocalWorkResultItem from "./LocalWorkResultItem.vue";
@@ -9,10 +7,13 @@ import Pagination from "@/search/Pagination.vue";
 import useSearch from "./search.composable";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import FiltersBar from "./FiltersBar.vue";
+import { useRouteInfo } from "@/views/routeInfo.composable";
 
 const store = useRootStore();
 const { doSearch } = useSearch();
-useTitle("");
+const { setRouteInfo } = useRouteInfo();
+
+setRouteInfo({});
 
 const total = computed(() => store.total + store.localResults.length);
 
@@ -25,8 +26,6 @@ function setSort(event: Event) {
   store.sort = (event.target as HTMLSelectElement).value;
   doSearch();
 }
-
-useSchemaOrg([defineWebPage()]);
 </script>
 
 <template>
@@ -47,7 +46,7 @@ useSchemaOrg([defineWebPage()]);
         <select
           id="sort-input"
           :value="store.sort"
-          class="appearance-none border rounded cursor-pointer -my-1 pl-1 pr-5"
+          class="appearance-none border dark:border-stone-700 rounded cursor-pointer -my-1 pl-1 pr-5"
           @change="setSort"
         >
           <option value="-publication.year">Nyast först</option>
@@ -83,7 +82,7 @@ useSchemaOrg([defineWebPage()]);
 
   <section
     v-if="!store.isSearching && store.localResults.length"
-    class="bg-pink-50"
+    class="bg-pink-50 dark:bg-pink-950/50"
   >
     <header class="container py-1">
       <h2 class="text-lg">Specialtitlar</h2>
