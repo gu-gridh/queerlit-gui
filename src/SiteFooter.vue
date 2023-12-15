@@ -14,7 +14,7 @@
       <div>
         <a href="https://queerlit.dh.gu.se/om/">Mer om projektet Queerlit</a>
         <span class="px-1">·</span>
-        <a href="https://queerlit.dh.gu.se/om/kontakt">Kontakta oss</a>
+        <a href="https://queerlit.dh.gu.se/om/kontakt/">Kontakta oss</a>
         <span class="px-1">·</span>
         Licens:
         <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv"

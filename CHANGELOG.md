@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Fixed
+
+- Add trailing slash to `/om/` links to skip redirects
+
 ## [2.4.0] (2023-12-13)
 
 ### Added
