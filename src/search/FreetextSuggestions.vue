@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 import { ref, watch } from "vue";
-import Dragscroll from "./Dragscroll.vue";
-import Labeled from "@/components/Labeled.vue";
+import DragScroll from "@/components/DragScroll.vue";
+import LabeledSection from "@/components/LabeledSection.vue";
 
 const props = defineProps<{
   heading: string;
@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 defineEmits(["select"]);
 
-const hscroll = ref<InstanceType<typeof Dragscroll>>();
+const hscroll = ref<InstanceType<typeof DragScroll>>();
 const isScrolledToStart = ref(true);
 const isScrolledToEnd = ref(false);
 
@@ -41,7 +41,7 @@ watch(
 </script>
 
 <template>
-  <Labeled
+  <LabeledSection
     v-if="items.length"
     :label="heading"
     class="my-2"
@@ -55,7 +55,7 @@ watch(
       >
         <icon icon="angle-double-left" size="xs" />
       </span>
-      <Dragscroll
+      <DragScroll
         ref="hscroll"
         class="overflow-hidden whitespace-nowrap pt-2 pb-3 px-1"
         @scroll="checkScrollPosition"
@@ -70,7 +70,7 @@ watch(
             {{ item }}
           </slot>
         </span>
-      </Dragscroll>
+      </DragScroll>
       <span
         v-show="!isScrolledToEnd"
         class="absolute right-0 top-0 bottom-0 z-10 flex flex-col justify-center p-1 pl-2 next-button"
@@ -79,7 +79,7 @@ watch(
         <icon icon="angle-double-right" size="xs" />
       </span>
     </div>
-  </Labeled>
+  </LabeledSection>
 </template>
 
 <style>

@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import type { QlitCollection } from "@/services/qlit.types";
 import useRootStore from "@/stores/root.store";
-import Labeled from "@/components/Labeled.vue";
+import LabeledSection from "@/components/LabeledSection.vue";
 import CollectionsGrid from "./CollectionsGrid.vue";
 
 const store = useRootStore();
@@ -64,14 +64,14 @@ function gotoThesaurus() {
     </section>
 
     <div class="py-4 px-6 border-t border-dashed border-gray-500">
-      <Labeled label="Samlingar" class="mb-4">
+      <LabeledSection label="Samlingar" class="mb-4">
         <CollectionsGrid
           :selected="store.termCollection ? [store.termCollection.name] : []"
           @select="(collection) => selectCollection(collection)"
         />
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Sök ämnesord" class="mt-4">
+      <LabeledSection label="Sök ämnesord" class="mt-4">
         <input
           v-model="termTextQuery"
           type="search"
@@ -83,7 +83,7 @@ function gotoThesaurus() {
           ]"
           @change="gotoThesaurus"
         />
-      </Labeled>
+      </LabeledSection>
     </div>
   </div>
 </template>

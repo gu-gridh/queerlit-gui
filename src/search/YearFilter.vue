@@ -31,7 +31,7 @@
     </div>
 
     <div class="mx-1">
-      <Histogram :min="min" :max="MAX" :zeroes="enableOld ? 2 : 1" />
+      <YearHistogram :min="min" :max="MAX" :zeroes="enableOld ? 2 : 1" />
 
       <Slider
         v-model="range"
@@ -67,7 +67,7 @@
 import { computed, defineAsyncComponent, ref, watch } from "vue";
 import debounce from "lodash/debounce";
 import "@vueform/slider/themes/tailwind.scss";
-import Histogram from "./Histogram.vue";
+import YearHistogram from "./YearHistogram.vue";
 
 // Async component: https://vuejs.org/guide/components/async.html
 // Slider docs: https://github.com/vueform/slider/blob/main/README.md

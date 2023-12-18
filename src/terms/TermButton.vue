@@ -72,6 +72,7 @@ function dragEnd() {
         class="bg-gray-50/95 dark:bg-gray-600/95 rounded shadow mt-0.5 w-40 text-base"
       >
         <li v-for="(option, i) in optionItems" :key="i">
+          <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
           <component
             :is="option.to ? 'router-link' : 'div'"
             :to="option.to || undefined"
@@ -84,6 +85,7 @@ function dragEnd() {
             "
             v-html="option.label"
           />
+          <!-- eslint-enable vue/no-v-html  vue/no-v-text-v-html-on-component -->
         </li>
       </ul>
     </template>

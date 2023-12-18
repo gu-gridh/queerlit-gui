@@ -21,7 +21,7 @@
     </section>
 
     <h2 class="sr-only">Sökformulär</h2>
-    <Freetext class="mb-6" />
+    <FreetextInput class="mb-6" />
 
     <QDetails
       heading="Ämnen"
@@ -32,14 +32,14 @@
       <TermFilters />
     </QDetails>
 
-    <Labeled label="Utgivningsår" for-id="year">
+    <LabeledSection label="Utgivningsår" for-id="year">
       <YearFilter
         :start="yearStart != null ? yearStart : undefined"
         :end="yearEnd != null ? yearEnd : undefined"
         input-id="year"
         @change="yearChange"
       />
-    </Labeled>
+    </LabeledSection>
 
     <QDetails
       heading="Avancerade sökfilter"
@@ -49,7 +49,7 @@
     >
       <div class="flex flex-wrap -mx-2">
         <div class="w-full sm:w-1/2 p-2">
-          <Labeled label="Titel" for-id="title">
+          <LabeledSection label="Titel" for-id="title">
             <QInput
               v-model="titleLocal"
               input-id="title"
@@ -58,12 +58,12 @@
               :search="true"
               @change="setTitle"
             />
-          </Labeled>
+          </LabeledSection>
         </div>
 
         <div class="w-full sm:w-1/2 p-2">
-          <Labeled label="Författare" for-id="author">
-            <Autocomplete
+          <LabeledSection label="Författare" for-id="author">
+            <SuggestionsInput
               :value="author || undefined"
               :suggest="searchPerson"
               :get-label="getPersonLabel"
@@ -72,12 +72,12 @@
               help="Alla författare som listas finns inte representerade i Queerlit"
               @change="setAuthor"
             />
-          </Labeled>
+          </LabeledSection>
         </div>
 
         <div class="w-full sm:w-1/2 p-2">
-          <Labeled label="Genre/form" for-id="genreform">
-            <Autocomplete
+          <LabeledSection label="Genre/form" for-id="genreform">
+            <SuggestionsInput
               :value="genreform || undefined"
               :suggest="searchGenreform"
               :get-label="getGenreformLabel"
@@ -86,7 +86,7 @@
               help="Beskriver vad ett verk är, t.ex. bilderbok, deckare, poesi"
               @change="setGenreform"
             />
-          </Labeled>
+          </LabeledSection>
         </div>
       </div>
     </QDetails>
@@ -113,13 +113,13 @@ import type { HasId, Person } from "@/services/libris.types";
 import { searchGenreform, searchPerson } from "@/services/libris.service";
 import useQuery from "./query.composable";
 import useQueryStore from "@/stores/query.store";
-import Freetext from "./Freetext.vue";
+import FreetextInput from "./FreetextInput.vue";
 import YearFilter from "./YearFilter.vue";
-import Autocomplete from "./Autocomplete.vue";
+import SuggestionsInput from "./SuggestionsInput.vue";
 import useSearch from "./search.composable";
 import TermFilters from "./TermFilters.vue";
 import QButton from "@/components/QButton.vue";
-import Labeled from "@/components/Labeled.vue";
+import LabeledSection from "@/components/LabeledSection.vue";
 import QInput from "@/components/QInput.vue";
 import ReadMore from "@/components/ReadMore.vue";
 import QDetails from "@/components/QDetails.vue";

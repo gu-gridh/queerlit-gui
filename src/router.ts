@@ -8,7 +8,6 @@ import { pathUrl } from "./util";
 import SearchForm from "@/search/SearchForm.vue";
 import ThesaurusInfo from "@/terms/ThesaurusInfo.vue";
 import NotFound from "@/views/NotFound.vue";
-const Results = () => import("@/search/Results.vue");
 
 const routes: RouteRecordRaw[] = [
   {
@@ -16,7 +15,7 @@ const routes: RouteRecordRaw[] = [
     name: "Search",
     components: {
       side: SearchForm,
-      default: Results,
+      default: () => import("@/search/SearchResults.vue"),
     },
   },
   {
@@ -24,7 +23,7 @@ const routes: RouteRecordRaw[] = [
     name: "Work",
     components: {
       side: SearchForm,
-      default: () => import(/* webpackChunkName: "work" */ "@/views/Work.vue"),
+      default: () => import("@/views/WorkView.vue"),
     },
   },
   {
@@ -32,8 +31,7 @@ const routes: RouteRecordRaw[] = [
     name: "LocalWork",
     components: {
       side: SearchForm,
-      default: () =>
-        import(/* webpackChunkName: "work" */ "@/views/LocalWork.vue"),
+      default: () => import("@/views/LocalWork.vue"),
     },
   },
   {
@@ -41,8 +39,7 @@ const routes: RouteRecordRaw[] = [
     name: "Thesaurus",
     components: {
       side: ThesaurusInfo,
-      default: () =>
-        import(/* webpackChunkName: "subjects" */ "@/views/Thesaurus.vue"),
+      default: () => import("@/views/ThesaurusView.vue"),
     },
   },
   {
@@ -50,7 +47,7 @@ const routes: RouteRecordRaw[] = [
     name: "Term",
     components: {
       side: ThesaurusInfo,
-      default: () => import(/* webpackChunkName: "term" */ "@/views/Term.vue"),
+      default: () => import("@/views/TermView.vue"),
     },
   },
   {

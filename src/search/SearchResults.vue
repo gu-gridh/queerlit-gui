@@ -3,7 +3,7 @@ import { computed } from "vue";
 import useRootStore from "@/stores/root.store";
 import WorkResultItem from "./WorkResultItem.vue";
 import LocalWorkResultItem from "./LocalWorkResultItem.vue";
-import Pagination from "@/search/Pagination.vue";
+import PageSelector from "@/search/PageSelector.vue";
 import useSearch from "./search.composable";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import FiltersBar from "./FiltersBar.vue";
@@ -34,7 +34,7 @@ function setSort(event: Event) {
     <section class="container flex pt-6 pb-2">
       <div class="flex-1 flex flex-wrap">
         <span class="mr-2">{{ total }} träffar</span>
-        <Pagination
+        <PageSelector
           v-if="total"
           :current="store.offset / 20 + 1"
           :last="total / 20"
@@ -71,7 +71,7 @@ function setSort(event: Event) {
     </section>
 
     <section v-if="total > store.localResults.length" class="p-6">
-      <Pagination
+      <PageSelector
         :current="store.offset / 20 + 1"
         :last="total / 20"
         class="mx-auto"

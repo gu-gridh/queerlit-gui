@@ -3,7 +3,7 @@ import { ref, watchEffect } from "vue";
 import { useToggle } from "@vueuse/core";
 import type { QlitTerm } from "@/services/qlit.types";
 import { urlBasename } from "@/util";
-import Term from "./Term.vue";
+import TermButton from "./TermButton.vue";
 import useTerms from "./terms.composable";
 import useTermOptions from "./termOptions.composable";
 
@@ -29,7 +29,7 @@ watchEffect(async () => {
 <template>
   <div class="mx-2 mb-1" :class="{ 'ml-4': (level as number) > 0 }">
     <div class="mb-1 flex flex-wrap items-baseline gap-4">
-      <Term
+      <TermButton
         :data="parent"
         :options="[search, searchSecondary, goto]"
         :draggable="true"

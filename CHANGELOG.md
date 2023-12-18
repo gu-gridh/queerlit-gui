@@ -17,6 +17,10 @@ As this project is a user-facing application, the places in the semantic version
 
 - GRIDH logo in footer
 
+### Changed
+
+- Renamed single-word components to multi-word, pursuing [Vue style guide](https://vuejs.org/style-guide/rules-essential)
+
 ### Fixed
 
 - Add trailing slash to `/om/` links to skip redirects
