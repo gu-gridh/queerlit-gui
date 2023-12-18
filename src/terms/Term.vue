@@ -44,7 +44,7 @@ function dragEnd() {
       @dragend="dragEnd"
     >
       <span
-        class="flex items-center transition-all px-2 py-0.5 text-black font-thin rounded-md shadow"
+        class="flex items-center transition-all px-2 py-0.5 text-black rounded-md shadow"
         :class="[
           isQlit
             ? secondary

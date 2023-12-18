@@ -5,7 +5,7 @@
     <div class="flex-1 q-body flex flex-col gap-1">
       <div>
         Queerlitprojektet bedrivs på
-        <a href="https://gu.se">Göteborgs universitet</a> i samarbete med
+        <a href="https://gu.se/">Göteborgs universitet</a> i samarbete med
         <a href="http://www2.ub.gu.se/kvinn/">KvinnSam</a>,
         <a href="https://gu.se/digital-humaniora">GRIDH</a>,
         <a href="https://www.sh.se/">Södertörns högskola</a> och
@@ -22,6 +22,15 @@
         >
       </div>
     </div>
-    <a href="https://gu.se" class="w-20"><img src="@/assets/gu.svg" /></a>
+
+    <div class="flex gap-4 items-center">
+      <a
+        href="https://gu.se/digital-humaniora"
+        alt="Göteborgs forskningsinfrastruktur för digital humaniora"
+      >
+        <span class="text-4xl font-extralight">GRIDH</span>
+      </a>
+      <a href="https://gu.se/" class="w-20"><img src="@/assets/gu.svg" /></a>
+    </div>
   </footer>
 </template>

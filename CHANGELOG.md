@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Added
+
+- GRIDH logo in footer
+
 ### Fixed
 
 - Add trailing slash to `/om/` links to skip redirects

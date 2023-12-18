@@ -73,6 +73,7 @@ import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
 import "@fontsource/barlow-condensed/300.css";
+import "@fontsource/barlow-condensed/100.css";
 import useRootStore from "@/stores/root.store";
 import useQueryStore from "@/stores/query.store";
 import useHistory from "./views/history.composable";
