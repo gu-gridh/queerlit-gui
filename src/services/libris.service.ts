@@ -231,8 +231,8 @@ function processInstance(item: L.Instance): WorkFromLibris {
       c["@type"] == "ClassificationDdc"
         ? { type: "DDC", code: c.code }
         : c.inScheme
-        ? { type: c.inScheme.code?.replace("kssb", "SAB"), code: c.code }
-        : null!,
+          ? { type: c.inScheme.code?.replace("kssb", "SAB"), code: c.code }
+          : null!,
     )
     .filter(Boolean);
 
@@ -357,8 +357,8 @@ function termDataFromId(id: URI) {
     scheme == ConceptScheme.Qlit
       ? qlitLabels[urlBasename(id)]
       : scheme
-      ? urlBasename(id)
-      : undefined;
+        ? urlBasename(id)
+        : undefined;
 
   return { id, scheme, label };
 }
