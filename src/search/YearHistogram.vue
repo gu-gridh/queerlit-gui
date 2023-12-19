@@ -32,8 +32,11 @@ const bars = computed(() =>
       n: store.histogram[year] || 0,
     }))
     .reduce((acc, bar) => {
+      // Find bar start year
       const year = floor(bar.year, -props.zeroes);
+      // Find any existing bar
       const bin = acc.find((bar2) => bar2.year == year);
+      // Add count to the existing bar, or push a new bar
       bin ? (bin.n += bar.n) : acc.push({ year, n: bar.n });
       return acc;
     }, [] as Bar[]),
@@ -43,14 +46,26 @@ const maxHeight = computed(() =>
   Math.max(...bars.value.map((bar) => bar.n || 0)),
 );
 
+/** Length (number of years) is 10 or 100 */
+const barLength = computed(() => Math.pow(10, props.zeroes));
+
 function getBarHeight(n: number) {
   return Math.round((n / maxHeight.value) * 100);
 }
 
+/** Get length of a specific bar, first/last bar may be shorter */
+function getBarLength(bar: Bar) {
+  const start = Math.max(bar.year, props.min);
+  const end = Math.min(bar.year + barLength.value, props.max);
+  return end - start;
+}
+
+function getBarRatio(bar: Bar) {
+  return getBarLength(bar) / (props.max - props.min);
+}
+
 function selectBar(bar: Bar) {
-  // Length is 9 or 99
-  const length = Math.pow(10, props.zeroes) - 1;
-  emit("selectRange", bar.year, bar.year + length);
+  emit("selectRange", bar.year, bar.year + barLength.value - 1);
 }
 </script>
 
@@ -63,8 +78,9 @@ function selectBar(bar: Bar) {
       <div
         v-for="bar in bars"
         :key="bar.year"
-        class="flex-1 h-full relative pointer"
+        class="h-full relative pointer"
         :title="String(bar.year)"
+        :style="{ width: `${getBarRatio(bar) * 100}%` }"
         @mouseover="focus = bar"
         @mouseout="focus = null"
         @click="selectBar(bar)"

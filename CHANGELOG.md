@@ -21,6 +21,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Changed
 
 - The search button on a term page now overwrites any current search query
+- Histogram width adjusted, last bar will match progress of current decade/century
 - Renamed single-word components to multi-word, pursuing [Vue style guide](https://vuejs.org/style-guide/rules-essential)
 
 ### Fixed
