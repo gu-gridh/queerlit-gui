@@ -33,37 +33,47 @@
           </aside>
         </header>
 
-        <div
-          v-show="isSidebarOpen"
-          class="text-lg mt-14 mb-4 transition-all duration-500 low:mt-8"
-        >
-          <router-link
-            to="/"
-            class="main-nav-link"
-            :class="{ 'router-link-active': isTitlesRoute }"
-          >
-            Titlar
-          </router-link>
-          <router-link to="/subjects" class="main-nav-link">Ämnen</router-link>
-          <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">Om</a>
-          <a href="https://queerlit.dh.gu.se/om/kontakt/" class="main-nav-link">
-            Kontakt
-          </a>
-        </div>
+        <TransitionExpand>
+          <div v-show="isSidebarOpen">
+            <div
+              class="text-lg mt-14 mb-4 transition-all duration-500 low:mt-8"
+            >
+              <router-link
+                to="/"
+                class="main-nav-link"
+                :class="{ 'router-link-active': isTitlesRoute }"
+              >
+                Titlar
+              </router-link>
+              <router-link to="/subjects" class="main-nav-link">
+                Ämnen
+              </router-link>
+              <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">
+                Om
+              </a>
+              <a
+                href="https://queerlit.dh.gu.se/om/kontakt/"
+                class="main-nav-link"
+              >
+                Kontakt
+              </a>
+            </div>
 
-        <section v-show="isSidebarOpen">
-          <router-view name="side" />
-        </section>
+            <section>
+              <router-view name="side" />
+            </section>
 
-        <aside
-          v-if="isMainFirst && isSidebarOpen"
-          class="mt-4 text-center text-white sm:text-xl"
-        >
-          <div @click="toggleSidebar(false)">
-            <icon icon="minus" />
-            Fäll ihop navigation
+            <aside
+              v-if="isMainFirst"
+              class="mt-4 text-center text-white sm:text-xl"
+            >
+              <div @click="toggleSidebar(false)">
+                <icon icon="minus" />
+                Fäll ihop navigation
+              </div>
+            </aside>
           </div>
-        </aside>
+        </TransitionExpand>
       </nav>
     </div>
 
@@ -105,6 +115,7 @@ import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
 import SiteFooter from "./SiteFooter.vue";
 import useSearch from "./search/search.composable";
+import TransitionExpand from "./components/TransitionExpand.vue";
 
 const siteDescription =
   "Queerlit är en databas för svensk skönlitteratur som skildrar samkönat begär och överskridanden av binära könsnormer.";
