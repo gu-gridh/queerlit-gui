@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <footer class="container mt-8 py-8 flex gap-4 justify-between text-sm">
+  <footer
+    class="container mt-8 py-8 flex flex-col sm:flex-row gap-4 justify-between text-sm text-center sm:text-left"
+  >
     <div class="flex-1 q-body flex flex-col gap-1">
       <div>
         Queerlitprojektet bedrivs på
@@ -23,7 +25,7 @@
       </div>
     </div>
 
-    <div class="flex gap-4 items-center">
+    <div class="flex gap-4 items-center justify-center">
       <a
         href="https://gu.se/digital-humaniora"
         alt="Göteborgs forskningsinfrastruktur för digital humaniora"

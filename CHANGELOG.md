@@ -32,6 +32,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Fixed
 
 - Add trailing slash to `/om/` links to skip redirects
+- Footer less cramped, more vertical, on small screens
 
 ## [2.4.0] (2023-12-13)
 
