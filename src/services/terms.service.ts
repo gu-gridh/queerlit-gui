@@ -32,26 +32,24 @@ async function qlitList(endpoint: string, params?: Record<string, any>) {
   return terms;
 }
 
-export async function getTerm(name: QlitName) {
+export const getTerm = memoize(async (name: QlitName) => {
   const data = await qlitGet<QlitTermRaw>("term/" + name);
   return processTerm(data);
-}
+});
 
-export async function getParents(narrower: QlitName) {
-  return qlitList("broader", { narrower });
-}
+export const getParents = memoize(async (narrower: QlitName) =>
+  qlitList("broader", { narrower }),
+);
 
-export async function getChildren(broader: QlitName) {
-  return qlitList("narrower", { broader });
-}
+export const getChildren = memoize(async (broader: QlitName) =>
+  qlitList("narrower", { broader }),
+);
 
-export async function getRelated(other: QlitName) {
-  return qlitList("related", { other });
-}
+export const getRelated = memoize(async (other: QlitName) =>
+  qlitList("related", { other }),
+);
 
-export async function getRoots() {
-  return qlitList("roots");
-}
+export const getRoots = memoize(async () => qlitList("roots"));
 
 export async function searchTerms(s: string) {
   return qlitList("search", { s });
@@ -68,9 +66,9 @@ export const getCollections = memoize(async (): Promise<QlitCollection[]> => {
   }));
 });
 
-export function getCollection(name: QlitName) {
-  return qlitList("collections/" + name);
-}
+export const getCollection = memoize(async (name: QlitName) =>
+  qlitList("collections/" + name),
+);
 
 export const getLabels = memoize(async () =>
   qlitGet<Readonly<Record<QlitName, string>>>("labels"),
