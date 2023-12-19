@@ -72,7 +72,7 @@ function selectBar(bar: Bar) {
 <template>
   <div>
     <div class="text-center text-xs h-4 -mt-4 whitespace-nowrap">
-      <span v-if="focus">{{ focus.year }}-talet: {{ focus.n }} st</span>
+      <span v-if="focus">{{ focus.year }}-talet</span>
     </div>
     <div v-if="store.histogram" class="flex items-end h-12">
       <div

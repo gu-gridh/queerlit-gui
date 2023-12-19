@@ -22,6 +22,7 @@ As this project is a user-facing application, the places in the semantic version
 
 - The search button on a term page now overwrites any current search query
 - Histogram width adjusted, last bar will match progress of current decade/century
+- Don't show hit count when hovering histogram bar; it's misleading for bars outside selected range
 - Renamed single-word components to multi-word, pursuing [Vue style guide](https://vuejs.org/style-guide/rules-essential)
 
 ### Fixed
