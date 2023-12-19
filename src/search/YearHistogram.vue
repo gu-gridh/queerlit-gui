@@ -63,10 +63,11 @@ function selectBar(bar: Bar) {
       <div
         v-for="bar in bars"
         :key="bar.year"
-        class="flex-1 h-full relative"
+        class="flex-1 h-full relative pointer"
         :title="String(bar.year)"
         @mouseover="focus = bar"
         @mouseout="focus = null"
+        @click="selectBar(bar)"
       >
         <div
           v-if="bar.n"
@@ -75,7 +76,6 @@ function selectBar(bar: Bar) {
             height: getBarHeight(bar.n) + '%',
             width: '95%',
           }"
-          @click="selectBar(bar)"
         />
       </div>
     </div>
