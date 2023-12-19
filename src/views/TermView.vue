@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+import useQueryStore from "@/stores/query.store";
 import use404 from "./404.composable";
 import TermButton from "@/terms/TermButton.vue";
 import LabeledSection from "@/components/LabeledSection.vue";
@@ -12,8 +13,10 @@ import useHistory from "./history.composable";
 import OptionsButton from "@/components/OptionsButton.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
 import { useRouteInfo } from "./routeInfo.composable";
+import type { Term } from "@/types/work";
 
 const route = useRoute();
+const queryStore = useQueryStore();
 const {
   getParents,
   getChildren,
@@ -59,6 +62,16 @@ watch(term, () => {
   if (term.value.related.length)
     getRelated(term.value.name).then((terms) => (related.value = terms));
 });
+
+function addSearchTerm(term: Term) {
+  queryStore.resetQuery();
+  searchByTerm(term);
+}
+
+function addSearchTermSecondary(term: Term) {
+  queryStore.resetQuery();
+  searchByTermSecondary(term);
+}
 </script>
 
 <template>
@@ -116,13 +129,13 @@ watch(term, () => {
             <ul class="bg-gray-50/95 dark:bg-gray-600/95 rounded shadow mt-0.5">
               <li
                 class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
-                @click="searchByTerm(term)"
+                @click="addSearchTerm(term)"
               >
                 Sök som centralt ämnesord
               </li>
               <li
                 class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
-                @click="searchByTermSecondary(term)"
+                @click="addSearchTermSecondary(term)"
               >
                 Sök som perifert ämnesord
               </li>
