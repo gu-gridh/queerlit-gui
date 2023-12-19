@@ -122,7 +122,7 @@ function enableOldChange() {
 }
 
 function setRange(start: number, end: number) {
-  range.value = [start, end];
+  range.value = [Math.max(start, min.value), Math.min(end, MAX)];
   emitChange();
 }
 
