@@ -14,17 +14,29 @@
     <div
       class="bg-smoke-500 dark:bg-smoke-800 dark:text-smoke-300 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
     >
-      <nav class="container py-12">
-        <header class="max-w-screen-md pb-8">
+      <nav class="container" :class="[isSidebarOpen ? 'py-12' : 'py-8']">
+        <header class="max-w-screen-md flex justify-between items-center">
           <router-link to="/" class="flex-1" @click="reset">
             <img
               src="@/assets/qlogo.svg"
               class="ml-2 mt-6 h-24 transition-all duration-500 low:mt-0 low:h-14"
             />
           </router-link>
+
+          <aside
+            v-if="!isSidebarOpen"
+            class="text-white sm:text-xl"
+            @click="toggleSidebar(true)"
+          >
+            <icon icon="plus" />
+            Öppna navigation
+          </aside>
         </header>
 
-        <div class="text-lg mt-6 mb-4 transition-all duration-500 low:mt-0">
+        <div
+          v-show="isSidebarOpen"
+          class="text-lg mt-14 mb-4 transition-all duration-500 low:mt-8"
+        >
           <router-link
             to="/"
             class="main-nav-link"
@@ -39,9 +51,19 @@
           </a>
         </div>
 
-        <section>
+        <section v-show="isSidebarOpen">
           <router-view name="side" />
         </section>
+
+        <aside
+          v-if="isMainFirst && isSidebarOpen"
+          class="mt-4 text-center text-white sm:text-xl"
+        >
+          <div @click="toggleSidebar(false)">
+            <icon icon="minus" />
+            Fäll ihop navigation
+          </div>
+        </aside>
       </nav>
     </div>
 
@@ -69,6 +91,7 @@ import {
   defineOrganization,
   defineWebSite,
 } from "@unhead/schema-org";
+import { useToggle } from "@vueuse/core";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
@@ -92,6 +115,8 @@ const store = useRootStore();
 const queryStore = useQueryStore();
 const route = useRoute();
 const { doSearch } = useSearch();
+const [showSidebar, toggleSidebar] = useToggle();
+
 useHead({
   // Set Schema.org host as in https://unhead.unjs.io/schema-org/getting-started/setup
   templateParams: { schemaOrg: { host: "https://queerlit.dh.gu.se" } },
@@ -108,6 +133,19 @@ useSchemaOrg([
 
 const isTitlesRoute = computed(() =>
   /^\/(work|special)\//.test(route.fullPath),
+);
+
+/** Whether the sidebar should be initially collapsed on mobile */
+const isMainFirst = computed<boolean>(
+  () =>
+    (["Work", "LocalWork", "Term"] as any[]).includes(route.name) ||
+    (route.name == "Search" && !queryStore.isEmpty) ||
+    (route.name == "Thesaurus" && !!store.termTextQuery),
+);
+
+/** Whether the sidebar is currently expanded */
+const isSidebarOpen = computed<boolean>(
+  () => !isMainFirst.value || showSidebar.value,
 );
 
 activateHistory();

@@ -15,6 +15,7 @@ As this project is a user-facing application, the places in the semantic version
 
 ### Added
 
+- Collapse "sidebar" (navigation panel) on mobile, except on Search/Thesaurus page with empty search
 - GRIDH logo in footer
 - In the year filter, click a histogram bar to select that decade (or century)
 
