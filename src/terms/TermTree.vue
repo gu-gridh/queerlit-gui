@@ -55,7 +55,7 @@ watchEffect(async () => {
     }"
   >
     <header class="flex flex-wrap justify-between items-baseline gap-4">
-      <router-link :to="getTermPath(parent)" class="text-lg font-bold">
+      <router-link :to="getTermPath(parent)" class="text-lg">
         <h3><TermButton :data="parent" /></h3>
       </router-link>
       <span v-if="parent.altLabels && parent.altLabels.length">
