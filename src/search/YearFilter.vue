@@ -31,7 +31,12 @@
     </div>
 
     <div class="mx-1">
-      <YearHistogram :min="min" :max="MAX" :zeroes="enableOld ? 2 : 1" />
+      <YearHistogram
+        :min="min"
+        :max="MAX"
+        :zeroes="enableOld ? 2 : 1"
+        @select-range="setRange"
+      />
 
       <Slider
         v-model="range"
@@ -113,6 +118,11 @@ function enableOldChange() {
   if (enableOld.value && range.value[0] == MIN) range.value[0] = 0;
   else if (range.value[0] < min.value) range.value[0] = min.value;
   if (range.value[1] < min.value) range.value[1] = min.value;
+  emitChange();
+}
+
+function setRange(start: number, end: number) {
+  range.value = [start, end];
   emitChange();
 }
 

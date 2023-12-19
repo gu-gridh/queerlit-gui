@@ -15,6 +15,10 @@ const props = withDefaults(defineProps<Props>(), {
   zeroes: 1,
 });
 
+const emit = defineEmits<{
+  selectRange: [number, number];
+}>();
+
 type Bar = { year: number; n: number };
 
 const store = useRootStore();
@@ -42,6 +46,12 @@ const maxHeight = computed(() =>
 function getBarHeight(n: number) {
   return Math.round((n / maxHeight.value) * 100);
 }
+
+function selectBar(bar: Bar) {
+  // Length is 9 or 99
+  const length = Math.pow(10, props.zeroes) - 1;
+  emit("selectRange", bar.year, bar.year + length);
+}
 </script>
 
 <template>
@@ -65,6 +75,7 @@ function getBarHeight(n: number) {
             height: getBarHeight(bar.n) + '%',
             width: '95%',
           }"
+          @click="selectBar(bar)"
         />
       </div>
     </div>
