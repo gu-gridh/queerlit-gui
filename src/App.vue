@@ -91,7 +91,7 @@ import {
   defineOrganization,
   defineWebSite,
 } from "@unhead/schema-org";
-import { useToggle } from "@vueuse/core";
+import { useToggle, useWindowSize } from "@vueuse/core";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
 import * as util from "@/util";
@@ -116,6 +116,7 @@ const queryStore = useQueryStore();
 const route = useRoute();
 const { doSearch } = useSearch();
 const [showSidebar, toggleSidebar] = useToggle();
+const { width } = useWindowSize();
 
 useHead({
   // Set Schema.org host as in https://unhead.unjs.io/schema-org/getting-started/setup
@@ -135,12 +136,15 @@ const isTitlesRoute = computed(() =>
   /^\/(work|special)\//.test(route.fullPath),
 );
 
+const isScreenSmall = computed(() => width.value < 768);
+
 /** Whether the sidebar should be initially collapsed on mobile */
 const isMainFirst = computed<boolean>(
   () =>
-    (["Work", "LocalWork", "Term"] as any[]).includes(route.name) ||
-    (route.name == "Search" && !queryStore.isEmpty) ||
-    (route.name == "Thesaurus" && !!store.termTextQuery),
+    isScreenSmall.value &&
+    ((["Work", "LocalWork", "Term"] as any[]).includes(route.name) ||
+      (route.name == "Search" && !queryStore.isEmpty) ||
+      (route.name == "Thesaurus" && !!store.termTextQuery)),
 );
 
 /** Whether the sidebar is currently expanded */
