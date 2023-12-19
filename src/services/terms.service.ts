@@ -1,4 +1,5 @@
 const axios = import("axios").then((m) => m.default);
+import memoize from "lodash/memoize";
 import type {
   QlitCollection,
   QlitCollectionRaw,
@@ -56,7 +57,7 @@ export async function searchTerms(s: string) {
   return qlitList("search", { s });
 }
 
-export async function getCollections(): Promise<QlitCollection[]> {
+export const getCollections = memoize(async (): Promise<QlitCollection[]> => {
   const collections = await qlitGet<QlitCollectionRaw[]>("collections");
   return collections.map((collection) => ({
     ...collection,
@@ -65,15 +66,15 @@ export async function getCollections(): Promise<QlitCollection[]> {
       .replace("Tema: ", "")
       .replace(/ \(HBTQI\)/i, ""),
   }));
-}
+});
 
 export function getCollection(name: QlitName) {
   return qlitList("collections/" + name);
 }
 
-export async function getLabels() {
-  return await qlitGet<Readonly<Record<QlitName, string>>>("labels");
-}
+export const getLabels = memoize(async () =>
+  qlitGet<Readonly<Record<QlitName, string>>>("labels"),
+);
 
 function processTerm(term: QlitTermRaw): QlitTerm {
   return {

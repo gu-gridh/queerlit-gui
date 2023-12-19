@@ -16,9 +16,7 @@ const qlitLabels: Readonly<Record<QlitName, string>> = {};
 
 /** Load QLIT term labels and cache them locally. */
 async function loadQlitLabels() {
-  if (Object.keys(qlitLabels).length == 0) {
-    Object.assign(qlitLabels, await getLabels());
-  }
+  Object.assign(qlitLabels, await getLabels());
 }
 const qlitLabelsPromise = loadQlitLabels();
 
