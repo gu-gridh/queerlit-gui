@@ -3,6 +3,7 @@ import { computed, ref, watchEffect } from "vue";
 import useRootStore from "@/stores/root.store";
 import type { QlitTerm } from "@/services/qlit.types";
 import useTerms from "@/terms/terms.composable";
+import TransitionExpand from "@/components/TransitionExpand.vue";
 import TermButton from "@/terms/TermButton.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
 import { useDark } from "@vueuse/core";
@@ -69,7 +70,7 @@ watchEffect(async () => {
 
     <div
       v-if="parent.narrower.length"
-      class="my-2 text-sm cursor-pointer"
+      class="text-sm cursor-pointer"
       @click="toggleExpanded"
     >
       <span v-if="expanded">
@@ -78,18 +79,22 @@ watchEffect(async () => {
       <span v-else> <icon icon="plus" size="sm" /> Visa undertermer </span>
     </div>
 
-    <section v-if="expanded">
-      <div v-if="children">
-        <TermTree
-          v-for="child in children"
-          :key="child.name"
-          :parent="child"
-          :level="(level || 0) + 1"
-          :expanded="false"
-        />
-      </div>
-      <div v-else>Laddar...</div>
-    </section>
+    <TransitionExpand>
+      <section v-if="expanded">
+        <div v-if="!children" class="py-4">Laddar...</div>
+        <TransitionExpand>
+          <div v-if="children">
+            <TermTree
+              v-for="child in children"
+              :key="child.name"
+              :parent="child"
+              :level="(level || 0) + 1"
+              :expanded="false"
+            />
+          </div>
+        </TransitionExpand>
+      </section>
+    </TransitionExpand>
   </article>
 </template>
 

@@ -12,6 +12,7 @@ import {
   searchGenreform,
 } from "@/services/libris.service";
 import useMulticomplete from "./multicomplete.composable";
+import TransitionExpand from "@/components/TransitionExpand.vue";
 import TermButton from "@/terms/TermButton.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 import FreetextInstructions from "./FreetextInstructions.vue";
@@ -181,7 +182,9 @@ watch(showHelp, () => {
       </div>
     </div>
 
-    <FreetextInstructions v-show="showHelp" @dismiss="toggleHelp(false)" />
+    <TransitionExpand>
+      <FreetextInstructions v-show="showHelp" @dismiss="toggleHelp(false)" />
+    </TransitionExpand>
   </div>
 </template>
 

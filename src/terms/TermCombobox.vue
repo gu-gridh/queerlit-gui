@@ -57,9 +57,11 @@
         />
       </LabeledSection>
 
-      <InputHelp v-if="showHelp" class="mb-0" @dismiss="toggleHelp(false)">
-        {{ help }}
-      </InputHelp>
+      <TransitionExpand>
+        <InputHelp v-if="showHelp" class="mb-0" @dismiss="toggleHelp(false)">
+          {{ help }}
+        </InputHelp>
+      </TransitionExpand>
     </drop>
 
     <div v-show="suggestions.length" class="h-0 relative z-20">
@@ -88,6 +90,7 @@ import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import useRootStore from "@/stores/root.store";
 import { searchTerms } from "@/services/terms.service";
+import TransitionExpand from "@/components/TransitionExpand.vue";
 import TermButton from "@/terms/TermButton.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";

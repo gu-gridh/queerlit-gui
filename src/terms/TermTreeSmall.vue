@@ -3,6 +3,7 @@ import { ref, watchEffect } from "vue";
 import { useToggle } from "@vueuse/core";
 import type { QlitTerm } from "@/services/qlit.types";
 import { urlBasename } from "@/util";
+import TransitionExpand from "@/components/TransitionExpand.vue";
 import TermButton from "./TermButton.vue";
 import useTerms from "./terms.composable";
 import useTermOptions from "./termOptions.composable";
@@ -44,15 +45,17 @@ watchEffect(async () => {
       </div>
     </div>
 
-    <div v-if="expanded && children">
-      <TermTreeSmall
-        v-for="child in children"
-        :key="child.name"
-        :parent="child"
-        :level="(level || 0) + 1"
-        :expanded="false"
-      />
-    </div>
+    <TransitionExpand>
+      <div v-if="expanded && children">
+        <TermTreeSmall
+          v-for="child in children"
+          :key="child.name"
+          :parent="child"
+          :level="(level || 0) + 1"
+          :expanded="false"
+        />
+      </div>
+    </TransitionExpand>
   </div>
 </template>
 

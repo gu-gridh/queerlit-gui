@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useToggle } from "@vueuse/core";
+import TransitionExpand from "./TransitionExpand.vue";
 import ToggleIcon from "./ToggleIcon.vue";
 import InputHelp from "./InputHelp.vue";
 
@@ -51,9 +52,11 @@ const [showHelp, toggleHelp] = useToggle();
       />
     </div>
 
-    <InputHelp v-if="showHelp" @dismiss="toggleHelp(false)">
-      {{ help }}
-    </InputHelp>
+    <TransitionExpand>
+      <InputHelp v-if="showHelp" @dismiss="toggleHelp(false)">
+        {{ help }}
+      </InputHelp>
+    </TransitionExpand>
   </div>
 </template>
 
