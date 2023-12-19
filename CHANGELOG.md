@@ -25,6 +25,7 @@ As this project is a user-facing application, the places in the semantic version
 - The search button on a term page now overwrites any current search query
 - Histogram width adjusted, last bar will match progress of current decade/century
 - Don't show hit count when hovering histogram bar; it's misleading for bars outside selected range
+- Scroll window to top when following links
 - Most QLIT backend calls are cached with _memoize_, so thesaurus browsing is now faster for short-time visitors, although it can potentially drain memory on a very long visit
 - Renamed single-word components to multi-word, pursuing [Vue style guide](https://vuejs.org/style-guide/rules-essential)
 
