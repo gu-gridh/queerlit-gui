@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+import useQueryStore from "@/stores/query.store";
 import use404 from "./404.composable";
-import Term from "@/terms/Term.vue";
-import Labeled from "@/components/Labeled.vue";
+import TermButton from "@/terms/TermButton.vue";
+import LabeledSection from "@/components/LabeledSection.vue";
 import useTerms from "@/terms/terms.composable";
 import ExternalTermList from "@/terms/ExternalTermList.vue";
 import QButton from "@/components/QButton.vue";
@@ -12,8 +13,10 @@ import useHistory from "./history.composable";
 import OptionsButton from "@/components/OptionsButton.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
 import { useRouteInfo } from "./routeInfo.composable";
+import type { Term } from "@/types/work";
 
 const route = useRoute();
+const queryStore = useQueryStore();
 const {
   getParents,
   getChildren,
@@ -59,6 +62,16 @@ watch(term, () => {
   if (term.value.related.length)
     getRelated(term.value.name).then((terms) => (related.value = terms));
 });
+
+function addSearchTerm(term: Term) {
+  queryStore.resetQuery();
+  searchByTerm(term);
+}
+
+function addSearchTermSecondary(term: Term) {
+  queryStore.resetQuery();
+  searchByTermSecondary(term);
+}
 </script>
 
 <template>
@@ -116,13 +129,13 @@ watch(term, () => {
             <ul class="bg-gray-50/95 dark:bg-gray-600/95 rounded shadow mt-0.5">
               <li
                 class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
-                @click="searchByTerm(term)"
+                @click="addSearchTerm(term)"
               >
                 Sök som centralt ämnesord
               </li>
               <li
                 class="overflow-hidden text-ellipsis whitespace-nowrap px-1 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-stone-200 cursor-pointer"
-                @click="searchByTermSecondary(term)"
+                @click="addSearchTermSecondary(term)"
               >
                 Sök som perifert ämnesord
               </li>
@@ -134,51 +147,51 @@ watch(term, () => {
 
     <div class="flex flex-wrap my-4 gap-4">
       <div class="flex-1">
-        <Labeled label="Bredare">
+        <LabeledSection label="Bredare">
           <ul class="my-1 flex flex-col gap-2">
             <li v-for="broaderTerm in parents" :key="broaderTerm.name">
               <router-link :to="getTermPath(broaderTerm)">
-                <Term :data="broaderTerm" />
+                <TermButton :data="broaderTerm" />
               </router-link>
             </li>
           </ul>
-        </Labeled>
+        </LabeledSection>
       </div>
 
       <div class="flex-1">
-        <Labeled label="Smalare">
+        <LabeledSection label="Smalare">
           <ul class="my-1 flex flex-col gap-2">
             <li v-for="narrowerTerm in children" :key="narrowerTerm.name">
               <router-link :to="getTermPath(narrowerTerm)">
-                <Term :data="narrowerTerm" />
+                <TermButton :data="narrowerTerm" />
               </router-link>
             </li>
           </ul>
-        </Labeled>
+        </LabeledSection>
       </div>
 
       <div class="w-full">
-        <Labeled label="Relaterade">
+        <LabeledSection label="Relaterade">
           <ul class="my-1 flex flex-wrap gap-2">
             <li v-for="relatedTerm in related" :key="relatedTerm.name">
               <router-link :to="getTermPath(relatedTerm)">
-                <Term :data="relatedTerm" />
+                <TermButton :data="relatedTerm" />
               </router-link>
             </li>
           </ul>
-        </Labeled>
+        </LabeledSection>
       </div>
 
       <div class="flex-1">
-        <Labeled label="Motsvarar">
+        <LabeledSection label="Motsvarar">
           <ExternalTermList :terms="term.exactMatch" />
-        </Labeled>
+        </LabeledSection>
       </div>
 
       <div class="flex-1">
-        <Labeled label="Motsvarar ungefär">
+        <LabeledSection label="Motsvarar ungefär">
           <ExternalTermList :terms="term.closeMatch" />
-        </Labeled>
+        </LabeledSection>
       </div>
     </div>
   </main>

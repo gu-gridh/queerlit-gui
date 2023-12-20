@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { ellipsis } from "@/util";
 import useTerms from "@/terms/terms.composable";
-import Term from "@/terms/Term.vue";
+import TermButton from "@/terms/TermButton.vue";
 import useTermOptions from "@/terms/termOptions.composable";
 import type { Term as TermType } from "@/types/work";
 
@@ -58,7 +58,7 @@ const terms = computed(() => sortTerms(props.terms));
         </div>
 
         <div v-if="terms.qlit.length" class="flex flex-wrap gap-1 my-2">
-          <Term
+          <TermButton
             v-for="term in terms.qlit"
             :key="term.id"
             :data="term"
@@ -71,7 +71,7 @@ const terms = computed(() => sortTerms(props.terms));
           v-if="termsSecondary.length || termsSecondaryMore"
           class="flex flex-wrap gap-1 my-2 text-sm"
         >
-          <Term
+          <TermButton
             v-for="term in termsSecondary"
             :key="term.id"
             :data="term"
@@ -80,7 +80,7 @@ const terms = computed(() => sortTerms(props.terms));
             :draggable="true"
           >
             {{ term.label }} – perifert
-          </Term>
+          </TermButton>
           <span v-if="termsSecondaryMore" class="opacity-70">...</span>
         </div>
 
@@ -88,7 +88,7 @@ const terms = computed(() => sortTerms(props.terms));
           v-if="terms.other.length"
           class="flex flex-wrap gap-1 my-2 text-sm"
         >
-          <Term
+          <TermButton
             v-for="term in terms.other"
             :key="term.id"
             :data="term"

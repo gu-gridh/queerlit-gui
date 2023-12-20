@@ -13,6 +13,29 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### [2.5.0] (2023-12-20)
+
+### Added
+
+- Collapse "sidebar" (navigation panel) on mobile, except on Search/Thesaurus page with empty search
+- GRIDH logo in footer
+- In the year filter, click a histogram bar to select that decade (or century)
+- Animate expand/collapse of certain elements
+
+### Changed
+
+- The search button on a term page now overwrites any current search query
+- Don't show hit count when hovering histogram bar; it's misleading for bars outside selected range
+- Most QLIT backend calls are cached with _memoize_, so thesaurus browsing is now faster for short-time visitors, although it can potentially drain memory on a very long visit
+- Renamed single-word components to multi-word, pursuing [Vue style guide](https://vuejs.org/style-guide/rules-essential)
+
+### Fixed
+
+- Histogram width adjusted, last bar will match progress of current decade/century; this makes the slider properly aligned
+- Scroll window to top when following links
+- Add trailing slash to `/om/` links to skip redirects
+- Footer less cramped, more vertical, on small screens
+
 ## [2.4.0] (2023-12-13)
 
 ### Added
@@ -297,7 +320,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.4.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.7...v2.3.0
 [2.2.7]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.6...v2.2.7

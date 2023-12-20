@@ -8,7 +8,7 @@
   <main v-if="work" class="container">
     <h1 class="text-3xl">{{ work.title }}</h1>
     <div class="flex flex-wrap my-4 gap-y-2">
-      <Labeled label="Författare" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Författare" class="w-full sm:w-1/2 pr-4">
         <div v-for="(creator, i) in work.creators" :key="i" class="mr-4">
           <template v-if="creator.roles?.length">
             {{ creator.roles.join(", ") }}:
@@ -18,14 +18,14 @@
             ({{ creator.lifeSpan }})
           </template>
         </div>
-      </Labeled>
-      <Labeled label="Utgivningsår" class="w-full sm:w-1/2 pr-4">
+      </LabeledSection>
+      <LabeledSection label="Utgivningsår" class="w-full sm:w-1/2 pr-4">
         {{ work.date }}
-      </Labeled>
+      </LabeledSection>
     </div>
-    <Labeled label="Ämnesord" class="my-4 text-lg">
+    <LabeledSection label="Ämnesord" class="my-4 text-lg">
       <div class="my-1">
-        <Term
+        <TermButton
           v-for="term in terms.qlit"
           :key="term.id"
           :data="term"
@@ -34,7 +34,7 @@
         />
       </div>
       <div class="text-base my-1">
-        <Term
+        <TermButton
           v-for="term in work.termsSecondary"
           :key="term.id"
           :data="term"
@@ -43,11 +43,11 @@
           class="mr-1 mb-2"
         >
           {{ term.label }} – perifert
-        </Term>
+        </TermButton>
       </div>
 
       <div class="text-base my-1">
-        <Term
+        <TermButton
           v-for="term in terms.other"
           :key="term.id"
           :data="term"
@@ -55,34 +55,42 @@
           class="mr-1 mb-2"
         />
       </div>
-    </Labeled>
+    </LabeledSection>
 
-    <Labeled v-if="work.motivation" label="Queerlits beskrivning" class="my-4">
+    <LabeledSection
+      v-if="work.motivation"
+      label="Queerlits beskrivning"
+      class="my-4"
+    >
       {{ work.motivation }}
-    </Labeled>
+    </LabeledSection>
 
-    <Labeled v-if="work.summary" label="Förlagets beskrivning" class="my-4">
+    <LabeledSection
+      v-if="work.summary"
+      label="Förlagets beskrivning"
+      class="my-4"
+    >
       {{ work.summary }}
-    </Labeled>
+    </LabeledSection>
 
     <div class="flex flex-wrap my-4 gap-y-2">
-      <Labeled label="Omfång" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Omfång" class="w-full sm:w-1/2 pr-4">
         {{ work.extent || "—" }}
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Språk" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Språk" class="w-full sm:w-1/2 pr-4">
         <ValueList :values="work.languages" />
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Genre/form" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Genre/form" class="w-full sm:w-1/2 pr-4">
         <ValueList :values="work.genreform.map(getGenreformLabel)" />
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Anmärkning" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Anmärkning" class="w-full sm:w-1/2 pr-4">
         {{ work.note || "—" }}
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Klassifikation" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Klassifikation" class="w-full sm:w-1/2 pr-4">
         <ValueList
           :values="
             work.classification
@@ -90,19 +98,19 @@
               .filter(Boolean)
           "
         />
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Identifierare" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Identifierare" class="w-full sm:w-1/2 pr-4">
         <ValueList :values="work.identifiedBy" />
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Publicering" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Publicering" class="w-full sm:w-1/2 pr-4">
         <ValueList :values="work.publication" />
-      </Labeled>
+      </LabeledSection>
 
-      <Labeled label="Målgrupp" class="w-full sm:w-1/2 pr-4">
+      <LabeledSection label="Målgrupp" class="w-full sm:w-1/2 pr-4">
         <ValueList :values="work.intendedAudience" />
-      </Labeled>
+      </LabeledSection>
     </div>
 
     <div v-if="work.librisUrl" class="my-4">
@@ -119,9 +127,9 @@
 <script setup lang="ts">
 import { computed, watchEffect } from "vue";
 import useTerms from "@/terms/terms.composable";
-import Term from "@/terms/Term.vue";
+import TermButton from "@/terms/TermButton.vue";
 import useTermOptions from "@/terms/termOptions.composable";
-import Labeled from "@/components/Labeled.vue";
+import LabeledSection from "@/components/LabeledSection.vue";
 import ValueList from "@/components/ValueList.vue";
 import type { Work } from "@/types/work";
 import useQuery from "./query.composable";

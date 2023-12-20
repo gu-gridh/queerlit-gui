@@ -12,7 +12,8 @@ import {
   searchGenreform,
 } from "@/services/libris.service";
 import useMulticomplete from "./multicomplete.composable";
-import Term from "@/terms/Term.vue";
+import TransitionExpand from "@/components/TransitionExpand.vue";
+import TermButton from "@/terms/TermButton.vue";
 import FreetextSuggestions from "./FreetextSuggestions.vue";
 import FreetextInstructions from "./FreetextInstructions.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
@@ -128,12 +129,12 @@ watch(showHelp, () => {
           :items="suggestions.qlit"
           @select="addTerm"
         >
-          <Term :data="item" class="cursor-pointer">
+          <TermButton :data="item" class="cursor-pointer">
             {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
-          </Term>
+          </TermButton>
         </FreetextSuggestions>
 
         <FreetextSuggestions
@@ -142,12 +143,12 @@ watch(showHelp, () => {
           :items="suggestions.sao"
           @select="addTerm"
         >
-          <Term :data="item" class="cursor-pointer">
+          <TermButton :data="item" class="cursor-pointer">
             {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
-          </Term>
+          </TermButton>
         </FreetextSuggestions>
 
         <FreetextSuggestions
@@ -156,12 +157,12 @@ watch(showHelp, () => {
           :items="suggestions.barn"
           @select="addTerm"
         >
-          <Term :data="item" class="cursor-pointer">
+          <TermButton :data="item" class="cursor-pointer">
             {{ item.label }}
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
-          </Term>
+          </TermButton>
         </FreetextSuggestions>
 
         <FreetextSuggestions
@@ -170,18 +171,20 @@ watch(showHelp, () => {
           :items="suggestions.gf"
           @select="setGenreform"
         >
-          <Term :data="item" class="cursor-pointer">
+          <TermButton :data="item" class="cursor-pointer">
             {{ item.label }}
             <template v-if="!item.primary"> ({{ item.schemeCode }}) </template>
             <div class="inline-block">
               <icon icon="plus" size="xs" class="ml-1 flex" />
             </div>
-          </Term>
+          </TermButton>
         </FreetextSuggestions>
       </div>
     </div>
 
-    <FreetextInstructions v-show="showHelp" @dismiss="toggleHelp(false)" />
+    <TransitionExpand>
+      <FreetextInstructions v-show="showHelp" @dismiss="toggleHelp(false)" />
+    </TransitionExpand>
   </div>
 </template>
 

@@ -31,7 +31,12 @@
     </div>
 
     <div class="mx-1">
-      <Histogram :min="min" :max="MAX" :zeroes="enableOld ? 2 : 1" />
+      <YearHistogram
+        :min="min"
+        :max="MAX"
+        :zeroes="enableOld ? 2 : 1"
+        @select-range="setRange"
+      />
 
       <Slider
         v-model="range"
@@ -67,7 +72,7 @@
 import { computed, defineAsyncComponent, ref, watch } from "vue";
 import debounce from "lodash/debounce";
 import "@vueform/slider/themes/tailwind.scss";
-import Histogram from "./Histogram.vue";
+import YearHistogram from "./YearHistogram.vue";
 
 // Async component: https://vuejs.org/guide/components/async.html
 // Slider docs: https://github.com/vueform/slider/blob/main/README.md
@@ -113,6 +118,11 @@ function enableOldChange() {
   if (enableOld.value && range.value[0] == MIN) range.value[0] = 0;
   else if (range.value[0] < min.value) range.value[0] = min.value;
   if (range.value[1] < min.value) range.value[1] = min.value;
+  emitChange();
+}
+
+function setRange(start: number, end: number) {
+  range.value = [Math.max(start, min.value), Math.min(end, MAX)];
   emitChange();
 }
 

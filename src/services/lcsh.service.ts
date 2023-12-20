@@ -1,5 +1,12 @@
 const axios = import("axios").then((m) => m.default);
 
+/**
+ * Look up linked open data for a LCSH term in order to return its label.
+ *
+ * See https://id.loc.gov/authorities/subjects.html for more information.
+ *
+ * @param url A LCSH uri, e.g. http://id.loc.gov/authorities/subjects/sh2016000237
+ */
 export async function getLcshLabel(url: string): Promise<string | undefined> {
   // LCSH gives some 3xx responses: http:X -> https:X -> https:X.json
   // Skip these for performance.

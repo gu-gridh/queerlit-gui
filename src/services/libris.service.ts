@@ -16,9 +16,7 @@ const qlitLabels: Readonly<Record<QlitName, string>> = {};
 
 /** Load QLIT term labels and cache them locally. */
 async function loadQlitLabels() {
-  if (Object.keys(qlitLabels).length == 0) {
-    Object.assign(qlitLabels, await getLabels());
-  }
+  Object.assign(qlitLabels, await getLabels());
 }
 const qlitLabelsPromise = loadQlitLabels();
 
@@ -231,8 +229,8 @@ function processInstance(item: L.Instance): WorkFromLibris {
       c["@type"] == "ClassificationDdc"
         ? { type: "DDC", code: c.code }
         : c.inScheme
-        ? { type: c.inScheme.code?.replace("kssb", "SAB"), code: c.code }
-        : null!,
+          ? { type: c.inScheme.code?.replace("kssb", "SAB"), code: c.code }
+          : null!,
     )
     .filter(Boolean);
 
@@ -357,8 +355,8 @@ function termDataFromId(id: URI) {
     scheme == ConceptScheme.Qlit
       ? qlitLabels[urlBasename(id)]
       : scheme
-      ? urlBasename(id)
-      : undefined;
+        ? urlBasename(id)
+        : undefined;
 
   return { id, scheme, label };
 }

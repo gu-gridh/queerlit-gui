@@ -1,4 +1,5 @@
 const axios = import("axios").then((m) => m.default);
+import memoize from "lodash/memoize";
 import type {
   QlitCollection,
   QlitCollectionRaw,
@@ -7,6 +8,11 @@ import type {
   QlitTermRaw,
 } from "./qlit.types";
 
+/**
+ * Location of the thesaurus backend service.
+ *
+ * See https://github.com/gu-gridh/queerlit-terms for API and more information.
+ */
 const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";
 
@@ -26,32 +32,30 @@ async function qlitList(endpoint: string, params?: Record<string, any>) {
   return terms;
 }
 
-export async function getTerm(name: QlitName) {
+export const getTerm = memoize(async (name: QlitName) => {
   const data = await qlitGet<QlitTermRaw>("term/" + name);
   return processTerm(data);
-}
+});
 
-export async function getParents(narrower: QlitName) {
-  return qlitList("broader", { narrower });
-}
+export const getParents = memoize(async (narrower: QlitName) =>
+  qlitList("broader", { narrower }),
+);
 
-export async function getChildren(broader: QlitName) {
-  return qlitList("narrower", { broader });
-}
+export const getChildren = memoize(async (broader: QlitName) =>
+  qlitList("narrower", { broader }),
+);
 
-export async function getRelated(other: QlitName) {
-  return qlitList("related", { other });
-}
+export const getRelated = memoize(async (other: QlitName) =>
+  qlitList("related", { other }),
+);
 
-export async function getRoots() {
-  return qlitList("roots");
-}
+export const getRoots = memoize(async () => qlitList("roots"));
 
 export async function searchTerms(s: string) {
   return qlitList("search", { s });
 }
 
-export async function getCollections(): Promise<QlitCollection[]> {
+export const getCollections = memoize(async (): Promise<QlitCollection[]> => {
   const collections = await qlitGet<QlitCollectionRaw[]>("collections");
   return collections.map((collection) => ({
     ...collection,
@@ -60,15 +64,15 @@ export async function getCollections(): Promise<QlitCollection[]> {
       .replace("Tema: ", "")
       .replace(/ \(HBTQI\)/i, ""),
   }));
-}
+});
 
-export function getCollection(name: QlitName) {
-  return qlitList("collections/" + name);
-}
+export const getCollection = memoize(async (name: QlitName) =>
+  qlitList("collections/" + name),
+);
 
-export async function getLabels() {
-  return await qlitGet<Readonly<Record<QlitName, string>>>("labels");
-}
+export const getLabels = memoize(async () =>
+  qlitGet<Readonly<Record<QlitName, string>>>("labels"),
+);
 
 function processTerm(term: QlitTermRaw): QlitTerm {
   return {

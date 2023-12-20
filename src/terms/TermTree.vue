@@ -3,7 +3,8 @@ import { computed, ref, watchEffect } from "vue";
 import useRootStore from "@/stores/root.store";
 import type { QlitTerm } from "@/services/qlit.types";
 import useTerms from "@/terms/terms.composable";
-import Term from "@/terms/Term.vue";
+import TransitionExpand from "@/components/TransitionExpand.vue";
+import TermButton from "@/terms/TermButton.vue";
 import { useCanonicalPath } from "@/canonicalPath.composable";
 import { useDark } from "@vueuse/core";
 
@@ -55,8 +56,8 @@ watchEffect(async () => {
     }"
   >
     <header class="flex flex-wrap justify-between items-baseline gap-4">
-      <router-link :to="getTermPath(parent)" class="text-lg font-bold">
-        <h3><Term :data="parent" /></h3>
+      <router-link :to="getTermPath(parent)" class="text-lg">
+        <h3><TermButton :data="parent" /></h3>
       </router-link>
       <span v-if="parent.altLabels && parent.altLabels.length">
         Varianter: {{ parent.altLabels.join(", ") }}
@@ -69,7 +70,7 @@ watchEffect(async () => {
 
     <div
       v-if="parent.narrower.length"
-      class="my-2 text-sm cursor-pointer"
+      class="text-sm cursor-pointer"
       @click="toggleExpanded"
     >
       <span v-if="expanded">
@@ -78,18 +79,22 @@ watchEffect(async () => {
       <span v-else> <icon icon="plus" size="sm" /> Visa undertermer </span>
     </div>
 
-    <section v-if="expanded">
-      <div v-if="children">
-        <TermTree
-          v-for="child in children"
-          :key="child.name"
-          :parent="child"
-          :level="(level || 0) + 1"
-          :expanded="false"
-        />
-      </div>
-      <div v-else>Laddar...</div>
-    </section>
+    <TransitionExpand>
+      <section v-if="expanded">
+        <div v-if="!children" class="py-4">Laddar...</div>
+        <TransitionExpand>
+          <div v-if="children">
+            <TermTree
+              v-for="child in children"
+              :key="child.name"
+              :parent="child"
+              :level="(level || 0) + 1"
+              :expanded="false"
+            />
+          </div>
+        </TransitionExpand>
+      </section>
+    </TransitionExpand>
   </article>
 </template>
 

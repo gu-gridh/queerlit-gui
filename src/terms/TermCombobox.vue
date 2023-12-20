@@ -12,7 +12,11 @@
       }"
       @drop="dropTerm"
     >
-      <Labeled :label="label" :for-id="inputId" inner-class="flex items-center">
+      <LabeledSection
+        :label="label"
+        :for-id="inputId"
+        inner-class="flex items-center"
+      >
         <div class="flex-1 flex flex-wrap items-baseline gap-1">
           <TermButton
             v-for="term in terms"
@@ -51,11 +55,13 @@
           :value="showHelp"
           :toggle="toggleHelp"
         />
-      </Labeled>
+      </LabeledSection>
 
-      <InputHelp v-if="showHelp" class="mb-0" @dismiss="toggleHelp(false)">
-        {{ help }}
-      </InputHelp>
+      <TransitionExpand>
+        <InputHelp v-if="showHelp" class="mb-0" @dismiss="toggleHelp(false)">
+          {{ help }}
+        </InputHelp>
+      </TransitionExpand>
     </drop>
 
     <div v-show="suggestions.length" class="h-0 relative z-20">
@@ -84,13 +90,14 @@ import { vOnClickOutside } from "@vueuse/components";
 import debounce from "lodash/debounce";
 import useRootStore from "@/stores/root.store";
 import { searchTerms } from "@/services/terms.service";
-import TermButton from "@/terms/Term.vue";
+import TransitionExpand from "@/components/TransitionExpand.vue";
+import TermButton from "@/terms/TermButton.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import ToggleIcon from "@/components/ToggleIcon.vue";
 import InputHelp from "@/components/InputHelp.vue";
 import useTerms from "./terms.composable";
 import useTermOptions from "./termOptions.composable";
-import Labeled from "@/components/Labeled.vue";
+import LabeledSection from "@/components/LabeledSection.vue";
 import type { Term } from "@/types/work";
 
 const props = defineProps<{
