@@ -13,6 +13,10 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
+### Fixed
+
+- Bug when erasing thesaurus search text
+
 ### [2.5.0] (2023-12-20)
 
 ### Added
