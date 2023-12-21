@@ -167,6 +167,7 @@ activateHistory();
 
 function reset() {
   queryStore.resetQuery();
+  store.sort = "-meta.modified";
   doSearch();
 }
 

@@ -16,6 +16,7 @@ As this project is a user-facing application, the places in the semantic version
 ### Fixed
 
 - Bug when erasing thesaurus search text
+- Reset sort when clicking logo
 
 ### [2.5.0] (2023-12-20)
 
