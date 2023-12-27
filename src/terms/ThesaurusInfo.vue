@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import debounce from "lodash/debounce";
 import type { QlitCollection } from "@/services/qlit.types";
 import useRootStore from "@/stores/root.store";
 import LabeledSection from "@/components/LabeledSection.vue";
@@ -11,7 +12,7 @@ const router = useRouter();
 
 const termTextQuery = computed({
   get: () => store.termTextQuery,
-  set: (value) => store.setTermTextQuery(value),
+  set: debounce(store.setTermTextQuery, 400),
 });
 
 function selectCollection(collection: QlitCollection) {

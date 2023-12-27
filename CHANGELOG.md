@@ -13,7 +13,14 @@ As this project is a user-facing application, the places in the semantic version
 
 ## [Unreleased]
 
-### [2.5.0] (2023-12-20)
+## [2.5.1] (2023-12-27)
+
+### Fixed
+
+- Bug when erasing thesaurus search text
+- Reset sort when clicking logo
+
+## [2.5.0] (2023-12-20)
 
 ### Added
 
@@ -320,7 +327,8 @@ As this project is a user-facing application, the places in the semantic version
 
 This date marks the public release of the website. It features a search interface for the Queerlit bibliography, as well as a thesaurus browser for the QLIT thesaurus. Change up until this point are not documented other than in the git commit log.
 
-[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.5.0...HEAD
+[unreleased]: https://github.com/gu-gridh/queerlit-gui/compare/v2.5.1...HEAD
+[2.5.1]: https://github.com/gu-gridh/queerlit-gui/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/gu-gridh/queerlit-gui/compare/v2.2.7...v2.3.0
