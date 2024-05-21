@@ -26,7 +26,7 @@ const hierarchicalModel = computed({
     <CollectionsSmall />
 
     <div
-      class="bg-smoke-200 dark:bg-stone-700 text-text dark:text-stone-400 rounded flow-root relative"
+      class="bg-smoke-200 dark:bg-stone-700 text-text dark:text-stone-400 rounded flow-root collection-search"
     >
       <TermCombobox
         label="Centrala ämnesord"
@@ -57,7 +57,14 @@ const hierarchicalModel = computed({
 
     <div>
       <input id="hierarchical" v-model="hierarchicalModel" type="checkbox" />
-      <label for="hierarchical"> Träffa även på smalare ämnesord</label>
+      <label for="hierarchical" style="font-size:0.85em; vertical-align: -1.5px; line-height:2.5;"> Träffa även på smalare ämnesord</label>
     </div>
   </div>
 </template>
+
+<style scoped>
+  .collection-search{
+border-radius:8px!important;
+  }
+  
+  </style>

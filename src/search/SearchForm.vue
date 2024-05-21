@@ -3,15 +3,12 @@
     class="bg-white dark:bg-stone-900 dark:text-stone-400 rounded-xl shadow-lg p-6"
     @keyup.enter="doSearch()"
   >
-    <section class="mb-4 q-body">
+    <section class="mb-4 q-body" style="line-height:1.2; font-size:0.9em">
       <ReadMore :expanded="queryStore.isEmpty">
         <p>
           Queerlit är en databas för svensk skönlitteratur som skildrar samkönat
           begär och överskridanden av binära könsnormer. Det innefattar bland
-          annat – men inte enbart – skildringar av hbtqi-personer.
-        </p>
-        <p>
-          Om du saknar något verk, eller har tips på ämnesord till något av
+          annat – men inte enbart – skildringar av hbtqi-personer. Om du saknar något verk, eller har tips på ämnesord till något av
           verken, så vill vi gärna
           <a href="https://queerlit.dh.gu.se/om/foresla/" title="Kontakt"
             >höra av dig</a
@@ -24,16 +21,17 @@
     <FreetextInput class="mb-6" />
 
     <QDetails
-      heading="Ämnen"
-      class="my-6"
-      :expanded="Boolean(expandedTerms || usingTerms)"
-      @toggle="!usingTerms && toggleTerms()"
+    heading="Ämnen"
+    class="my-6"
+    :expanded="Boolean(expandedTerms || usingTerms)"
+    @toggle="!usingTerms && toggleTerms()"
     >
       <TermFilters />
     </QDetails>
 
     <LabeledSection label="Utgivningsår" for-id="year">
       <YearFilter
+      style="margin-top:10px;"
         :start="yearStart != null ? yearStart : undefined"
         :end="yearEnd != null ? yearEnd : undefined"
         input-id="year"
@@ -99,7 +97,7 @@
     <a
       href="https://libris.kb.se/form_extended.jsp?q=bib%3aqlit&f=ext"
       title="Libris är en nationell söktjänst med information om titlar på svenska bibliotek."
-      class="underline text-blue-900 dark:text-sky-500"
+      class="libris"
     >
       Sök i Libris
     </a>
@@ -139,7 +137,7 @@ const {
 } = useQuery();
 const queryStore = useQueryStore();
 const [expandedAdvanced, toggleAdvanced] = useToggle();
-const [expandedTerms, toggleTerms] = useToggle(true);
+const [expandedTerms, toggleTerms] = useToggle(false);
 const usingAdvanced = computed(
   () => title.value || author.value || genreform.value,
 );
@@ -174,4 +172,22 @@ watch(title, () => (titleLocal.value = title.value));
 ::placeholder {
   font-size: 16px;
 }
+
+  .libris{
+    color:black;
+    border-radius:8px;
+    padding:5px 10px;
+    background-color:rgba(355,255,255,0.2);
+    width:100px;
+  }
+
+  .libris:hover{
+    background-color:rgba(355,255,255,0.5);
+  }
+
+  .libris a:link{
+    color:black;
+    text-decoration: none;
+  }
+
 </style>

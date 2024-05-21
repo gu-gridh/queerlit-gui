@@ -34,6 +34,8 @@ watch(work, () => {
 </script>
 
 <template>
+  <div style="height:calc(100% + 40px);">
   <WorkDetails v-if="work" :work="work" />
   <LoadingSpinner v-else />
+</div>
 </template>

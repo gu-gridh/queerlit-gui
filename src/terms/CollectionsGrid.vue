@@ -25,6 +25,7 @@ watchEffect(async () => (collections.value = await getCollections()));
     >
       <div
         class="p-2 px-4 bg-amber-300 dark:bg-yellow-950 hover:brightness-105 transition-all shadow rounded-lg h-full flex justify-center items-center cursor-pointer"
+        style="line-height:1.1;"
         :class="{
           'bg-amber-400 shadow-lg': selected?.includes(collection.name),
         }"

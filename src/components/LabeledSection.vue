@@ -12,7 +12,7 @@ defineProps<{
     <component
       :is="forId ? 'label' : 'header'"
       :for="forId || undefined"
-      class="block font-label uppercase font-medium text-xs"
+      class="block font-label font-medium text-xs"
       :class="labelClass"
     >
       {{ label }}

@@ -7,7 +7,7 @@
         incomplete: input,
         'bg-smoke-200 hover:bg-smoke-300 dark:bg-stone-700 dark:hover:bg-stone-700':
           !terms.length,
-        'bg-blue-100 dark:bg-slate-600': terms.length,
+        '': terms.length,
         'animate-throb': isDraggingTerm,
       }"
       @drop="dropTerm"

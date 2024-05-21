@@ -6,7 +6,7 @@ defineEmits<{
 
 <template>
   <div
-    class="relative my-1 bg-amber-50 border border-amber-200 dark:bg-gray-800 dark:border-0 px-1 text-sm"
+    class="relative my-1 px-2 text-sm help-box"
   >
     <div
       class="float-right z-10 m-1.5 mr-0.5 opacity-70 cursor-pointer"
@@ -18,3 +18,14 @@ defineEmits<{
     <slot />
   </div>
 </template>
+
+<style scoped>
+.help-box{
+background-color:rgba(0,0,0,0.4);
+color:white;
+border-radius:5px;
+line-height:1.1;
+padding:10px;
+}
+
+</style>

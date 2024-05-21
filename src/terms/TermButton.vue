@@ -45,6 +45,7 @@ function dragEnd() {
     >
       <span
         class="flex items-center transition-all px-2 py-0.5 text-black rounded-md shadow"
+       
         :class="[
           isQlit
             ? secondary

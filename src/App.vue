@@ -1,8 +1,9 @@
 <template>
-  <div class="flex-1 bg-smoke-500 dark:bg-smoke-800"></div>
+  <div class="flex-1 bg-smoke-500 dark:bg-smoke-800 "></div>
+  
 
   <div class="w-full max-w-screen-high flex flex-col lg:flex-row text-text">
-    <div class="lg:w-1/2 lg:max-w-screen-sm">
+    <div class="lg:w-1/2 lg:max-w-screen-sm ">
       <!--
         This empty element has the same width as the sidebar,
         and pushes main content out from the left border.
@@ -12,14 +13,15 @@
     </div>
 
     <div
-      class="bg-smoke-500 dark:bg-smoke-800 dark:text-smoke-300 lg:w-1/2 lg:max-w-screen-sm lg:fixed lg:h-full overflow-y-auto"
+      class="bg-smoke-500 dark:bg-smoke-800 dark:text-smoke-300 lg:w-1/2 lg:max-w-screen-sm lg:fixed left-pane"
+      style=""
     >
       <nav class="container" :class="[isSidebarOpen ? 'py-12' : 'py-8']">
         <header class="max-w-screen-md flex justify-between items-center">
           <router-link to="/" class="flex-1" @click="reset">
             <img
               src="@/assets/qlogo.svg"
-              class="ml-2 mt-6 h-24 transition-all duration-500 low:mt-0 low:h-14"
+              class="ml-1 mt-6 h-15 transition-all duration-500 low:mt-0" style="width:240px;"
             />
           </router-link>
 
@@ -45,18 +47,19 @@
               >
                 Titlar
               </router-link>
-              <router-link to="/subjects" class="main-nav-link">
+              <router-link to="/subjects" class="main-nav-link ">
                 Ämnen
               </router-link>
-              <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link">
+              <a
+              href="https://queerlit.dh.gu.se/om/kontakt/"
+              class="main-nav-link extern"
+            >
+              Kontakt
+            </a>
+              <a href="https://queerlit.dh.gu.se/om/" class="main-nav-link extern">
                 Om
               </a>
-              <a
-                href="https://queerlit.dh.gu.se/om/kontakt/"
-                class="main-nav-link"
-              >
-                Kontakt
-              </a>
+      
             </div>
 
             <section>
@@ -77,19 +80,23 @@
       </nav>
     </div>
 
-    <div class="flex-1 dark:bg-stone-900 dark:text-stone-400 flex flex-col">
+    <div class="flex-1 dark:bg-stone-900 dark:text-stone-400 flex flex-col works">
       <section class="flex-1">
         <router-view v-if="!is404" />
         <NotFound v-else class="flex-1" />
       </section>
 
       <ErrorMessage />
-      <SiteFooter />
+  
     </div>
   </div>
 
   <div class="flex-1 dark:bg-stone-900 dark:text-stone-400"></div>
+
+  <SiteFooter> </Sitefooter>
 </template>
+
+
 
 <script setup lang="ts">
 import { computed } from "vue";
@@ -113,7 +120,7 @@ import useHistory from "./views/history.composable";
 import use404 from "./views/404.composable";
 import NotFound from "./views/NotFound.vue";
 import ErrorMessage from "./ErrorMessage.vue";
-import SiteFooter from "./SiteFooter.vue";
+import SiteFooter from "./components/Footer.vue";
 import useSearch from "./search/search.composable";
 import TransitionExpand from "./components/TransitionExpand.vue";
 
@@ -182,6 +189,14 @@ if (import.meta.env.DEV) {
 </script>
 
 <style lang="scss" scoped>
+  .extern{
+    float:right;
+    background: url("@/assets/linkbutton.png");
+    background-size: 18px;
+    background-position: 5px 50%;
+    background-repeat: no-repeat;
+    padding-left: 30px!important;
+  }
 .main-nav-link {
   @apply p-1 px-4 mr-1 hover:bg-white/25 rounded-lg transition-all;
 }
@@ -191,6 +206,18 @@ if (import.meta.env.DEV) {
 </style>
 
 <style>
+
+  .left-pane{
+    scrollbar-width: none !important;
+    overflow-y:auto;
+    overflow-x:hidden;
+    height:calc(100% - 50px);
+}
+
+.left-pane::-webkit-scrollbar {
+  width: 0px !important;
+}
+  
 :root {
   color-scheme: light dark;
   font-size: 14pt;
@@ -203,5 +230,12 @@ if (import.meta.env.DEV) {
 ::placeholder {
   color: #666666 !important;
   /* font-size: inherit; */
+}
+h4{
+  font-size:0.9em!important;
+}
+
+.works{
+  height:calc(100% + 80px);
 }
 </style>
