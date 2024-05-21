@@ -99,7 +99,7 @@ a:visited{
   font-size:0.8em;
   line-height:1.2;
   padding-left:10px;
-  margin-right:30px;
+  margin-right:20px;
 }
 
 .foot-info a {
