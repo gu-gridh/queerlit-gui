@@ -13,8 +13,7 @@
     </div>
 
     <div
-      class="bg-smoke-500 dark:bg-smoke-800 dark:text-smoke-300 lg:w-1/2 lg:max-w-screen-sm lg:fixed left-pane"
-      style=""
+      class="bg-smoke-500 dark:bg-smoke-700 dark:text-smoke-300 lg:w-1/2 lg:max-w-screen-sm lg:fixed left-pane"
     >
       <nav class="container" :class="[isSidebarOpen ? 'py-12' : 'py-8']">
         <header class="max-w-screen-md flex justify-between items-center">
@@ -197,11 +196,21 @@ if (import.meta.env.DEV) {
     background-repeat: no-repeat;
     padding-left: 30px!important;
   }
+
+  .extern-dark{
+    float:right;
+    background: url("@/assets/linkbuttonwhite.png");
+    background-size: 18px;
+    background-position: 5px 50%;
+    background-repeat: no-repeat;
+    padding-left: 30px!important;
+  }
+  
 .main-nav-link {
-  @apply p-1 px-4 mr-1 hover:bg-white/25 rounded-lg transition-all;
+  @apply p-1 px-3 mr-0 hover:bg-white/25 rounded-lg transition-all;
 }
 .main-nav-link.router-link-active {
-  @apply bg-white dark:bg-white/50 rounded-lg text-gray-800 shadow-lg;
+  @apply bg-white rounded-lg text-gray-800 shadow-lg;
 }
 </style>
 
