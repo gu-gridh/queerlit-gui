@@ -207,7 +207,7 @@ if (import.meta.env.DEV) {
   }
   
 .main-nav-link {
-  @apply p-1 px-3 mr-0 hover:bg-white/25 rounded-lg transition-all;
+  @apply p-1 px-2 mr-2 hover:bg-white/25 rounded-lg transition-all;
 }
 .main-nav-link.router-link-active {
   @apply bg-white rounded-lg text-gray-800 shadow-lg;
