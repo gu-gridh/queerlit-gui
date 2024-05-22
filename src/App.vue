@@ -197,15 +197,6 @@ if (import.meta.env.DEV) {
     padding-left: 30px!important;
   }
 
-  .extern-dark{
-    float:right;
-    background: url("@/assets/linkbuttonwhite.png");
-    background-size: 18px;
-    background-position: 5px 50%;
-    background-repeat: no-repeat;
-    padding-left: 30px!important;
-  }
-  
 .main-nav-link {
   @apply p-1 px-2 mr-2 hover:bg-white/25 rounded-lg transition-all;
 }
