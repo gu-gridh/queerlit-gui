@@ -208,15 +208,13 @@ if (import.meta.env.DEV) {
 <style>
 
   .left-pane{
-    scrollbar-width: none !important;
+
     overflow-y:auto;
     overflow-x:hidden;
     height:calc(100% - 50px);
 }
 
-.left-pane::-webkit-scrollbar {
-  width: 0px !important;
-}
+
   
 :root {
   color-scheme: light dark;
