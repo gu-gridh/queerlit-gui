@@ -57,7 +57,7 @@ const hierarchicalModel = computed({
 
     <div>
       <input id="hierarchical" v-model="hierarchicalModel" type="checkbox" />
-      <label for="hierarchical" style="font-size:0.85em; vertical-align: -1.0px; line-height:2.5;"> Träff även på smalare ämnesord</label>
+      <label for="hierarchical" style="font-size:0.85em; vertical-align: -1.0px; line-height:2.5;"> Träffar även på smalare ämnesord</label>
     </div>
   </div>
 </template>
