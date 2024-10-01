@@ -92,6 +92,7 @@ function addSearchTermSecondary(term: Term) {
     >
       <h1 class="text-2xl">{{ term.label }}</h1>
       <table class="mt-4">
+        <tbody>
         <tr v-if="term.scopeNote">
           <th>Anvisning</th>
           <td>{{ term.scopeNote }}</td>
@@ -116,6 +117,7 @@ function addSearchTermSecondary(term: Term) {
             </div>
           </td>
         </tr>
+      </tbody>
       </table>
 
       <div class="mt-2 text-center">
