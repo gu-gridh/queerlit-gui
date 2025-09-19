@@ -2,12 +2,12 @@ import { createApp } from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 import { createPinia } from "pinia";
-import "./index.scss";
-import "./fontawesome";
+import "@/index.css";
+import "@/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueDragDrop from "vue3-drag-drop";
 import matomo from "vue-matomo";
-import { createHead } from "@unhead/vue";
+import { createHead } from "@unhead/vue/client";
 
 const app = createApp(App) //
   .use(router)

@@ -199,7 +199,8 @@ function addSearchTermSecondary(term: Term) {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+@reference "../index.css";
 th,
 td {
   @apply py-2 text-left align-baseline;

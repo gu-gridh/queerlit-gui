@@ -1,4 +1,4 @@
-import { useSchemaOrg, defineWebPage } from "@unhead/schema-org";
+import { useSchemaOrg, defineWebPage } from "@unhead/schema-org/vue";
 import { pathUrl } from "@/util";
 import { useRoute } from "vue-router";
 import { useHead } from "@unhead/vue";

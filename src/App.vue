@@ -20,6 +20,7 @@
           <router-link to="/" class="flex-1" @click="reset">
             <img
               src="@/assets/qlogo.svg"
+              alt="Queerlit logo" 
               class="ml-1 mt-6 h-15 transition-all duration-500 low:mt-0" style="width:240px;"
             />
           </router-link>
@@ -106,7 +107,7 @@ import {
   useSchemaOrg,
   defineOrganization,
   defineWebSite,
-} from "@unhead/schema-org";
+} from "@unhead/schema-org/vue";
 import { useToggle, useWindowSize } from "@vueuse/core";
 import * as libris from "@/services/libris.service";
 import * as terms from "@/services/terms.service";
@@ -138,16 +139,14 @@ const { width } = useWindowSize();
 useHead({
   // Set Schema.org host as in https://unhead.unjs.io/schema-org/getting-started/setup
   templateParams: { schemaOrg: { host: "https://queerlit.dh.gu.se" } },
-  // Setting head values programmatically makes them available
-  // for `useSchemaOrg` to use as defaults for some properties:
-  // https://unhead.unjs.io/schema-org/getting-started/how-it-works#site-page-level-config
   meta: [{ name: "description", content: siteDescription }],
   htmlAttrs: { lang: "sv" },
 });
 useSchemaOrg([
   defineOrganization({ name: "Queerlit" }),
   defineWebSite({ name: "Queerlit", description: siteDescription }),
-]);
+],
+);
 
 const isTitlesRoute = computed(() =>
   /^\/(work|special)\//.test(route.fullPath),
@@ -187,7 +186,8 @@ if (import.meta.env.DEV) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+@reference "./index.css";
   .extern{
     float:right;
     background: url("@/assets/linkbutton.png");
@@ -206,6 +206,7 @@ if (import.meta.env.DEV) {
 </style>
 
 <style>
+@reference "./index.css";
 
   .left-pane{
 

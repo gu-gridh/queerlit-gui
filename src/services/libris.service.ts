@@ -11,6 +11,9 @@ const XLAPI_BASE = import.meta.env.VITE_XLAPI_QA
   : "https://libris.kb.se/";
 const XLAPI_FIND = XLAPI_BASE + "find";
 
+const first = <T>(v: T | T[] | undefined | null): T | undefined =>
+  Array.isArray(v) ? v[0] : v ?? undefined
+
 // Labels are sometimes missing in the Libris response, so keep a local copy of all labels as fetched from the QLIT backend.
 const qlitLabels: Readonly<Record<QlitName, string>> = {};
 
@@ -115,21 +118,30 @@ export async function search(options: Partial<SearchOptions>) {
 export async function get(id: L.Id) {
   const fullId = XLAPI_BASE + `${id}#it`;
   const result = await xlFindBooks({ "@id": fullId });
-  if (result.items.length != 1) {
+  
+  const instance = result.items?.[0];
+  if (!instance || result.items.length != 1) {
     throw RangeError("get(id) result length should be 1");
   }
-  const instance = result.items[0];
 
   // Get the Item record (QLIT's "copy" of the book)
-  const itemShort = instance._item["@reverse"].itemOf.find(
-    (i) => i.heldBy["@id"] == "https://libris.kb.se/library/QLIT",
+  const itemShort = instance._item?.["@reverse"].itemOf.find(
+    (i: any) => i?.heldBy?.["@id"] === "https://libris.kb.se/library/QLIT",
   )!;
-  const item = await xlFind<L.Item>({ "@id": itemShort["@id"] }).then(
-    (data) => data.items[0],
-  );
-  instance.motivation = unarray(unarray(item.summary)?.label);
-  instance.termsSecondary =
-    item.subject?.map(processTerm).filter((term) => term.label) || [];
+  if (!itemShort) {
+    throw new Error('QLIT item not found on instance.')
+  }
+
+  const itemRes = await xlFind<L.Item>({ '@id': (itemShort as any)['@id'] })
+  const item = itemRes.items?.[0]
+  if (!item) {
+    throw new Error('QLIT item fetch returned no items.')
+  }
+
+  instance.motivation = unarray(unarray(item.summary)?.label) ?? undefined;
+  instance.termsSecondary = (item.subject ?? [])
+  .map(processTerm)
+  .filter((t): t is Term => Boolean(t && t.label))
   return instance;
 }
 
@@ -198,10 +210,11 @@ function processInstance(item: L.Instance): WorkFromLibris {
   }
   processed.creators = item.instanceOf?.contribution
     ?.map((c) => {
-      const agent = unarray(c.agent);
+      const agent = first(c.agent);
+      const name = (agent && getLabel(agent)) || ''
       return {
-        name: getLabel(agent) || "",
-        lifeSpan: "lifeSpan" in agent ? agent.lifeSpan : undefined,
+        name: name,
+        lifeSpan: agent && "lifeSpan" in agent ? agent.lifeSpan : undefined,
         roles: c.role && enarray(c.role).map(getLabel).filter(Boolean),
       };
     })
@@ -209,9 +222,9 @@ function processInstance(item: L.Instance): WorkFromLibris {
   const primaryPublication =
     item.publication.find((p) => p["@type"] == "PrimaryPublication") ||
     item.publication[0];
-  processed.date = primaryPublication.year;
+  processed.date = primaryPublication?.year;
   // The summary can be in the Instance or the Text record, and it can be one or multiple values.
-  processed.summary = item.summary && unarray(unarray(item.summary).label);
+  processed.summary = item.summary && unarray(unarray(item.summary)?.label);
   processed.languages = item.instanceOf?.language.map(getLabel);
   processed.contentType = item.instanceOf?.contentType?.map(getLabel);
 
@@ -234,16 +247,23 @@ function processInstance(item: L.Instance): WorkFromLibris {
     )
     .filter(Boolean);
 
-  processed.publication = item.publication?.map((p) =>
-    [
-      p.agent && getLabel(p.agent),
-      p.year,
-      p.place && getLabel(unarray(p.place)),
-      p.country && getLabel(unarray(p.country)),
-    ]
-      .filter(Boolean)
-      .join(", "),
-  );
+  processed.publication = enarray(item.publication)?.map((p) => {
+    const parts: string[] = []
+    const agent = p.agent ? getLabel(p.agent) : undefined
+    
+    if (agent) parts.push(agent)
+      
+    if (p.year != null) parts.push(String(p.year))
+      
+    const place = p.place ? getLabel(first(p.place)) : undefined
+    if (place) parts.push(place)
+      
+    const country = p.country ? getLabel(first(p.country)) : undefined
+    if (country) parts.push(country)
+    
+      return parts.join(', ')
+
+  })
 
   processed.intendedAudience = item.instanceOf?.intendedAudience?.map(getLabel);
 
@@ -372,12 +392,12 @@ type Labelable = {
 
 /** Build a string of the label of an object. */
 export function getLabel(
-  object: Labelable | L.ComplexSubject | L.Person,
+  object: Labelable | L.ComplexSubject | L.Person | undefined,
 ): string {
   if (!object) return "";
   if ("@type" in object) {
     if (object["@type"] == "ComplexSubject")
-      return object.termComponentList.map(getLabel).filter(Boolean).join(" – ");
+      return (object.termComponentList ?? []).map(getLabel).filter(Boolean).join(" – ");
     if (object["@type"] == "Person") return getPersonName(object) || "";
   }
   if ("prefLabelByLang" in object && object.prefLabelByLang) {
@@ -422,7 +442,7 @@ export function getPersonName(person?: L.Person) {
   return (
     person &&
     props
-      .map((prop) => person[prop] && unarray(person[prop]!).trim())
+      .map((prop) => person[prop] && unarray(person[prop]!)?.trim())
       .filter(Boolean)
       .join(" ")
   );

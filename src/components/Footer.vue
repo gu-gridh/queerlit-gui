@@ -43,6 +43,7 @@
 </script>
 
 <style scoped>
+@reference "../index.css";
 #footer {
   background-color: rgb(111,126,121);
   color: white;

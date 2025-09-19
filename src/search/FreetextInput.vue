@@ -126,7 +126,7 @@ watch(showHelp, () => {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Ämnesord (QLIT):"
-          :items="suggestions.qlit"
+          :items="suggestions.qlit ?? []"
           @select="addTerm"
         >
           <TermButton :data="item" class="cursor-pointer">
@@ -140,7 +140,7 @@ watch(showHelp, () => {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Allmäna ämnesord (SAO):"
-          :items="suggestions.sao"
+          :items="suggestions.sao ?? []"
           @select="addTerm"
         >
           <TermButton :data="item" class="cursor-pointer">
@@ -154,7 +154,7 @@ watch(showHelp, () => {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Barnämnesord:"
-          :items="suggestions.barn"
+          :items="suggestions.barn ?? []"
           @select="addTerm"
         >
           <TermButton :data="item" class="cursor-pointer">
@@ -168,7 +168,7 @@ watch(showHelp, () => {
         <FreetextSuggestions
           v-slot="{ item }"
           heading="Genre/form:"
-          :items="suggestions.gf"
+          :items="suggestions.gf ?? []"
           @select="setGenreform"
         >
           <TermButton :data="item" class="cursor-pointer">

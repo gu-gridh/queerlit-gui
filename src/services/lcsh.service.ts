@@ -14,7 +14,7 @@ export async function getLcshLabel(url: string): Promise<string | undefined> {
   const response = await (await axios).get(jsonUrl);
   const graph: LcshTerm[] = response.data;
   const term = graph.find((i) => i["@id"] == url);
-  return term?.["http://www.w3.org/2004/02/skos/core#prefLabel"]?.[0]["@value"];
+  return term?.["http://www.w3.org/2004/02/skos/core#prefLabel"]?.[0]?.["@value"];
 }
 
 type LcshTerm = Record<string, any> & {

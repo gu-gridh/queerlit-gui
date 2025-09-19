@@ -185,6 +185,7 @@ function dropTerm() {
 </script>
 
 <style scoped>
+@reference "../index.css";
 ::placeholder {
   font-size: 20px;
 }

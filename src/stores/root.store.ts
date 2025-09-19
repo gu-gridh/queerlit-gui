@@ -67,7 +67,7 @@ export default defineStore("root", {
 
     patchHistogram(histogram: Record<number, number>) {
       for (const year in histogram) {
-        this.histogram[year] = (this.histogram[year] || 0) + histogram[year];
+        this.histogram[year] = (this.histogram[year] || 0) + (histogram[year] || 0);
       }
     },
 

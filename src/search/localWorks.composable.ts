@@ -9,40 +9,44 @@ import type { Term, GenreForm } from "@/types/work";
 
 const worksRaw: Readonly<Record<string, LocalWorkRaw>> = worksData;
 
-// Harmonize local entries.
-const works: LocalWork[] = Object.keys(worksRaw).map((id) => {
-  const work = worksRaw[id];
+type DateRange = { min: unknown; max: unknown }
+const isDateRange = (v: unknown): v is DateRange =>
+  !!v && typeof v === 'object' && 'min' in (v as any) && 'max' in (v as any)
 
-  const date =
-    typeof work.date == "object"
-      ? { ...work.date, label: `${work.date.min}–${work.date.max}` }
-      : { label: String(work.date), min: work.date, max: work.date };
+// Harmonize local entries.
+const works: LocalWork[] = Object.entries(worksRaw).flatMap(([id, work]) => {
+  // drop undefined entries
+  if (!work) return []
+
+const date = isDateRange(work.date)
+    ? { ...work.date, label: `${(work.date as any).min}–${(work.date as any).max}` }
+    : { label: String(work.date), min: work.date, max: work.date }
 
   const inflateTerm = ([uri, prefLabel]: [string, string]): Term => ({
     id: uri,
     label: prefLabel,
     // Works as long as term uri = scheme uri + a name
-    scheme: uri.replace(/\/[^/]*$/, ""),
-  });
+    scheme: uri.replace(/\/[^/]*$/, ''),
+  })
 
   const inflateGenreform = ([uri, prefLabel]: [string, string]): GenreForm => ({
     ...inflateTerm([uri, prefLabel]),
-    primary: uri.indexOf("saogf") != -1,
-  });
+    primary: uri.includes('saogf'),
+  })
 
-  const terms = work.terms ? Object.entries(work.terms).map(inflateTerm) : [];
-  const genreform = Object.entries(work.genreform || {}).map(inflateGenreform);
+  const terms = Object.entries(work.terms ?? {}).map(inflateTerm)
+  const genreform = Object.entries(work.genreform ?? {}).map(inflateGenreform)
 
-  return {
+  return [{
     id,
     title: work.title,
-    creators: work.creators || [],
+    creators: work.creators ?? [],
     motivation: work.motivation,
     date,
     terms,
     genreform,
-  } satisfies LocalWork;
-});
+  } satisfies LocalWork]
+})
 
 /** Simple algorithm matching a search string against a text value. */
 const matchText = (v: string, s: string) =>

@@ -14,13 +14,9 @@ Search interface for the [Queerlit](https://queerlit.dh.gu.se/) database and the
 
 This is suitable while developing, as the site will automatically be updated upon code changes.
 
-1. Install Node.js 16 and [Yarn 3](https://yarnpkg.com/getting-started/install)
+1. Install Node.js 22 and [Yarn 3](https://yarnpkg.com/getting-started/install)
 2. `yarn install`
 3. `yarn dev`
-
-#### Why Node 16?
-
-Node 16 is an old version, but it's currently used on GRIDH servers and cannot be upgraded there because the OS doesn't support newer versions.Using the same version when developing will make sure the code can be properly built on the servers when deploying.
 
 ### Build optimized code for deployment
 

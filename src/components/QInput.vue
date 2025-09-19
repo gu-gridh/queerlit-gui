@@ -61,6 +61,7 @@ const [showHelp, toggleHelp] = useToggle();
 </template>
 
 <style scoped>
+@reference "../index.css";
 ::placeholder {
   font-size: 16px;
 }

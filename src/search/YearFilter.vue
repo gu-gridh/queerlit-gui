@@ -45,12 +45,12 @@
         show-tooltip="drag"
         :classes="{
           horizontal: 'slider-horizontal h-1 mb-2',
-          connect: 'slider-connect bg-current',
+          connect: 'slider-connect bg-[currentColor]',
           origin: 'slider-origin transition-transform',
           handle:
-            'slider-handle dark:bg-stone-700 border dark:border-0 border-current focus:ring-text focus:ring-opacity-30',
+            'slider-handle dark:bg-stone-700 border dark:border-0 border-[currentColor] focus:ring-text focus:ring-opacity-30',
           tooltip:
-            'slider-tooltip bg-smoke-200  border-smoke-300 dark:bg-stone-700 dark:border-stone-700 text-inherit',
+            'slider-tooltip bg-smoke-200  border-smoke-300 dark:bg-stone-700 dark:border-stone-700 text-[inherit]',
         }"
         @change="emitChange"
       />
@@ -71,7 +71,7 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, ref, watch } from "vue";
 import debounce from "lodash/debounce";
-import "@vueform/slider/themes/tailwind.scss";
+import "@vueform/slider/themes/default.css";
 import YearHistogram from "./YearHistogram.vue";
 
 // Async component: https://vuejs.org/guide/components/async.html
@@ -115,9 +115,11 @@ function endTextChange() {
 }
 
 function enableOldChange() {
-  if (enableOld.value && range.value[0] == MIN) range.value[0] = 0;
-  else if (range.value[0] < min.value) range.value[0] = min.value;
-  if (range.value[1] < min.value) range.value[1] = min.value;
+  const v0 = range.value[0];
+  const v1 = range.value[1];
+  if (enableOld.value && v0 !== undefined && v0 == MIN) range.value[0] = 0;
+  else if (v0 !== undefined && v0 < min.value) range.value[0] = min.value;
+  if (v1 !== undefined && v1 < min.value) range.value[1] = min.value;
   emitChange();
 }
 
@@ -128,15 +130,18 @@ function setRange(start: number, end: number) {
 
 const emitChange = debounce(() => {
   // When range extends to min or max, report as empty, thus letting the API determine filtering.
+  const v0 = range.value[0] || null;
+  const v1 = range.value[1] || null;
   emit(
     "change",
-    range.value[0] != min.value ? range.value[0] : null,
-    range.value[1] != MAX ? range.value[1] : null,
+    range.value[0] != min.value ? v0 : null,
+    range.value[1] != MAX ? v1 : null,
   );
 }, 400);
 </script>
 
 <style scoped>
+@reference "../index.css"
 ::placeholder {
   font-size: 16px;
 }
