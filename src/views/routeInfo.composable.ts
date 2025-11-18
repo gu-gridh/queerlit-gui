@@ -1,4 +1,5 @@
 import { useSchemaOrg, defineWebPage } from "@unhead/schema-org/vue";
+import { ref } from "vue";
 import { pathUrl } from "@/util";
 import { useRoute } from "vue-router";
 import { useHead } from "@unhead/vue";
@@ -19,6 +20,17 @@ export function useRouteInfo() {
   const head = useHead({});
   const { is404 } = use404();
   const { trackPage } = useMatomo();
+  const schemaWebPage = ref({
+    url: pathUrl(route?.path || "/"),
+    inLanguage: "sv",
+  });
+
+  useSchemaOrg(() => [
+    defineWebPage({
+      url: schemaWebPage.value.url,
+      inLanguage: schemaWebPage.value.inLanguage,
+    }),
+  ]);
 
   function setRouteInfo(data: RouteInfo) {
     const path = data.path || route?.path;
@@ -44,15 +56,10 @@ export function useRouteInfo() {
       link: [{ rel: "canonical", href: pathUrl(path) }],
     });
 
-    // Generate structured data snippets
-    // Some values are set automatically: https://unhead.unjs.io/schema-org/getting-started/how-it-works#site-page-level-config
-    useSchemaOrg([
-      // TODO Specify page subtypes, https://unhead.unjs.io/schema-org/schema/webpage#sub-types
-      defineWebPage({
-        url: pathUrl(path),
-        inLanguage: "sv",
-      }),
-    ]);
+    schemaWebPage.value = {
+      url: pathUrl(path),
+      inLanguage: "sv",
+    };
   }
 
   return { setRouteInfo };
