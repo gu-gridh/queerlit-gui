@@ -56,7 +56,7 @@ export default function useSearch() {
     } catch (error) {
       console.error(error);
       if (error instanceof Error && !("reponse" in error)) {
-        store.setError("På grund av uppdateringar av Libris API:er 4/3-6/3 går det inte att nå Libris webbtjänst just nu.");
+        store.setError("Det går inte att nå Libris webbtjänst just nu.");
       }
     } finally {
       store.setSearching();
