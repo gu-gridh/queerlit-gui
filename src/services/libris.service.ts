@@ -86,7 +86,7 @@ export async function search(options: Partial<SearchOptions>) {
   }
 
   if (genreform) {
-    params.set("instanceOf.genreForm.@id", genreform);
+    params.set("instanceOf.category.@id", genreform);
   }
 
   if (yearStart) {
@@ -187,7 +187,7 @@ function processInstance(item: L.Instance): WorkFromLibris {
       processed.terms.push(processedTerm);
   }
 
-  processed.genreform = (item.instanceOf?.genreForm || [])
+  processed.genreform = (item.instanceOf?.category || [])
     .map(processGenreform)
     .filter((term) => term.label)
     .filter(

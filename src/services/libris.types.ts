@@ -88,7 +88,7 @@ export type Text = {
   "@type": "Text";
   contribution: Contribution[];
   language: Language[];
-  genreForm: GenreFormAny[];
+  category: GenreFormAny[];
   classification: ClassificationAny[];
   subject: Subject[];
   intendedAudience?: AudienceType[];
