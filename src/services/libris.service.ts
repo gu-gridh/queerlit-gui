@@ -9,7 +9,7 @@ import type { QlitName } from "./qlit.types";
 const XLAPI_BASE = import.meta.env.VITE_XLAPI_QA
   ? "https://libris-qa.kb.se/"
   : "https://libris.kb.se/";
-const XLAPI_FIND = XLAPI_BASE + "find";
+const XLAPI_FIND = XLAPI_BASE + "find.jsonld";
 
 const first = <T>(v: T | T[] | undefined | null): T | undefined =>
   Array.isArray(v) ? v[0] : v ?? undefined
