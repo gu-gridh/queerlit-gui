@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [vue(), ViteYaml(), visualizer()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
   base: process.env.BASE,
