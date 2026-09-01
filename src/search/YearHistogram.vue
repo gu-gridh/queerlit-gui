@@ -37,7 +37,8 @@ const bars = computed(() =>
       // Find any existing bar
       const bin = acc.find((bar2) => bar2.year == year);
       // Add count to the existing bar, or push a new bar
-      bin ? (bin.n += bar.n) : acc.push({ year, n: bar.n });
+      if (bin) bin.n += bar.n;
+      else acc.push({ year, n: bar.n });
       return acc;
     }, [] as Bar[]),
 );

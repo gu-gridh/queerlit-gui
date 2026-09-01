@@ -19,6 +19,8 @@ type State = {
   termCollection: QlitCollection | null;
   /** Which terms are expanded in the thesaurus tree view. */
   termsExpanded: QlitName[];
+  /** Bumped when the thesaurus view should scroll to the results. */
+  termScrollSignal: number;
   histogram: Histogram;
   error: string | null;
 };
@@ -37,6 +39,7 @@ export default defineStore("root", {
     // Remember which nodes in the term tree are expanded,
     // but forget it if the term search query changes.
     termsExpanded: [],
+    termScrollSignal: 0,
     // {1952: 5, ...}
     histogram: {},
     error: null,
@@ -51,6 +54,11 @@ export default defineStore("root", {
       this.termTextQuery = termTextQuery;
       this.termCollection = null;
       this.termsExpanded = [];
+    },
+
+    /** Ask the thesaurus view to scroll to the results list. */
+    requestTermScroll() {
+      this.termScrollSignal++;
     },
 
     setTermCollection(collection: QlitCollection | null) {

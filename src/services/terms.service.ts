@@ -11,7 +11,7 @@ import type {
 /**
  * Location of the thesaurus backend service.
  *
- * See https://github.com/gu-gridh/queerlit-terms for API and more information.
+ * See https://github.com/gu-gridh/queerlit-terms for API and more information.
  */
 const QLIT_BASE =
   import.meta.env.VITE_QLIT_BASE || "https://queerlit.dh.gu.se/qlit/v1/api/";

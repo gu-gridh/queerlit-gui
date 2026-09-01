@@ -3,7 +3,7 @@ import TransitionExpand from "./TransitionExpand.vue";
 
 defineProps<{
   heading: string;
-  expanded?: Boolean;
+  expanded?: boolean;
 }>();
 defineEmits<{
   toggle: [];

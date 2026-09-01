@@ -25,10 +25,10 @@ export function useRouteInfo() {
     inLanguage: "sv",
   });
 
-  useSchemaOrg(() => [
+  useSchemaOrg([
     defineWebPage({
-      url: schemaWebPage.value.url,
-      inLanguage: schemaWebPage.value.inLanguage,
+      url: () => schemaWebPage.value.url,
+      inLanguage: () => schemaWebPage.value.inLanguage,
     }),
   ]);
 
@@ -42,17 +42,16 @@ export function useRouteInfo() {
     }
 
     // Track the page view
-    is404.value ? trackPage(`404/URL = ${route.fullPath}`) : trackPage(title);
+    if (is404.value) trackPage(`404/URL = ${route.fullPath}`);
+    else trackPage(title);
 
     // Update head tags
     head?.patch({
       title,
       titleTemplate,
-      meta: [
-        data.description
-          ? { name: "description", content: data.description }
-          : {},
-      ],
+      meta: data.description
+        ? [{ name: "description", content: data.description }]
+        : [],
       link: [{ rel: "canonical", href: pathUrl(path) }],
     });
 

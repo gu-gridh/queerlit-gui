@@ -168,8 +168,7 @@ const isMainFirst = computed<boolean>(
   () =>
     isScreenSmall.value &&
     ((["Work", "LocalWork", "Term"] as any[]).includes(route.name) ||
-      (route.name == "Search" && !queryStore.isEmpty) ||
-      (route.name == "Thesaurus" && !!store.termTextQuery)),
+      (route.name == "Search" && !queryStore.isEmpty)),
 );
 
 /** Whether the sidebar is currently expanded */

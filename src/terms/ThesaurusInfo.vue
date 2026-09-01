@@ -10,12 +10,17 @@ import CollectionsGrid from "./CollectionsGrid.vue";
 const store = useRootStore();
 const router = useRouter();
 
+const setTermTextQueryDebounced = debounce(store.setTermTextQuery, 400);
+
 const termTextQuery = computed({
   get: () => store.termTextQuery,
-  set: debounce(store.setTermTextQuery, 400),
+  set: setTermTextQueryDebounced,
 });
 
 function selectCollection(collection: QlitCollection) {
+  // Drop any pending debounced text query, so it won't overwrite the
+  // collection choice right after a click.
+  setTermTextQueryDebounced.cancel();
   if (store.termCollection?.name == collection.name) {
     store.setTermCollection(null);
   } else {
@@ -24,7 +29,21 @@ function selectCollection(collection: QlitCollection) {
 }
 
 function gotoThesaurus() {
-  router.push("/subjects");
+  // Only navigate if not already there; a same-route push would
+  // trigger the router's scroll behavior and jump to the page top.
+  if (router.currentRoute.value.name != "Thesaurus") {
+    router.push("/subjects");
+  }
+}
+
+function submitSearch() {
+  // Enter means the user truly wants to search: commit the query
+  // immediately and scroll down to the results.
+  setTermTextQueryDebounced.flush();
+  if (store.termTextQuery) {
+    gotoThesaurus();
+    store.requestTermScroll();
+  }
 }
 </script>
 
@@ -76,6 +95,7 @@ function gotoThesaurus() {
         <input
           v-model="termTextQuery"
           type="search"
+          @keydown.enter="submitSearch"
           class="w-full p-4 pb-3 rounded text-black shadow-inner leading-snug transition-colors text-xl"
           :class="[
             termTextQuery

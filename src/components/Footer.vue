@@ -15,7 +15,8 @@
         <a class="site-link link" href="https://queerlit.dh.gu.se/om/" target="_blank">
           Mer om projektet Queerlit</a>
           <br>
-        <a class="site-link link" href="https://queerlit.dh.gu.se/om/kontakt/"
+        <a
+class="site-link link" href="https://queerlit.dh.gu.se/om/kontakt/"
           target="_blank">Kontakta oss</a> &emsp;|&emsp;Licens:   <a class="" href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv">CCO</a> 
       </div>
       
@@ -24,11 +25,11 @@
 
 
       <a href="https://dh.gu.se/">
-        <div class="GRIDHLogo" id="">GU / GRIDH</div>
+        <div id="" class="GRIDHLogo">GU / GRIDH</div>
       </a>
 
       <a href="http://www2.ub.gu.se/kvinn/">
-        <div class="PartnerLogo" id="">KVINNSAM</div>
+        <div id="" class="PartnerLogo">KVINNSAM</div>
       </a>
 
     </div>

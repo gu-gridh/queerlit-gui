@@ -22,6 +22,7 @@ function enter(el: HTMLElement) {
 
   // Force repaint to make sure the
   // animation is triggered correctly.
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   getComputedStyle(el).height;
 
   // Trigger the animation.
@@ -46,6 +47,7 @@ function leave(el: HTMLElement) {
 
   // Force repaint to make sure the
   // animation is triggered correctly.
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   getComputedStyle(el).height;
 
   // Trigger the animation.

@@ -79,7 +79,7 @@ export default function useLocalWorks() {
   function searchLocal() {
     const results = cloneDeep(Object.values(works));
 
-    const filter = (isMatch: (work: LocalWork) => Boolean) =>
+    const filter = (isMatch: (work: LocalWork) => boolean) =>
       remove(results, (work) => !isMatch(work));
 
     // Match free-text filter against any field.
