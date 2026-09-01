@@ -287,19 +287,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modyfi/vite-plugin-yaml@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@modyfi/vite-plugin-yaml@npm:1.1.1"
-  dependencies:
-    "@rollup/pluginutils": 5.1.0
-    js-yaml: 4.1.0
-    tosource: 2.0.0-alpha.3
-  peerDependencies:
-    vite: ">=3.2.7"
-  checksum: 0643efb25c19cb710ca3bb169beb5e966f862a22cfc8bd1aa27bfa2df969479840426a79f3bd67100f93e3e5420a003efca01fb4c4e34a9c99689634fc1407de
-  languageName: node
-  linkType: hard
-
 "@napi-rs/wasm-runtime@npm:^1.1.4":
   version: 1.2.3
   resolution: "@napi-rs/wasm-runtime@npm:1.2.3"
@@ -592,22 +579,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:5.1.0":
-  version: 5.1.0
-  resolution: "@rollup/pluginutils@npm:5.1.0"
-  dependencies:
-    "@types/estree": ^1.0.0
-    estree-walker: ^2.0.2
-    picomatch: ^2.3.1
-  peerDependencies:
-    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-  peerDependenciesMeta:
-    rollup:
-      optional: true
-  checksum: 3cc5a6d91452a6eabbfd1ae79b4dd1f1e809d2eecda6e175deb784e75b0911f47e9ecce73f8dd315d6a8b3f362582c91d3c0f66908b6ced69345b3cbe28f8ce8
-  languageName: node
-  linkType: hard
-
 "@tailwindcss/node@npm:4.3.3":
   version: 4.3.3
   resolution: "@tailwindcss/node@npm:4.3.3"
@@ -801,7 +772,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:^1.0.0, @types/estree@npm:^1.0.6, @types/estree@npm:^1.0.8":
+"@types/estree@npm:^1.0.6, @types/estree@npm:^1.0.8":
   version: 1.0.9
   resolution: "@types/estree@npm:1.0.9"
   checksum: 752c0afee3ec82b8e24484bf6a27dfa093bbf3de4ef1c20ed0364fb6ad2c0c7971e7504ed9a7aaff103a47e2d945ce7a17f74951743dd944782a0735f53170de
@@ -2384,14 +2355,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:4.1.0":
-  version: 4.1.0
-  resolution: "js-yaml@npm:4.1.0"
+"js-yaml@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "js-yaml@npm:5.4.1"
   dependencies:
     argparse: ^2.0.1
   bin:
-    js-yaml: bin/js-yaml.js
-  checksum: c7830dfd456c3ef2c6e355cc5a92e6700ceafa1d14bba54497b34a99f0376cecbb3e9ac14d3e5849b426d5a5140709a66237a8c991c675431271c4ce5504151a
+    js-yaml: bin/js-yaml.mjs
+  checksum: ecbb0b6de158ab036c54b65aa2ac6420199938480a05ed70ce1c79014ebf6a6d1f5fef29a4e513f6ec65e73697667a7d304c6e9690e10e7687a2586d53ebfb7a
   languageName: node
   linkType: hard
 
@@ -3154,7 +3125,6 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": ^7.0.1
     "@fortawesome/free-solid-svg-icons": ^7.0.1
     "@fortawesome/vue-fontawesome": ^3.3.3
-    "@modyfi/vite-plugin-yaml": ^1.1.1
     "@tailwindcss/postcss": ^4.2.1
     "@tailwindcss/vite": ^4.2.1
     "@types/lodash": ^4.17.20
@@ -3175,6 +3145,7 @@ __metadata:
     eslint-config-prettier: ^10.1.8
     eslint-plugin-vue: ^10.10.0
     globals: ^17.12.0
+    js-yaml: ^5.4.1
     lodash: ^4.17.21
     pinia: ^4.0.3
     postcss: ^8.5.6
@@ -3455,13 +3426,6 @@ __metadata:
   dependencies:
     is-number: ^7.0.0
   checksum: f76fa01b3d5be85db6a2a143e24df9f60dd047d151062d0ba3df62953f2f697b16fe5dad9b0ac6191c7efc7b1d9dcaa4b768174b7b29da89d4428e64bc0a20ed
-  languageName: node
-  linkType: hard
-
-"tosource@npm:2.0.0-alpha.3":
-  version: 2.0.0-alpha.3
-  resolution: "tosource@npm:2.0.0-alpha.3"
-  checksum: bc03a7571de8ed4306e6721283fa891f2adcab9dd80c46f6f177d4259b34bb192fe3a2cb3e1e2ce16f9db0bc7e534acfcb5478ab094b0ba255f98abfce6dab46
   languageName: node
   linkType: hard
 
