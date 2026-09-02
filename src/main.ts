@@ -16,9 +16,14 @@ const app = createApp(App) //
   .component("Icon", FontAwesomeIcon)
   .use(VueDragDrop);
 
+// vue-matomo is a CommonJS-only package; some bundlers (e.g. Rolldown in
+// Vite 8) wrap its default export in an extra module object, which would make
+// app.use() silently do nothing. Unwrap it if needed.
+const matomoPlugin = (matomo as { default?: typeof matomo }).default ?? matomo;
+
 // Use the Matomo plugin only if configured in env.
 if (import.meta.env.VITE_MATOMO_URL && import.meta.env.VITE_MATOMO_ID) {
-  app.use(matomo, {
+  app.use(matomoPlugin, {
     host: import.meta.env.VITE_MATOMO_URL,
     siteId: import.meta.env.VITE_MATOMO_ID,
   });
